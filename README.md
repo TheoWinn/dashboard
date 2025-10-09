@@ -1,7 +1,51 @@
 # dashboard
-dashi
 
-# 
+
+# Setting up the Frontend
+⚙️ Prerequisites
+
+Before you begin, you'll need to install a few essential tools.
+
+### 1. Node.js
+
+Our project uses the Node.js runtime environment. Installing it will also give you npm, which we'll use to install pnpm.
+
+    Download: Go to the official Node.js website and download the LTS (Long-Term Support) version.
+
+    Install: Run the installer and follow the on-screen prompts. The default settings are fine.
+
+    Verify: Open a new Command Prompt or PowerShell and type node -v. You should see a version number, which confirms it's installed correctly.
+
+### 2. pnpm (Performant npm)
+
+We use pnpm as our package manager because it's fast and efficient at managing project dependencies.
+
+    Install: Once Node.js is installed, open a Command Prompt or PowerShell and run the following command to install pnpm globally on your system:
+    Bash
+
+    npm install -g pnpm
+
+    Verify: Close and reopen your terminal, then type pnpm -v. You should see the pnpm version number.
+
+### Getting Started
+
+(Assuming you have already cloned and navigated into the frontend/ directory)
+
+3. Install Project Dependencies
+This command reads the package.json file and downloads all the required libraries into a node_modules folder.
+Bash
+
+pnpm install
+
+4. Run the Development Server
+This will start a local web server.
+Bash
+
+pnpm dev
+
+**Once it's running, your terminal will show a local URL, usually http://localhost:5173/. Open this URL in your web browser to see the application. The server will automatically reload the page whenever you make changes to the code.**
+
+### Frontend information
 We are using Vite+React+Javascript
 
 # These files are important:
