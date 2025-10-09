@@ -31,12 +31,10 @@ Verify: Close and reopen your terminal, then type pnpm -v. You should see the pn
 3. Install Project Dependencies
 This command reads the package.json file and downloads all the required libraries into a node_modules folder.
 
-
     pnpm install
 
 4. Run the Development Server
 This will start a local web server.
-
 
     pnpm dev
 
