@@ -1,2 +1,1 @@
-from flask import flask,jsonify
-from flask_cors import CORS
+from bertopics import  BERTopic
