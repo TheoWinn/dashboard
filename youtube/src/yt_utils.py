@@ -88,7 +88,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
                         date_prefix = datetime.today().strftime("%d-%m-%Y")
 
                 safe_title = _sanitize_filename(yt.title)
-                filename_stem = f"{date_prefix}_{safe_title}"
+                filename_stem = f"{date_prefix}_{safe_title}.m4a"
 
                 ys = yt.streams.get_audio_only()
                 ys.download(output_path=str(output_dir), filename = filename_stem)
