@@ -14,8 +14,10 @@ import random
 import re
 from datetime import datetime
 
-def _sanitize_filename(name: str) -> str:
-    name = re.sub(r"[^\w\s\.-]", "", name)  # keep only safe chars
+### YouTube Downloading Utilities ###
+
+def _sanitize_filename(name: str):
+    name = re.sub(r"[^\w\s\.-]", "", name)
     name = re.sub(r"\s+", " ", name).strip()
     return name or "video"
 
@@ -196,6 +198,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
 # Example usage
 # download_from_playlist("https://www.youtube.com/playlist?list=PL4izbwXmh0jonTVHpB1VtSYgR48lq6eN4")
 
+### WhisperX Transcription & Alignment Utilities ###
 
 def process_one_file(audio_path: Path, out_dir: Path, model_dir: Path, device: str = "cuda", compute_type: str = "float16", batch_size: int = 32, forced_language: str = "de", HF_TOKEN: str = None):
     """
@@ -263,8 +266,7 @@ def process_one_file(audio_path: Path, out_dir: Path, model_dir: Path, device: s
             torch.cuda.empty_cache()
 
 
-#########
-
+### Cleaning & Clustering Utilities ###
 
 float64_pattern = re.compile(r"np\.float64\(\s*([-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)\s*\)")
 nan_pattern = re.compile(r"np\.nan")
