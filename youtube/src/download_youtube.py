@@ -18,4 +18,4 @@ if __name__ == "__main__":
     try:
         download_from_playlist(playlist_url, bundestag=bundestag)
     except KeyboardInterrupt:
-        print("\n⏹️  Download stopped by user.")
+        print("Download stopped manually")
