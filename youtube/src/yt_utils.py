@@ -2,6 +2,7 @@ from pytubefix import YouTube, Playlist
 from pytubefix.cli import on_progress
 import os
 import pandas as pd
+from pandas.errors import EmptyDataError
 import whisperx
 from whisperx.diarize import DiarizationPipeline
 import gc
@@ -9,24 +10,69 @@ import torch
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 import time
+import re
+from datetime import datetime
 
-def download_from_playlist(playlist_url, output_dir="data/raw_audio_talkshows"):
+_DATE_RE = re.compile(
+    r"\b(?:Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonnabend|Sonntag),\s*(\d{1,2})\.(\d{1,2})\.(\d{4})\b",
+    re.IGNORECASE
+)
+
+def _sanitize_filename(name: str) -> str:
+    name = re.sub(r"[^\w\s\.-]", "", name)  # keep only safe chars
+    name = re.sub(r"\s+", " ", name).strip()
+    return name or "video"
+
+def _date_from_description(desc: str) -> str | None:
+    """
+    Extracts date from YouTube description.
+    Example: "Freitag, 27.09.2025" --> "27-09-2025"
+    """
+
+    if not desc:
+        return None
+    
+    match = _DATE_RE.search(desc)
+    if not match:
+        return None
+    
+    d, m, y = map(int, match.groups())
+    try:
+        return datetime(y, m, d).strftime("%d-%m-%Y")
+    except ValueError:
+        return None
+
+def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="data/raw_audio_talkshows"):
     """
     Download audio files from a YouTube playlist and save metadata into csv file. It will all be saved in the specified output directory.
     If the output directory is empty, all files from the playlist will be downloaded.
+    Also gets the Date from the YouTube Description and adds it as file pre-fix. 
+    New files will be {date}_{YouTubeTitle}.m4a
     """
 
-    # get playlist
-    p = Playlist(playlist_url)
+    project_dir = Path(__file__).resolve().parent.parent
 
-    # read downloaded ids
-    if len(os.listdir(output_dir)) == 0:
-        meta = []
-        urls = []
+    if bundestag:
+        output_dir = project_dir/"data"/"raw"/"bundestag_audio"
     else:
-        meta = pd.read_csv(output_dir + "/metadata.csv", header=None)
-        urls = meta[0].tolist() 
-        meta = meta.values.tolist()   
+        output_dir = project_dir/"data"/"raw"/"talkshow_audio"
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    meta_file = output_dir/"metadata.csv"
+
+    # get playlist
+    p = Playlist(playlist_url) 
+
+    if meta_file.exists():
+        try:
+            meta = pd.read_csv(meta_file, header = None)
+            urls = meta[0].tolist()
+            meta = meta.values.tolist()
+        except EmptyDataError:
+            meta, urls = [], []
+    else:
+        meta, urls = [], []
 
 
     # download missing audio files and update downloaded ids
@@ -36,17 +82,28 @@ def download_from_playlist(playlist_url, output_dir="data/raw_audio_talkshows"):
                 # download audio
                 yt = YouTube(url, on_progress_callback=on_progress)
                 print(f'Downloading: {yt.title}')
+
+                date_prefix = _date_from_description(yt.description or "")
+                if not date_prefix:
+                    if getattr(yt, "publish_date", None):
+                        date_prefix = yt.publish_date.strftime("%d-%m-%Y")
+                    else:
+                        date_prefix = datetime.today().strftime("%d-%m-%Y")
+
+                safe_title = _sanitize_filename(yt.title)
+                filename_stem = f"{date_prefix}_{safe_title}"
+
                 ys = yt.streams.get_audio_only()
-                ys.download(output_path=output_dir)
+                ys.download(output_path=str(output_dir), filename = filename_stem)
                 # append to dataframe
                 title = yt.title
                 channel = yt.author
-                date = yt.publish_date
+                date = date_prefix
                 meta.append([url, title, channel, date])
 
     # save updated dataframe
     meta = pd.DataFrame(meta, columns=["url", "title", "channel", "date"])
-    meta.to_csv(output_dir + "/metadata.csv", index=False, header=False)
+    meta.to_csv(meta_file, index=False, header=False)
 
 
 # Example usage
