@@ -7,6 +7,7 @@ import gc
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 import time
+import random
 import re
 from datetime import datetime
 
@@ -98,9 +99,16 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
                 date = date_prefix
                 meta.append([url, title, channel, date])
 
+                pd.DataFrame(meta, columns=["url", "title", "channel", "date"]).to_csv(
+                meta_file, index=False, header=False)
+
+                sleep_seconds = random.uniform(2.0, 6.0)
+                print(f"Sleeping {sleep_seconds:.1f}s before next download...")
+                time.sleep(sleep_seconds)
+
     # save updated dataframe
-    meta = pd.DataFrame(meta, columns=["url", "title", "channel", "date"])
-    meta.to_csv(meta_file, index=False, header=False)
+    # meta = pd.DataFrame(meta, columns=["url", "title", "channel", "date"])
+    # meta.to_csv(meta_file, index=False, header=False)
 
 
 # Example usage
