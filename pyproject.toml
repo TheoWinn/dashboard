@@ -10,9 +10,9 @@ dependencies = [
     "flask>=3.1.2",
     "flask-cors>=6.0.1",
     "requests>=2.32.5",
-    "torch>=2.9.0",
     "python-dotenv>=1.2.1",
     "pytubefix>=10.1.1",
-    "whisperx>=3.7.2",
+    "whisperx>=3.7.4",
     "psutil>=7.1.2",
+    "torch>=2.8.0",
 ]
