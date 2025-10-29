@@ -3,10 +3,7 @@ from pytubefix.cli import on_progress
 import os
 import pandas as pd
 from pandas.errors import EmptyDataError
-import whisperx
-from whisperx.diarize import DiarizationPipeline
 import gc
-import torch
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 import time
@@ -119,6 +116,16 @@ def process_one_file(audio_path: Path, out_dir: Path, model_dir: Path, device: s
         - audio_path: Path object, needs to be specified in the loop
         - Rest is set to sensible defaults
     """
+    try:
+        import whisperx
+        from whisperx.diarize import DiarizationPipeline
+        import torch
+    except Exception as e:
+        raise RuntimeError(
+            "Failed to import whisperx/torch. Install compatible versions in this env "
+            "(e.g., pip install whisperx torch torchvision torchaudio)."
+        ) from e
+
     print(f"\n--- Processing: {audio_path.name} ---")
 
     t0 = time.time()
