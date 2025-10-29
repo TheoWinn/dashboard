@@ -11,34 +11,113 @@ import random
 import re
 from datetime import datetime
 
-_DATE_RE = re.compile(
-    r"\b(?:Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonnabend|Sonntag),\s*(\d{1,2})\.(\d{1,2})\.(\d{4})\b",
-    re.IGNORECASE
-)
-
 def _sanitize_filename(name: str) -> str:
     name = re.sub(r"[^\w\s\.-]", "", name)  # keep only safe chars
     name = re.sub(r"\s+", " ", name).strip()
     return name or "video"
 
+# --- date parsing ---
+# Accept weekday (optional comma), "17." then either numeric month "10." or German month name "Oktober", then year.
+_WEEKDAY = r"(?:Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonnabend|Sonntag)"
+_MONTH_NAME = (
+    r"(?:Januar|Jan\.?|Februar|Feb\.?|März|Maerz|Mär\.?|Mrz\.?|April|Apr\.?|"
+    r"Mai|Juni|Juli|August|Aug\.?|September|Sep\.?|Sept\.?|Oktober|Okt\.?|"
+    r"November|Nov\.?|Dezember|Dez\.?)"
+)
+
+# e.g., "Freitag, 17. Oktober 2025"  (weekday + month name)
+_DATE_WD_NAME = re.compile(
+    rf"\b(?:{_WEEKDAY}),?\s*(\d{{1,2}})\.\s*({_MONTH_NAME})\s+(\d{{4}})\b",
+    re.IGNORECASE
+)
+
+# e.g., "Freitag, 27.09.2025"  (weekday + numeric)
+_DATE_WD_NUM = re.compile(
+    rf"\b(?:{_WEEKDAY}),?\s*(\d{{1,2}})\.\s*(\d{{1,2}})\.(\d{{4}})\b",
+    re.IGNORECASE
+)
+
+# (Optional) also allow same two formats *without* a weekday
+_DATE_NAME = re.compile(
+    rf"\b(\d{{1,2}})\.\s*({_MONTH_NAME})\s+(\d{{4}})\b",
+    re.IGNORECASE
+)
+_DATE_NUM = re.compile(
+    r"\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b",
+    re.IGNORECASE
+)
+
+_MONTH_MAP = {
+    # full names
+    "januar":1, "februar":2, "märz":3, "maerz":3, "april":4, "mai":5, "juni":6, "juli":7,
+    "august":8, "september":9, "oktober":10, "november":11, "dezember":12,
+    # common abbrevs (strip trailing dot)
+    "jan":1, "feb":2, "mär":3, "mrz":3, "apr":4, "aug":8, "sep":9, "sept":9, "okt":10, "nov":11, "dez":12,
+}
+
+def _parse_month_token(tok: str) -> int | None:
+    t = tok.strip().lower().rstrip(".")
+    # normalize umlauts to "ae"/"oe"/"ue" keys if needed
+    t_norm = (t
+              .replace("ä", "ae")
+              .replace("ö", "oe")
+              .replace("ü", "ue"))
+    return _MONTH_MAP.get(t) or _MONTH_MAP.get(t_norm)
+
 def _date_from_description(desc: str) -> str | None:
     """
-    Extracts date from YouTube description.
-    Example: "Freitag, 27.09.2025" --> "27-09-2025"
+    Extracts a German date from YouTube description.
+    Supports:
+      - "Freitag, 17. Oktober 2025"
+      - "Freitag, 27.09.2025"
+      - "17. Oktober 2025"
+      - "27.09.2025"
+    Returns "DD-MM-YYYY" or None.
     """
-
     if not desc:
         return None
-    
-    match = _DATE_RE.search(desc)
-    if not match:
-        return None
-    
-    d, m, y = map(int, match.groups())
-    try:
-        return datetime(y, m, d).strftime("%d-%m-%Y")
-    except ValueError:
-        return None
+
+    # 1) Prefer weekday + month name
+    m = _DATE_WD_NAME.search(desc)
+    if m:
+        d, mon_tok, y = m.groups()
+        mon = _parse_month_token(mon_tok)
+        if mon:
+            try:
+                return datetime(int(y), int(mon), int(d)).strftime("%d-%m-%Y")
+            except ValueError:
+                return None
+
+    # 2) Weekday + numeric
+    m = _DATE_WD_NUM.search(desc)
+    if m:
+        d, mon, y = map(int, m.groups())
+        try:
+            return datetime(y, mon, d).strftime("%d-%m-%Y")
+        except ValueError:
+            return None
+
+    # 3) Without weekday: name month
+    m = _DATE_NAME.search(desc)
+    if m:
+        d, mon_tok, y = m.groups()
+        mon = _parse_month_token(mon_tok)
+        if mon:
+            try:
+                return datetime(int(y), int(mon), int(d)).strftime("%d-%m-%Y")
+            except ValueError:
+                return None
+
+    # 4) Without weekday: numeric
+    m = _DATE_NUM.search(desc)
+    if m:
+        d, mon, y = map(int, m.groups())
+        try:
+            return datetime(y, mon, d).strftime("%d-%m-%Y")
+        except ValueError:
+            return None
+
+    return None
 
 def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="data/raw_audio_talkshows"):
     """
