@@ -3,13 +3,17 @@ name = "dashboard"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "ctranslate2>=4.6.0",
     "openpyxl>=3.1.5",
-    "pandas>=2.3.2",
     "flask>=3.1.2",
     "flask-cors>=6.0.1",
     "requests>=2.32.5",
+    "python-dotenv>=1.2.1",
+    "pytubefix>=10.1.1",
+    "whisperx>=3.7.4",
+    "psutil>=7.1.2",
+    "torch>=2.8.0",
     "scikit-learn>=1.7.2",
 ]
