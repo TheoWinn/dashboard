@@ -1,6 +1,3 @@
-bt utils 
-
-
 import requests
 import pandas as pd
 import os
@@ -9,8 +6,7 @@ import xml.etree.ElementTree as ET
 ###########################
 ## NOCH ZU KLÄREN!!!!!!
 # Was soll mit alten Versionen (get_pleanrprotokoll) passieren?
-# Dataordner nochmal anders nennen
-
+# Cutte: rede brcht ab wenn es eine zwischenfrage gibt (s. 20_25 Peter Bohnhof, Saksia Ludwig), aber kurzinterventionen funktioneren? 21_35 ID213505100
 ###########################
 
 def download_xml_from_metadata(metadata_file, output_dir):
@@ -50,6 +46,7 @@ def download_xml_from_metadata(metadata_file, output_dir):
             print(f"Error downloading {doc_number}: {e}")
 
 
+
 def create_cut_xml(input_file, output_file):
     """
     Parse a plenary XML and, for every <rede id="...">:
@@ -73,38 +70,64 @@ def create_cut_xml(input_file, output_file):
                 parts.append(c.tail)
         return "".join(parts).strip()
 
+    # namespace-agnostic helpers
+    def localname(tag):
+        return tag.split("}", 1)[1] if "}" in tag else tag
+
+    def find_children_by_local(parent, name):
+        return [c for c in parent if localname(c.tag) == name]
+
+    def find_descendant_by_local(parent, name):
+        for e in parent.iter():
+            if localname(e.tag) == name:
+                return e
+        return None
+
     out_root = ET.Element("speeches")
 
-    # iterate all rede blocks
-    for rede in root.findall(".//rede"):
+    # iterate all rede blocks (namespace-agnostic)
+    rede_elems = [e for e in root.iter() if localname(e.tag) == "rede"]
+    for rede in rede_elems:
         rede_id = rede.get("id", "")
 
-        # 1) speaker block: the first paragraph with class="redner"
-        p_redner = rede.find('./p[@klasse="redner"]')
-        if p_redner is None:
-            # no speaker line? skip this rede
-            continue
+        # 1) speaker block: find first <p klasse="redner">
+        p_redner = None
+        for p in find_children_by_local(rede, "p"):
+            if p.get("klasse") == "redner":
+                p_redner = p
+                break
 
-        name_node = p_redner.find("./redner/name")
+        # try to get name node from redner paragraph or elsewhere
+        name_node = None
+        if p_redner is not None:
+            redner_node = find_descendant_by_local(p_redner, "redner")
+            if redner_node is not None:
+                name_node = find_descendant_by_local(redner_node, "name")
         if name_node is None:
-            # sometimes structure differs; be defensive
-            name_node = rede.find(".//redner/name")
+            name_node = find_descendant_by_local(rede, "name")
 
-        # extract name parts
-        vorname  = (name_node.findtext("vorname") or "").strip() if name_node is not None else ""
-        nachname = (name_node.findtext("nachname") or "").strip() if name_node is not None else ""
+        # extract name parts defensively
+        vorname = ""
+        nachname = ""
+        if name_node is not None:
+            vn = find_descendant_by_local(name_node, "vorname")
+            nn = find_descendant_by_local(name_node, "nachname")
+            vorname = (vn.text or "").strip() if vn is not None and vn.text else ""
+            nachname = (nn.text or "").strip() if nn is not None and nn.text else ""
 
-        # fraktion OR rolle (prefer fraktion if present)
-        fraktion = name_node.findtext("fraktion") if name_node is not None else None
-        rolle_kurz = name_node.findtext("rolle/rolle_kurz") if name_node is not None else None
-        rolle_lang = name_node.findtext("rolle/rolle_lang") if name_node is not None else None
-        party_or_role = (fraktion or rolle_kurz or rolle_lang or "").strip()
+        # party or role
+        party_or_role = ""
+        if name_node is not None:
+            fr = find_descendant_by_local(name_node, "fraktion")
+            rk = find_descendant_by_local(name_node, "rolle_kurz") or find_descendant_by_local(name_node, "rolle")
+            rl = find_descendant_by_local(name_node, "rolle_lang")
+            party_or_role = ( (fr.text if fr is not None and fr.text else "")
+                              or (rk.text if rk is not None and rk.text else "")
+                              or (rl.text if rl is not None and rl.text else "") ).strip()
 
-        # 2) collect speaker's own paragraphs:
-        #    everything after the redner paragraph, ignoring <kommentar>,
-        #    and stopping at a bare <name> (chair speaking)
+        # 2) collect speaker's own paragraphs: everything after p_redner until bare <name> or end, skipping <kommentar>
         content_chunks = []
-        started = False
+        started = p_redner is None  # if no redner line, start collecting from top
         stop = False
         for child in list(rede):
             if child is p_redner:
@@ -113,14 +136,14 @@ def create_cut_xml(input_file, output_file):
             if not started or stop:
                 continue
 
-            tag = child.tag.lower()
+            tag = localname(child.tag)
 
             # stop when the chair's <name> appears
             if tag == "name":
                 stop = True
                 continue
 
-            # skip all comments/interjections
+            # skip comments/interjections
             if tag == "kommentar":
                 continue
 
@@ -132,13 +155,12 @@ def create_cut_xml(input_file, output_file):
 
         content_text = " ".join(content_chunks).strip()
 
-        # only add if we actually have content
-        if content_text:
-            sp_el = ET.SubElement(out_root, "speech")
-            ET.SubElement(sp_el, "id").text = rede_id
-            ET.SubElement(sp_el, "speaker").text = f"{vorname} {nachname}".strip()
-            ET.SubElement(sp_el, "party_or_role").text = party_or_role
-            ET.SubElement(sp_el, "content").text = content_text
+        # always create an entry for the rede (even if content empty) to ensure one speech per id
+        sp_el = ET.SubElement(out_root, "speech")
+        ET.SubElement(sp_el, "id").text = rede_id
+        ET.SubElement(sp_el, "speaker").text = f"{vorname} {nachname}".strip()
+        ET.SubElement(sp_el, "party_or_role").text = party_or_role
+        ET.SubElement(sp_el, "content").text = content_text
 
     # ensure output directory exists
     os.makedirs(os.path.dirname(output_file) or ".", exist_ok=True)
@@ -246,15 +268,17 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_di
 
     print(f"Number of new versions: {len(new_versions)}")
 
-# if __name__ == "__main__":
-#     # Example usage:
-#     download_pp(
-#         base="https://search.dip.bundestag.de/api/v1",
-#         api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
-#         start_date="2025-10-01",
-#         end_date=None,
-#         output_dir="data/raw/"
-#     )
+if __name__ == "__main__":
+    # Example usage:
+    download_pp(
+        base="https://search.dip.bundestag.de/api/v1",
+        api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
+        start_date="2025-10-01",
+        end_date=None,
+        output_dir="data/raw/"
+    )
+
+
 
 
 
@@ -527,3 +551,4 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_di
 #             start_date="2025-10-01",
 #             end_date=None,
 #             output_dir="data/raw") #change to data/raw_plenarprotokolle/ 
+
