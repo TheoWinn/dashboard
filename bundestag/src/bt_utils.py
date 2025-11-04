@@ -250,8 +250,7 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_di
 
         cut_made = 0
         for docnum in meta_latest["docnum"]:
-
-
+            # XMLs are in output_dir root now
             input_xml_file = os.path.join(output_dir, f"{docnum}.xml")
             output_cut_file = os.path.join(output_dir, "cut", f"{docnum}_cut.xml")
 
