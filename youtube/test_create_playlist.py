@@ -4,14 +4,17 @@ from googleapiclient import discovery
 import pickle
 import os
 import json
+from datetime import datetime, timedelta, timezone
 
-# Disable OAuthlib's HTTPS verification when running locally.
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 # authenticate
 def create_youtube_service(path_to_token, 
                            path_to_credentials, 
                            scopes):
+    
+    # Disable OAuthlib's HTTPS verification when running locally.
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
     creds = None
     if os.path.exists(path_to_token):
         print("loading token")
@@ -51,54 +54,59 @@ def search_videos(youtube,
                   publishedBefore,
                   q,
                   maxResults=50):
+    
+    # transforming date strings to datetime objects for validation
+    if isinstance(publishedAfter, str):
+        after_dt = datetime.fromisoformat(publishedAfter.replace("Z", "+00:00"))
+    else:
+        after_dt = None
+    if isinstance(publishedBefore, str):
+        before_dt = datetime.fromisoformat(publishedBefore.replace("Z", "+00:00"))
+    else:
+        before_dt = None
+    
+    # checking for okay timeframe of search
+    if (after_dt is not None) and (before_dt is not None):
+        if before_dt - after_dt > timedelta(days=366):
+            raise ValueError("The date range between publishedAfter and publishedBefore must not exceed 1 year.")
+    elif (after_dt is None) and (before_dt is not None):
+        raise ValueError("publishedAfter must be provided if publishedBefore is provided.")
+    elif (after_dt is not None) and (before_dt is None):
+        now = datetime.now(timezone.utc)
+        if now - after_dt > timedelta(days=366):
+            raise ValueError("The date range between publishedAfter and the current date must not exceed 1 year.")
+    else:
+        raise ValueError("You must provide a timeframe for your search by setting either publishedAfter and publishedBefore or only publishedAfter")
 
-    # search for videos
-    request = youtube.search().list(part="snippet",
-                                    channelId=channelId,
-                                    maxResults=maxResults,
-                                    order="date",
-                                    publishedAfter=publishedAfter,
-                                    publishedBefore=publishedBefore,
-                                    type="video",
-                                    q=q)
-    response = request.execute()
-
-    # extract right videos and save their ids and titles into list
+    next_page_token = None
     search_results = []
-    for item in response.get("items"):
-        title = item.get("snippet").get("title")
-        description = item.get("snippet").get("description")
-        if (q in title) or (q in description):
-            videoId = item.get("id").get("videoId")
-            search_results.append([videoId, title])
+
+    while True:
+        # search for videos
+        request = youtube.search().list(part="snippet",
+                                        channelId=channelId,
+                                        maxResults=maxResults,
+                                        order="date",
+                                        publishedAfter=publishedAfter,
+                                        publishedBefore=publishedBefore,
+                                        type="video",
+                                        q=q,
+                                        pageToken=next_page_token)
+        response = request.execute()
+
+        # extract right videos and save their ids and titles into list
+        for item in response.get("items"):
+            title = item.get("snippet").get("title")
+            description = item.get("snippet").get("description")
+            if (q in title) or (q in description):
+                videoId = item.get("id").get("videoId")
+                search_results.append([videoId, title])
+
+        next_page_token = response.get("nextPageToken")
+        if not next_page_token:
+            break
 
     return search_results
-
-# check if the videos were already downloaded (then they should be in meta_data) or are already in the playlist
-def check_videos(youtube,
-                 playlistId,
-                 search_results,
-                 metadata_path):
-    
-    video_ids_in_playlist, _ = get_videos_in_playlist(youtube,playlistId)
-
-    if os.path.exists(metadata_path):
-        meta = pd.read_csv(metadata_path, header=None)
-        downloaded_urls = meta[0].tolist()
-        downloaded_ids = []
-        for url in downloaded_urls:
-            video_id = url.split("v=")[-1]
-            downloaded_ids.append(video_id)
-    else:
-        downloaded_ids = []
-
-    videos_into_playlist = []
-    for videoId, title in search_results:
-        if (videoId not in downloaded_ids) and (videoId not in video_ids_in_playlist):
-            videos_into_playlist.append([videoId, title])
-    
-    return videos_into_playlist
-
 
 def get_videos_in_playlist(youtube,
                            playlistId):
@@ -111,7 +119,7 @@ def get_videos_in_playlist(youtube,
             part="snippet",
             playlistId=playlistId,
             maxResults=50,
-            page_token=next_page_token
+            pageToken=next_page_token
         )
         response = request.execute()
         for item in response.get("items"):
@@ -121,6 +129,37 @@ def get_videos_in_playlist(youtube,
         if not next_page_token:
             break
     return video_ids_in_playlist, playlistitem_ids
+
+# check if the videos were already downloaded (then they should be in meta_data) or are already in the playlist
+def check_videos(search_results,
+                 metadata_path,
+                 video_ids_in_playlist,
+                 video_playlistids = []):
+    
+    # video_ids_in_playlist, _ = get_videos_in_playlist(youtube,playlistId)
+
+    if os.path.exists(metadata_path):
+        meta = pd.read_csv(metadata_path, header=None)
+        downloaded_urls = meta[0].tolist()
+        downloaded_ids = []
+        for url in downloaded_urls:
+            video_id = url.split("v=")[-1]
+            downloaded_ids.append(video_id)
+    else:
+        downloaded_ids = []
+
+    if search_results is None:
+        delete_videos_from_playlist = []
+        for videoId, itemId in zip(video_ids_in_playlist, video_playlistids):
+            if videoId in downloaded_ids:
+                delete_videos_from_playlist.append(itemId)
+        return delete_videos_from_playlist
+    else:
+        videos_into_playlist = []
+        for videoId, title in search_results:
+            if (videoId not in downloaded_ids) and (videoId not in video_ids_in_playlist):
+                videos_into_playlist.append([videoId, title])
+        return videos_into_playlist
 
 
 def add_videos_to_playlist(youtube,
@@ -144,19 +183,9 @@ def add_videos_to_playlist(youtube,
         request.execute()
 
 def delete_from_playlist(youtube,
-                         playlistId):
+                         playlistId,
+                         delete_videos_from_playlist):
         
-    request = youtube.playlistItems().list(
-        part="id,snippet",
-        playlistId=playlistId,
-        maxResults=50
-    )
-    response = request.execute()
-
-    for item in response["items"]:
-        print(f"{item['snippet']['title']} → {item['id']}")
-
-    delete_videos_from_playlist = ["UEw5QUdzbXpxNG80S2hBSnhmVl9tcU1HajRrR3ZqaWdoZC41MjE1MkI0OTQ2QzJGNzNG"]
     for playlistitemId in delete_videos_from_playlist:
         request = youtube.playlistItems().delete(
                 id=playlistitemId
@@ -164,33 +193,8 @@ def delete_from_playlist(youtube,
         request.execute()
 
 
-
-
 #############################
 # Test run
-
-
-# youtube = create_youtube_service(path_to_token= "../token.pkl", 
-#                                  path_to_credentials = "../client_secret.json", 
-#                                  scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"])
-
-# channelId = get_channel_id(youtube = youtube, 
-#                            channel_name = "tagesschau")
-
-# videos_into_playlist = search_videos(youtube = youtube,
-#                                      channelId = "UC5NOEUbkLheQcaaRldYW5GA",
-#                                      publishedAfter = "2025-03-01T00:00:00Z",
-#                                      publishedAfter = None,
-#                                      publishedBefore = "2025-07-01T00:00:00Z",
-#                                      q = "Caren Miosga",
-#                                      maxResults = 50)
-
-# # check if the videos were already downloaded (then they should be in meta_data)
-
-# add_videos_to_playlist(youtube = youtube,
-#                        videos_into_playlist = videos_into_playlist,
-#                        playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
-
 
 # for downloading playlist
 from src.yt_utils import download_from_playlist
@@ -199,5 +203,63 @@ from pytubefix.cli import on_progress
 import os
 import pandas as pd
 
-# download_from_playlist(playlist_url = "https://www.youtube.com/playlist?list=PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd", 
-#                        output_dir="data/raw/talkshow_audio")
+youtube = create_youtube_service(path_to_token= "../token.pkl", 
+                                 path_to_credentials = "../client_secret.json", 
+                                 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"])
+
+# channelId = get_channel_id(youtube = youtube, 
+#                            channel_name = "tagesschau")
+
+print("searching videos")
+search_results = search_videos(youtube = youtube,
+                               channelId = "UC5NOEUbkLheQcaaRldYW5GA",
+                               publishedAfter = "2025-01-01T00:00:00Z",
+                               #  publishedAfter = None,
+                               #  publishedBefore = "2025-05-01T00:00:00Z",
+                               publishedBefore = None,
+                               q = "Caren Miosga",
+                               maxResults = 50)
+print(f"output: {search_results}")
+
+print("getting videos in playlist before adding")
+video_ids_in_playlist, _ = get_videos_in_playlist(youtube = youtube,
+                                                  playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
+print(f"output: {video_ids_in_playlist}")
+
+print("checking videos to add")
+videos_into_playlist = check_videos(search_results = search_results,
+                                    metadata_path = "data/raw/talkshow_audio/metadata.csv",
+                                    video_ids_in_playlist = video_ids_in_playlist,
+                                    video_playlistids = [])
+print(f"output: {videos_into_playlist}")
+
+print("adding videos to playlist")
+add_videos_to_playlist(youtube = youtube,
+                       videos_into_playlist = videos_into_playlist,
+                       playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
+print(f"done")
+
+print("downloading from playlist")
+download_from_playlist(playlist_url = "https://www.youtube.com/playlist?list=PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd",
+                       output_dir="data/raw/talkshow_audio")
+print("done downloading")
+
+print("getting videos in playlist after adding")
+video_ids_in_playlist, video_playlistids = get_videos_in_playlist(youtube = youtube,
+                                                  playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
+print(f"videoids: {video_ids_in_playlist}")
+print(f"playlistitemids: {video_playlistids}")
+
+print("checking videos to delete")
+delete_videos_from_playlist = check_videos(search_results = None,
+                                    metadata_path = "data/raw/talkshow_audio/metadata.csv",
+                                    video_ids_in_playlist = video_ids_in_playlist,
+                                    video_playlistids = video_playlistids)
+print(f"output: {videos_into_playlist}")
+
+print("deleting videos from playlist")
+delete_from_playlist(youtube = youtube,
+                         playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd",
+                         delete_videos_from_playlist = delete_videos_from_playlist)
+print("done")
+
