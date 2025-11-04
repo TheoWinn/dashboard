@@ -15,10 +15,9 @@ def download_xml_from_metadata(metadata_file, output_dir):
     if not output_dir.endswith('/'):
         output_dir += '/'
         
-    # Create xml directory if it doesn't exist
-    xml_dir = os.path.join(output_dir, "xml")
-    os.makedirs(xml_dir, exist_ok=True)
-    print(f"Using XML directory: {xml_dir}")
+    # Save XML files directly in output_dir (not in output_dir/xml)
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"Using XML directory (root): {output_dir}")
     
     print(f"Reading metadata from: {metadata_file}")
     df = pd.read_csv(metadata_file)
@@ -31,8 +30,8 @@ def download_xml_from_metadata(metadata_file, output_dir):
         # Debug print
         print(f"Processing document {doc_number} with URL: {xml_url}")
         
-        # Create filename from document number using os.path.join
-        xml_filename = os.path.join(xml_dir, f"{doc_number}.xml")
+        # Create filename in the output_dir root
+        xml_filename = os.path.join(output_dir, f"{doc_number}.xml")
         
         try:
             response = requests.get(xml_url, timeout=30)
@@ -40,10 +39,11 @@ def download_xml_from_metadata(metadata_file, output_dir):
             
             with open(xml_filename, 'w', encoding='utf-8') as f:
                 f.write(response.text)
-            print(f"Successfully downloaded XML for document {doc_number}")
+            print(f"Successfully downloaded XML for document {doc_number} -> {xml_filename}")
             
         except requests.RequestException as e:
             print(f"Error downloading {doc_number}: {e}")
+
 
 
 
@@ -168,16 +168,16 @@ def create_cut_xml(input_file, output_file):
     ET.ElementTree(out_root).write(output_file, encoding="utf-8", xml_declaration=True)
 
 
-def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_dir="data/raw"):
+def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_dir="bundestag/data/raw"):
     """Downloads metadata and XML files from the API."""
     
     # Ensure output_dir exists and ends with slash
     if not output_dir.endswith('/'):
         output_dir += '/'
     
-    # Create all necessary directories
+    # Create all necessary directories (no xml/ subdir)
     os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(os.path.join(output_dir, "xml"), exist_ok=True)
+    os.makedirs(os.path.join(output_dir, "cut"), exist_ok=True)
     
     url = f"{base}/plenarprotokoll-text"
     headers = {"Authorization": f"ApiKey {api_key}"}
@@ -250,7 +250,9 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_di
 
         cut_made = 0
         for docnum in meta_latest["docnum"]:
-            input_xml_file = os.path.join(output_dir, "xml", f"{docnum}.xml")
+
+
+            input_xml_file = os.path.join(output_dir, f"{docnum}.xml")
             output_cut_file = os.path.join(output_dir, "cut", f"{docnum}_cut.xml")
 
             if os.path.isfile(input_xml_file):
@@ -275,7 +277,7 @@ if __name__ == "__main__":
         api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
         start_date="2025-10-01",
         end_date=None,
-        output_dir="data/raw/"
+        output_dir="bundestag/data/raw/"
     )
 
 
