@@ -1,5 +1,4 @@
 import re
-import json
 import pandas as pd
 from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -9,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 """
 ToDo:
-cleaning
+DONE cleaning
 check wether roles of ministers worked
 transfer to batchmatching
 --------------------------------------
@@ -56,7 +55,7 @@ def find_best_speech_match(transcript, speeches, top_n=3):
     # Clean the input transcript and all official speeches.
     processed_transcript = preprocess_text(transcript)
     processed_speeches = [preprocess_text(s) for s in speeches]
-    # Builds corpus (Json speeches first and then one whisper transcript)
+    # Builds corpus (Speeches first and then one whisper transcript)
     all_texts = processed_speeches + [processed_transcript]
 
     # === Step 2: Indexing and Candidate Search (TF-IDF) ===
@@ -95,7 +94,7 @@ def find_best_speech_match(transcript, speeches, top_n=3):
 
     
 # Matching pipeline: for each Whisper segment, find the best matching Bundestag speech
-def refined_matching():
+def matching_pipeline():
     # Paths
     csv_dir = Path("data(old)/cleaned")
     xml_dir = Path("bundestag/data/cut")
@@ -140,9 +139,9 @@ def refined_matching():
         raise RuntimeError(f"No speeches loaded from {xml_dir}")
 
     # Build TF-IDF on official texts
-    json_texts_proc = [preprocess_text(t) for t in protokoll_text]
+    xml_texts_proc = [preprocess_text(t) for t in protokoll_text]
     tfidf = TfidfVectorizer(analyzer="char_wb", ngram_range=(3,5), sublinear_tf=True)
-    json_matrix = tfidf.fit_transform(json_texts_proc)
+    xml_matrix = tfidf.fit_transform(xml_texts_proc)
 
     # Match CSV segments
     results = []
@@ -166,7 +165,7 @@ def refined_matching():
             })
             continue
 
-        sims = cosine_similarity(seg_vec, json_matrix)[0]
+        sims = cosine_similarity(seg_vec, xml_matrix)[0]
         best_idx = int(sims.argmax())
         best_sim = float(sims[best_idx])
 
@@ -194,7 +193,7 @@ def refined_matching():
 
 
 if __name__ == "__main__":
-    refined_matching()
+    matching_pipeline()
 
 
 
