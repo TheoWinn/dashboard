@@ -3,8 +3,8 @@ from google_auth_oauthlib import flow
 from googleapiclient import discovery
 import pickle
 import os
-import json
 from datetime import datetime, timedelta, timezone
+import isodate
 
 
 # authenticate
@@ -98,15 +98,49 @@ def search_videos(youtube,
         for item in response.get("items"):
             title = item.get("snippet").get("title")
             description = item.get("snippet").get("description")
-            if (q in title) or (q in description):
-                videoId = item.get("id").get("videoId")
+            videoId = item.get("id").get("videoId")
+            if q is not None and ((q in title) or (q in description)):
                 search_results.append([videoId, title])
+            elif q is None:
+                search_results.append([videoId, title])
+
 
         next_page_token = response.get("nextPageToken")
         if not next_page_token:
             break
 
     return search_results
+
+def filter_out_shorts(youtube,
+                      search_results,
+                      cutoff_seconds=60):
+    # checking that there are no shorts in the results
+
+    search_results_noshorts = []
+
+    search_results_ids = [videoId for videoId, _ in search_results]
+
+    def split_long_list(iterable, n):
+        for i in range(0, len(iterable), n):
+            yield iterable[i:i+n]
+
+    id_to_title = dict(search_results)
+
+    for split in split_long_list(search_results_ids, 50):
+
+        request = youtube.videos().list(part="contentDetails",
+                                        id=",".join(split))
+        
+        response = request.execute()
+
+        for item in response.get("items"):
+            video_id = item.get("id")
+            duration = item.get("contentDetails").get("duration")
+            duration_seconds = isodate.parse_duration(duration).total_seconds()
+            if duration_seconds >= cutoff_seconds:
+                search_results_noshorts.append([video_id, id_to_title[video_id]])
+
+    return search_results_noshorts
 
 def get_videos_in_playlist(youtube,
                            playlistId):
@@ -182,7 +216,6 @@ def add_videos_to_playlist(youtube,
         request.execute()
 
 def delete_from_playlist(youtube,
-                         playlistId,
                          delete_videos_from_playlist):
         
     for playlistitemId in delete_videos_from_playlist:
@@ -191,6 +224,15 @@ def delete_from_playlist(youtube,
         )
         request.execute()
 
+
+# Necessary IDs and URLs
+tagesschau_id = "UC5NOEUbkLheQcaaRldYW5GA"
+phoenix_id = "UCwyiPnNlT8UABRmGmU0T9jg"
+politik_mit_anne_will_id = "UCbRJHkDuRmTdUj8ETeIp2rw"
+zdfheute_nachrichten_id = "UCeqKIgPQfNInOswGRWt48kQ"
+
+playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd"  
+playlist_url = "https://www.youtube.com/playlist?list=PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd"
 
 #############################
 # Test run
@@ -202,63 +244,122 @@ from pytubefix.cli import on_progress
 import os
 import pandas as pd
 
-youtube = create_youtube_service(path_to_token= "../token.pkl", 
-                                 path_to_credentials = "../client_secret.json", 
-                                 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"])
+############################
+# Test for Caren Miosga
+# youtube = create_youtube_service(path_to_token= "../token.pkl", 
+#                                  path_to_credentials = "../client_secret.json", 
+#                                  scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"])
 
+# # channelId = get_channel_id(youtube = youtube, 
+# #                            channel_name = "tagesschau")
+
+# print("searching videos")
+# search_results = search_videos(youtube = youtube,
+#                                channelId = "UC5NOEUbkLheQcaaRldYW5GA",
+#                                publishedAfter = "2025-01-01T00:00:00Z",
+#                                #  publishedAfter = None,
+#                                #  publishedBefore = "2025-05-01T00:00:00Z",
+#                                publishedBefore = None,
+#                                q = "Caren Miosga",
+#                                maxResults = 50)
+# print(f"output: {search_results}")
+
+# print("getting videos in playlist before adding")
+# video_ids_in_playlist, _ = get_videos_in_playlist(youtube = youtube,
+#                                                   playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
+# print(f"output: {video_ids_in_playlist}")
+
+# print("checking videos to add")
+# videos_into_playlist = check_videos(search_results = search_results,
+#                                     metadata_path = "data/raw/talkshow_audio/metadata.csv",
+#                                     video_ids_in_playlist = video_ids_in_playlist,
+#                                     video_playlistids = [])
+# print(f"output: {videos_into_playlist}")
+
+# print("adding videos to playlist")
+# add_videos_to_playlist(youtube = youtube,
+#                        videos_into_playlist = videos_into_playlist,
+#                        playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
+# print(f"done")
+
+# print("downloading from playlist")
+# download_from_playlist(playlist_url = "https://www.youtube.com/playlist?list=PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd",
+#                        output_dir="data/raw/talkshow_audio")
+# print("done downloading")
+
+# print("getting videos in playlist after adding")
+# video_ids_in_playlist, video_playlistids = get_videos_in_playlist(youtube = youtube,
+#                                                   playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
+# print(f"videoids: {video_ids_in_playlist}")
+# print(f"playlistitemids: {video_playlistids}")
+
+# print("checking videos to delete")
+# delete_videos_from_playlist = check_videos(search_results = None,
+#                                     metadata_path = "data/raw/talkshow_audio/metadata.csv",
+#                                     video_ids_in_playlist = video_ids_in_playlist,
+#                                     video_playlistids = video_playlistids)
+# print(f"output: {videos_into_playlist}")
+
+# print("deleting videos from playlist")
+# delete_from_playlist(youtube = youtube,
+#                      delete_videos_from_playlist = delete_videos_from_playlist)
+# print("done")
+
+#################################
+# Test for Anne Will
+# youtube = create_youtube_service(path_to_token= "token.pkl", 
+#                                  path_to_credentials = "client_secret.json", 
+#                                  scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"])
+
+# print("getting channel id")
 # channelId = get_channel_id(youtube = youtube, 
-#                            channel_name = "tagesschau")
+#                            channel_name = "Politik mit Anne Will")
+# print(f"Output: {channelId}")
 
-print("searching videos")
-search_results = search_videos(youtube = youtube,
-                               channelId = "UC5NOEUbkLheQcaaRldYW5GA",
-                               publishedAfter = "2025-01-01T00:00:00Z",
-                               #  publishedAfter = None,
-                               #  publishedBefore = "2025-05-01T00:00:00Z",
-                               publishedBefore = None,
-                               q = "Caren Miosga",
-                               maxResults = 50)
-print(f"output: {search_results}")
+# print("searching videos")
+# search_results = search_videos(youtube = youtube,
+#                                channelId = channelId,
+#                                publishedAfter = "2025-10-01T00:00:00Z",
+#                                #  publishedAfter = None,
+#                                #  publishedBefore = "2025-05-01T00:00:00Z",
+#                                publishedBefore = None,
+#                                q = None,
+#                                maxResults = 50)
+# print(f"output: {search_results}")
 
-print("getting videos in playlist before adding")
-video_ids_in_playlist, _ = get_videos_in_playlist(youtube = youtube,
-                                                  playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
-print(f"output: {video_ids_in_playlist}")
+# print("filtering out shorts")
+# search_results_noshorts = filter_out_shorts(youtube = youtube,
+#                                             search_results = search_results,
+#                                             cutoff_seconds=240)
+# print(f"output: {search_results_noshorts}")
 
-print("checking videos to add")
-videos_into_playlist = check_videos(search_results = search_results,
-                                    metadata_path = "data/raw/talkshow_audio/metadata.csv",
-                                    video_ids_in_playlist = video_ids_in_playlist,
-                                    video_playlistids = [])
-print(f"output: {videos_into_playlist}")
+# ## then continue with search_results_noshorts checking videos etc. as above
 
-print("adding videos to playlist")
-add_videos_to_playlist(youtube = youtube,
-                       videos_into_playlist = videos_into_playlist,
-                       playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
-print(f"done")
 
-print("downloading from playlist")
-download_from_playlist(playlist_url = "https://www.youtube.com/playlist?list=PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd",
-                       output_dir="data/raw/talkshow_audio")
-print("done downloading")
+########################
+# # Test for phoenix runde
+# youtube = create_youtube_service(path_to_token= "token.pkl", 
+#                                  path_to_credentials = "client_secret.json", 
+#                                  scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"])
 
-print("getting videos in playlist after adding")
-video_ids_in_playlist, video_playlistids = get_videos_in_playlist(youtube = youtube,
-                                                  playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd")
-print(f"videoids: {video_ids_in_playlist}")
-print(f"playlistitemids: {video_playlistids}")
+# print("getting channel id")
+# channelId = get_channel_id(youtube = youtube, 
+#                            channel_name = "phoenix")
+# print(f"Output: {channelId}")
 
-print("checking videos to delete")
-delete_videos_from_playlist = check_videos(search_results = None,
-                                    metadata_path = "data/raw/talkshow_audio/metadata.csv",
-                                    video_ids_in_playlist = video_ids_in_playlist,
-                                    video_playlistids = video_playlistids)
-print(f"output: {videos_into_playlist}")
+# print("searching videos")
+# search_results = search_videos(youtube = youtube,
+#                                channelId = channelId,
+#                                publishedAfter = "2025-10-01T00:00:00Z",
+#                                #  publishedAfter = None,
+#                                #  publishedBefore = "2025-05-01T00:00:00Z",
+#                                publishedBefore = None,
+#                                q = "phoenixRunde",
+#                                maxResults = 50)
+# print(f"output: {search_results}")
 
-print("deleting videos from playlist")
-delete_from_playlist(youtube = youtube,
-                         playlistId = "PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd",
-                         delete_videos_from_playlist = delete_videos_from_playlist)
-print("done")
-
+# print("filtering out shorts")
+# search_results_noshorts = filter_out_shorts(youtube = youtube,
+#                                             search_results = search_results,
+#                                             cutoff_seconds=240)
+# print(f"output: {search_results_noshorts}")
