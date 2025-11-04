@@ -214,3 +214,7 @@ yarn-debug.log*
 data/
 dist/
 node_modules/
+
+# Youtube Credentials and Tokens
+client_secret.json
+token.pkl

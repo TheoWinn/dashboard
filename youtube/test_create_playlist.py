@@ -161,7 +161,6 @@ def check_videos(search_results,
                 videos_into_playlist.append([videoId, title])
         return videos_into_playlist
 
-
 def add_videos_to_playlist(youtube,
                            videos_into_playlist,
                            playlistId):
