@@ -158,6 +158,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
 
 
     # download missing audio files and update downloaded ids
+    count = 0
     if len(urls) < len(p.video_urls):
         for url in p.video_urls:
             if url not in urls: 
@@ -186,9 +187,16 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
                 pd.DataFrame(meta, columns=["url", "title", "channel", "date"]).to_csv(
                 meta_file, index=False, header=False)
 
+                count += 1
+
                 sleep_seconds = random.uniform(2.0, 6.0)
                 print(f"Sleeping {sleep_seconds:.1f}s before next download...")
                 time.sleep(sleep_seconds)
+                if count % 20 == 0:
+                    cooldown = random.uniform(3600.0, 7200.0)
+                    current_time = datetime.now().strftime("%H:%M:%S")
+                    print(f"[{current_time}]: Reached {count} videos — cooling down for {cooldown/3600:.1f} hours...")
+                    time.sleep(cooldown)
 
     # save updated dataframe
     # meta = pd.DataFrame(meta, columns=["url", "title", "channel", "date"])
