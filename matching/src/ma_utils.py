@@ -159,9 +159,9 @@ def matching_pipeline():
                 "similarity": 0.0,
                 "transcript_start": r.get("start", ""),
                 "transcript_end": r.get("end", ""),
-                "protokoll_text": "",
+                "transcript_text": seg_text,
                 "transcript_speaker": r.get("speaker", ""),
-                "transcript_text": seg_text
+                "protokoll_text": ""
             })
             continue
 
@@ -180,9 +180,9 @@ def matching_pipeline():
             "similarity": best_sim,
             "transcript_start": r.get("start", ""),
             "transcript_end": r.get("end", ""),
-            "protokoll_text": protokoll_text[best_idx],
+            "transcript_text": seg_text,
             "transcript_speaker": r.get("speaker", ""),
-            "transcript_text": seg_text
+            "protokoll_text": protokoll_text[best_idx]
         })
 
     out_path = out_dir / "matched_transcripts.csv"

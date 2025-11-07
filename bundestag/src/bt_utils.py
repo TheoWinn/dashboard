@@ -49,18 +49,27 @@ def download_xml_from_metadata(metadata_file, output_dir):
 
 def create_cut_xml(input_file, output_file):
     """
-    Parse a plenary XML and, for every <rede id="...">:
-      - read speaker (vorname, nachname, fraktion OR rolle)
-      - collect ONLY the speaker's own paragraphs (<p> …) after the redner line
-      - skip all <kommentar> (interjections) completely
-      - stop collecting when a bare <name> tag appears (chair taking the floor)
-    Write a compact XML with <speeches><speech><id/><speaker/><party_or_role/><content/></speech>…</speeches>.
+    Parse a plenary XML and cut each <rede> into speaker turns:
+      - Start a new <speech> at every <p klasse="redner"> (the 'speaker line')
+      - Collect only that speaker's own <p> paragraphs until the next <p klasse="redner">
+      - Skip all <kommentar> (interjections) and all bare <name> (chair / vice president)
+    Output:
+      <speeches>
+        <speech>
+          <id>REDEID-01</id>
+          <speaker>Vorname Nachname</speaker>
+          <party_or_role>Fraktion or Rolle</party_or_role>
+          <content>...</content>
+        </speech>
+        ...
+      </speeches>
     """
     tree = ET.parse(input_file)
     root = tree.getroot()
 
-    # helper: full text of an element (text + children)
+    # -------- helpers --------------------------------------------------------
     def element_full_text(el):
+        """Concatenate el.text + children texts + tails (namespace-agnostic)."""
         parts = []
         if el.text:
             parts.append(el.text)
@@ -70,12 +79,8 @@ def create_cut_xml(input_file, output_file):
                 parts.append(c.tail)
         return "".join(parts).strip()
 
-    # namespace-agnostic helpers
     def localname(tag):
         return tag.split("}", 1)[1] if "}" in tag else tag
-
-    def find_children_by_local(parent, name):
-        return [c for c in parent if localname(c.tag) == name]
 
     def find_descendant_by_local(parent, name):
         for e in parent.iter():
@@ -83,111 +88,127 @@ def create_cut_xml(input_file, output_file):
                 return e
         return None
 
-    out_root = ET.Element("speeches")
-
-    # iterate all rede blocks (namespace-agnostic)
-    rede_elems = [e for e in root.iter() if localname(e.tag) == "rede"]
-    for rede in rede_elems:
-        rede_id = rede.get("id", "")
-
-        # 1) speaker block: find first <p klasse="redner">
-        p_redner = None
-        for p in find_children_by_local(rede, "p"):
-            if p.get("klasse") == "redner":
-                p_redner = p
-                break
-
-        # try to get name node from redner paragraph or elsewhere
-        name_node = None
-        if p_redner is not None:
-            redner_node = find_descendant_by_local(p_redner, "redner")
-            if redner_node is not None:
-                name_node = find_descendant_by_local(redner_node, "name")
-        if name_node is None:
-            name_node = find_descendant_by_local(rede, "name")
-
-        # extract name parts defensively
+    def extract_speaker_from_redner_p(p_redner):
+        """
+        From a <p klasse="redner"> paragraph, extract:
+          - speaker's first/last name
+          - party (fraktion) OR role (rolle_kurz/rolle/rolle_lang)
+          - a best-effort 'speaker_id' from <redner id="..."> if present
+        """
+        redner_node = find_descendant_by_local(p_redner, "redner")
+        speaker_id = ""
         vorname = ""
         nachname = ""
-        if name_node is not None:
-            vn = find_descendant_by_local(name_node, "vorname")
-            nn = find_descendant_by_local(name_node, "nachname")
-            vorname = (vn.text or "").strip() if vn is not None and vn.text else ""
-            nachname = (nn.text or "").strip() if nn is not None and nn.text else ""
-
-        # party or role
         party_or_role = ""
-        if name_node is not None:
-            fr = find_descendant_by_local(name_node, "fraktion")
-            rk = find_descendant_by_local(name_node, "rolle_kurz") or find_descendant_by_local(name_node, "rolle")
-            rl = find_descendant_by_local(name_node, "rolle_lang")
-            party_or_role = ( (fr.text if fr is not None and fr.text else "")
-                              or (rk.text if rk is not None and rk.text else "")
-                              or (rl.text if rl is not None and rl.text else "") ).strip()
 
-        # 2) collect speaker's own paragraphs: everything after p_redner until bare <name> or end, skipping <kommentar>
-        content_chunks = []
-        started = p_redner is None  # if no redner line, start collecting from top
-        stop = False
+        if redner_node is not None:
+            # id attribute
+            speaker_id = redner_node.get("id", "") or ""
+
+            # name fields
+            name_node = find_descendant_by_local(redner_node, "name")
+            if name_node is not None:
+                vn = find_descendant_by_local(name_node, "vorname")
+                nn = find_descendant_by_local(name_node, "nachname")
+                fr = find_descendant_by_local(name_node, "fraktion")
+                rk = (find_descendant_by_local(name_node, "rolle_kurz")
+                      or find_descendant_by_local(name_node, "rolle"))
+                rl = find_descendant_by_local(name_node, "rolle_lang")
+
+                vorname = (vn.text or "").strip() if (vn is not None and vn.text) else ""
+                nachname = (nn.text or "").strip() if (nn is not None and nn.text) else ""
+                party_or_role = (
+                    (fr.text if fr is not None and fr.text else "")
+                    or (rk.text if rk is not None and rk.text else "")
+                    or (rl.text if rl is not None and rl.text else "")
+                ).strip()
+
+        # Fallback: sometimes text like "Name (Fraktion):" is in the p itself.
+        # We deliberately do NOT parse that here to avoid noisy heuristics.
+        speaker_label = f"{vorname} {nachname}".strip()
+        return {"speaker_id": speaker_id, "speaker": speaker_label, "party_or_role": party_or_role}
+
+    # -------- build output ---------------------------------------------------
+    out_root = ET.Element("speeches")
+
+    # iterate each <rede> (namespace-agnostic)
+    for rede in (e for e in root.iter() if localname(e.tag) == "rede"):
+        rede_id = rede.get("id", "").strip() or "REDE"
+        seg_idx = 0
+
+        current_speaker = None          # dict with keys: speaker_id, speaker, party_or_role
+        current_chunks = []             # list of paragraph strings
+
+        def flush_segment():
+            nonlocal seg_idx, current_speaker, current_chunks
+            text = " ".join(ch for ch in current_chunks if ch).strip()
+            if current_speaker and text:
+                seg_idx += 1
+                sp_el = ET.SubElement(out_root, "speech")
+                ET.SubElement(sp_el, "id").text = f"{rede_id}-{seg_idx:02d}"
+                ET.SubElement(sp_el, "speaker").text = current_speaker.get("speaker", "")
+                ET.SubElement(sp_el, "party_or_role").text = current_speaker.get("party_or_role", "")
+                ET.SubElement(sp_el, "content").text = text
+            # reset buffer
+            current_chunks = []
+
+        # Walk ONLY top-level children of <rede> to keep correct order
         for child in list(rede):
-            if child is p_redner:
-                started = True
-                continue
-            if not started or stop:
-                continue
-
             tag = localname(child.tag)
 
-            # stop when the chair's <name> appears
-            if tag == "name":
-                stop = True
+            # Start of a (new) speaker turn
+            if tag == "p" and (child.get("klasse") == "redner"):
+                # Finish previous speaker (if any + has text)
+                flush_segment()
+                # Start new speaker
+                current_speaker = extract_speaker_from_redner_p(child)
                 continue
 
-            # skip comments/interjections
-            if tag == "kommentar":
+            # Skip any chair lines and interjections entirely
+            if tag == "name" or tag == "kommentar":
+                # Ignore but DO NOT stop the current speaker; speeches often continue after chair lines
                 continue
 
-            # collect paragraphs only
-            if tag == "p":
-                text = element_full_text(child)
-                if text:
-                    content_chunks.append(text)
+            # Collect only normal paragraphs for the active speaker
+            if tag == "p" and current_speaker is not None:
+                # Be careful not to include "redner" paragraphs as content (we already handle them above)
+                if child.get("klasse") != "redner":
+                    txt = element_full_text(child)
+                    if txt:
+                        current_chunks.append(txt)
 
-        content_text = " ".join(content_chunks).strip()
+            # Anything else is ignored
 
-        # always create an entry for the rede (even if content empty) to ensure one speech per id
-        sp_el = ET.SubElement(out_root, "speech")
-        ET.SubElement(sp_el, "id").text = rede_id
-        ET.SubElement(sp_el, "speaker").text = f"{vorname} {nachname}".strip()
-        ET.SubElement(sp_el, "party_or_role").text = party_or_role
-        ET.SubElement(sp_el, "content").text = content_text
+        # Flush trailing segment at end of <rede>
+        flush_segment()
 
     # ensure output directory exists
     os.makedirs(os.path.dirname(output_file) or ".", exist_ok=True)
-
     ET.ElementTree(out_root).write(output_file, encoding="utf-8", xml_declaration=True)
 
 
-def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_dir="bundestag/data/raw"):
+
+def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir="bundestag/data"):
     """Downloads metadata and XML files from the API."""
-    
-    # Ensure output_dir exists and ends with slash
-    if not output_dir.endswith('/'):
-        output_dir += '/'
-    
-    # Create all necessary directories (no xml/ subdir)
-    os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(os.path.join(output_dir, "cut"), exist_ok=True)
-    
+
+    # Ensure base_dir exists
+    os.makedirs(base_dir, exist_ok=True)
+
+    # Sibling directories: .../raw and .../cut
+    raw_dir = os.path.join(base_dir, "raw")
+    cut_dir = os.path.join(base_dir, "cut")
+    os.makedirs(raw_dir, exist_ok=True)
+    os.makedirs(cut_dir, exist_ok=True)
+
     url = f"{base}/plenarprotokoll-text"
     headers = {"Authorization": f"ApiKey {api_key}"}
     cursor = "*"
 
-    # Initialize metadata
-    metadata_file = os.path.join(output_dir, "metadata.csv")
+    # Initialize / load metadata in RAW folder
+    metadata_file = os.path.join(raw_dir, "metadata.csv")
     if os.path.isfile(metadata_file):
-        meta = pd.read_csv(metadata_file, dtype={"id": str}, 
-                          parse_dates=["aktualisiert"], encoding="utf-8-sig")
+        meta = pd.read_csv(metadata_file, dtype={"id": str},
+                           parse_dates=["aktualisiert"], encoding="utf-8-sig")
         ids = meta["id"].tolist()
     else:
         meta = pd.DataFrame()
@@ -198,25 +219,26 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_di
 
     # Fetch documents
     while True:
-        params = {"cursor": cursor, "rows": 100, 
-                 "f.datum.start": start_date, "f.datum.end": end_date}
+        params = {"cursor": cursor, "rows": 100,
+                  "f.datum.start": start_date, "f.datum.end": end_date}
         r = requests.get(url, headers=headers, params=params, timeout=30)
+        r.raise_for_status()
         data = r.json()
         docs = data.get("documents")
 
         if not docs:
             break
-        
+
         for doc in docs:
             if doc.get("herausgeber") == "BR":
                 continue
-                
-            aktualisiert = pd.to_datetime(doc.get("aktualisiert"), 
-                                         utc=True, errors="coerce").tz_convert(None)
-            id = str(doc.get("id"))
-            
-            if id in ids:
-                if aktualisiert <= meta.loc[meta["id"] == id, "aktualisiert"].values[0]:
+
+            aktualisiert = pd.to_datetime(doc.get("aktualisiert"),
+                                          utc=True, errors="coerce").tz_convert(None)
+            doc_id = str(doc.get("id"))
+
+            if doc_id in ids:
+                if aktualisiert <= meta.loc[meta["id"] == doc_id, "aktualisiert"].values[0]:
                     continue
                 else:
                     new_versions.append(doc)
@@ -228,47 +250,59 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_di
             break
         cursor = new_cursor
 
-    # Save metadata and download XML files
+    # Save metadata and download/cut XMLs
     if new_meta:
         new_meta_df = pd.json_normalize(new_meta)
         new_meta_df = new_meta_df.drop(columns=["text"], errors='ignore')
         new_meta_df["id"] = new_meta_df["id"].astype(str)
-        new_meta_df["aktualisiert"] = pd.to_datetime(new_meta_df["aktualisiert"], 
-                                                    utc=True, errors="coerce")
+        new_meta_df["aktualisiert"] = pd.to_datetime(new_meta_df["aktualisiert"],
+                                                     utc=True, errors="coerce")
         meta_df = pd.concat([meta, new_meta_df], ignore_index=True)
         meta_df.to_csv(metadata_file, index=False, encoding="utf-8-sig")
         print(f"Saved metadata to {metadata_file}")
-        
-        # Download XML files
-        download_xml_from_metadata(metadata_file, output_dir)
 
-        # Create cut XML files for each downloaded XML
+        # Download XML files into RAW folder
+        download_xml_from_metadata(metadata_file, raw_dir)
+
+        # Create cut XML files into CUT folder
         meta_latest = pd.read_csv(metadata_file, dtype=str)
-        # use dokumentnummer if available, else id
-        meta_latest["docnum"] = meta_latest["dokumentnummer"].fillna(meta_latest["id"])
-        meta_latest["docnum"] = meta_latest["docnum"].str.replace("/", "_")
+
+        # Ensure we have a proper date column and format to DD-MM-YYYY
+        if "datum" in meta_latest.columns:
+            meta_latest["date_formatted"] = pd.to_datetime(
+                meta_latest["datum"], errors="coerce"
+            ).dt.strftime("%d-%m-%Y")
+        elif "datum.desplenarprotokolls" in meta_latest.columns:
+            meta_latest["date_formatted"] = pd.to_datetime(
+                meta_latest["datum.desplenarprotokolls"], errors="coerce"
+            ).dt.strftime("%d-%m-%Y")
+        else:
+            raise KeyError("No date column found in metadata to name files by date.")
 
         cut_made = 0
-        for docnum in meta_latest["docnum"]:
-            # XMLs are in output_dir root now
-            input_xml_file = os.path.join(output_dir, f"{docnum}.xml")
-            output_cut_file = os.path.join(output_dir, "cut", f"{docnum}_cut.xml")
+        for _, row in meta_latest.iterrows():
+            date_str = row.get("date_formatted")
+            if pd.isna(date_str) or not date_str:
+                continue  # skip rows without valid date
+
+            # Input from RAW folder uses document number or ID as fallback
+            docnum = (row.get("dokumentnummer") or row.get("id") or "").replace("/", "_")
+            input_xml_file = os.path.join(raw_dir, f"{docnum}.xml")
+
+            # Output filename by date: DD-MM-YYYY_cut.xml
+            output_cut_file = os.path.join(cut_dir, f"{date_str}_cut.xml")
 
             if os.path.isfile(input_xml_file):
-                print(f"Creating cut XML for {input_xml_file}...")
+                print(f"Creating cut XML for {input_xml_file} -> {output_cut_file}")
                 create_cut_xml(input_xml_file, output_cut_file)
-                print(f"Cut XML created: {output_cut_file}")
                 cut_made += 1
             else:
                 print(f"[SKIP] XML not found: {input_xml_file}")
 
         print(f"[CUT] created={cut_made}")
-        
-    else:
-        print("No new protocols found.")
 
-    print(f"Number of new versions: {len(new_versions)}")
 
+#### How to use ####
 if __name__ == "__main__":
     # Example usage:
     download_pp(
@@ -276,10 +310,8 @@ if __name__ == "__main__":
         api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
         start_date="2025-10-01",
         end_date=None,
-        output_dir="bundestag/data/raw/"
+        base_dir="bundestag/data"
     )
-
-
 
 
 
