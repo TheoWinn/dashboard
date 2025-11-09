@@ -363,3 +363,21 @@ import pandas as pd
 #                                             search_results = search_results,
 #                                             cutoff_seconds=240)
 # print(f"output: {search_results_noshorts}")
+
+
+
+hart_aber_fair_playlistId = "PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB" # oldest from 1 year ago (Tagesschau) (enthält shorts!)
+caren_miosga_playlistId = "PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi" # oldest from 1 year ago (Tagesschau)
+# tagesschau playlist von anne will enthält nur kurze clips
+maischberger_playlistId = "PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-" # oldest from 4 years ago (Tagesschau) (enthält shorts!)
+markus_lanz_playlistId = "PLdPrKDvwrog6SPKzMAVh1d6cPVtGtDIeT" # oldest from 5 years ago (ZDFheute Nachrichten) (enthält shorts!)
+maybrit_illner_playlistId = "PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa" # oldest from 5 years ago (ZDFheute Nachtichten) (enthält shorts!)
+phoenix_2025_playlistId = "PLoeytWjTuSup-ULnzO9iPf_Fqvc8DhNTq" 
+phoenix_2024_playlistId = "PLoeytWjTuSurPoOBmZqJjnlM0BkPtmynl" 
+phoenix_2023_playlistId = "PLoeytWjTuSuph1fmTPec5GrvDS0Ro4Lke" 
+phoenix_2022_playlistId = "PLoeytWjTuSuoJGJ4KZanLHkYJ1X-s-Z9s" 
+phoenix_2021_playlistId = "PLoeytWjTuSuqrX8hE6nFL79YK2ejWibix" 
+phoenix_2020_playlistId = "PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ" 
+phoenix_2019_playlistId = "PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC" 
+phoenix_2018_playlistId = "PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV" 
+phoenix_2017_playlistId = "PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p" 
