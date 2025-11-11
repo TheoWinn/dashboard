@@ -5,25 +5,30 @@ from sentence_transformers import SentenceTransformer
 from bertopic.representation import KeyBERTInspired
 import warnings
 import os
+from sklearn.feature_extraction.text import CountVectorizer
 warnings.filterwarnings('ignore')
 
 
 # ==============================================================================
 # My Notes
 # ==============================================================================
-# can smo give feedback to my matching output?
+# can smo give feedback to my matching output? ne
 # we can finetune with openai. Money from marc? 
 # Bert läuft jetzt nur über die transcripte. ist das ok?
-# brauchen noch einen branch für topic modelling 
+# brauchen noch einen Folder für topic modelling 
 # sollte ein bert nicht über den ganzen corpus laufen? Sonst haben wir ja pro späre unterschiedliche vectore? dann ist das eine große tabelle aber mit handle dran, ob die quelle BT oder TS is
 #
 # Model:
+# lOOP DAZU, dass der input path nicht gehartcoded ist
 # custom stopwörter müssen noch entfernt werden
 # what happend to the speeches "jetzt der nächste redner?" werden speeches rausgeworfen? (müssten 77 haben max)welche werden rausgerechnet, sind das auch hoffentlich nur die uninformativen und warum werden einige rausgerechne?
 # each speech is assigned one topic. is that what we want? 
 #Bert nochmal mit den speeches laufen lassen 
-# Bert: Stoppwärter wie "jetzt" sollten nicht drin sein 
+# Stoppwärter wie "jetzt" sollten nicht drin sein, aber wenn wir die hart-coden, kommen halt andere stopwords rein
 # Bert: Kontrollieren, ob für kathrin (SPD, line 8) die zeiten und die themen grob stimmen 
+# warum regierung in 2 topics
+# Andere representations von dem Bert holen
+# 
 
 # ==============================================================================
 # Output interpretation
@@ -91,7 +96,7 @@ df['speech_duration_minutes'] = (df['transcript_end'] - df['transcript_start']) 
 print(f"Calculated speech durations")
 
 # Extract documents for analysis
-docs = df['transcript_text'].fillna('').tolist() #i only use the speeches (from BT protokolls for topic modelling. Thats up for discussion tho
+docs = df['protokoll_text'].fillna('').tolist() #i only use the speeches (from BT protokolls for topic modelling. Thats up for discussion tho
 print(f" Prepared {len(docs)} documents for topic modeling")
 
 # Display sample
@@ -107,7 +112,7 @@ print("="*80)
 
 # Use multilingual model optimized for German
 embedding_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-print("Model: paraphrase-multilingual-MiniLM-L12-v2")
+print(f"Model: {embedding_model}")
 
 print("\nEncoding documents (this may take a few minutes)...")
 embeddings = embedding_model.encode(docs, show_progress_bar=True)
@@ -122,6 +127,7 @@ print("="*80)
 
 # Use KeyBERTInspired for better topic word representation
 representation_model = KeyBERTInspired()
+
 
 # Create BERTopic model following BERTopic documentation
 topic_model = BERTopic(
