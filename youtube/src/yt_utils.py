@@ -163,7 +163,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
         for url in p.video_urls:
             if url not in urls: 
                 # download audio
-                yt = YouTube(url, on_progress_callback=on_progress)
+                yt = YouTube(url, client = "ANDROID", on_progress_callback=on_progress)
                 print(f'Downloading: {yt.title}')
 
                 date_prefix = _date_from_description(yt.description or "")
