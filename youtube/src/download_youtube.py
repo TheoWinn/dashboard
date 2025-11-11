@@ -69,7 +69,7 @@ if __name__ == "__main__":
 #     error_summary = {}
 
 #     # Bundestag playlist
-#     error_info = main(playlist_url="https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6", bundestag=True, test_mode=test_mode)
+#     error_info = main(playlist_url="https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6", talkshow_name=None, bundestag=True, test_mode=test_mode)
 #     if error_info:
 #         error_summary["bundestag"] = error_info
 
