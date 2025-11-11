@@ -381,3 +381,6 @@ phoenix_2020_playlistId = "PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ"
 phoenix_2019_playlistId = "PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC" 
 phoenix_2018_playlistId = "PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV" 
 phoenix_2017_playlistId = "PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p" 
+
+
+download_from_playlist(playlist_url="https://www.youtube.com/playlist?list=PL9AGsmzq4o4KhAJxfV_mqMGj4kGvjighd", bundestag=False, talkshow_name="test", test_mode=True)
