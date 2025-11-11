@@ -42,8 +42,8 @@ f.e. 9_sozialstaat_sozialstaates_reformen_reform is topic sozialstaat
 
 Example interpretation in full context: 
 look at line 9, speech from Kathrin Michel, SPD. What the model tells us ist: 
-This is a 3.4-minute speech that discusses welfare state reforms (Topic 9). The BERTopic model is 100% confident 
-that this speech is about welfare state reforms,based on the keywords:
+This is a 3.4-minute speech that discusses welfare state reforms (Topic 9). The BERTopic model is 40% confident 
+that this speech is about welfare state reforms, based on the keywords:
 sozialstaat (welfare state), sozialstaates, and reformen (reforms).
 
 TOPIC STATS INTERPRETATION
@@ -91,7 +91,7 @@ df['speech_duration_minutes'] = (df['transcript_end'] - df['transcript_start']) 
 print(f"Calculated speech durations")
 
 # Extract documents for analysis
-docs = df['protokoll_text'].fillna('').tolist() #i only use the speeches (from BT protokolls for topic modelling. Thats up for discussion tho
+docs = df['transcript_text'].fillna('').tolist() #i only use the speeches (from BT protokolls for topic modelling. Thats up for discussion tho
 print(f" Prepared {len(docs)} documents for topic modeling")
 
 # Display sample
@@ -254,50 +254,50 @@ stats_file = OUTPUT_FILE.replace('.csv', '_topic_stats.csv')
 time_stats.to_csv(stats_file)
 print(f" Saved: {stats_file}")
 
-# # Create visualizations
-# print("\nCreating visualizations...")
+# Create visualizations
+print("\nCreating visualizations...")
 
-# # 1. Topic visualization
-# try:
-#     fig = topic_model.visualize_topics()
-#     viz_path = os.path.join(output_dir, "topic_visualization.html")
-#     fig.write_html(viz_path)
-#     print(f"Saved: {viz_path}")
-# except Exception as e:
-#     print(f"Could not create topic visualization: {e}")
+# 1. Topic visualization
+try:
+    fig = topic_model.visualize_topics()
+    viz_path = os.path.join(output_dir, "topic_visualization.html")
+    fig.write_html(viz_path)
+    print(f"Saved: {viz_path}")
+except Exception as e:
+    print(f"Could not create topic visualization: {e}")
 
-# # 2. Topic barchart
-# try:
-#     fig = topic_model.visualize_barchart(top_n_topics=min(10, len(set(topics))-1))
-#     viz_path = os.path.join(output_dir, "topic_barchart.html")
-#     fig.write_html(viz_path)
-#     print(f" Saved: {viz_path}")
-# except Exception as e:
-#     print(f"Could not create barchart: {e}")
+# 2. Topic barchart
+try:
+    fig = topic_model.visualize_barchart(top_n_topics=min(10, len(set(topics))-1))
+    viz_path = os.path.join(output_dir, "topic_barchart.html")
+    fig.write_html(viz_path)
+    print(f" Saved: {viz_path}")
+except Exception as e:
+    print(f"Could not create barchart: {e}")
 
-# # 3. Topic hierarchy
-# try:
-#     hierarchical_topics = topic_model.hierarchical_topics(docs)
-#     fig = topic_model.visualize_hierarchy(hierarchical_topics=hierarchical_topics)
-#     viz_path = os.path.join(output_dir, "topic_hierarchy.html")
-#     fig.write_html(viz_path)
-#     print(f" Saved: {viz_path}")
-# except Exception as e:
-#     print(f" Could not create hierarchy visualization: {e}")
+# 3. Topic hierarchy
+try:
+    hierarchical_topics = topic_model.hierarchical_topics(docs)
+    fig = topic_model.visualize_hierarchy(hierarchical_topics=hierarchical_topics)
+    viz_path = os.path.join(output_dir, "topic_hierarchy.html")
+    fig.write_html(viz_path)
+    print(f" Saved: {viz_path}")
+except Exception as e:
+    print(f" Could not create hierarchy visualization: {e}")
 
-# # 4. Document clusters
-# try:
-#     fig = topic_model.visualize_documents(docs, embeddings=embeddings)
-#     viz_path = os.path.join(output_dir, "document_clusters.html")
-#     fig.write_html(viz_path)
-#     print(f" Saved: {viz_path}")
-# except Exception as e:
-#     print(f"Could not create document visualization: {e}")
+# 4. Document clusters
+try:
+    fig = topic_model.visualize_documents(docs, embeddings=embeddings)
+    viz_path = os.path.join(output_dir, "document_clusters.html")
+    fig.write_html(viz_path)
+    print(f" Saved: {viz_path}")
+except Exception as e:
+    print(f"Could not create document visualization: {e}")
 
-# # Save the model
-# model_path = os.path.join(output_dir, "bertopic_model")
-# topic_model.save(model_path, serialization="safetensors", save_ctfidf=True, save_embedding_model=embedding_model)
-# print(f" Saved model: {model_path}")'
+# Save the model
+model_path = os.path.join(output_dir, "bertopic_model")
+topic_model.save(model_path, serialization="safetensors", save_ctfidf=True, save_embedding_model=embedding_model)
+print(f" Saved model: {model_path}")
 
 # ==============================================================================
 # FINAL SUMMARY
