@@ -209,11 +209,13 @@ __marimo__/
 #files
 npm-debug.log*
 yarn-debug.log*
+*.DS_Store
 
 #Ordner
 data/
 dist/
 node_modules/
+models/
 
 # Youtube Credentials and Tokens
 client_secret.json
