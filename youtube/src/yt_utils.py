@@ -165,7 +165,8 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
         for url in p.video_urls:
             if url not in urls: 
                 # download audio
-                yt = YouTube(url, client = "ANDROID", on_progress_callback=on_progress)
+                # yt = YouTube(url, client = "ANDROID_EMBED", on_progress_callback=on_progress)
+                yt = YouTube(url, on_progress_callback=on_progress)
 
                 # check whether the video is not a short (short is less than 4 minutes)
                 if yt.length < 240:
@@ -185,6 +186,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                 filename_stem = f"{date_prefix}_{safe_title}.m4a"
 
                 ys = yt.streams.get_audio_only()
+                # ys = yt.streams.filter(only_audio=True, file_extension="m4a").order_by('abr').desc().first()
                 ys.download(output_path=str(output_dir), filename = filename_stem)
                 # append to dataframe
                 title = yt.title
