@@ -21,9 +21,9 @@ warnings.filterwarnings('ignore')
 # custom stopwörter müssen noch entfernt werden
 # what happend to the speeches "jetzt der nächste redner?" werden speeches rausgeworfen? (müssten 77 haben max)welche werden rausgerechnet, sind das auch hoffentlich nur die uninformativen und warum werden einige rausgerechne?
 # each speech is assigned one topic. is that what we want? 
-
-
-
+#Bert nochmal mit den speeches laufen lassen 
+# Bert: Stoppwärter wie "jetzt" sollten nicht drin sein 
+# Bert: Kontrollieren, ob für kathrin (SPD, line 8) die zeiten und die themen grob stimmen 
 
 # ==============================================================================
 # Output interpretation
