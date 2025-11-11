@@ -8,22 +8,14 @@ import xml.etree.ElementTree as ET
 
 """
 ToDo:
-DONE cleaning
-DONE check wether roles of ministers worked
-DONE transfer to batchmatching
 
 get the input path right (is still downloaded manually)
-for bert: include protokolle instead of whisper. 
 test: are all vids there and are therre no hanging speeches?
 Do the timestamps match and does the actual wording of the speech makes sense? (transcript vs protokoll)?
 
 wo weiter: 
-26.09. was ist das thema zu dem kathrin michel spd redet? 
+26.09. was ist das thema zu dem kathrin michel spd redet? (protokoll_raw) 
 das transcript stimmt nicht, aber die zeiten unabhängig davon schon oder? kontrollieren 
-Bert nochmal mit den speeches laufen lassen 
-Bert: Stoppwärter wie jetzt sollten nicht drin sein 
-Bert: Kontrollieren, ob für kathrin die zeiten und die themen grob stimmen 
-Bert: statistics verstehen
 
 --------------------------------------
 """
