@@ -5,8 +5,7 @@ import xml.etree.ElementTree as ET
 
 ###########################
 ## NOCH ZU KLÄREN!!!!!!
-# Was soll mit alten Versionen (get_pleanrprotokoll) passieren?
-# Cutte: rede brcht ab wenn es eine zwischenfrage gibt (s. 20_25 Peter Bohnhof, Saksia Ludwig), aber kurzinterventionen funktioneren? 21_35 ID213505100
+# Die rede von dem Vizepräsi ist noch in den reden von den MPs drin. Problem? RIP?
 ###########################
 
 def download_xml_from_metadata(metadata_file, output_dir):
@@ -44,7 +43,6 @@ def download_xml_from_metadata(metadata_file, output_dir):
             
         except requests.RequestException as e:
             print(f"Error downloading {doc_number}: {e}")
-
 
 
 def create_cut_xml(input_file, output_file):
