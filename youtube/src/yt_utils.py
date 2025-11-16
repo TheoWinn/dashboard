@@ -12,7 +12,7 @@ from dotenv import load_dotenv, find_dotenv
 import time
 import random
 import re
-from datetime import datetime
+from datetime import datetime, date
 
 ### YouTube Downloading Utilities ###
 
@@ -124,7 +124,7 @@ def _date_from_description(desc: str) -> str | None:
 
     return None
 
-def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: str = None, test_mode: bool = False):
+def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: str = None, test_mode: bool = False, cutoff = date(2025, 1, 1)):
     """
     Download audio files from a YouTube playlist and save metadata into csv file. It will all be saved in the specified output directory.
     If the output directory is empty, all files from the playlist will be downloaded.
@@ -161,8 +161,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
     # download missing audio files and update downloaded ids
     count = 0
-    if len(urls) < len(p.video_urls):
-        for url in p.video_urls:
+    for url in p.video_urls:
             if url not in urls: 
                 # download audio
                 # yt = YouTube(url, client = "ANDROID_EMBED", on_progress_callback=on_progress)
@@ -171,6 +170,13 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                 # check whether the video is not a short (short is less than 4 minutes)
                 if yt.length < 240:
                     print(f'Skipping short video: {yt.title} ({yt.length} seconds)')
+                    continue
+
+                publish_date = yt.publish_date.date()   # strip timezone + time
+
+                # check that the publish date is after or on cutoff
+                if publish_date < cutoff:
+                    # print(f'Skipping video published on {publish_date}: {yt.title}')
                     continue
 
                 print(f'Downloading: {yt.title}')

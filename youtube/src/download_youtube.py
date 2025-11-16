@@ -2,32 +2,24 @@
 from yt_utils import download_from_playlist
 import pytubefix.request as req
 import traceback
+from datetime import date
+import argparse
 
-# Optional: reduce memory usage
-req.default_range_size = 64 * 1024  # 128 KB chunks
+##### HOW TO USE:
+# The script must be run from the command line. (You have to be in the youtube/src/ directory)
+# Available arguments:
+# --cutoff: Cutoff date in YYYY-MM-DD format (default: 2025-01-01)
+# --test-mode: Enable test mode (max 2 videos)
+# --reduce-memory: Reduce memory usage by lowering chunk size (only use this for cluster)
+# Example usage:
+# uv run download_youtube.py --cutoff 2023-01-01 --test-mode --reduce-memory
+# --> this will download videos uploaded after or on 1st Jan 2023, in test_mode: max 2 videos per playlist, with reduced memory usage
+# uv run download_youtube.py --cutoff 2024-06-01
+# --> this will download videos uploaded after or on 1st June 2024, full download, normal memory usage
 
-# if __name__ == "__main__":
-#     playlist_url = "https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6"
-#     bundestag = True  # or False for talkshow path
-
-#     print("Starting download…")
-#     print("Playlist:", playlist_url)
-#     print("Bundestag:", bundestag)
-#     print("Chunk size:", req.default_range_size, "bytes")
-#     print("-" * 60)
-
-#     try:
-#         download_from_playlist(playlist_url, bundestag=bundestag, test_mode=False, talkshow_name=None)
-#     except KeyboardInterrupt:
-#         print("Download stopped manually")
-
-############# So könnte es aussehen alle Playlists (Bundestag und talkshows) herunterzuladen #############
-
-###### vorsicht: wenn hier True dann werden max 2 videos pro playlist heruntergeladen, False lädt alles herunter ######
-test_mode = True
 
 dict_of_talkshow_playlists = {
-    "hart_aber_fair": "https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB", # oldest from 1 year ago (Tagesschau) 
+    "hart_aber_fair": "https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB", # oldest from 1 year ago (Tagesschau)
     # "test_bullshit": "lalalala",
     "caren_miosga": "https://www.youtube.com/playlist?list=PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi", # oldest from 1 year ago (Tagesschau)
     "maischberger": "https://www.youtube.com/playlist?list=PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-", # oldest from 4 years ago (Tagesschau) 
@@ -46,7 +38,22 @@ dict_of_talkshow_playlists = {
 
 if __name__ == "__main__":
 
-    def main(playlist_url, bundestag, talkshow_name, test_mode):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--cutoff", type=str, default="2025-01-01",
+                        help="Cutoff date in YYYY-MM-DD format")
+    parser.add_argument("--test-mode", action="store_true",
+                        help="Enable test mode (max 2 videos)")
+    parser.add_argument("--reduce-memory", action="store_true",
+                        help="Reduce memory usage by lowering chunk size")
+    args = parser.parse_args()
+
+    cutoff = date.fromisoformat(args.cutoff)
+    if args.reduce_memory:
+        req.default_range_size = 64 * 1024  
+        print(f"Reduced memory usage: chunk size set to {req.default_range_size} bytes")
+    test_mode = args.test_mode
+    
+    def main(playlist_url, bundestag, talkshow_name, test_mode, cutoff):
         print("Starting download…")
         print("Playlist:", playlist_url)
         print("Bundestag:", bundestag)
@@ -55,7 +62,7 @@ if __name__ == "__main__":
 
         try:
             print("in try")
-            download_from_playlist(playlist_url=playlist_url, bundestag=bundestag, talkshow_name=talkshow_name, test_mode=test_mode)
+            download_from_playlist(playlist_url=playlist_url, bundestag=bundestag, talkshow_name=talkshow_name, test_mode=test_mode, cutoff=cutoff)
             return None
         except KeyboardInterrupt:
             print("Download stopped manually")
@@ -69,14 +76,14 @@ if __name__ == "__main__":
     error_summary = {}
 
     # Bundestag playlist
-    error_info = main(playlist_url="https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6", talkshow_name=None, bundestag=True, test_mode=test_mode)
+    error_info = main(playlist_url="https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6", talkshow_name=None, bundestag=True, test_mode=test_mode, cutoff=cutoff)
     if error_info:
         error_summary["bundestag"] = error_info
 
     # Talkshow playlists
     for playlist_name, playlist_url in dict_of_talkshow_playlists.items():
         print(f"\nDownloading from talkshow playlist: {playlist_name}")
-        error_info = main(playlist_url=playlist_url, bundestag=False, talkshow_name=playlist_name, test_mode=test_mode)
+        error_info = main(playlist_url=playlist_url, bundestag=False, talkshow_name=playlist_name, test_mode=test_mode, cutoff=cutoff)
     
         if error_info:
             error_summary[playlist_name] = error_info
