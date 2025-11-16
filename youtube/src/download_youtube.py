@@ -5,6 +5,19 @@ import traceback
 from datetime import date
 import argparse
 
+##### HOW TO USE:
+# The script must be run from the command line. (You have to be in the youtube/src/ directory)
+# Available arguments:
+# --cutoff: Cutoff date in YYYY-MM-DD format (default: 2025-01-01)
+# --test-mode: Enable test mode (max 2 videos)
+# --reduce-memory: Reduce memory usage by lowering chunk size (only use this for cluster)
+# Example usage:
+# uv run download_youtube.py --cutoff 2023-01-01 --test-mode --reduce-memory
+# --> this will download videos uploaded after or on 1st Jan 2023, in test_mode: max 2 videos per playlist, with reduced memory usage
+# uv run download_youtube.py --cutoff 2024-06-01
+# --> this will download videos uploaded after or on 1st June 2024, full download, normal memory usage
+
+
 dict_of_talkshow_playlists = {
     "hart_aber_fair": "https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB", # oldest from 1 year ago (Tagesschau)
     # "test_bullshit": "lalalala",
