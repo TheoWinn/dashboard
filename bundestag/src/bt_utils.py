@@ -138,6 +138,7 @@ def create_cut_xml(input_file, output_file):
 
         current_speaker = None          # dict with keys: speaker_id, speaker, party_or_role
         current_chunks = []             # list of paragraph strings
+        skip_until_redner = False
 
         def flush_segment():
             nonlocal seg_idx, current_speaker, current_chunks
@@ -152,26 +153,41 @@ def create_cut_xml(input_file, output_file):
             # reset buffer
             current_chunks = []
 
-        # Walk ONLY top-level children of <rede> to keep correct order
-        for child in list(rede):
+        # Iterate top-level children in correct order
+        children = list(rede)
+
+        for idx, child in enumerate(children):
             tag = localname(child.tag)
 
-            # Start of a (new) speaker turn
-            if tag == "p" and (child.get("klasse") == "redner"):
-                # Finish previous speaker (if any + has text)
+            # If we are skipping chair content until next speaker
+            if skip_until_redner:
+                if tag == "p" and child.get("klasse") == "redner":
+                    # Presidency ended, new real speaker starts
+                    skip_until_redner = False
+                    flush_segment()
+                    current_speaker = extract_speaker_from_redner_p(child)
+                # else: keep skipping non-redner <p> and <kommentar>
+                continue
+
+            # Detect presidency start: <name> element
+            if tag == "name":
                 flush_segment()
-                # Start new speaker
+                current_speaker = None
+                skip_until_redner = True
+                continue
+
+            # Skip comments always
+            if tag == "kommentar":
+                continue
+
+            # Start of a new real speaker
+            if tag == "p" and child.get("klasse") == "redner":
+                flush_segment()
                 current_speaker = extract_speaker_from_redner_p(child)
                 continue
 
-            # Skip any chair lines and interjections entirely
-            if tag == "name" or tag == "kommentar":
-                # Ignore but DO NOT stop the current speaker; speeches often continue after chair lines
-                continue
-
-            # Collect only normal paragraphs for the active speaker
+            # Collect paragraphs for the current speaker
             if tag == "p" and current_speaker is not None:
-                # Be careful not to include "redner" paragraphs as content (we already handle them above)
                 if child.get("klasse") != "redner":
                     txt = element_full_text(child)
                     if txt:
@@ -184,6 +200,7 @@ def create_cut_xml(input_file, output_file):
 
     # ensure output directory exists
     os.makedirs(os.path.dirname(output_file) or ".", exist_ok=True)
+    ET.indent(out_root, space="  ")
     ET.ElementTree(out_root).write(output_file, encoding="utf-8", xml_declaration=True)
 
 

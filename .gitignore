@@ -216,3 +216,7 @@ data/
 dist/
 node_modules/
 models/
+
+# youtube
+client_secret.json
+token.pkl
