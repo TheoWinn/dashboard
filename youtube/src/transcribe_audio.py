@@ -8,6 +8,16 @@ from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 import time
 from yt_utils import process_one_file
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--bundestag",
+    action = "store_true",
+    help = "Use Bundestag Audio Directory. If not set, talkshow directory will be used."
+)
+
+args = parser.parse_args()
 
 # .env imports
 env_path = find_dotenv()
@@ -17,7 +27,7 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 
 # Path setup
 AUDIO_EXTS = {".m4a"}
-BUNDESTAG = True
+BUNDESTAG = args.bundestag
 
 project_dir = Path(__file__).resolve().parent.parent
 
