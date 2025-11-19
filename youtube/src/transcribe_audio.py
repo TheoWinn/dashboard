@@ -42,10 +42,10 @@ if BUNDESTAG:
     out_dir.mkdir(parents=True, exist_ok=True)
 
 if not BUNDESTAG:
-    in_dir = project_dir/"data"/"talkshow_audio"
+    in_dir = project_dir/"data"/"raw"/"talkshow_audio"
     in_dir.mkdir(parents=True, exist_ok=True)
 
-    out_dir = project_dir/"data"/"talkshow_transcript"
+    out_dir = project_dir/"data"/"transcribed"/"talkshow_transcript"
     out_dir.mkdir(parents=True, exist_ok=True)
 
 print("Path to model: ", model_dir)
