@@ -22,17 +22,17 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 
 if BUNDESTAG:
-    in_dir = PROJECT_DIR/"data"/"raw"/"bundestag_audio"
+    in_dir = PROJECT_DIR/"data"/"transcribed"/"bundestag_transcript"
     in_dir.mkdir(parents=True, exist_ok=True)
 
-    out_dir = PROJECT_DIR/"data"/"transcribed"/"bundestag_transcript"
+    out_dir = PROJECT_DIR/"data"/"clustered"/"bundestag_clustered"
     out_dir.mkdir(parents=True, exist_ok=True)
 
 if not BUNDESTAG:
-    in_dir = PROJECT_DIR/"data"/"raw"/"talkshow_audio"
+    in_dir = PROJECT_DIR/"data"/"transcribed"/"talkshow_audio"
     in_dir.mkdir(parents=True, exist_ok=True)
 
-    out_dir = PROJECT_DIR/"data"/"transcribed"/"talkshow_transcript"
+    out_dir = PROJECT_DIR/"data"/"clustered"/"talkshow_clustered"
     out_dir.mkdir(parents=True, exist_ok=True)
 
 print("Input Directory: ", in_dir)
