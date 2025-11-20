@@ -29,7 +29,7 @@ if BUNDESTAG:
     out_dir.mkdir(parents=True, exist_ok=True)
 
 if not BUNDESTAG:
-    in_dir = PROJECT_DIR/"data"/"transcribed"/"talkshow_audio"
+    in_dir = PROJECT_DIR/"data"/"transcribed"/"talkshow_transcript"
     in_dir.mkdir(parents=True, exist_ok=True)
 
     out_dir = PROJECT_DIR/"data"/"clustered"/"talkshow_clustered"
