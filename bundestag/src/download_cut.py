@@ -1,5 +1,5 @@
 import argparse
-from bt_utils import download_pp
+from bt_utils import main
 
 if __name__ == "__main__":
 
@@ -21,11 +21,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    download_pp(
-        base="https://search.dip.bundestag.de/api/v1",
-        api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
-        start_date=args.start,
-        end_date=args.end,
-        base_dir="../data"
-    )
-    
+
+    main(base="https://search.dip.bundestag.de/api/v1",
+         api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw", 
+         start_date=args.start,
+         end_date=args.end,
+         base_dir="../data"
+         )

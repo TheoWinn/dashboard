@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 ###########################
 ## NOCH ZU KLÄREN!!!!!!
-# Was soll mit alten Versionen (get_pleanrprotokoll) passieren?
+# Was soll mit alten Versionen (get_pleanrprotokoll) passieren? 
 # Cutte: rede brcht ab wenn es eine zwischenfrage gibt (s. 20_25 Peter Bohnhof, Saksia Ludwig), aber kurzinterventionen funktioneren? 21_35 ID213505100
 ###########################
 
@@ -17,22 +17,19 @@ def download_xml_from_metadata(metadata_file, output_dir):
         
     # Save XML files directly in output_dir (not in output_dir/xml)
     os.makedirs(output_dir, exist_ok=True)
-    print(f"Using XML directory (root): {output_dir}")
     
-    print(f"Reading metadata from: {metadata_file}")
     df = pd.read_csv(metadata_file)
-    print(f"Found {len(df)} records in metadata")
     
     for index, row in df.iterrows():
         xml_url = row['fundstelle.xml_url']
         doc_number = row['dokumentnummer'].replace('/', '_')  # Replace / with _
         
-        # Debug print
-        print(f"Processing document {doc_number} with URL: {xml_url}")
-        
         # Create filename in the output_dir root
         xml_filename = os.path.join(output_dir, f"{doc_number}.xml")
         
+        if os.path.isfile(xml_filename):
+            continue
+
         try:
             response = requests.get(xml_url, timeout=30)
             response.raise_for_status()
@@ -43,8 +40,6 @@ def download_xml_from_metadata(metadata_file, output_dir):
             
         except requests.RequestException as e:
             print(f"Error downloading {doc_number}: {e}")
-
-
 
 
 def create_cut_xml(input_file, output_file):
@@ -238,18 +233,15 @@ def protocol_is_complete(xml_file_path):
         return True
     return False
 
-def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../data"):
-    """Downloads metadata and XML files from the API."""
-
+def download_meta(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../data"):
+    """Download metadata from the API"""
+    
     # Ensure base_dir exists
     os.makedirs(base_dir, exist_ok=True)
-
-    # Sibling directories: .../raw and .../cut
     raw_dir = os.path.join(base_dir, "raw")
-    cut_dir = os.path.join(base_dir, "cut")
     os.makedirs(raw_dir, exist_ok=True)
-    os.makedirs(cut_dir, exist_ok=True)
 
+    # set up API request
     url = f"{base}/plenarprotokoll-text"
     headers = {"Authorization": f"ApiKey {api_key}"}
     cursor = "*"
@@ -264,6 +256,7 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
         meta = pd.DataFrame()
         ids = []
 
+    # storage for new metadata entries
     new_meta = []
     # new_versions = []
 
@@ -282,11 +275,9 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
         for doc in docs:
             if doc.get("herausgeber") == "BR":
                 continue
-
             # aktualisiert = pd.to_datetime(doc.get("aktualisiert"),
                                         #   utc=True, errors="coerce").tz_convert(None)
             doc_id = str(doc.get("id"))
-
             # for now, ignore updates
             if doc_id in ids:
                 continue
@@ -294,7 +285,6 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
                 #     continue
                 # else:
                 #     new_versions.append(doc)
-
             new_meta.append(doc)
 
         new_cursor = data.get("cursor")
@@ -302,7 +292,7 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
             break
         cursor = new_cursor
 
-    # Save metadata and download/cut XMLs
+    # Save metadata
     if new_meta:
         new_meta_df = pd.json_normalize(new_meta)
         new_meta_df = new_meta_df.drop(columns=["text"], errors='ignore')
@@ -313,29 +303,77 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
         meta_df.to_csv(metadata_file, index=False, encoding="utf-8-sig")
         print(f"Saved metadata to {metadata_file}")
 
-        # Download XML files into RAW folder
-        download_xml_from_metadata(metadata_file, raw_dir)
+def perc_complete(metadata_file):
+    # Load metadata
+    df = pd.read_csv(metadata_file, dtype=str)
 
-        # Create cut XML files into CUT folder
-        meta_latest = pd.read_csv(metadata_file, dtype=str)
-        meta_latest["is_complete"] = None
+    # Convert is_complete column to boolean
+    df["is_complete_bool"] = df["is_complete"].map(
+        lambda x: True if x == "True" else False
+    )
+
+    total = len(df)
+    incomplete = (~df["is_complete_bool"]).sum()
+
+    percentage_incomplete = (incomplete / total) * 100 if total > 0 else 0
+
+    print(f"Total protocols: {total}")
+    print(f"Incomplete protocols: {incomplete}")
+    print(f"Percentage incomplete: {percentage_incomplete:.2f}%")
+
+def main(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../data"):
+
+    # paths
+    raw_dir = os.path.join(base_dir, "raw")
+    cut_dir = os.path.join(base_dir, "cut")
+    metadata_file = os.path.join(raw_dir, "metadata.csv")
+
+    # download new metadata
+    try:
+        print("-" * 60)
+        print("Downloading new metadata...")
+        download_meta(base=base,
+                      api_key=api_key,
+                      start_date=start_date,
+                      end_date=end_date,
+                      base_dir=base_dir
+                      )
+    except Exception as e:
+        print("An error occurred when running download_meta", str(e))
+
+    # download new xml files
+    try:
+        print("-" * 60)
+        print("Downloading new XML files...")
+        download_xml_from_metadata(metadata_file, raw_dir)
+    except Exception as e:
+        print("An error occurred when running download_xml_from_metadata", str(e))
+
+    # cut new xml files & check their completeness
+    try:
+        print("-" * 60)
+        print("Cutting XML files...")
+        # read metafile
+        meta = pd.read_csv(metadata_file, dtype=str)
 
         # Ensure we have a proper date column and format to DD-MM-YYYY
-        if "datum" in meta_latest.columns:
-            meta_latest["date_formatted"] = pd.to_datetime(
-                meta_latest["datum"], errors="coerce"
+        if "datum" in meta.columns:
+            meta["date_formatted"] = pd.to_datetime(
+                meta["datum"], errors="coerce"
             ).dt.strftime("%d-%m-%Y")
-        elif "datum.desplenarprotokolls" in meta_latest.columns:
-            meta_latest["date_formatted"] = pd.to_datetime(
-                meta_latest["datum.desplenarprotokolls"], errors="coerce"
+        elif "datum.desplenarprotokolls" in meta.columns:
+            meta["date_formatted"] = pd.to_datetime(
+                meta["datum.desplenarprotokolls"], errors="coerce"
             ).dt.strftime("%d-%m-%Y")
         else:
             raise KeyError("No date column found in metadata to name files by date.")
-
+        
+        # cutting xml files
         cut_made = 0
-        for _, row in meta_latest.iterrows():
+        for _, row in meta.iterrows():
             date_str = row.get("date_formatted")
             if pd.isna(date_str) or not date_str:
+                print("[WARNING] No valid date for row:", row)
                 continue  # skip rows without valid date
 
             # Input from RAW folder uses document number or ID as fallback
@@ -345,299 +383,35 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
             # Output filename by date: DD-MM-YYYY_cut.xml
             output_cut_file = os.path.join(cut_dir, f"{date_str}_cut.xml")
 
-            if os.path.isfile(input_xml_file):
-                meta_latest.loc[row.name, "is_complete"] = protocol_is_complete(input_xml_file)
-                print(f"Creating cut XML for {input_xml_file} -> {output_cut_file}")
-                create_cut_xml(input_xml_file, output_cut_file)
-                cut_made += 1
-            else:
-                print(f"[SKIP] XML not found: {input_xml_file}")
+            # if input does not exist, warn and skip
+            if not os.path.isfile(input_xml_file):
+                print(f"[WARNING] XML not found: {input_xml_file}")
+                continue
+
+            # it output file aready exists, skip
+            if os.path.isfile(output_cut_file):
+                continue
+            
+            # update completeness info
+            meta.loc[row.name, "is_complete"] = protocol_is_complete(input_xml_file)
+            
+            # create cut xml
+            print(f"Creating cut XML for {input_xml_file} -> {output_cut_file}")
+            create_cut_xml(input_xml_file, output_cut_file)
+            cut_made += 1
 
         # save updated metadata with is_complete column
-        meta_latest.to_csv(metadata_file, index=False, encoding="utf-8-sig")
-        print(f"[CUT] created={cut_made}")
+        meta.to_csv(metadata_file, index=False, encoding="utf-8-sig")
+        print(f"Cut {cut_made} new XML files")
 
+    except Exception as e:
+        print("An error occurred in cutting process", str(e))
 
-#### How to use ####
-# if __name__ == "__main__":
-#     # Example usage:
-#     download_pp(
-#         base="https://search.dip.bundestag.de/api/v1",
-#         api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
-#         start_date="2025-10-01",
-#         end_date=None,
-#         base_dir="../data"
-#     )
-
-
-
-###############################  ARCHIVE #####################################
-# import requests
-# import pandas as pd
-# import os
-# import xml.etree.ElementTree as ET
-
-# ###########################
-# ## NOCH ZU KLÄREN!!!!!!
-# # Was soll mit alten Versionen (get_pleanrprotokoll) passieren?
-# ###########################
-
-# def download_xml_from_metadata(metadata_file, output_dir):
-#     """Downloads XML files from URLs listed in metadata."""
-#     # Ensure output_dir ends with slash
-#     if not output_dir.endswith('/'):
-#         output_dir += '/'
-        
-#     # Create xml directory if it doesn't exist
-#     xml_dir = os.path.join(output_dir, "xml")
-#     os.makedirs(xml_dir, exist_ok=True)
-#     print(f"Using XML directory: {xml_dir}")
-    
-#     print(f"Reading metadata from: {metadata_file}")
-#     df = pd.read_csv(metadata_file)
-#     print(f"Found {len(df)} records in metadata")
-    
-#     for index, row in df.iterrows():
-#         xml_url = row['fundstelle.xml_url']
-#         doc_number = row['dokumentnummer'].replace('/', '_')  # Replace / with _
-        
-#         # Debug print
-#         print(f"Processing document {doc_number} with URL: {xml_url}")
-        
-#         # Create filename from document number using os.path.join
-#         xml_filename = os.path.join(xml_dir, f"{doc_number}.xml")
-        
-#         try:
-#             response = requests.get(xml_url, timeout=30)
-#             response.raise_for_status()
-            
-#             with open(xml_filename, 'w', encoding='utf-8') as f:
-#                 f.write(response.text)
-#             print(f"Successfully downloaded XML for document {doc_number}")
-            
-#         except requests.RequestException as e:
-#             print(f"Error downloading {doc_number}: {e}")
-
-
-# def create_cut_xml(input_file, output_file):
-#     """Creates a new XML file with only the speaker's name, party, and speech content."""
-    
-#     # Parse the original XML file
-#     tree = ET.parse(input_file)
-#     root = tree.getroot()
-
-#     # Create the root element for the new XML
-#     new_root = ET.Element("speeches")
-
-#     # Iterate through each speech in the original XML
-#     for rede in root.findall('rede'):
-#         # Extract speaker information
-#         speaker_info = rede.find('.//redner/name')
-#         if speaker_info is not None:
-#             first_name = speaker_info.find('vorname').text
-#             last_name = speaker_info.find('nachname').text
-#             party = speaker_info.find('fraktion').text
-#             full_name = f"{first_name} {last_name} ({party})"
-
-#             # Create a new speech element
-#             speech_element = ET.SubElement(new_root, "speech")
-#             ET.SubElement(speech_element, "speaker").text = full_name
-            
-#             # Extract speech content
-#             speech_content = []
-#             for p in rede.findall('p'):
-#                 speech_content.append(p.text)
-            
-#             # Join the speech content and add to the new XML
-#             ET.SubElement(speech_element, "content").text = " ".join(speech_content)
-
-#     # Write the new XML to a file
-#     new_tree = ET.ElementTree(new_root)
-#     new_tree.write(output_file, encoding='utf-8', xml_declaration=True)
-
-
-
-# def download_pp(base, api_key, start_date="2025-10-01", end_date=None, output_dir="data/raw"):
-#     """Downloads metadata and XML files from the API."""
-    
-#     # Ensure output_dir exists and ends with slash
-#     if not output_dir.endswith('/'):
-#         output_dir += '/'
-    
-#     # Create all necessary directories
-#     os.makedirs(output_dir, exist_ok=True)
-#     os.makedirs(os.path.join(output_dir, "xml"), exist_ok=True)
-    
-#     url = f"{base}/plenarprotokoll-text"
-#     headers = {"Authorization": f"ApiKey {api_key}"}
-#     cursor = "*"
-
-#     # Initialize metadata
-#     metadata_file = os.path.join(output_dir, "metadata.csv")
-#     if os.path.isfile(metadata_file):
-#         meta = pd.read_csv(metadata_file, dtype={"id": str}, 
-#                           parse_dates=["aktualisiert"], encoding="utf-8-sig")
-#         ids = meta["id"].tolist()
-#     else:
-#         meta = pd.DataFrame()
-#         ids = []
-
-#     new_meta = []
-#     new_versions = []
-
-#     # Fetch documents
-#     while True:
-#         params = {"cursor": cursor, "rows": 100, 
-#                  "f.datum.start": start_date, "f.datum.end": end_date}
-#         r = requests.get(url, headers=headers, params=params, timeout=30)
-#         data = r.json()
-#         docs = data.get("documents")
-
-#         if not docs:
-#             break
-        
-#         for doc in docs:
-#             if doc.get("herausgeber") == "BR":
-#                 continue
-                
-#             aktualisiert = pd.to_datetime(doc.get("aktualisiert"), 
-#                                          utc=True, errors="coerce").tz_convert(None)
-#             id = str(doc.get("id"))
-            
-#             if id in ids:
-#                 if aktualisiert <= meta.loc[meta["id"] == id, "aktualisiert"].values[0]:
-#                     continue
-#                 else:
-#                     new_versions.append(doc)
-
-#             new_meta.append(doc)
-
-#         new_cursor = data.get("cursor")
-#         if not new_cursor or new_cursor == cursor:
-#             break
-#         cursor = new_cursor
-
-#     # Save metadata and download XML files
-#     if new_meta:
-#         new_meta_df = pd.json_normalize(new_meta)
-#         new_meta_df = new_meta_df.drop(columns=["text"], errors='ignore')
-#         new_meta_df["id"] = new_meta_df["id"].astype(str)
-#         new_meta_df["aktualisiert"] = pd.to_datetime(new_meta_df["aktualisiert"], 
-#                                                     utc=True, errors="coerce")
-#         meta_df = pd.concat([meta, new_meta_df], ignore_index=True)
-#         meta_df.to_csv(metadata_file, index=False, encoding="utf-8-sig")
-#         print(f"Saved metadata to {metadata_file}")
-        
-#         # Download XML files
-#         download_xml_from_metadata(metadata_file, output_dir)
-
-#         # Create cut XML files for each downloaded XML
-#         for doc in new_meta:
-#             doc_number = doc.get("id").replace('/', '_')  # Ensure valid filename
-#             input_xml_file = os.path.join(output_dir, "xml", f"{doc_number}.xml")
-#             output_cut_file = os.path.join(output_dir, "xml", f"{doc_number}_cut.xml")
-#             create_cut_xml(input_xml_file, output_cut_file)
-
-#     else:
-#         print("No new protocols found.")
-
-#     print(f"Number of new versions: {len(new_versions)}")
-
-# if __name__ == "__main__":
-#     # Example usage:
-#     download_pp(
-#         base="https://search.dip.bundestag.de/api/v1",
-#         api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
-#         start_date="2025-10-01",
-#         end_date=None,
-#         output_dir="data/raw/"
-#     )
-
-
-
-
-
-###############################################################################
-
-# def download_pp(
-#         base,
-#         api_key, 
-#         start_date="2025-10-01", 
-#         end_date=None,
-#         output_dir="data/raw" #change to data/raw_plenarprotokolle/ 
-#         ):
-    
-#     url = f"{base}/plenarprotokoll-text"
-#     headers = {"Authorization": f"ApiKey {api_key}"}
-
-#     cursor="*"
-
-#     if os.path.isfile(output_dir + "metadata.csv"):
-#         meta = pd.read_csv(output_dir + "metadata.csv",
-#                            dtype={"id": str},                      # keep id as string
-#                            parse_dates=["aktualisiert"],           # parse as datetime
-#                            encoding="utf-8-sig")
-#         ids = meta["id"].tolist()
-#     else:
-#         meta = pd.DataFrame()
-#         ids = []
-
-#     new_meta = []  
-#     new_versions = []
-
-#     while True:
-#         params = {"cursor": cursor,
-#                   "rows": 100, # max 100
-#                   "f.datum.start": start_date,
-#                   "f.datum.end": end_date}
-#         r = requests.get(url, headers=headers, params=params, timeout=30)
-#         data = r.json()
-#         docs = data.get("documents")
-
-#         if not docs:
-#             break
-        
-#         for doc in docs:
-
-#             if doc.get("herausgeber") == "BR":
-#                 continue
-#             aktualisiert = pd.to_datetime(doc.get("aktualisiert"), utc=True, errors="coerce").tz_convert(None)
-#             id = str(doc.get("id"))
-#             if id in ids:
-#                 if aktualisiert <= meta.loc[meta["id"] == id, "aktualisiert"].values[0]:
-#                     continue
-#                 else:
-#                     new_versions.append(doc)
-#                     # was soll mit alten versionen passieren?
-#             filename = output_dir + doc.get("titel") + "_" + doc.get("aktualisiert")[0:10] + ".txt"
-#             with open(filename, "w+", encoding="utf-8") as text_file:
-#                 text_file.write(doc.get("text"))
-
-#             new_meta.append(doc)
-            
-
-#         new_cursor = data.get("cursor")
-#         if not new_cursor or new_cursor == cursor:
-#             break
-#         cursor = new_cursor
-
-#     if new_meta:
-#         new_meta_df = pd.json_normalize(new_meta)
-#         #new_meta_df = new_meta_df[["id", "titel", "datum", "aktualisiert", "herausgeber", "dokumentnummer", "wahlperiode"]]
-#         new_meta_df = new_meta_df.drop(columns=["text"])
-#         new_meta_df["id"] = new_meta_df["id"].astype(str)
-#         new_meta_df["aktualisiert"] = pd.to_datetime(new_meta_df["aktualisiert"], utc=True, errors="coerce")
-#         meta_df = pd.concat([meta, new_meta_df], ignore_index=True)
-#         meta_df.to_csv(output_dir + "metadata.csv", index=False, encoding="utf-8-sig")
-#     else:
-#         print("No new protocols found.")
-
-#     print(f"number of new versions: {len(new_versions)}") # what to do with updated versions?
-    
-# # Example usage:
-# download_pp(base="https://search.dip.bundestag.de/api/v1",
-#             api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
-#             start_date="2025-10-01",
-#             end_date=None,
-#             output_dir="data/raw") #change to data/raw_plenarprotokolle/ 
+    # print completeness stats
+    try:
+        print("-" * 60)
+        print("Calculating completeness statistics...")
+        perc_complete(metadata_file)
+    except Exception as e:
+        print("An error occurred when running perc_complete", str(e))
 
