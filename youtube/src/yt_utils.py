@@ -161,8 +161,12 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
     # download missing audio files and update downloaded ids
     count = 0
+    skipped_cutoff_consecutive = 0
+    max_consecutive_cutoff_skips = 20
+
     for url in p.video_urls:
-            if url not in urls: 
+        if url not in urls: 
+            try:
                 # download audio
                 # yt = YouTube(url, client = "ANDROID_EMBED", on_progress_callback=on_progress)
                 yt = YouTube(url, on_progress_callback=on_progress)
@@ -176,8 +180,13 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
                 # check that the publish date is after or on cutoff
                 if publish_date < cutoff:
-                    # print(f'Skipping video published on {publish_date}: {yt.title}')
+                    skipped_cutoff_consecutive += 1
+                    if skipped_cutoff_consecutive >= max_consecutive_cutoff_skips:
+                        print(f"Reached {skipped_cutoff_consecutive} consecutive videos before cutoff date. Stopping download.")
+                        break
                     continue
+                else:
+                    skipped_cutoff_consecutive = 0  # reset counter
 
                 print(f'Downloading: {yt.title}')
 
@@ -223,6 +232,10 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                     current_time = datetime.now().strftime("%H:%M:%S")
                     print(f"[{current_time}]: Reached {count} videos — cooling down for {cooldown/3600:.1f} hours...")
                     time.sleep(cooldown)
+
+            except Exception as e:
+                print(f"Error downloading {url}: {e}")
+                continue
 
     # save updated dataframe
     # meta = pd.DataFrame(meta, columns=["url", "title", "channel", "date"])
