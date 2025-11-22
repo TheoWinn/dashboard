@@ -1,25 +1,19 @@
 import re
-import json
 import pandas as pd
 from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from difflib import SequenceMatcher
+import xml.etree.ElementTree as ET
 
 """
 ToDo:
-Cleaning: Some matches based on generic phrases (e.g. "thank you vice minister") -> didnt found solution for cleaning yet. have high similarity but are not informative. Do they just fly out when we do topic modelling? 
-Scale up to run on the whole speech and 4 vids
-Update the fucking git bro 
+DONE cleaning
+check wether roles of ministers worked
+transfer to batchmatching
 --------------------------------------
-DONE sind die endpoints korrekt?
-DONE leonies aktuelle version einbauen
-DONE Party mit rein 
-DONE sind alle MPs da? 
-DONE nochmal für eine rede die minimalste similarity anschauen (manuell), 
-DONE wie viele matches haben wir unter 90/80/70%? Was sind die geringsten, ist das match trd correct? Liegt das an dem transcribieren oder sind das einfach die Vizes, wie viele fälle sind das?
 """
-
+SIM_THRESHOLD = 0.6
 
 def preprocess_text(text):
     """
@@ -42,7 +36,7 @@ def preprocess_text(text):
 def find_best_speech_match(transcript, speeches, top_n=3):
     """
     Purpose: given one Whisper segment (transcript) and a list of full 
-    JSON speeches (speeches), pick the most similar JSON speech.
+    XML speeches, pick the most similar speech.
 
     Args:
         transcript (str): The transcribed text from a video.
@@ -61,7 +55,7 @@ def find_best_speech_match(transcript, speeches, top_n=3):
     # Clean the input transcript and all official speeches.
     processed_transcript = preprocess_text(transcript)
     processed_speeches = [preprocess_text(s) for s in speeches]
-    # Builds corpus (Json speeches first and then one whisper transcript)
+    # Builds corpus (Speeches first and then one whisper transcript)
     all_texts = processed_speeches + [processed_transcript]
 
     # === Step 2: Indexing and Candidate Search (TF-IDF) ===
@@ -72,7 +66,7 @@ def find_best_speech_match(transcript, speeches, top_n=3):
         tfidf_matrix = tfidf_vectorizer.fit_transform(all_texts)
     except ValueError:
         return None, 0.0, None
-    # Separate corpus: [:-1] JSON speeches, [-1] WHisper transcript
+    # Separate corpus: [:-1] speeches, [-1] WHisper transcript
     speeches_matrix = tfidf_matrix[:-1]
     transcript_vector = tfidf_matrix[-1]
     # Cosine similarity gives one similarty score per speech
@@ -100,83 +94,290 @@ def find_best_speech_match(transcript, speeches, top_n=3):
 
     
 # Matching pipeline: for each Whisper segment, find the best matching Bundestag speech
-def refined_matching():
-    # ---- Paths ----
-    csv_path = Path("data/transcript_aligned_clustered.csv")
-    json_path = Path("data/plenarprotokoll-speeches-foralgo.json")
-    out_path = Path("data/matched_transcripts.csv")
+def matching_pipeline():
+    # Paths
+    csv_dir = Path("data(old)/cleaned")
+    xml_dir = Path("bundestag/data/cut")
+    out_dir = Path("matching/data/matched")
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-    # ---- Load CSV ----
+    # pick newest CSV in cleaned folder
+    csv_files = sorted(csv_dir.glob("*.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
+    if not csv_files:
+        raise FileNotFoundError(f"No CSV found in {csv_dir}")
+    csv_path = csv_files[0]
+
+    # Load CSV
     df_csv = pd.read_csv(csv_path)
     df_csv = df_csv[df_csv["text"].astype(str).str.strip().ne("")].reset_index(drop=True)
 
-    # ---- Load JSON ----
-    with open(json_path, "r", encoding="utf-8") as f:
-        speeches_data = json.load(f)
+    # Load cut XMLs
+    protokoll_name, protokoll_party, protokoll_text, protokoll_docid = [], [], [], []
+    if not xml_dir.exists():
+        raise FileNotFoundError(f"XML directory not found: {xml_dir}")
 
-    if isinstance(speeches_data, dict):
-        speeches_list = speeches_data.get("speeches", [speeches_data])
-    elif isinstance(speeches_data, list):
-        speeches_list = speeches_data
-    else:
-        raise ValueError("Unexpected JSON structure.")
-    # Extract JSON fields
-    protokoll_name, protokoll_party, protokoll_text = [], [], []
-    for item in speeches_list:
-        if not isinstance(item, dict):
+    for xml_file in sorted(xml_dir.glob("*.xml")):
+        try:
+            tree = ET.parse(xml_file)
+            root = tree.getroot()
+        except ET.ParseError:
+            print(f"Warning: failed to parse {xml_file}, skipping")
             continue
-        protokoll_name.append((item.get("speaker") or item.get("name") or "").strip())
-        protokoll_party.append((item.get("party") or "").strip())
-        protokoll_text.append((item.get("text") or "").strip())
 
+        for sp in root.findall(".//speech"):
+            speaker = (sp.findtext("speaker") or sp.findtext("name") or "").strip()
+            party = (sp.findtext("party_or_role") or sp.findtext("party") or "").strip()
+            content = (sp.findtext("content") or sp.findtext("text") or "").strip()
+            if not content:
+                continue
+            protokoll_name.append(speaker)
+            protokoll_party.append(party)
+            protokoll_text.append(content)
+            protokoll_docid.append(xml_file.stem)
 
-    # ---- Matching ----
-    # Build a TF-IDF model on the full JSON speeches 
-    # 1. Preprocess JSON texts
-    json_texts_proc = [preprocess_text(t) for t in protokoll_text]
-    # 2. Fit TF-IDF 
+    if not protokoll_text:
+        raise RuntimeError(f"No speeches loaded from {xml_dir}")
+
+    # Build TF-IDF on official texts
+    xml_texts_proc = [preprocess_text(t) for t in protokoll_text]
     tfidf = TfidfVectorizer(analyzer="char_wb", ngram_range=(3,5), sublinear_tf=True)
-    # 3. Compute cosine similarity matrix
-    json_matrix = tfidf.fit_transform(json_texts_proc)
-    # 4. Output
+    xml_matrix = tfidf.fit_transform(xml_texts_proc)
+
+    # Match CSV segments
     results = []
     for _, r in df_csv.iterrows():
         seg_text = str(r["text"])
         seg_text_proc = preprocess_text(seg_text)
+        try:
+            seg_vec = tfidf.transform([seg_text_proc])
+        except Exception:
+            # if transform fails (e.g. empty), fallback
+            results.append({
+                "protokoll_docid": "",
+                "protokoll_name": "",
+                "protokoll_party": "",
+                "similarity": 0.0,
+                "transcript_start": r.get("start", ""),
+                "transcript_end": r.get("end", ""),
+                "transcript_text": seg_text,
+                "transcript_speaker": r.get("speaker", ""),
+                "protokoll_text": ""
+            })
+            continue
 
-        # vectorize this single whisper snippet
-        seg_vec = tfidf.transform([seg_text_proc])
-        sims = cosine_similarity(seg_vec, json_matrix)[0]
-
+        sims = cosine_similarity(seg_vec, xml_matrix)[0]
         best_idx = int(sims.argmax())
         best_sim = float(sims[best_idx])
 
+        # Clean out matches that are below threshold
+        if best_sim < SIM_THRESHOLD:
+            continue
+
         results.append({
+            "protokoll_docid": protokoll_docid[best_idx],
             "protokoll_name": protokoll_name[best_idx],
             "protokoll_party": protokoll_party[best_idx],
             "similarity": best_sim,
             "transcript_start": r.get("start", ""),
             "transcript_end": r.get("end", ""),
-            "protokoll_text": protokoll_text[best_idx],
+            "transcript_text": seg_text,
             "transcript_speaker": r.get("speaker", ""),
-            "transcript_text": seg_text
-            })
+            "protokoll_text": protokoll_text[best_idx]
+        })
 
-    # ---- Save ----
+    out_path = out_dir / "matched_transcripts.csv"
     out_df = pd.DataFrame(results)
+    out_df = out_df[out_df["similarity"] >= SIM_THRESHOLD]
     out_df.to_csv(out_path, index=False)
     print(f"Done! Saved {len(out_df)} rows to '{out_path}'")
 
 
 if __name__ == "__main__":
-    main()  
-
+    matching_pipeline()
 
 
 
 
 
 ########### ARCHIVE - matching.py ###########
+
+# import re
+# import json
+# import pandas as pd
+# from pathlib import Path
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.metrics.pairwise import cosine_similarity
+# from difflib import SequenceMatcher
+
+# """
+# ToDo:
+# Cleaning: Some matches based on generic phrases (e.g. "thank you vice minister") -> didnt found solution for cleaning yet. have high similarity but are not informative. Do they just fly out when we do topic modelling? 
+# Scale up to run on the whole speech and 4 vids
+# Update the fucking git bro 
+# --------------------------------------
+# DONE sind die endpoints korrekt?
+# DONE leonies aktuelle version einbauen
+# DONE Party mit rein 
+# DONE sind alle MPs da? 
+# DONE nochmal für eine rede die minimalste similarity anschauen (manuell), 
+# DONE wie viele matches haben wir unter 90/80/70%? Was sind die geringsten, ist das match trd correct? Liegt das an dem transcribieren oder sind das einfach die Vizes, wie viele fälle sind das?
+# """
+
+
+# def preprocess_text(text):
+#     """
+#     Cleans and standardizes text for comparison.
+    
+#     - Converts text to lowercase.
+#     - Removes punctuation and numbers.
+#     - Strips extra whitespace.
+#     """
+#     if not isinstance(text, str):
+
+#         return ""
+#     text = text.lower()
+#     # Removes anything that is not a letter or whitespace
+#     text = re.sub(r'[^a-zäöüß\s]', '', text)
+#     # Replaces multiple whitespace characters with a single space
+#     text = re.sub(r'\s+', ' ', text).strip()
+#     return text
+
+# def find_best_speech_match(transcript, speeches, top_n=3):
+#     """
+#     Purpose: given one Whisper segment (transcript) and a list of full 
+#     JSON speeches (speeches), pick the most similar JSON speech.
+
+#     Args:
+#         transcript (str): The transcribed text from a video.
+#         speeches (list[str]): A list of the official speech texts, when we have mulitple speeches later. 
+#         top_n (int): The number of top candidates to check with the detailed comparison.
+#                        A smaller number is faster.
+
+#     Returns:
+#         tuple: A tuple containing the best matching speech text and its
+#                similarity score (from 0.0 to 1.0). Returns (None, 0.0) if no match is found.
+#     """
+#     if not transcript or not speeches:
+#         return None, 0.0, None
+
+#     # === Step 1: Preprocessing ===
+#     # Clean the input transcript and all official speeches.
+#     processed_transcript = preprocess_text(transcript)
+#     processed_speeches = [preprocess_text(s) for s in speeches]
+#     # Builds corpus (Json speeches first and then one whisper transcript)
+#     all_texts = processed_speeches + [processed_transcript]
+
+#     # === Step 2: Indexing and Candidate Search (TF-IDF) ===
+#     # Create TF-IDF vector representations (the "fingerprints") for all texts.
+#     # We use German stop words to improve relevance.
+#     try:
+#         tfidf_vectorizer = TfidfVectorizer(analyzer="char_wb", ngram_range=(3,5), sublinear_tf=True)
+#         tfidf_matrix = tfidf_vectorizer.fit_transform(all_texts)
+#     except ValueError:
+#         return None, 0.0, None
+#     # Separate corpus: [:-1] JSON speeches, [-1] WHisper transcript
+#     speeches_matrix = tfidf_matrix[:-1]
+#     transcript_vector = tfidf_matrix[-1]
+#     # Cosine similarity gives one similarty score per speech
+#     similarities = cosine_similarity(transcript_vector, speeches_matrix)[0]
+#     # Indices of top-N most similar speeches
+#     candidate_indices = similarities.argsort()[::-1][:top_n]
+
+#     # === Step 3: Detailed Comparison for those top-N most similar speeches ===
+#     # Meaning we break ties, if there are ones.
+#     best_match = None
+#     best_score = 0.0
+#     best_idx = None
+
+#     for index in candidate_indices:
+#         candidate_speech = speeches[index]
+#         score = SequenceMatcher(None, transcript, candidate_speech).ratio()
+#         if score > best_score:
+#             best_score = score
+#             best_match = candidate_speech
+#             best_idx = index
+            
+#     cosine_score = float(similarities[best_idx]) if best_idx is not None else 0.0
+#     return best_match, cosine_score, best_idx
+
+
+    
+# # Matching pipeline: for each Whisper segment, find the best matching Bundestag speech
+# def refined_matching():
+#     # ---- Paths ----
+#     csv_path = Path("data/transcript_aligned_clustered.csv")
+#     json_path = Path("data/plenarprotokoll-speeches-foralgo.json")
+#     out_path = Path("data/matched_transcripts.csv")
+
+#     # ---- Load CSV ----
+#     df_csv = pd.read_csv(csv_path)
+#     df_csv = df_csv[df_csv["text"].astype(str).str.strip().ne("")].reset_index(drop=True)
+
+#     # ---- Load JSON ----
+#     with open(json_path, "r", encoding="utf-8") as f:
+#         speeches_data = json.load(f)
+
+#     if isinstance(speeches_data, dict):
+#         speeches_list = speeches_data.get("speeches", [speeches_data])
+#     elif isinstance(speeches_data, list):
+#         speeches_list = speeches_data
+#     else:
+#         raise ValueError("Unexpected JSON structure.")
+#     # Extract JSON fields
+#     protokoll_name, protokoll_party, protokoll_text = [], [], []
+#     for item in speeches_list:
+#         if not isinstance(item, dict):
+#             continue
+#         protokoll_name.append((item.get("speaker") or item.get("name") or "").strip())
+#         protokoll_party.append((item.get("party") or "").strip())
+#         protokoll_text.append((item.get("text") or "").strip())
+
+
+#     # ---- Matching ----
+#     # Build a TF-IDF model on the full JSON speeches 
+#     # 1. Preprocess JSON texts
+#     json_texts_proc = [preprocess_text(t) for t in protokoll_text]
+#     # 2. Fit TF-IDF 
+#     tfidf = TfidfVectorizer(analyzer="char_wb", ngram_range=(3,5), sublinear_tf=True)
+#     # 3. Compute cosine similarity matrix
+#     json_matrix = tfidf.fit_transform(json_texts_proc)
+#     # 4. Output
+#     results = []
+#     for _, r in df_csv.iterrows():
+#         seg_text = str(r["text"])
+#         seg_text_proc = preprocess_text(seg_text)
+
+#         # vectorize this single whisper snippet
+#         seg_vec = tfidf.transform([seg_text_proc])
+#         sims = cosine_similarity(seg_vec, json_matrix)[0]
+
+#         best_idx = int(sims.argmax())
+#         best_sim = float(sims[best_idx])
+
+#         results.append({
+#             "protokoll_name": protokoll_name[best_idx],
+#             "protokoll_party": protokoll_party[best_idx],
+#             "similarity": best_sim,
+#             "transcript_start": r.get("start", ""),
+#             "transcript_end": r.get("end", ""),
+#             "protokoll_text": protokoll_text[best_idx],
+#             "transcript_speaker": r.get("speaker", ""),
+#             "transcript_text": seg_text
+#             })
+
+#     # ---- Save ----
+#     out_df = pd.DataFrame(results)
+#     out_df.to_csv(out_path, index=False)
+#     print(f"Done! Saved {len(out_df)} rows to '{out_path}'")
+
+
+# if __name__ == "__main__":
+#     main()  
+
+
+
+
+#################################################
 
 #helper function to split long json texts into chunks (for very long speeches)
 # def chunk_text(text: str, size: int = 800, overlap: int = 200):
