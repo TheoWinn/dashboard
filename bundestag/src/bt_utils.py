@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import os
 import xml.etree.ElementTree as ET
+import traceback
 
 def download_xml_from_metadata(metadata_file, output_dir):
     """Downloads XML files from URLs listed in metadata."""
@@ -28,8 +29,16 @@ def download_xml_from_metadata(metadata_file, output_dir):
             response = requests.get(xml_url, timeout=30)
             response.raise_for_status()
             
+            text = response.text.strip()
+
+            # skip HTML/JSON responses
+            if not text.startswith("<?xml"):
+                print(f"[ERROR] Not XML: {doc_number} --> response starts with: {text[:50]!r}")
+                continue
+
             with open(xml_filename, 'w', encoding='utf-8') as f:
-                f.write(response.text)
+                f.write(text)
+            
             print(f"Successfully downloaded XML for document {doc_number} -> {xml_filename}")
             
         except requests.RequestException as e:
@@ -307,13 +316,24 @@ def perc_complete(metadata_file):
     )
 
     total = len(df)
-    incomplete = (~df["is_complete_bool"]).sum()
+    incomplete_df = df[~df["is_complete_bool"]]
+    incomplete = len(incomplete_df)
 
     percentage_incomplete = (incomplete / total) * 100 if total > 0 else 0
 
     print(f"Total protocols: {total}")
     print(f"Incomplete protocols: {incomplete}")
     print(f"Percentage incomplete: {percentage_incomplete:.2f}%")
+
+    # ---- Print detailed list of incomplete protocols ----
+    if incomplete > 0:
+        print("\nList of incomplete protocols:\n")
+        for _, row in incomplete_df.iterrows():
+            docnum = row.get("dokumentnummer", "")
+            date = row.get("date_formatted", "")
+            print(f"- {docnum} | {date}")
+    else:
+        print("\n🎉 All protocols are complete!")
 
 def main(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../data"):
 
@@ -333,7 +353,8 @@ def main(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../dat
                       base_dir=base_dir
                       )
     except Exception as e:
-        print("An error occurred when running download_meta", str(e))
+        print("An error occurred when running download_meta")
+        traceback.print_exc()
 
     # download new xml files
     try:
@@ -341,7 +362,8 @@ def main(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../dat
         print("Downloading new XML files...")
         download_xml_from_metadata(metadata_file, raw_dir)
     except Exception as e:
-        print("An error occurred when running download_xml_from_metadata", str(e))
+        print("An error occurred when running download_xml_from_metadata")
+        traceback.print_exc()
 
     # cut new xml files & check their completeness
     try:
@@ -399,7 +421,8 @@ def main(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../dat
         print(f"Cut {cut_made} new XML files")
 
     except Exception as e:
-        print("An error occurred in cutting process", str(e))
+        print("An error occurred in cutting process")
+        traceback.print_exc()
 
     # print completeness stats
     try:
@@ -407,5 +430,6 @@ def main(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../dat
         print("Calculating completeness statistics...")
         perc_complete(metadata_file)
     except Exception as e:
-        print("An error occurred when running perc_complete", str(e))
+        print("An error occurred when running perc_complete")
+        traceback.print_exc()
 
