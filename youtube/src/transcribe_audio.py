@@ -8,6 +8,16 @@ from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 import time
 from yt_utils import process_one_file
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--bundestag",
+    action = "store_true",
+    help = "Use Bundestag Audio Directory. If not set, talkshow directory will be used."
+)
+
+args = parser.parse_args()
 
 # .env imports
 env_path = find_dotenv()
@@ -17,7 +27,7 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 
 # Path setup
 AUDIO_EXTS = {".m4a"}
-BUNDESTAG = True
+BUNDESTAG = args.bundestag
 
 project_dir = Path(__file__).resolve().parent.parent
 
@@ -32,10 +42,10 @@ if BUNDESTAG:
     out_dir.mkdir(parents=True, exist_ok=True)
 
 if not BUNDESTAG:
-    in_dir = project_dir/"data"/"talkshow_audio"
+    in_dir = project_dir/"data"/"raw"/"talkshow_audio"
     in_dir.mkdir(parents=True, exist_ok=True)
 
-    out_dir = project_dir/"data"/"talkshow_transcript"
+    out_dir = project_dir/"data"/"transcribed"/"talkshow_transcript"
     out_dir.mkdir(parents=True, exist_ok=True)
 
 print("Path to model: ", model_dir)
@@ -63,6 +73,13 @@ if __name__ == "__main__":
 
     for i, f in enumerate(files, start = 1):
         print(f"\n ### File {i}/{len(files)} ###")
+
+        out_file = out_dir / f"{f.stem}_aligned.csv"
+
+        if out_file.exists():
+            print(f"Skipping {f.name}, already transcribed.")
+            continue
+
         process_one_file(audio_path = f, 
                          out_dir = out_dir, 
                          model_dir = model_dir,

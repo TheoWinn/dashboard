@@ -217,6 +217,6 @@ dist/
 node_modules/
 models/
 
-# youtube
+# Youtube Credentials and Tokens
 client_secret.json
 token.pkl

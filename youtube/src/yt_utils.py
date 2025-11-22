@@ -12,7 +12,7 @@ from dotenv import load_dotenv, find_dotenv
 import time
 import random
 import re
-from datetime import datetime
+from datetime import datetime, date
 
 ### YouTube Downloading Utilities ###
 
@@ -124,7 +124,7 @@ def _date_from_description(desc: str) -> str | None:
 
     return None
 
-def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="data/raw_audio_talkshows"):
+def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: str = None, test_mode: bool = False, cutoff = date(2025, 1, 1)):
     """
     Download audio files from a YouTube playlist and save metadata into csv file. It will all be saved in the specified output directory.
     If the output directory is empty, all files from the playlist will be downloaded.
@@ -144,7 +144,9 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
     meta_file = output_dir/"metadata.csv"
 
     # get playlist
+    print("Creating Playlist object...")
     p = Playlist(playlist_url) 
+    print("Found", len(p.video_urls), "videos")
 
     if meta_file.exists():
         try:
@@ -158,11 +160,25 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
 
 
     # download missing audio files and update downloaded ids
-    if len(urls) < len(p.video_urls):
-        for url in p.video_urls:
+    count = 0
+    for url in p.video_urls:
             if url not in urls: 
                 # download audio
+                # yt = YouTube(url, client = "ANDROID_EMBED", on_progress_callback=on_progress)
                 yt = YouTube(url, on_progress_callback=on_progress)
+
+                # check whether the video is not a short (short is less than 4 minutes)
+                if yt.length < 240:
+                    print(f'Skipping short video: {yt.title} ({yt.length} seconds)')
+                    continue
+
+                publish_date = yt.publish_date.date()   # strip timezone + time
+
+                # check that the publish date is after or on cutoff
+                if publish_date < cutoff:
+                    # print(f'Skipping video published on {publish_date}: {yt.title}')
+                    continue
+
                 print(f'Downloading: {yt.title}')
 
                 date_prefix = _date_from_description(yt.description or "")
@@ -176,19 +192,37 @@ def download_from_playlist(playlist_url, bundestag: bool = True, output_dir="dat
                 filename_stem = f"{date_prefix}_{safe_title}.m4a"
 
                 ys = yt.streams.get_audio_only()
+                # ys = yt.streams.filter(only_audio=True, file_extension="m4a").order_by('abr').desc().first()
                 ys.download(output_path=str(output_dir), filename = filename_stem)
                 # append to dataframe
                 title = yt.title
                 channel = yt.author
                 date = date_prefix
-                meta.append([url, title, channel, date])
 
-                pd.DataFrame(meta, columns=["url", "title", "channel", "date"]).to_csv(
-                meta_file, index=False, header=False)
+                if bundestag:
+                    meta.append([url, title, channel, date])
+                    pd.DataFrame(meta, columns=["url", "title", "channel", "date"]).to_csv(
+                        meta_file, index=False, header=False)
+                else:
+                    meta.append([url, title, channel, date, talkshow_name])
+                    pd.DataFrame(meta, columns=["url", "title", "channel", "date", "talkshow_name"]).to_csv(
+                        meta_file, index=False, header=False)
+
+                count += 1
+
+                # for testing: limit to 2 downloads
+                if test_mode and count >= 2:
+                    print("Test mode active - stopping after 2 downloads.")
+                    break
 
                 sleep_seconds = random.uniform(2.0, 6.0)
                 print(f"Sleeping {sleep_seconds:.1f}s before next download...")
                 time.sleep(sleep_seconds)
+                if count % 20 == 0:
+                    cooldown = random.uniform(3600.0, 7200.0)
+                    current_time = datetime.now().strftime("%H:%M:%S")
+                    print(f"[{current_time}]: Reached {count} videos — cooling down for {cooldown/3600:.1f} hours...")
+                    time.sleep(cooldown)
 
     # save updated dataframe
     # meta = pd.DataFrame(meta, columns=["url", "title", "channel", "date"])

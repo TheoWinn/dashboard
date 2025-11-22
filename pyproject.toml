@@ -16,4 +16,8 @@ dependencies = [
     "psutil>=7.1.2",
     "torch>=2.8.0",
     "scikit-learn>=1.7.2",
+    "isodate>=0.7.2",
+    "google-api-python-client==1.7.2",
+    "google-auth==1.8.0",
+    "google-auth-oauthlib==0.4.1"
 ]
