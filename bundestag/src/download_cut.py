@@ -2,8 +2,9 @@ import argparse
 from bt_utils import main
 
 # Run the main function with command-line arguments
+# You have to be in the bundestag/src directory to run this script.
 # Example usage:
-# uv run bundestag/src/download_cut.py --start 2023-01-01 --end 2023-12-31
+# uv run download_cut.py --start 2023-01-01 --end 2023-12-31
 # This will download and cut protocols from Jan 1, 2023 to Dec 31, 2023
 # If no end date is provided, it will download up to the current date.
 
