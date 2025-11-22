@@ -111,17 +111,26 @@ def create_cut_xml(input_file, output_file):
                 vn = find_descendant_by_local(name_node, "vorname")
                 nn = find_descendant_by_local(name_node, "nachname")
                 fr = find_descendant_by_local(name_node, "fraktion")
-                rk = (find_descendant_by_local(name_node, "rolle_kurz")
-                      or find_descendant_by_local(name_node, "rolle"))
+
+                # FIX: do not use `or` on Element objects
+                rk = find_descendant_by_local(name_node, "rolle_kurz")
+                if rk is None:
+                    rk = find_descendant_by_local(name_node, "rolle")
+
                 rl = find_descendant_by_local(name_node, "rolle_lang")
 
                 vorname = (vn.text or "").strip() if (vn is not None and vn.text) else ""
                 nachname = (nn.text or "").strip() if (nn is not None and nn.text) else ""
-                party_or_role = (
-                    (fr.text if fr is not None and fr.text else "")
-                    or (rk.text if rk is not None and rk.text else "")
-                    or (rl.text if rl is not None and rl.text else "")
-                ).strip()
+
+                # FIX: also remove truth-value testing in party_or_role selection
+                if fr is not None and fr.text:
+                    party_or_role = fr.text.strip()
+                elif rk is not None and rk.text:
+                    party_or_role = rk.text.strip()
+                elif rl is not None and rl.text:
+                    party_or_role = rl.text.strip()
+                else:
+                    party_or_role = ""
 
         # Fallback: sometimes text like "Name (Fraktion):" is in the p itself.
         # We deliberately do NOT parse that here to avoid noisy heuristics.
@@ -203,9 +212,33 @@ def create_cut_xml(input_file, output_file):
     ET.indent(out_root, space="  ")
     ET.ElementTree(out_root).write(output_file, encoding="utf-8", xml_declaration=True)
 
+def protocol_is_complete(xml_file_path):
+    import xml.etree.ElementTree as ET
 
+    try:
+        tree = ET.parse(xml_file_path)
+        root = tree.getroot()
+    except Exception:
+        return False
 
-def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir="bundestag/data"):
+    end_tag_found = False
+    schluss_found = False
+
+    for p in root.iter("p"):
+        klasse = p.get("klasse", "")
+        if klasse == "Ende":
+            end_tag_found = True
+        if klasse.startswith("T_Beratung"):
+            if p.text and "(Schluss:" in p.text:
+                schluss_found = True
+
+    if end_tag_found:
+        return False
+    if schluss_found:
+        return True
+    return False
+
+def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir="../data"):
     """Downloads metadata and XML files from the API."""
 
     # Ensure base_dir exists
@@ -232,7 +265,7 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
         ids = []
 
     new_meta = []
-    new_versions = []
+    # new_versions = []
 
     # Fetch documents
     while True:
@@ -250,15 +283,17 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
             if doc.get("herausgeber") == "BR":
                 continue
 
-            aktualisiert = pd.to_datetime(doc.get("aktualisiert"),
-                                          utc=True, errors="coerce").tz_convert(None)
+            # aktualisiert = pd.to_datetime(doc.get("aktualisiert"),
+                                        #   utc=True, errors="coerce").tz_convert(None)
             doc_id = str(doc.get("id"))
 
+            # for now, ignore updates
             if doc_id in ids:
-                if aktualisiert <= meta.loc[meta["id"] == doc_id, "aktualisiert"].values[0]:
-                    continue
-                else:
-                    new_versions.append(doc)
+                continue
+                # if aktualisiert <= meta.loc[meta["id"] == doc_id, "aktualisiert"].values[0]:
+                #     continue
+                # else:
+                #     new_versions.append(doc)
 
             new_meta.append(doc)
 
@@ -283,6 +318,7 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
 
         # Create cut XML files into CUT folder
         meta_latest = pd.read_csv(metadata_file, dtype=str)
+        meta_latest["is_complete"] = None
 
         # Ensure we have a proper date column and format to DD-MM-YYYY
         if "datum" in meta_latest.columns:
@@ -310,25 +346,28 @@ def download_pp(base, api_key, start_date="2025-10-01", end_date=None, base_dir=
             output_cut_file = os.path.join(cut_dir, f"{date_str}_cut.xml")
 
             if os.path.isfile(input_xml_file):
+                meta_latest.loc[row.name, "is_complete"] = protocol_is_complete(input_xml_file)
                 print(f"Creating cut XML for {input_xml_file} -> {output_cut_file}")
                 create_cut_xml(input_xml_file, output_cut_file)
                 cut_made += 1
             else:
                 print(f"[SKIP] XML not found: {input_xml_file}")
 
+        # save updated metadata with is_complete column
+        meta_latest.to_csv(metadata_file, index=False, encoding="utf-8-sig")
         print(f"[CUT] created={cut_made}")
 
 
 #### How to use ####
-if __name__ == "__main__":
-    # Example usage:
-    download_pp(
-        base="https://search.dip.bundestag.de/api/v1",
-        api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
-        start_date="2025-10-01",
-        end_date=None,
-        base_dir="bundestag/data"
-    )
+# if __name__ == "__main__":
+#     # Example usage:
+#     download_pp(
+#         base="https://search.dip.bundestag.de/api/v1",
+#         api_key="OSOegLs.PR2lwJ1dwCeje9vTj7FPOt3hvpYKtwKkhw",
+#         start_date="2025-10-01",
+#         end_date=None,
+#         base_dir="../data"
+#     )
 
 
 
