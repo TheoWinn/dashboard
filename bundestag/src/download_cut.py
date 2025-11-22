@@ -1,6 +1,12 @@
 import argparse
 from bt_utils import main
 
+# Run the main function with command-line arguments
+# Example usage:
+# uv run bundestag/src/download_cut.py --start 2023-01-01 --end 2023-12-31
+# This will download and cut protocols from Jan 1, 2023 to Dec 31, 2023
+# If no end date is provided, it will download up to the current date.
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Download plenary protocols from DIP API.")
