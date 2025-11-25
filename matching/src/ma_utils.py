@@ -10,12 +10,16 @@ import xml.etree.ElementTree as ET
 ToDo:
 
 get the input path right (is still downloaded manually)
-test: are all vids there and are therre no hanging speeches?
-Do the timestamps match and does the actual wording of the speech makes sense? (transcript vs protokoll)?
+reinschreiben, dass nicht gematched wird, wenn das matching schonmal gemacht wurde
 
-wo weiter: 
+
+Problem: 
 26.09. was ist das thema zu dem kathrin michel spd redet? (protokoll_raw) 
 das transcript stimmt nicht, aber die zeiten unabhängig davon schon oder? kontrollieren 
+
+Warum fehlt ein Vid Match vom 26.09?
+
+
 
 --------------------------------------
 """
@@ -28,6 +32,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 SIM_THRESHOLD = 0.6
+global_meta_rows = []
 
 
 def preprocess_text(text):
@@ -46,7 +51,7 @@ def extract_date_from_filename(filename):
 
 
 def matching_pipeline():
-    csv_dir = Path("data(old)/out")
+    csv_dir = Path("data(old)/out") # Change this 
     xml_dir = Path("bundestag/data/cut")
     out_dir = Path("matching/data/matched")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -76,12 +81,43 @@ def matching_pipeline():
         csv_files = csv_by_date[date_str]
         xml_files = xml_by_date[date_str]
 
+     # check Metadata and skip if already matched
+        meta_path = out_dir / "meta_file_matching.csv"
+        already_done = set()
+
+        if meta_path.exists():
+            old_meta = pd.read_csv(meta_path)
+            # Only consider rows where matching was successful
+            matched_pairs = (
+                old_meta[old_meta["flag"] == "matched"]
+                [["xml_data", "video_data"]]
+                .drop_duplicates()
+            )
+            already_done = set(tuple(x) for x in matched_pairs.values)
+
+        # Filter out CSV files that are already matched
+        filtered_csv_files = []
+        for csv_file in csv_files:
+            video_title = csv_file.name.replace(".csv", "")
+            if (date_str, video_title) in already_done:
+                print(f"  Skipping {video_title}: already matched in meta file.")
+            else:
+                filtered_csv_files.append(csv_file)
+
+        # If nothing remains → skip whole date
+        if len(filtered_csv_files) == 0:
+            print(f"Skipping {date_str}: all videos already matched.")
+            continue
+
+        # Use the filtered list for the rest of the pipeline
+        csv_files = filtered_csv_files
+
         # Combine all CSVs of that date
         df_csv = pd.concat([pd.read_csv(f) for f in csv_files])
         df_csv = df_csv[df_csv["text"].astype(str).str.strip().ne("")].reset_index(drop=True)
         print(f"  Loaded {len(df_csv)} transcript segments")
 
-        # Load all XML speeches for that date
+        # Load all XML speeches for that date. That is the matching loop
         protokoll_name, protokoll_party, protokoll_text, protokoll_docid = [], [], [], []
         for xml_file in xml_files:
             try:
@@ -147,9 +183,90 @@ def matching_pipeline():
             out_df = out_df[out_df["similarity"] >= SIM_THRESHOLD]
             out_df.to_csv(out_path, index=False)
             print(f"  Saved {len(out_df)} matches to {out_path}")
-        else:
-            print(f"  No matches found for {date_str}")
+       
 
+        # === Step 5: Meta file creation and flagging missing matches ===
+        # Works as follows: 
+        # If for a common date, we dont have both the XML or the whisper transcripts:
+        # the script flags the whole match as missing
+
+        for csv_file in csv_files:
+            video_title = csv_file.name.replace(".csv", "")
+
+            df_csv_video = pd.read_csv(csv_file)
+            df_csv_video = df_csv_video[df_csv_video["text"].astype(str).str.strip().ne("")]
+
+            matched_segments = [
+                r for r in results
+                if r.get("transcript_text", None) in set(df_csv_video["text"].astype(str))
+            ]
+
+            # --- CORRECTED: only ONE meta entry per video file ---
+            if len(matched_segments) > 0:
+                # at least one match in this video → file is matched
+                global_meta_rows.append({
+                    "xml_data": date_str,
+                    "video_data": video_title,
+                    "flag": "matched"
+                })
+            else:
+                # video file exists but none of its segments matched → hanging video
+                global_meta_rows.append({
+                    "xml_data": date_str,
+                    "video_data": video_title,
+                    "flag": "hanging_video"
+                })
+
+        # --- HANDLE video-only dates (csv but no xml) ---
+        if date_str == common_dates[-1]:  
+            video_only_dates = sorted(set(csv_by_date.keys()) - set(xml_by_date.keys()))
+            for v_date in video_only_dates:
+                for csv_file in csv_by_date[v_date]:
+                    video_title = csv_file.name.replace(".csv", "")
+                    global_meta_rows.append({
+                        "xml_data": "",
+                        "video_data": video_title,
+                        "flag": "hanging_video"
+                    })
+
+        # --- HANDLE xml-only dates (xml but no csv) ---
+        if date_str == common_dates[-1]:
+            xml_only_dates = sorted(set(xml_by_date.keys()) - set(csv_by_date.keys()))
+            for x_date in xml_only_dates:
+                for xml_file in xml_by_date[x_date]:
+                    global_meta_rows.append({
+                        "flag": "hanging_xml",
+                        "xml_data": x_date,
+                        "video_data": ""
+                        
+                    })
+
+
+        # Write or append meta file for the current date. Sort it so that the hanging* flags are on top 
+        meta_path = out_dir / "meta_file_matching.csv"
+        meta_df = pd.DataFrame(global_meta_rows, columns=["flag","xml_data", "video_data"])
+
+        
+        flag_order = {
+            "hanging_xml": 0,
+            "hanging_video": 1,
+            "matched": 2
+        }
+        meta_df["flag_rank"] = meta_df["flag"].map(flag_order)
+
+        # --- EXTRACT VIDEO DATE (if present) ---
+        meta_df["video_date"] = meta_df["video_data"].str.extract(r"(\d{2}-\d{2}-\d{2,4})")
+        meta_df["video_date"] = pd.to_datetime(meta_df["video_date"], format="%d-%m-%Y", errors="coerce")
+
+        # --- SORT BY: (1) flag category, (2) video date ---
+        meta_df = meta_df.sort_values(by=["flag_rank", "video_date"], ascending=[True, True])
+
+        # --- CLEAN UP ---
+        meta_df = meta_df.drop(columns=["flag_rank", "video_date"])
+
+        # SAVE SORTED FILE
+        meta_df.to_csv(meta_path, index=False)
+        print(f"Saved sorted global meta information to {meta_path}")
 
 if __name__ == "__main__":
     matching_pipeline()
