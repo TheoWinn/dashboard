@@ -24,6 +24,7 @@ speech_fillers = [
 ]
 
 stop_words=set(speech_fillers+initial_words)
+stop_words=list(stop_words)
 
 vectorizer_model = CountVectorizer(
     stop_words=stop_words,  # You can load a German list here (see below)
