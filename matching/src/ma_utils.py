@@ -5,195 +5,249 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from difflib import SequenceMatcher
 import xml.etree.ElementTree as ET
+import os
 
-"""
-ToDo:
-DONE cleaning
-check wether roles of ministers worked
-transfer to batchmatching
---------------------------------------
-"""
+
+
 SIM_THRESHOLD = 0.6
+global_meta_rows = []
+
 
 def preprocess_text(text):
-    """
-    Cleans and standardizes text for comparison.
-    
-    - Converts text to lowercase.
-    - Removes punctuation and numbers.
-    - Strips extra whitespace.
-    """
     if not isinstance(text, str):
-
         return ""
     text = text.lower()
-    # Removes anything that is not a letter or whitespace
     text = re.sub(r'[^a-zäöüß\s]', '', text)
-    # Replaces multiple whitespace characters with a single space
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-def find_best_speech_match(transcript, speeches, top_n=3):
-    """
-    Purpose: given one Whisper segment (transcript) and a list of full 
-    XML speeches, pick the most similar speech.
 
-    Args:
-        transcript (str): The transcribed text from a video.
-        speeches (list[str]): A list of the official speech texts, when we have mulitple speeches later. 
-        top_n (int): The number of top candidates to check with the detailed comparison.
-                       A smaller number is faster.
-
-    Returns:
-        tuple: A tuple containing the best matching speech text and its
-               similarity score (from 0.0 to 1.0). Returns (None, 0.0) if no match is found.
-    """
-    if not transcript or not speeches:
-        return None, 0.0, None
-
-    # === Step 1: Preprocessing ===
-    # Clean the input transcript and all official speeches.
-    processed_transcript = preprocess_text(transcript)
-    processed_speeches = [preprocess_text(s) for s in speeches]
-    # Builds corpus (Speeches first and then one whisper transcript)
-    all_texts = processed_speeches + [processed_transcript]
-
-    # === Step 2: Indexing and Candidate Search (TF-IDF) ===
-    # Create TF-IDF vector representations (the "fingerprints") for all texts.
-    # We use German stop words to improve relevance.
-    try:
-        tfidf_vectorizer = TfidfVectorizer(analyzer="char_wb", ngram_range=(3,5), sublinear_tf=True)
-        tfidf_matrix = tfidf_vectorizer.fit_transform(all_texts)
-    except ValueError:
-        return None, 0.0, None
-    # Separate corpus: [:-1] speeches, [-1] WHisper transcript
-    speeches_matrix = tfidf_matrix[:-1]
-    transcript_vector = tfidf_matrix[-1]
-    # Cosine similarity gives one similarty score per speech
-    similarities = cosine_similarity(transcript_vector, speeches_matrix)[0]
-    # Indices of top-N most similar speeches
-    candidate_indices = similarities.argsort()[::-1][:top_n]
-
-    # === Step 3: Detailed Comparison for those top-N most similar speeches ===
-    # Meaning we break ties, if there are ones.
-    best_match = None
-    best_score = 0.0
-    best_idx = None
-
-    for index in candidate_indices:
-        candidate_speech = speeches[index]
-        score = SequenceMatcher(None, transcript, candidate_speech).ratio()
-        if score > best_score:
-            best_score = score
-            best_match = candidate_speech
-            best_idx = index
-            
-    cosine_score = float(similarities[best_idx]) if best_idx is not None else 0.0
-    return best_match, cosine_score, best_idx
+def extract_date_from_filename(filename):
+    """Extracts date pattern DD-MM-YYYY or DD-MM-YY from filename."""
+    match = re.search(r"(\d{2}-\d{2}-\d{2,4})", filename)
+    return match.group(1) if match else None
 
 
-    
-# Matching pipeline: for each Whisper segment, find the best matching Bundestag speech
 def matching_pipeline():
-    # Paths
-    csv_dir = Path("data(old)/cleaned")
+    csv_dir = Path("youtube/data/clustered/bundestag_clustered")
     xml_dir = Path("bundestag/data/cut")
     out_dir = Path("matching/data/matched")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # pick newest CSV in cleaned folder
-    csv_files = sorted(csv_dir.glob("*.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
-    if not csv_files:
-        raise FileNotFoundError(f"No CSV found in {csv_dir}")
-    csv_path = csv_files[0]
+    # === Step 1: Cluster files by date ===
+    csv_by_date = {}
+    for csv_path in csv_dir.glob("*.csv"):
+        date_str = extract_date_from_filename(csv_path.name)
+        if date_str:
+            csv_by_date.setdefault(date_str, []).append(csv_path)
 
-    # Load CSV
-    df_csv = pd.read_csv(csv_path)
-    df_csv = df_csv[df_csv["text"].astype(str).str.strip().ne("")].reset_index(drop=True)
+    xml_by_date = {}
+    for xml_path in xml_dir.glob("*.xml"):
+        date_str = extract_date_from_filename(xml_path.name)
+        if date_str:
+            xml_by_date.setdefault(date_str, []).append(xml_path)
 
-    # Load cut XMLs
-    protokoll_name, protokoll_party, protokoll_text, protokoll_docid = [], [], [], []
-    if not xml_dir.exists():
-        raise FileNotFoundError(f"XML directory not found: {xml_dir}")
+    common_dates = sorted(set(csv_by_date.keys()) & set(xml_by_date.keys()))
+    if not common_dates:
+        raise RuntimeError("No overlapping dates between CSVs and XMLs found.")
 
-    for xml_file in sorted(xml_dir.glob("*.xml")):
-        try:
-            tree = ET.parse(xml_file)
-            root = tree.getroot()
-        except ET.ParseError:
-            print(f"Warning: failed to parse {xml_file}, skipping")
+    print(f"Found {len(common_dates)} common dates: {common_dates}")
+
+    # === Step 2: Process each date ===
+    for date_str in common_dates:
+        print(f"\n=== Processing {date_str} ===")
+        csv_files = csv_by_date[date_str]
+        xml_files = xml_by_date[date_str]
+
+     # check Metadata and skip if already matched
+        meta_path = out_dir / "meta_file_matching.csv"
+        already_done = set()
+
+        if meta_path.exists():
+            old_meta = pd.read_csv(meta_path)
+            # Only consider rows where matching was successful
+            matched_pairs = (
+                old_meta[old_meta["flag"] == "matched"]
+                [["xml_data", "video_data"]]
+                .drop_duplicates()
+            )
+            already_done = set(tuple(x) for x in matched_pairs.values)
+
+        # Filter out CSV files that are already matched
+        filtered_csv_files = []
+        for csv_file in csv_files:
+            video_title = csv_file.name.replace(".csv", "")
+            if (date_str, video_title) in already_done:
+                print(f"  Skipping {video_title}: already matched in meta file.")
+            else:
+                filtered_csv_files.append(csv_file)
+
+        # If nothing remains → skip whole date
+        if len(filtered_csv_files) == 0:
+            print(f"Skipping {date_str}: all videos already matched.")
             continue
 
-        for sp in root.findall(".//speech"):
-            speaker = (sp.findtext("speaker") or sp.findtext("name") or "").strip()
-            party = (sp.findtext("party_or_role") or sp.findtext("party") or "").strip()
-            content = (sp.findtext("content") or sp.findtext("text") or "").strip()
-            if not content:
+        # Use the filtered list for the rest of the pipeline
+        csv_files = filtered_csv_files
+
+        # Combine all CSVs of that date
+        df_csv = pd.concat([pd.read_csv(f) for f in csv_files])
+        df_csv = df_csv[df_csv["text"].astype(str).str.strip().ne("")].reset_index(drop=True)
+        print(f"  Loaded {len(df_csv)} transcript segments")
+
+        # Load all XML speeches for that date. That is the matching loop
+        protokoll_name, protokoll_party, protokoll_text, protokoll_docid = [], [], [], []
+        for xml_file in xml_files:
+            try:
+                tree = ET.parse(xml_file)
+                root = tree.getroot()
+            except ET.ParseError:
+                print(f"  Warning: failed to parse {xml_file}, skipping")
                 continue
-            protokoll_name.append(speaker)
-            protokoll_party.append(party)
-            protokoll_text.append(content)
-            protokoll_docid.append(xml_file.stem)
 
-    if not protokoll_text:
-        raise RuntimeError(f"No speeches loaded from {xml_dir}")
+            for sp in root.findall(".//speech"):
+                speaker = (sp.findtext("speaker") or sp.findtext("name") or "").strip()
+                party = (sp.findtext("party_or_role") or sp.findtext("party") or "").strip()
+                content = (sp.findtext("content") or sp.findtext("text") or "").strip()
+                if not content:
+                    continue
+                protokoll_name.append(speaker)
+                protokoll_party.append(party)
+                protokoll_text.append(content)
+                protokoll_docid.append(xml_file.stem)
 
-    # Build TF-IDF on official texts
-    xml_texts_proc = [preprocess_text(t) for t in protokoll_text]
-    tfidf = TfidfVectorizer(analyzer="char_wb", ngram_range=(3,5), sublinear_tf=True)
-    xml_matrix = tfidf.fit_transform(xml_texts_proc)
+        if not protokoll_text:
+            print(f"  No speeches found for {date_str}, skipping.")
+            continue
 
-    # Match CSV segments
-    results = []
-    for _, r in df_csv.iterrows():
-        seg_text = str(r["text"])
-        seg_text_proc = preprocess_text(seg_text)
-        try:
-            seg_vec = tfidf.transform([seg_text_proc])
-        except Exception:
-            # if transform fails (e.g. empty), fallback
+        # === Step 3: TF-IDF Matching ===
+        xml_texts_proc = [preprocess_text(t) for t in protokoll_text]
+        tfidf = TfidfVectorizer(analyzer="char_wb", ngram_range=(3, 5), sublinear_tf=True)
+        xml_matrix = tfidf.fit_transform(xml_texts_proc)
+
+        results = []
+        for _, r in df_csv.iterrows():
+            seg_text = str(r["text"])
+            seg_text_proc = preprocess_text(seg_text)
+            if not seg_text_proc:
+                continue
+            try:
+                seg_vec = tfidf.transform([seg_text_proc])
+            except Exception:
+                continue
+
+            sims = cosine_similarity(seg_vec, xml_matrix)[0]
+            best_idx = int(sims.argmax())
+            best_sim = float(sims[best_idx])
+            if best_sim < SIM_THRESHOLD:
+                continue
+
             results.append({
-                "protokoll_docid": "",
-                "protokoll_name": "",
-                "protokoll_party": "",
-                "similarity": 0.0,
+                "protokoll_docid": protokoll_docid[best_idx],
+                "protokoll_name": protokoll_name[best_idx],
+                "protokoll_party": protokoll_party[best_idx],
+                "similarity": best_sim,
                 "transcript_start": r.get("start", ""),
                 "transcript_end": r.get("end", ""),
                 "transcript_text": seg_text,
                 "transcript_speaker": r.get("speaker", ""),
-                "protokoll_text": ""
+                "protokoll_text": protokoll_text[best_idx]
             })
-            continue
 
-        sims = cosine_similarity(seg_vec, xml_matrix)[0]
-        best_idx = int(sims.argmax())
-        best_sim = float(sims[best_idx])
+        # === Step 4: Save per date ===
+        if results:
+            out_path = out_dir / f"{date_str}_matched.csv"
+            out_df = pd.DataFrame(results)
+            out_df = out_df[out_df["similarity"] >= SIM_THRESHOLD]
+            out_df.to_csv(out_path, index=False)
+            print(f"  Saved {len(out_df)} matches to {out_path}")
+       
 
-        # Clean out matches that are below threshold
-        if best_sim < SIM_THRESHOLD:
-            continue
+        # === Step 5: Meta file creation and flagging missing matches ===
+        # Works as follows: 
+        # If for a common date, we dont have both the XML or the whisper transcripts:
+        # the script flags the whole match as missing
 
-        results.append({
-            "protokoll_docid": protokoll_docid[best_idx],
-            "protokoll_name": protokoll_name[best_idx],
-            "protokoll_party": protokoll_party[best_idx],
-            "similarity": best_sim,
-            "transcript_start": r.get("start", ""),
-            "transcript_end": r.get("end", ""),
-            "transcript_text": seg_text,
-            "transcript_speaker": r.get("speaker", ""),
-            "protokoll_text": protokoll_text[best_idx]
-        })
+        for csv_file in csv_files:
+            video_title = csv_file.name.replace(".csv", "")
 
-    out_path = out_dir / "matched_transcripts.csv"
-    out_df = pd.DataFrame(results)
-    out_df = out_df[out_df["similarity"] >= SIM_THRESHOLD]
-    out_df.to_csv(out_path, index=False)
-    print(f"Done! Saved {len(out_df)} rows to '{out_path}'")
+            df_csv_video = pd.read_csv(csv_file)
+            df_csv_video = df_csv_video[df_csv_video["text"].astype(str).str.strip().ne("")]
 
+            matched_segments = [
+                r for r in results
+                if r.get("transcript_text", None) in set(df_csv_video["text"].astype(str))
+            ]
+
+            if len(matched_segments) > 0:
+                # at least one match in this video → file is matched
+                global_meta_rows.append({
+                    "xml_data": date_str,
+                    "video_data": video_title,
+                    "flag": "matched"
+                })
+            else:
+                # video file exists but none of its segments matched → hanging video
+                global_meta_rows.append({
+                    "xml_data": date_str,
+                    "video_data": video_title,
+                    "flag": "hanging_video"
+                })
+
+        # --- handle video-only dates (csv but no xml) ---
+        if date_str == common_dates[-1]:  
+            video_only_dates = sorted(set(csv_by_date.keys()) - set(xml_by_date.keys()))
+            for v_date in video_only_dates:
+                for csv_file in csv_by_date[v_date]:
+                    video_title = csv_file.name.replace(".csv", "")
+                    global_meta_rows.append({
+                        "xml_data": "",
+                        "video_data": video_title,
+                        "flag": "hanging_video"
+                    })
+
+        # --- handle xml-only dates (xml but no csv) ---
+        if date_str == common_dates[-1]:
+            xml_only_dates = sorted(set(xml_by_date.keys()) - set(csv_by_date.keys()))
+            for x_date in xml_only_dates:
+                for xml_file in xml_by_date[x_date]:
+                    global_meta_rows.append({
+                        "flag": "hanging_xml",
+                        "xml_data": x_date,
+                        "video_data": ""
+                        
+                    })
+
+
+        # Write or append meta file for the current date. Sort it so that the hanging* flags are on top 
+        meta_path = out_dir / "meta_file_matching.csv"
+        meta_df = pd.DataFrame(global_meta_rows, columns=["flag","xml_data", "video_data"])
+
+        
+        flag_order = {
+            "hanging_xml": 0,
+            "hanging_video": 1,
+            "matched": 2
+        }
+        meta_df["flag_rank"] = meta_df["flag"].map(flag_order)
+
+        # --- EXTRACT VIDEO DATE (if present) ---
+        meta_df["video_date"] = meta_df["video_data"].str.extract(r"(\d{2}-\d{2}-\d{2,4})")
+        meta_df["video_date"] = pd.to_datetime(meta_df["video_date"], format="%d-%m-%Y", errors="coerce")
+
+        # --- SORT BY: (1) flag category, (2) video date ---
+        meta_df = meta_df.sort_values(by=["flag_rank", "video_date"], ascending=[True, True])
+
+        # --- CLEAN UP ---
+        meta_df = meta_df.drop(columns=["flag_rank", "video_date"])
+
+        # SAVE SORTED FILE
+        meta_df.to_csv(meta_path, index=False)
+        print(f"Saved sorted global meta information to {meta_path}")
 
 if __name__ == "__main__":
     matching_pipeline()
+
 
 
 
