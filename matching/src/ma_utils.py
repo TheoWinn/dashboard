@@ -29,9 +29,9 @@ def extract_date_from_filename(filename):
 
 
 def matching_pipeline():
-    csv_dir = Path("youtube/data/clustered/bundestag_clustered")
-    xml_dir = Path("bundestag/data/cut")
-    out_dir = Path("matching/data/matched")
+    csv_dir = Path("../../youtube/data/clustered/bundestag_clustered")
+    xml_dir = Path("../../bundestag/data/cut")
+    out_dir = Path("../data/matched")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # === Step 1: Cluster files by date ===
