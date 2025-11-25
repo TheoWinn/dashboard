@@ -11,14 +11,6 @@ ToDo:
 
 get the input path right (is still downloaded manually)
 
-Problem: 
-26.09. was ist das thema zu dem kathrin michel spd redet? (protokoll_raw) 
-das transcript stimmt nicht, aber die zeiten unabhängig davon schon oder? kontrollieren 
-
-Warum fehlt ein Vid Match vom 26.09?
-
-
-
 --------------------------------------
 """
 import os
