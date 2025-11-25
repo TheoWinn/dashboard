@@ -13,8 +13,8 @@ warnings.filterwarnings('ignore')
 # My Notes
 # ==============================================================================
 # can smo give feedback to my matching output? ne
-# we can finetune with openai. Money from marc? 
-# Bert läuft jetzt nur über die transcripte. ist das ok?
+# we can finetune with openai. Money from marc? ne 
+# Bert läuft jetzt nur über die transcripte. ist das ok? 
 # brauchen noch einen Folder für topic modelling 
 # sollte ein bert nicht über den ganzen corpus laufen? Sonst haben wir ja pro späre unterschiedliche vectore? dann ist das eine große tabelle aber mit handle dran, ob die quelle BT oder TS is
 #
@@ -28,6 +28,7 @@ warnings.filterwarnings('ignore')
 # Bert: Kontrollieren, ob für kathrin (SPD, line 8) die zeiten und die themen grob stimmen 
 # warum regierung in 2 topics
 # Andere representations von dem Bert holen
+#
 # 
 
 # ==============================================================================
