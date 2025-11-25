@@ -10,8 +10,6 @@ import xml.etree.ElementTree as ET
 ToDo:
 
 get the input path right (is still downloaded manually)
-reinschreiben, dass nicht gematched wird, wenn das matching schonmal gemacht wurde
-
 
 Problem: 
 26.09. was ist das thema zu dem kathrin michel spd redet? (protokoll_raw) 
@@ -201,7 +199,6 @@ def matching_pipeline():
                 if r.get("transcript_text", None) in set(df_csv_video["text"].astype(str))
             ]
 
-            # --- CORRECTED: only ONE meta entry per video file ---
             if len(matched_segments) > 0:
                 # at least one match in this video → file is matched
                 global_meta_rows.append({
@@ -217,7 +214,7 @@ def matching_pipeline():
                     "flag": "hanging_video"
                 })
 
-        # --- HANDLE video-only dates (csv but no xml) ---
+        # --- handle video-only dates (csv but no xml) ---
         if date_str == common_dates[-1]:  
             video_only_dates = sorted(set(csv_by_date.keys()) - set(xml_by_date.keys()))
             for v_date in video_only_dates:
@@ -229,7 +226,7 @@ def matching_pipeline():
                         "flag": "hanging_video"
                     })
 
-        # --- HANDLE xml-only dates (xml but no csv) ---
+        # --- handle xml-only dates (xml but no csv) ---
         if date_str == common_dates[-1]:
             xml_only_dates = sorted(set(xml_by_date.keys()) - set(csv_by_date.keys()))
             for x_date in xml_only_dates:
