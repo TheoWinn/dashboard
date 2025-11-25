@@ -5,21 +5,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from difflib import SequenceMatcher
 import xml.etree.ElementTree as ET
-
-"""
-ToDo:
-
-get the input path right (is still downloaded manually)
-
---------------------------------------
-"""
 import os
-import re
-import pandas as pd
-from pathlib import Path
-import xml.etree.ElementTree as ET
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+
+
 
 SIM_THRESHOLD = 0.6
 global_meta_rows = []
@@ -41,7 +29,7 @@ def extract_date_from_filename(filename):
 
 
 def matching_pipeline():
-    csv_dir = Path("data(old)/out") # Change this 
+    csv_dir = Path("youtube/data/clustered/bundestag_clustered")
     xml_dir = Path("bundestag/data/cut")
     out_dir = Path("matching/data/matched")
     out_dir.mkdir(parents=True, exist_ok=True)
