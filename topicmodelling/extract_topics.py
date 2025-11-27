@@ -90,7 +90,9 @@ combined_df = combined_df.merge(
 )
 
 output_file = os.path.join(output_path, "topics_representations_2025.csv")
-os.makedirs(output_path, exist_ok=True)
-combined_df.to_csv(output_file, index=False)
+os.makedirs(output_path, exist_ok = True)
+combined_df.to_csv(output_file, index = False)
+
+topic_info.to_csv((os.path.join(output_path, "topic_info_2025.csv")), index = False)
 
 print("done")
