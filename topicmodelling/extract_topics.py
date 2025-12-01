@@ -6,6 +6,7 @@ from sentence_transformers import SentenceTransformer
 import glob
 import os
 from datetime import datetime
+from sklearn.feature_extraction.text import CountVectorizer
 
 ### SETUP ###
 
@@ -24,6 +25,29 @@ def extract_date_from_filename(path):
         return datetime.strptime(date_str, "%d-%m-%Y").date()
     except ValueError:
         return None
+# Setup for removing stop words/fillers from topic AFTER topics have been modelled for better human understanding
+initial_words=open('stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
+speech_fillers = [
+    # Hesitations & Interjections
+    "äh", "ähm", "hm", "tja", "pff", "naja", "oh", "ah", "okay", "ok", 
+    "genau", "richtig", "klar", "gut", "so", "ja genau", "na gut", "na ja", "ja",
+    "mhm", "hmm", "hmmm", "uh", "uhm
+    # Common Speech Particles (Modalpartikel) - highly frequent in speech!
+    "halt", "eben", "mal", "ja", "doch", "wohl", "schon", "eigentlich", 
+    "irgendwie", "sowieso", "sozusagen", "quasi", "praktisch", "buchstäblich",
+    "glaube", "meine", "finde", "denke", "sagen", "gesagt", # "ich glaube", "ich sage mal"
+    # Phrases often transcribed as single tokens or short meaningless connectors
+    "ding", "sache", "zeug", "bisschen", "bissel", "paar",
+    "natürlich", "selbstverständlich", "absolut", "definitiv",
+    "ganz", "gar", "überhaupt", "immer", "nie", "vielleicht", "dann"
+]
+stop_words=set(speech_fillers+initial_words)
+stop_words=list(stop_words)
+vectorizer_model = CountVectorizer(
+    stop_words=stop_words, 
+    min_df=1,             # Ignore words that appear in fewer than 10 documents
+    ngram_range=(1, 2)     # Allow phrases like "Guten Morgen"
+)
 
 bundestag_dfs = []
 
@@ -64,8 +88,10 @@ dates = combined_df["date"].tolist()
 embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct").to("cuda")
 
 topic_model = BERTopic(
-    embedding_model = embedding_model
-)
+    language="German",
+    embedding_model = embedding_model,
+    vectorizer_model= vectorizer_model
+    )
 
 topics, probs = topic_model.fit_transform(docs_prefixed)
 
