@@ -26,12 +26,12 @@ def extract_date_from_filename(path):
     except ValueError:
         return None
 # Setup for removing stop words/fillers from topic AFTER topics have been modelled for better human understanding
-initial_words=open('stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
+initial_words=open('../stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
 speech_fillers = [
     # Hesitations & Interjections
     "äh", "ähm", "hm", "tja", "pff", "naja", "oh", "ah", "okay", "ok", 
     "genau", "richtig", "klar", "gut", "so", "ja genau", "na gut", "na ja", "ja",
-    "mhm", "hmm", "hmmm", "uh", "uhm
+    "mhm", "hmm", "hmmm", "uh", "uhm",
     # Common Speech Particles (Modalpartikel) - highly frequent in speech!
     "halt", "eben", "mal", "ja", "doch", "wohl", "schon", "eigentlich", 
     "irgendwie", "sowieso", "sozusagen", "quasi", "praktisch", "buchstäblich",
