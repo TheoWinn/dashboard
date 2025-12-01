@@ -13,9 +13,11 @@ class NamedGroup(BaseModel):
 class OutputCollection(BaseModel):
     groups: List[NamedGroup]
 
-def get_gemini_labels(csv_name,n_words: int =3,language="german"):
+def get_gemini_labels(csv_path,n_words: int =3,language="german"):
 
-    input_Data=pd.read_csv(csv_name)
+    file_name = os.path.basename(csv_path)
+
+    input_Data=pd.read_csv(csv_path)
     input_data=input_Data["Representation"] #input_Data["Representation"].head(20)
 
     client = OpenAI(
@@ -44,6 +46,5 @@ def get_gemini_labels(csv_name,n_words: int =3,language="german"):
         print(group_name)
     output_df = pd.DataFrame(input_Data)
     output_df["Gemini_Label"] = group_names
-    output_df.to_csv("gemini_labeled_"+csv_name,index=False)
+    output_df.to_csv("gemini_labeled_"+file_name,index=False)
     return group_names
-test=get_gemini_labels("topic_info_2025.csv",n_words=3)
