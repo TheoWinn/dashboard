@@ -16,7 +16,7 @@ class OutputCollection(BaseModel):
 def get_gemini_labels(csv_name,n_words: int =3,language="german"):
 
     input_Data=pd.read_csv(csv_name)
-    input_data=input_Data["Representation"].head(20)
+    input_data=input_Data["Representation"] #input_Data["Representation"].head(20)
 
     client = OpenAI(
         api_key=os.getenv("GEMINI_API_KEY"),
@@ -42,7 +42,7 @@ def get_gemini_labels(csv_name,n_words: int =3,language="german"):
     group_names = [group.group_name for group in parsed_response.groups]
     for group_name in group_names:
         print(group_name)
-    output_df = pd.DataFrame(input_Data.head(20))
+    output_df = pd.DataFrame(input_Data)
     output_df["Gemini_Label"] = group_names
     output_df.to_csv("gemini_labeled_"+csv_name,index=False)
     return group_names
