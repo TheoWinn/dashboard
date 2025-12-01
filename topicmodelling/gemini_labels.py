@@ -18,6 +18,7 @@ input_data = pd.read_csv('test.csv')
 def get_gemini_labels(csv_name,n_words: int =3):
 
     input_Data=pd.read_csv(csv_name)
+    input_data=input_Data["Representation"].head(20)
 
     client = OpenAI(
         api_key=os.getenv("GEMINI_API_KEY"),
@@ -45,4 +46,4 @@ def get_gemini_labels(csv_name,n_words: int =3):
         print(f"Items: {group.items}")
         print("-" * 20)
     return parsed_response
-get_gemini_labels('test.csv',n_words=3)
+test=get_gemini_labels("topic_info_2025.csv",n_words=3)
