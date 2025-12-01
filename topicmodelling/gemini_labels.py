@@ -13,8 +13,6 @@ class NamedGroup(BaseModel):
 class OutputCollection(BaseModel):
     groups: List[NamedGroup]
 
-input_data = pd.read_csv('test.csv')
-
 def get_gemini_labels(csv_name,n_words: int =3):
 
     input_Data=pd.read_csv(csv_name)
@@ -41,9 +39,11 @@ def get_gemini_labels(csv_name,n_words: int =3):
 
     parsed_response = completion.choices[0].message.parsed
 
-    for group in parsed_response.groups:
-        print(f"Group Name: {group.group_name}")
-        print(f"Items: {group.items}")
-        print("-" * 20)
-    return parsed_response
+    group_names = [group.group_name for group in parsed_response.groups]
+    for group_name in group_names:
+        print(group_name)
+    output_df = pd.DataFrame(input_Data.head(20))
+    output_df["Gemini_Label"] = group_names
+    output_df.to_csv("gemini_labeled_"+csv_name,index=False)
+    return group_names
 test=get_gemini_labels("topic_info_2025.csv",n_words=3)
