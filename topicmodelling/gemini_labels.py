@@ -13,7 +13,7 @@ class NamedGroup(BaseModel):
 class OutputCollection(BaseModel):
     groups: List[NamedGroup]
 
-def get_gemini_labels(csv_name,n_words: int =3):
+def get_gemini_labels(csv_name,n_words: int =3,language="german"):
 
     input_Data=pd.read_csv(csv_name)
     input_data=input_Data["Representation"].head(20)
@@ -31,7 +31,7 @@ def get_gemini_labels(csv_name,n_words: int =3):
             },
             {
                 "role": "user", 
-                "content": f"Here is the input data: {input_data} for the description use a maximum of {n_words} words."
+                "content": f"Here is the input data: {input_data} for the description use a maximum of {n_words} words. Do this in {language}."
             },
         ],
         response_format=OutputCollection, # Pass the Pydantic class here
