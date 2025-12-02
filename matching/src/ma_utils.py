@@ -10,8 +10,6 @@ import os
 
 
 SIM_THRESHOLD = 0.6
-global_meta_rows = []
-
 
 def preprocess_text(text):
     if not isinstance(text, str):
@@ -59,15 +57,25 @@ def matching_pipeline():
     # read in meta data
     meta_path = out_dir / "meta_file_matching.csv"
     already_matched_csv = []
+    global_meta_rows = []
     if meta_path.exists():
         old_meta = pd.read_csv(meta_path)
         already_matched_csv = old_meta[old_meta["flag"] == "matched"]["video_data"].tolist()
+        global_meta_rows = old_meta.values.tolist()
+
+    # # read in meta data from downloading protocols
+    # download_meta_path = xml_dir / "../raw/metadata.csv"
+    # incomplete_xml_dates = []
+    # if download_meta_path.exists():
+    #     download_meta = pd.read_csv(download_meta_path)
+    #     incomplete_xml_dates = download_meta[download_meta["is_complete"] == False]["date_formatted"].tolist()
 
     # === Step 2: Process each date ===
     for date_str in common_dates:
         print(f"\n=== Processing {date_str} ===")
         csv_files = csv_by_date[date_str]
         xml_files = xml_by_date[date_str]
+        print(f"length of xml files: {len(xml_files)}")
 
         # Filter out CSV files that are already matched
         unmatched_csv = []
