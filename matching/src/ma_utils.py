@@ -98,9 +98,11 @@ def matching_pipeline():
         df_csv = pd.concat([pd.read_csv(f) for f in csv_files])
         df_csv = df_csv[df_csv["text"].astype(str).str.strip().ne("")].reset_index(drop=True)
         print(f"  Loaded {len(df_csv)} transcript segments")
+        total_speeches_in_csv = len(df_csv)
 
         # Load all XML speeches for that date. That is the matching loop
         protokoll_name, protokoll_party, protokoll_text, protokoll_docid = [], [], [], []
+        total_speeches_in_xml = 0
         for xml_file in xml_files:
             try:
                 tree = ET.parse(xml_file)
@@ -108,6 +110,8 @@ def matching_pipeline():
             except ET.ParseError:
                 print(f"  Warning: failed to parse {xml_file}, skipping")
                 continue
+
+            total_speeches_in_xml += len(root.findall(".//speech"))
 
             for sp in root.findall(".//speech"):
                 speaker = (sp.findtext("speaker") or sp.findtext("name") or "").strip()
@@ -165,6 +169,18 @@ def matching_pipeline():
             out_df = out_df[out_df["similarity"] >= SIM_THRESHOLD]
             out_df.to_csv(out_path, index=False)
             print(f"  Saved {len(out_df)} matches to {out_path}")
+            total_speeches_in_matched = len(out_df)
+
+        
+        print(f"Total speeches in csv: {total_speeches_in_csv} ")
+        print(f"Total speeches in xml: {total_speeches_in_xml} ")
+        print(f"Total speeches matched: {total_speeches_in_matched} ")
+        print(f"Differenes in speeches in xml vs csv: {total_speeches_in_xml - total_speeches_in_csv} ")
+        print(f"Difference in speeches in matched vs csv: {total_speeches_in_matched - total_speeches_in_csv} ")
+        print(f"Difference in speeches in matched vs xml: {total_speeches_in_matched - total_speeches_in_xml} ")
+        print(f"matched / csv: {total_speeches_in_matched / total_speeches_in_csv:.2%}")
+        print(f"matched / xml: {total_speeches_in_matched / total_speeches_in_xml:.2%}")
+
        
 
         # === Step 5: Meta file creation and flagging missing matches ===
