@@ -45,6 +45,7 @@ stop_words=set(speech_fillers+initial_words)
 stop_words=list(stop_words)
 vectorizer_model = CountVectorizer(
     stop_words=stop_words, 
+    lowercase=False,        #need to wrap class to add lemmatization
     min_df=1,             # Ignore words that appear in fewer than 10 documents
     ngram_range=(1, 2)     # Allow phrases like "Guten Morgen"
 )
@@ -87,11 +88,30 @@ dates = combined_df["date"].tolist()
 
 embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct").to("cuda")
 
+cluster_model = MiniBatchKMeans(
+    n_clusters=50,
+    random_state=42,
+    batch_size=1000
+)
+
+dim_reduction_model = IncrementalPCA(n_components=5)
+
 topic_model = BERTopic(
     language="German",
-    embedding_model = embedding_model,
-    vectorizer_model= vectorizer_model
-    )
+    embedding_model=embedding_model,
+    vectorizer_model=vectorizer_model,
+    hdbscan_model=cluster_model,
+    umap_model=dim_reduction_model,
+    min_topic_size=10
+)
+
+chunk_size = 1000
+total_docs = len(docs_prefixed)
+
+for i in range(0, total_docs, chunk_size):
+    chunk = docs_prefixed[i:i+chunk_size]
+    topic_model.partial_fit(chunk)
+    print(f"Processed chunk {i} to {min(i+chunk_size, total_docs)}")
 
 topics, probs = topic_model.fit_transform(docs_prefixed)
 
