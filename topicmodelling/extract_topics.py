@@ -7,6 +7,8 @@ import glob
 import os
 from datetime import datetime
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.cluster import MiniBatchKMeans
+from sklearn.decomposition import IncrementalPCA
 
 ### SETUP ###
 
@@ -26,7 +28,7 @@ def extract_date_from_filename(path):
     except ValueError:
         return None
 # Setup for removing stop words/fillers from topic AFTER topics have been modelled for better human understanding
-initial_words=open('../stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
+initial_words=open('/home/mlci_2025s1_group1/Dashboard/dashboard/stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
 speech_fillers = [
     # Hesitations & Interjections
     "äh", "ähm", "hm", "tja", "pff", "naja", "oh", "ah", "okay", "ok", 
