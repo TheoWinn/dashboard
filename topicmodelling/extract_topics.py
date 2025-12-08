@@ -1,14 +1,15 @@
 from bertopic import BERTopic
-from hdbscan import HDBSCAN
-from umap import UMAP
+#from hdbscan import HDBSCAN
+#from umap import UMAP
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import glob
 import os
 from datetime import datetime
-from sklearn.feature_extraction.text import CountVectorizer
+from bertopic.vectorizers import OnlineCountVectorizer
 from sklearn.cluster import MiniBatchKMeans
 from sklearn.decomposition import IncrementalPCA
+import numpy as np
 
 ### SETUP ###
 
@@ -27,6 +28,16 @@ def extract_date_from_filename(path):
         return datetime.strptime(date_str, "%d-%m-%Y").date()
     except ValueError:
         return None
+
+class Float64MiniBatchKMeans(MiniBatchKMeans):
+    def fit(self, X, y=None, sample_weight=None):
+        X = np.asarray(X, dtype=np.float64)
+        return super().fit(X, y, sample_weight=sample_weight)
+
+    def partial_fit(self, X, y=None, sample_weight=None):
+        X = np.asarray(X, dtype=np.float64)
+        return super().partial_fit(X, y, sample_weight=sample_weight)
+
 # Setup for removing stop words/fillers from topic AFTER topics have been modelled for better human understanding
 initial_words=open('/home/mlci_2025s1_group1/Dashboard/dashboard/stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
 speech_fillers = [
@@ -45,8 +56,9 @@ speech_fillers = [
 ]
 stop_words=set(speech_fillers+initial_words)
 stop_words=list(stop_words)
-vectorizer_model = CountVectorizer(
-    stop_words=stop_words, 
+vectorizer_model = OnlineCountVectorizer(
+    stop_words=None,#stop_words, 
+    decay=.01,
     lowercase=False,        #need to wrap class to add lemmatization
     min_df=1,             # Ignore words that appear in fewer than 10 documents
     ngram_range=(1, 2)     # Allow phrases like "Guten Morgen"
@@ -82,7 +94,6 @@ print("Combined Shape: ", combined_df.shape)
 print(combined_df[["text", "date", "source", "filename"]].head())
 
 docs = combined_df["text"].astype(str).tolist()
-docs_prefixed = [f"passage: {d}" for d in docs]
 
 sources = combined_df["source"].tolist()
 dates = combined_df["date"].tolist()
@@ -90,13 +101,13 @@ dates = combined_df["date"].tolist()
 
 embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct").to("cuda")
 
-cluster_model = MiniBatchKMeans(
-    n_clusters=50,
+cluster_model = Float64MiniBatchKMeans(
+    n_clusters=100,
     random_state=42,
     batch_size=1000
 )
 
-dim_reduction_model = IncrementalPCA(n_components=5)
+dim_reduction_model = IncrementalPCA(n_components=7)
 
 topic_model = BERTopic(
     language="German",
@@ -108,14 +119,14 @@ topic_model = BERTopic(
 )
 
 chunk_size = 1000
-total_docs = len(docs_prefixed)
+total_docs = len(docs)
 
 for i in range(0, total_docs, chunk_size):
-    chunk = docs_prefixed[i:i+chunk_size]
+    chunk = docs[i:i+chunk_size]
     topic_model.partial_fit(chunk)
     print(f"Processed chunk {i} to {min(i+chunk_size, total_docs)}")
 
-topics, probs = topic_model.fit_transform(docs_prefixed)
+topics, probs = topic_model.transform(docs)
 
 print(topic_model.get_topic_info().head(20))
 
