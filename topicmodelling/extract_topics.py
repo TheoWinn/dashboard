@@ -41,28 +41,30 @@ class RiverBERTopicWrapper:
         self.labels_ = []
 
     def partial_fit(self, embeddings, y=None):
-        """
-        Fits the river model on a batch of embeddings (from IncrementalPCA).
-        """
-        # 1. Learn (Train) phase: Update the model with the new data
-        # We iterate through the batch row-by-row because River is an online learner
+        # 1. Learn (Train) phase
         for embedding, _ in stream.iter_array(embeddings):
             self.model.learn_one(embedding)
 
-        # 2. Predict (Label) phase: Assign a cluster label to the data
+        # 2. Predict phase (Update self.labels_ for BERTopic to read)
+        # We call our own predict method to populate self.labels_
+        self.predict(embeddings)
+        
+        # 3. Return self (Standard Scikit-Learn convention)
+        return self
+
+    def predict(self, embeddings):
         labels = []
         for embedding, _ in stream.iter_array(embeddings):
             label = self.model.predict_one(embedding)
             
-            # River returns 'None' for outliers/noise. 
-            # BERTopic expects -1 for outliers.
+            # Handle noise (None -> -1)
             if label is None:
                 labels.append(-1)
             else:
                 labels.append(label)
 
         self.labels_ = np.array(labels)
-        return self
+        return self.labels_
 
 # Setup for removing stop words/fillers from topic AFTER topics have been modelled for better human understanding
 initial_words=open('/home/mlci_2025s1_group1/Dashboard/dashboard/stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
@@ -83,10 +85,10 @@ speech_fillers = [
 stop_words=set(speech_fillers+initial_words)
 stop_words=list(stop_words)
 vectorizer_model = OnlineCountVectorizer(
-    stop_words=None,#stop_words, 
+    stop_words=stop_words, 
     decay=.01,
     lowercase=False,        #need to wrap class to add lemmatization
-    min_df=1,             # Ignore words that appear in fewer than 10 documents
+    min_df=10,             # Ignore words that appear in fewer than 10 documents
     ngram_range=(1, 2)     # Allow phrases like "Guten Morgen"
 )
 
@@ -129,13 +131,13 @@ embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct")
 
 
 river_model = cluster.DBSTREAM(
-    clustering_threshold=0.5, 
+    clustering_threshold=1.5, 
     minimum_weight=1.0,
     intersection_factor=0.5,
     fading_factor=0.01,
 )
 
-dim_reduction_model = IncrementalPCA(n_components=7)
+dim_reduction_model = IncrementalPCA(n_components=5)
 cluster_model = RiverBERTopicWrapper(river_model)
 
 topic_model = BERTopic(
@@ -171,9 +173,9 @@ topic_info["Representation"] = topic_info["Representation"].apply(
 topic_info = topic_info.rename(columns={"Topic":"topic"})
 
 combined_df = combined_df.merge(
-    topic_info[["topic", "Representation"]],
+    topic_info[["Topic", "Representation"]],
     how = "left",
-    on = "topic"
+    on = "Topic"
 )
 
 output_file = os.path.join(output_path, "topics_representations_2025.csv")
