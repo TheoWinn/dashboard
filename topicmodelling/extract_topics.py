@@ -7,7 +7,8 @@ import glob
 import os
 from datetime import datetime
 from bertopic.vectorizers import OnlineCountVectorizer
-from river import cluster
+from river import cluster 
+from river import stream
 from sklearn.decomposition import IncrementalPCA
 import numpy as np
 
@@ -29,14 +30,39 @@ def extract_date_from_filename(path):
     except ValueError:
         return None
 
-class Float64MiniBatchKMeans(MiniBatchKMeans):
-    def fit(self, X, y=None, sample_weight=None):
-        X = np.asarray(X, dtype=np.float64)
-        return super().fit(X, y, sample_weight=sample_weight)
-
     def partial_fit(self, X, y=None, sample_weight=None):
         X = np.asarray(X, dtype=np.float64)
         return super().partial_fit(X, y, sample_weight=sample_weight)
+
+
+class RiverBERTopicWrapper:
+    def __init__(self, model):
+        self.model = model
+        self.labels_ = []
+
+    def partial_fit(self, embeddings, y=None):
+        """
+        Fits the river model on a batch of embeddings (from IncrementalPCA).
+        """
+        # 1. Learn (Train) phase: Update the model with the new data
+        # We iterate through the batch row-by-row because River is an online learner
+        for embedding, _ in stream.iter_array(embeddings):
+            self.model.learn_one(embedding)
+
+        # 2. Predict (Label) phase: Assign a cluster label to the data
+        labels = []
+        for embedding, _ in stream.iter_array(embeddings):
+            label = self.model.predict_one(embedding)
+            
+            # River returns 'None' for outliers/noise. 
+            # BERTopic expects -1 for outliers.
+            if label is None:
+                labels.append(-1)
+            else:
+                labels.append(label)
+
+        self.labels_ = np.array(labels)
+        return self
 
 # Setup for removing stop words/fillers from topic AFTER topics have been modelled for better human understanding
 initial_words=open('/home/mlci_2025s1_group1/Dashboard/dashboard/stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
@@ -102,7 +128,7 @@ dates = combined_df["date"].tolist()
 embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct").to("cuda")
 
 
-cluster_model = cluster.DBSTREAM(
+river_model = cluster.DBSTREAM(
     clustering_threshold=0.5, 
     minimum_weight=1.0,
     intersection_factor=0.5,
@@ -110,6 +136,7 @@ cluster_model = cluster.DBSTREAM(
 )
 
 dim_reduction_model = IncrementalPCA(n_components=7)
+cluster_model = RiverBERTopicWrapper(river_model)
 
 topic_model = BERTopic(
     language="German",
