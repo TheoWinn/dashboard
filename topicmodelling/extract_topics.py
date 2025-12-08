@@ -7,7 +7,7 @@ import glob
 import os
 from datetime import datetime
 from bertopic.vectorizers import OnlineCountVectorizer
-from sklearn.cluster import MiniBatchKMeans
+from river import cluster
 from sklearn.decomposition import IncrementalPCA
 import numpy as np
 
@@ -101,10 +101,12 @@ dates = combined_df["date"].tolist()
 
 embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct").to("cuda")
 
-cluster_model = Float64MiniBatchKMeans(
-    n_clusters=100,
-    random_state=42,
-    batch_size=1000
+
+cluster_model = cluster.DBSTREAM(
+    clustering_threshold=0.5, 
+    minimum_weight=1.0,
+    intersection_factor=0.5,
+    fading_factor=0.01,
 )
 
 dim_reduction_model = IncrementalPCA(n_components=7)
@@ -130,9 +132,8 @@ topics, probs = topic_model.transform(docs)
 
 print(topic_model.get_topic_info().head(20))
 
-combined_df["topic"] = topics
+combined_df["Topic"] = topics
 combined_df["probability"] = probs
-
 
 topic_info = topic_model.get_topic_info()
 
