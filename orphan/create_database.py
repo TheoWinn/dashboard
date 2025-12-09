@@ -8,17 +8,28 @@ CREATE TABLE IF NOT EXISTS speakers (
     UNIQUE (speaker_name, speaker_party)
 );"""
 
+# create_files = """
+# CREATE TABLE IF NOT EXISTS files (
+#     file_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     file_name TEXT,
+#     file_raw_url TEXT,
+#     file_date TEXT, 
+#     file_year INT,
+#     source TEXT NOT NULL,
+#     file_talkshow_name TEXT,
+#     CHECK (source IN ("bundestag", "talkshow")),
+#     UNIQUE (file_raw_url)
+# );"""
+
 create_files = """
 CREATE TABLE IF NOT EXISTS files (
     file_id INTEGER PRIMARY KEY AUTOINCREMENT,
     file_name TEXT,
-    file_raw_url TEXT,
     file_date TEXT, 
     file_year INT,
     source TEXT NOT NULL,
-    file_talkshow_name TEXT,
     CHECK (source IN ("bundestag", "talkshow")),
-    UNIQUE (file_raw_url)
+    UNIQUE (file_name)
 );"""
 
 create_topics = """
@@ -43,7 +54,8 @@ CREATE TABLE IF NOT EXISTS speeches (
     topic INT,
     FOREIGN KEY (file) REFERENCES files(file_id),
     FOREIGN KEY (speaker) REFERENCES speakers(speaker_id),
-    FOREIGN KEY (topic) REFERENCES topics(topic_id)
+    FOREIGN KEY (topic) REFERENCES topics(topic_id),
+    UNIQUE (speech_text, speech_duration, file, speaker, topic)
 );"""
 
 create_trigger_insert = """
@@ -143,7 +155,7 @@ BEGIN
 END;"""
 
 
-with sqlite3.connect("test.db") as conn:
+with sqlite3.connect("../data/test.db") as conn:
     cursor = conn.cursor()
     cursor.execute(create_speakers)
     cursor.execute(create_files)    
