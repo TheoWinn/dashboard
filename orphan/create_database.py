@@ -26,7 +26,10 @@ CREATE TABLE IF NOT EXISTS topics (
     topic_id INT NOT NULL,
     topic_keywords TEXT,
     topic_label TEXT,
-    PRIMARY KEY (topic_id)
+    topic_duration INTEGER NOT NULL DEFAULT 0,
+    topic_duration_bt INTEGER NOT NULL DEFAULT 0,
+    topic_duration_ts INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (topic_id),
     UNIQUE (topic_keywords, topic_label)
 );"""
 
@@ -43,6 +46,102 @@ CREATE TABLE IF NOT EXISTS speeches (
     FOREIGN KEY (topic) REFERENCES topics(topic_id)
 );"""
 
+create_trigger_insert = """
+CREATE TRIGGER IF NOT EXISTS trg_topic_duration_insert
+AFTER INSERT ON speeches
+BEGIN
+    -- overall duration
+    UPDATE topics
+    SET topic_duration = topic_duration + COALESCE(NEW.speech_duration, 0)
+    WHERE topic_id = NEW.topic;
+
+    -- duration bt
+    UPDATE topics
+    SET topic_duration_bt = topic_duration_bt + COALESCE(NEW.speech_duration, 0)
+    WHERE topic_id = NEW.topic 
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = NEW.file AND f.source = 'bundestag');
+    
+    -- duration ts
+    UPDATE topics
+    SET topic_duration_ts = topic_duration_ts + COALESCE(NEW.speech_duration, 0)
+    WHERE topic_id = NEW.topic 
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = NEW.file AND f.source = 'talkshow');
+END;"""
+
+create_trigger_update = """
+CREATE TRIGGER IF NOT EXISTS trg_topic_duration_update
+AFTER UPDATE OF speech_duration, topic ON speeches
+BEGIN
+    -- overall duration
+    UPDATE topics
+    SET topic_duration = topic_duration - COALESCE(OLD.speech_duration, 0)
+    WHERE topic_id = OLD.topic;
+    
+    UPDATE topics
+    SET topic_duration = topic_duration + COALESCE(NEW.speech_duration, 0)
+    WHERE topic_id = NEW.topic;
+
+    -- duration bt
+    UPDATE topics
+    SET topic_duration_bt = topic_duration_bt - COALESCE(OLD.speech_duration, 0)
+    WHERE topic_id = OLD.topic 
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = OLD.file AND f.source = 'bundestag');
+    
+    UPDATE topics
+    SET topic_duration_bt = topic_duration_bt + COALESCE(NEW.speech_duration, 0)
+    WHERE topic_id = NEW.topic
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = NEW.file AND f.source = 'bundestag');
+
+    -- duration ts
+    UPDATE topics
+    SET topic_duration_ts = topic_duration_ts - COALESCE(OLD.speech_duration, 0)
+    WHERE topic_id = OLD.topic 
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = OLD.file AND f.source = 'talkshow');
+    
+    UPDATE topics
+    SET topic_duration_ts = topic_duration_ts + COALESCE(NEW.speech_duration, 0)
+    WHERE topic_id = NEW.topic
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = NEW.file AND f.source = 'talkshow');
+END;"""
+
+create_trigger_delete = """
+CREATE TRIGGER IF NOT EXISTS trg_topic_duration_delete
+AFTER DELETE ON speeches
+BEGIN
+    -- overall duration
+    UPDATE topics
+    SET topic_duration = topic_duration - COALESCE(OLD.speech_duration, 0)
+    WHERE topic_id = OLD.topic;
+
+    -- duration bt
+    UPDATE topics
+    SET topic_duration_bt = topic_duration_bt - COALESCE(OLD.speech_duration, 0)
+    WHERE topic_id = OLD.topic 
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = OLD.file AND f.source = 'bundestag');
+
+    -- duration ts
+    UPDATE topics
+    SET topic_duration_ts = topic_duration_ts - COALESCE(OLD.speech_duration, 0)
+    WHERE topic_id = OLD.topic 
+        AND EXISTS (
+            SELECT 1 FROM files f
+            WHERE f.file_id = OLD.file AND f.source = 'talkshow');
+END;"""
+
 
 with sqlite3.connect("test.db") as conn:
     cursor = conn.cursor()
@@ -55,6 +154,10 @@ with sqlite3.connect("test.db") as conn:
                 INSERT OR IGNORE INTO speakers (speaker_name, speaker_party)
                 VALUES ("Unknown", "Unknown")
                 ;""")
+    # Triggers
+    cursor.execute(create_trigger_insert)
+    cursor.execute(create_trigger_update)
+    cursor.execute(create_trigger_delete)
     conn.commit()
     print("Database and tables created successfully.")
 

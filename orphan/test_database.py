@@ -46,7 +46,7 @@ ts_meta = pd.read_csv("../youtube/data/raw/talkshow_audio/metadata.csv")
 ts_meta.columns = ["url", "title", "channel", "date", "talkshow_name"]
 # ts_meta["title"] = ts_meta["title"].apply(lambda x: clean_title_for_filename(x))
 ts_meta["filename"] = ts_meta.apply(
-    lambda r: pv.sanitize_filename(f"{r["date"]}_{r["title"]}_clustered.csv", platform="Windows"),
+    lambda r: clean_title_for_filename(f"{r["date"]}_{r["title"]}_clustered.csv"),
     axis=1
 )
 # either from matched data
@@ -60,7 +60,7 @@ bt_yt_meta = pd.read_csv("../youtube/data/raw/bundestag_audio/metadata.csv")
 bt_yt_meta.columns = ["url", "title", "channel", "date"]
 bt_yt_meta["title"] = bt_yt_meta["title"].apply(lambda x: clean_title_for_filename(x))
 bt_yt_meta["filename"] = bt_yt_meta.apply(
-    lambda r: pv.sanitize_filename(f"{r["date"]}_{r["title"]}_clustered.csv", platform="Windows"),
+    lambda r: clean_title_for_filename(f"{r["date"]}_{r["title"]}_clustered.csv"),
     axis=1
 )
 

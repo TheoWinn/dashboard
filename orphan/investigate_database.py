@@ -37,7 +37,7 @@ with sqlite3.connect("test.db") as conn:
 
 import pandas as pd
 
-df = pd.read_csv("../topicmodelling/data/raw_topics/topics_representations_2025.csv")
+df = pd.read_csv("../topicmodelling/data/raw_topics/topics_representations_2025.csv", low_memory=False)
 
 # Count unique combinations
 unique_pairs = df[["protokoll_name", "protokoll_party"]].drop_duplicates()
