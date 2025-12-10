@@ -131,7 +131,7 @@ embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct")
 
 
 river_model = cluster.DBSTREAM(
-    clustering_threshold=1.5, 
+    clustering_threshold=0.5, 
     minimum_weight=1.0,
     intersection_factor=0.5,
     fading_factor=0.01,
@@ -146,7 +146,7 @@ topic_model = BERTopic(
     vectorizer_model=vectorizer_model,
     hdbscan_model=cluster_model,
     umap_model=dim_reduction_model,
-    min_topic_size=10
+    min_topic_size=1
 )
 
 chunk_size = 1000
