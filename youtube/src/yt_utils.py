@@ -13,6 +13,7 @@ import time
 import random
 import re
 from datetime import datetime, date
+from slugify import slugify
 
 ### YouTube Downloading Utilities ###
 
@@ -197,23 +198,24 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                     else:
                         date_prefix = datetime.today().strftime("%d-%m-%Y")
 
-                safe_title = _sanitize_filename(yt.title)
+                # safe_title = _sanitize_filename(yt.title)
+                safe_title = slugify(yt.title)
                 filename_stem = f"{date_prefix}_{safe_title}.m4a"
 
                 ys = yt.streams.get_audio_only()
                 # ys = yt.streams.filter(only_audio=True, file_extension="m4a").order_by('abr').desc().first()
                 ys.download(output_path=str(output_dir), filename = filename_stem)
                 # append to dataframe
-                title = yt.title
+                # title = yt.title
                 channel = yt.author
                 date = date_prefix
 
                 if bundestag:
-                    meta.append([url, title, channel, date])
+                    meta.append([url, safe_title, channel, date])
                     pd.DataFrame(meta, columns=["url", "title", "channel", "date"]).to_csv(
                         meta_file, index=False, header=False)
                 else:
-                    meta.append([url, title, channel, date, talkshow_name])
+                    meta.append([url, safe_title, channel, date, talkshow_name])
                     pd.DataFrame(meta, columns=["url", "title", "channel", "date", "talkshow_name"]).to_csv(
                         meta_file, index=False, header=False)
 
