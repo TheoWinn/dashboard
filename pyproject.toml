@@ -23,4 +23,6 @@ dependencies = [
     "google-api-python-client==1.7.2",
     "google-auth==1.8.0",
     "google-auth-oauthlib==0.4.1",
+    "slugify>=0.0.1",
+    "python-slugify>=8.0.4",
 ]
