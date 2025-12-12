@@ -4,7 +4,8 @@ df = pd.read_csv("../topicmodelling/data/raw_topics/topics_representations_2025.
 
 df['speech_start'] = df[['transcript_start', 'start']].max(axis=1)
 df['speech_end'] = df[['transcript_end', 'end']].max(axis=1)
-df['speech_duration'] = (df['speech_end'] - df['speech_start']) / 60
+# df['speech_duration'] = round((df['speech_end'] - df['speech_start']), 5)
+df['speech_duration'] = (df['speech_end'] - df['speech_start'])
 
 print(df.shape)
 
@@ -40,6 +41,9 @@ dups = sub[sub.duplicated(
     subset=["text", "filename", "protokoll_name", "topic", "speech_duration"],
     keep=False
 )]
+
+unique_speeches = sub[["text", "filename", "protokoll_name", "topic", "speech_duration"]].drop_duplicates().shape[0]
+print("Number of unique speech_text entries:", unique_speeches)
 
 dups = dups.sort_values(["text", "filename", "protokoll_name", "topic", "speech_duration"])
 
