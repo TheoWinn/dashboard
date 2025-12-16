@@ -125,7 +125,7 @@ def _date_from_description(desc: str) -> str | None:
 
     return None
 
-def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: str = None, test_mode: bool = False, cutoff = date(2025, 1, 1)):
+def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: str = None, test_mode: bool = False, cutoff = date(2025, 1, 1), many_mode: bool = False):
     """
     Download audio files from a YouTube playlist and save metadata into csv file. It will all be saved in the specified output directory.
     If the output directory is empty, all files from the playlist will be downloaded.
@@ -182,9 +182,11 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                 # check that the publish date is after or on cutoff
                 if publish_date < cutoff:
                     skipped_cutoff_consecutive += 1
-                    if skipped_cutoff_consecutive >= max_consecutive_cutoff_skips:
-                        print(f"Reached {skipped_cutoff_consecutive} consecutive videos before cutoff date. Stopping download.")
-                        break
+                    print(f'Skipping video published on {publish_date} before cutoff date {cutoff}: {yt.title}')
+                    if not many_mode:
+                        if skipped_cutoff_consecutive >= max_consecutive_cutoff_skips:
+                            print(f"Reached {skipped_cutoff_consecutive} consecutive videos before cutoff date. Stopping download.")
+                            break
                     continue
                 else:
                     skipped_cutoff_consecutive = 0  # reset counter
@@ -237,6 +239,10 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
             except Exception as e:
                 print(f"Error downloading {url}: {e}")
+                exc_name = type(e).__name__  
+                if exc_name == "BotDetection":
+                    print("Detected bot prevention - stopping further downloads.")
+                    return e
                 continue
 
     # save updated dataframe
