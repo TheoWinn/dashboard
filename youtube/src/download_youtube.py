@@ -11,11 +11,13 @@ import argparse
 # --cutoff: Cutoff date in YYYY-MM-DD format (default: 2025-01-01)
 # --test-mode: Enable test mode (max 2 videos)
 # --reduce-memory: Reduce memory usage by lowering chunk size (only use this for cluster)
+# --many-videos: Enable many videos mode (leads to longer pauses between downloads to avoid bot detection) --> do this when downloading many videos in one go, i.e. not for weekly downloads
+# --source: Source to download from: 'bundestag', 'talkshows', or 'both' (default: both)
 # Example usage:
 # uv run download_youtube.py --cutoff 2023-01-01 --test-mode --reduce-memory
 # --> this will download videos uploaded after or on 1st Jan 2023, in test_mode: max 2 videos per playlist, with reduced memory usage
-# uv run download_youtube.py --cutoff 2024-06-01
-# --> this will download videos uploaded after or on 1st June 2024, full download, normal memory usage
+# uv run download_youtube.py --cutoff 2024-06-01 --many-videos --source talkshows
+# --> this will download talkshow (!) videos uploaded after or on 1st June 2024, full download, normal memory usage, with many-videos mode enabled 
 
 
 dict_of_talkshow_playlists = {
@@ -45,6 +47,10 @@ if __name__ == "__main__":
                         help="Enable test mode (max 2 videos)")
     parser.add_argument("--reduce-memory", action="store_true",
                         help="Reduce memory usage by lowering chunk size")
+    parser.add_argument("--many-videos", action="store_true",
+                        help="Enable many videos mode (leads to longer pauses between downloads to avoid bot detection)")
+    parser.add_argument("--source", type=str, default="both",
+                        help="Source to download from: 'bundestag', 'talkshows', or 'both' (default: 'both')")
     args = parser.parse_args()
 
     cutoff = date.fromisoformat(args.cutoff)
@@ -52,8 +58,9 @@ if __name__ == "__main__":
         req.default_range_size = 1024 * 1024 
         print(f"Reduced memory usage: chunk size set to {req.default_range_size} bytes")
     test_mode = args.test_mode
+    many_mode = args.many_videos
     
-    def main(playlist_url, bundestag, talkshow_name, test_mode, cutoff):
+    def main(playlist_url, bundestag, talkshow_name, test_mode, cutoff, many_mode):
         print("Starting download…")
         print("Playlist:", playlist_url)
         print("Bundestag:", bundestag)
@@ -62,7 +69,7 @@ if __name__ == "__main__":
 
         try:
             print("in try")
-            error = download_from_playlist(playlist_url=playlist_url, bundestag=bundestag, talkshow_name=talkshow_name, test_mode=test_mode, cutoff=cutoff)
+            error = download_from_playlist(playlist_url=playlist_url, bundestag=bundestag, talkshow_name=talkshow_name, test_mode=test_mode, cutoff=cutoff, many_mode=many_mode)
             return error
         except KeyboardInterrupt:
             print("Download stopped manually")
@@ -74,19 +81,22 @@ if __name__ == "__main__":
         
 
     error_summary = {}
+    source = args.source
 
     # Bundestag playlist
-    error_info = main(playlist_url="https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6", talkshow_name=None, bundestag=True, test_mode=test_mode, cutoff=cutoff)
-    if error_info:
-        error_summary["bundestag"] = error_info
+    if source in ["bundestag", "both"]:
+        error_info = main(playlist_url="https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6", talkshow_name=None, bundestag=True, test_mode=test_mode, cutoff=cutoff, many_mode=many_mode)
+        if error_info:
+            error_summary["bundestag"] = error_info
 
     # Talkshow playlists
-    for playlist_name, playlist_url in dict_of_talkshow_playlists.items():
-        print(f"\nDownloading from talkshow playlist: {playlist_name}")
-        error_info = main(playlist_url=playlist_url, bundestag=False, talkshow_name=playlist_name, test_mode=test_mode, cutoff=cutoff)
-    
-        if error_info:
-            error_summary[playlist_name] = error_info
+    if source in ["talkshows", "both"]:
+        for playlist_name, playlist_url in dict_of_talkshow_playlists.items():
+            print(f"\nDownloading from talkshow playlist: {playlist_name}")
+            error_info = main(playlist_url=playlist_url, bundestag=False, talkshow_name=playlist_name, test_mode=test_mode, cutoff=cutoff, many_mode=many_mode)
+        
+            if error_info:
+                error_summary[playlist_name] = error_info
 
     # Error summary      
     print("\n")
