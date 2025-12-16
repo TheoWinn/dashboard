@@ -237,6 +237,9 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
             except Exception as e:
                 print(f"Error downloading {url}: {e}")
+                if "bot" in e:
+                    print("Detected bot prevention - stopping further downloads.")
+                    return e
                 continue
 
     # save updated dataframe

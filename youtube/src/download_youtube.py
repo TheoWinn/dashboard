@@ -62,8 +62,8 @@ if __name__ == "__main__":
 
         try:
             print("in try")
-            download_from_playlist(playlist_url=playlist_url, bundestag=bundestag, talkshow_name=talkshow_name, test_mode=test_mode, cutoff=cutoff)
-            return None
+            error = download_from_playlist(playlist_url=playlist_url, bundestag=bundestag, talkshow_name=talkshow_name, test_mode=test_mode, cutoff=cutoff)
+            return error
         except KeyboardInterrupt:
             print("Download stopped manually")
             return "KeyboardInterrupt"
