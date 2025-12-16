@@ -102,55 +102,44 @@ vectorizer_model = OnlineCountVectorizer(
     ngram_range=(1, 2)     # Allow phrases like "Guten Morgen"
 )
 
-# bundestag_dfs = []
+bundestag_dfs = []
 
-# for file in glob.glob(bundestag_path):
-#     if "meta" in file.lower():
-#         continue
-#     df = pd.read_csv(file)
-#     df["date"] = extract_date_from_filename(file)
-#     df["source"] = "bundestag"
-#     df["filename"] = os.path.basename(file)
-#     df["text"] = df["protokoll_text"]
-#     bundestag_dfs.append(df)
-
-
-# talkshow_dfs = []
-
-# for file in glob.glob(talkshow_path):
-#     df = pd.read_csv(file)
-#     df["date"] = extract_date_from_filename(file)
-#     df["source"] = "talkshow"
-#     df["filename"] = os.path.basename(file)
-#     talkshow_dfs.append(df)
+for file in glob.glob(bundestag_path):
+    if "meta" in file.lower():
+        continue
+    df = pd.read_csv(file)
+    df["date"] = extract_date_from_filename(file)
+    df["source"] = "bundestag"
+    df["filename"] = os.path.basename(file)
+    df["text"] = df["protokoll_text"]
+    bundestag_dfs.append(df)
 
 
-# # Combine DFs
-# raw_combined_df = pd.concat(bundestag_dfs + talkshow_dfs, ignore_index=True)
+talkshow_dfs = []
+
+for file in glob.glob(talkshow_path):
+    df = pd.read_csv(file)
+    df["date"] = extract_date_from_filename(file)
+    df["source"] = "talkshow"
+    df["filename"] = os.path.basename(file)
+    talkshow_dfs.append(df)
 
 
-#raw_combined_df.to_csv("end_df.csv", encoding='utf-8', index=False)
-raw_combined_df = pd.read_csv("end_df.csv", encoding='utf-8',dtype=dtype_settings)
+# Combine DFs
+raw_combined_df = pd.concat(bundestag_dfs + talkshow_dfs, ignore_index=True)
 combined_df = raw_combined_df.copy()
 
-# 1. Fill the missing 'date' column using 'protokoll_docid'
-# We grab the first 10 characters (08-10-2025) from the ID
+# since date is missing bandaidfix
 combined_df['date'] = combined_df['protokoll_docid'].astype(str).str[:10]
-
-# 2. Now convert to datetime objects
 combined_df['date'] = pd.to_datetime(combined_df['date'], format='%d-%m-%Y', errors='coerce')
 
-# 3. Clean the text column
 combined_df['text'] = combined_df['text'].fillna('').astype(str)
 combined_df = combined_df[combined_df['text'].str.split().str.len() > 15].reset_index(drop=True)
 
-
-# 5. Aggregate
 daily_docs_df = combined_df.groupby(['date', 'source'])['text'].apply(lambda x: " ".join(x)).reset_index()
 daily_docs_df = daily_docs_df.sort_values('date')
 
 # Aggregate texts by filename to create larger "documents"
-
 docs = daily_docs_df["text"].astype(str).tolist()
 # sources = daily_docs_df["source"].tolist()
 # dates = daily_docs_df["date"].tolist()
