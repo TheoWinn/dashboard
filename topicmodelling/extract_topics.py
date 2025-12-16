@@ -41,15 +41,10 @@ class RiverBERTopicWrapper:
         self.labels_ = []
 
     def partial_fit(self, embeddings, y=None):
-        # 1. Learn (Train) phase
+        # Learn  phase
         for embedding, _ in stream.iter_array(embeddings):
             self.model.learn_one(embedding)
-
-        # 2. Predict phase (Update self.labels_ for BERTopic to read)
-        # We call our own predict method to populate self.labels_
-        self.predict(embeddings)
-        
-        # 3. Return self (Standard Scikit-Learn convention)
+        self.predict(embeddings)      
         return self
 
     def predict(self, embeddings):
