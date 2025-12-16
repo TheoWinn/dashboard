@@ -67,7 +67,7 @@ class RiverBERTopicWrapper:
         return self.labels_
 
 # Setup for removing stop words/fillers from topic AFTER topics have been modelled for better human understanding
-initial_words=open('/home/mlci_2025s1_group1/Dashboard/dashboard/stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
+initial_words=open('stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
 speech_fillers = [
     # Hesitations & Interjections
     "äh", "ähm", "hm", "tja", "pff", "naja", "oh", "ah", "okay", "ok", 
@@ -80,64 +80,93 @@ speech_fillers = [
     # Phrases often transcribed as single tokens or short meaningless connectors
     "ding", "sache", "zeug", "bisschen", "bissel", "paar",
     "natürlich", "selbstverständlich", "absolut", "definitiv",
-    "ganz", "gar", "überhaupt", "immer", "nie", "vielleicht", "dann"
+    "ganz", "gar", "überhaupt", "immer", "nie", "vielleicht", "dann",
+    #Bundestag spezifisch
+    "Herren","Damen", "Dame", "Frau", "Herr","Präsident", "Vizepräsident",
+    "Abgeordnete", "Abgeordneter", "Kolleginnen", "Kollegen", "Kollege", "Kollegin"
 ]
-stop_words=set(speech_fillers+initial_words)
-stop_words=list(stop_words)
+all_stop_words = set(speech_fillers + initial_words)
+
+# Add title-cased versions of stop words to catch them at the start of sentences
+expanded_stop_words = set(all_stop_words)
+for word in all_stop_words:
+    expanded_stop_words.add(word.title())
+    expanded_stop_words.add(word.capitalize()) 
+    expanded_stop_words.add(word.upper())
+stop_words = list(expanded_stop_words)
 vectorizer_model = OnlineCountVectorizer(
     stop_words=stop_words, 
     decay=.01,
-    lowercase=False,        #need to wrap class to add lemmatization
-    min_df=10,             # Ignore words that appear in fewer than 10 documents
+    lowercase=False,        # Text itself should not be lowercased to preserve meaning
+    min_df=5,             # Ignore words that appear in fewer than 10 documents
     ngram_range=(1, 2)     # Allow phrases like "Guten Morgen"
 )
 
-bundestag_dfs = []
+# bundestag_dfs = []
 
-for file in glob.glob(bundestag_path):
-    if "meta" in file.lower():
-        continue
-    df = pd.read_csv(file)
-    df["date"] = extract_date_from_filename(file)
-    df["source"] = "bundestag"
-    df["filename"] = os.path.basename(file)
-    df["text"] = df["protokoll_text"]
-    bundestag_dfs.append(df)
-
-
-talkshow_dfs = []
-
-for file in glob.glob(talkshow_path):
-    df = pd.read_csv(file)
-    df["date"] = extract_date_from_filename(file)
-    df["source"] = "talkshow"
-    df["filename"] = os.path.basename(file)
-    talkshow_dfs.append(df)
+# for file in glob.glob(bundestag_path):
+#     if "meta" in file.lower():
+#         continue
+#     df = pd.read_csv(file)
+#     df["date"] = extract_date_from_filename(file)
+#     df["source"] = "bundestag"
+#     df["filename"] = os.path.basename(file)
+#     df["text"] = df["protokoll_text"]
+#     bundestag_dfs.append(df)
 
 
-# Combine DFs
-combined_df = pd.concat(bundestag_dfs + talkshow_dfs, ignore_index=True)
+# talkshow_dfs = []
 
-print("Combined Shape: ", combined_df.shape)
-print(combined_df[["text", "date", "source", "filename"]].head())
-
-docs = combined_df["text"].astype(str).tolist()
-
-sources = combined_df["source"].tolist()
-dates = combined_df["date"].tolist()
+# for file in glob.glob(talkshow_path):
+#     df = pd.read_csv(file)
+#     df["date"] = extract_date_from_filename(file)
+#     df["source"] = "talkshow"
+#     df["filename"] = os.path.basename(file)
+#     talkshow_dfs.append(df)
 
 
-embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct").to("cuda")
+# # Combine DFs
+# raw_combined_df = pd.concat(bundestag_dfs + talkshow_dfs, ignore_index=True)
+
+
+#raw_combined_df.to_csv("end_df.csv", encoding='utf-8', index=False)
+raw_combined_df = pd.read_csv("end_df.csv", encoding='utf-8',dtype=dtype_settings)
+combined_df = raw_combined_df.copy()
+
+# 1. Fill the missing 'date' column using 'protokoll_docid'
+# We grab the first 10 characters (08-10-2025) from the ID
+combined_df['date'] = combined_df['protokoll_docid'].astype(str).str[:10]
+
+# 2. Now convert to datetime objects
+combined_df['date'] = pd.to_datetime(combined_df['date'], format='%d-%m-%Y', errors='coerce')
+
+# 3. Clean the text column
+combined_df['text'] = combined_df['text'].fillna('').astype(str)
+combined_df = combined_df[combined_df['text'].str.split().str.len() > 15].reset_index(drop=True)
+
+
+# 5. Aggregate
+daily_docs_df = combined_df.groupby(['date', 'source'])['text'].apply(lambda x: " ".join(x)).reset_index()
+daily_docs_df = daily_docs_df.sort_values('date')
+
+# Aggregate texts by filename to create larger "documents"
+
+docs = daily_docs_df["text"].astype(str).tolist()
+# sources = daily_docs_df["source"].tolist()
+# dates = daily_docs_df["date"].tolist()
+
+
+embedding_model = SentenceTransformer("intfloat/multilingual-e5-large-instruct")#.to("cuda")
 
 
 river_model = cluster.DBSTREAM(
-    clustering_threshold=0.5, 
+    clustering_threshold=0.2, 
     minimum_weight=1.0,
-    intersection_factor=0.5,
+    intersection_factor=0.3,
     fading_factor=0.01,
 )
 
-dim_reduction_model = IncrementalPCA(n_components=5)
+dim_reduction_model = IncrementalPCA(n_components=12)
 cluster_model = RiverBERTopicWrapper(river_model)
 
 topic_model = BERTopic(
