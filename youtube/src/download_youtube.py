@@ -99,5 +99,9 @@ if __name__ == "__main__":
         print("Errors occurred in the following playlists:")
         for name, tb in error_summary.items():
             print(f"\n--- {name} ---")
-            print(tb.strip().splitlines()[-1])  # print only the last traceback line (error type + msg)
+            exc_name = type(tb).__name__  
+            if exc_name == "BotDetection":
+                print("BotDetection error occurred.")
+            else:
+                print(tb.strip().splitlines()[-1])  # print only the last traceback line (error type + msg)
             # or print(tb) for full traceback
