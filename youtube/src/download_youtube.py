@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     cutoff = date.fromisoformat(args.cutoff)
     if args.reduce_memory:
-        req.default_range_size = 64 * 1024  
+        req.default_range_size = 1024 * 1024 
         print(f"Reduced memory usage: chunk size set to {req.default_range_size} bytes")
     test_mode = args.test_mode
     
