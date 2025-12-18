@@ -5,108 +5,145 @@ import psycopg2
 load_dotenv()
 DB_URL = os.environ["DATABASE_URL"]
 
-# this creates the schema that holds the dashboard views
-create_dashboard_schema = """
+# # check current role
+# check = """
+# SELECT current_user, session_user, current_role;
+# """
+
+# create schemas
+create_schemas = """
 CREATE SCHEMA IF NOT EXISTS dashboard;
+CREATE SCHEMA IF NOT EXISTS dashboard_internal;
 """
 
-# this creates a role that will own the dashboard views, it is granted minimal access to the underlying data
-# create_ownership_dashboard = """
-# DO $$
-# BEGIN
-#   CREATE ROLE dashboard_owner NOLOGIN;
-# EXCEPTION
-#   WHEN duplicate_object THEN
-#     NULL; -- do nothing, role already exists
-# END
-# $$;
-# """
-
-# this grants the postgres user membership in the dashboard_owner role, so it can create and manage views
-# grant_dashboard_owner_membership_to_postgres = """
-# GRANT dashboard_owner TO postgres;
-# """
-
-# this grants the dashboard_owner role the ability to create objects in the dashboard schema
-# grant_dashboard_owner_schema_privs = """
-# GRANT USAGE, CREATE ON SCHEMA dashboard TO dashboard_owner;
-# """
-
-# remove any public access to the private schema
-# remove_public_access_private = """
-# REVOKE ALL ON SCHEMA private FROM anon, authenticated;
-# REVOKE ALL ON ALL TABLES IN SCHEMA private FROM anon, authenticated;
-# REVOKE ALL ON ALL SEQUENCES IN SCHEMA private FROM anon, authenticated;
-# REVOKE ALL ON ALL FUNCTIONS IN SCHEMA private FROM anon, authenticated;
-# """
-
-# grant the dashboard_owner role minimal access to the underlying private data needed for the views
-# grant_minimal_private_access_to_dashboard_owner = """
-# GRANT USAGE ON SCHEMA private TO dashboard_owner;
-# REVOKE ALL ON private.speakers FROM dashboard_owner;
-# GRANT SELECT (speaker_id, speaker_name)
-# ON private.speakers
-# TO dashboard_owner;
-# """
-
-# allow the anon and authenticated roles to access the dashboard schema (views will be restricted later)
-grant_public_usage_dashboard = """
-GRANT USAGE ON SCHEMA dashboard TO anon, authenticated;
-REVOKE CREATE ON SCHEMA dashboard FROM anon, authenticated;
+# create roles
+create_roles = """
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'dashboard_owner') THEN
+        CREATE ROLE dashboard_owner NOINHERIT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'dashboard_reader') THEN
+        CREATE ROLE dashboard_reader NOINHERIT;
+    END IF;
+END;
+$$;
 """
 
-# create a test view in the dashboard schema (with securtiy_invoker)
-create_test_view = """
-CREATE OR REPLACE VIEW dashboard.test WITH (SECURITY_INVOKER = TRUE)  AS
-SELECT speaker_id, speaker_name
-FROM private.speakers
-LIMIT 10;
+# ownership of schemas
+ownership_schemas = """
+ALTER SCHEMA dashboard OWNER TO dashboard_owner;
+ALTER SCHEMA dashboard_internal OWNER TO dashboard_owner;
 """
 
-# set the owner of the test view to the dashboard_owner role
-# set_test_owner = """
-# ALTER VIEW dashboard.test OWNER TO dashboard_owner;
-# """
-
-# restrict access to the test view to only allow anon role to SELECT
-restrict_and_grant_view = """
-REVOKE ALL ON dashboard.test FROM PUBLIC;
-REVOKE ALL ON dashboard.test FROM anon, authenticated;
-GRANT SELECT ON dashboard.test TO anon;
+# lock down schemas
+lockdown_schemas = """
+REVOKE ALL ON SCHEMA dashboard_internal FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON SCHEMA private FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON SCHEMA dashboard FROM PUBLIC, anon, authenticated;
 """
 
-# make the test view read-only for all roles
-make_view_read_only = """
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER
-ON dashboard.test
-FROM dashboard_owner, anon, authenticated;
+# grant select on private.speakers to dashboard_owner
+grant_select_private = """
+GRANT SELECT ON private.speeches TO dashboard_owner;
+GRANT SELECT ON private.topics TO dashboard_owner;
+GRANT SELECT ON private.files TO dashboard_owner;
 """
 
-# cleanup any previous broad grants on the dashboard schema
-cleanup_dashboard_schema_grants = """
-REVOKE ALL ON ALL TABLES IN SCHEMA dashboard FROM anon, authenticated;
-REVOKE ALL ON ALL SEQUENCES IN SCHEMA dashboard FROM anon, authenticated;
-REVOKE ALL ON ALL FUNCTIONS IN SCHEMA dashboard FROM anon, authenticated;
+# security definer function in dashboard_internal (are executed with owners privileges)
+sd_functions = """
+-- topics read function
+CREATE OR REPLACE FUNCTION dashboard_internal._fn_topics_read()
+RETURNS TABLE (
+    topic_id INTEGER,
+    topic_keywords TEXT,
+    topic_label TEXT,
+    topic_duration INTERVAL,
+    topic_duration_bt INTERVAL,
+    topic_duration_ts INTERVAL
+)
+LANGUAGE sql
+SECURITY DEFINER SET search_path = pg_catalog, private
+STABLE
+AS $$
+    SELECT * 
+    FROM private.topics;
+$$;
+REVOKE ALL ON FUNCTION dashboard_internal._fn_topics_read() FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION dashboard_internal._fn_topics_read() TO dashboard_reader;
+
+-- speeches with date read function
+CREATE OR REPLACE FUNCTION dashboard_internal._fn_speeches_date_read()
+RETURNS TABLE (
+    speech_id BIGINT,
+    source TEXT,
+    speech_duration INTERVAL,
+    speech_date DATE,
+    topic INTEGER
+)
+LANGUAGE sql
+SECURITY DEFINER SET search_path = pg_catalog, private
+STABLE
+AS $$
+    SELECT s.speech_id, f.source, s.speech_duration, f.file_date AS speech_date, s.topic
+    FROM private.speeches AS s
+    JOIN private.files AS f
+    ON s.file = f.file_id;
+$$;
+REVOKE ALL ON FUNCTION dashboard_internal._fn_speeches_date_read() FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION dashboard_internal._fn_speeches_date_read() TO dashboard_reader;
 """
+
+# ownership of functions to dashboard_owner
+ownership_functions = """
+ALTER FUNCTION dashboard_internal._fn_topics_read() OWNER TO dashboard_owner;
+ALTER FUNCTION dashboard_internal._fn_speeches_date_read() OWNER TO dashboard_owner;
+"""
+
+# create view in dashboard schema from security definer function
+create_views = """
+-- topics view
+CREATE OR REPLACE VIEW dashboard.topics_view AS
+SELECT * 
+FROM dashboard_internal._fn_topics_read();
+
+-- speeches with date view
+CREATE OR REPLACE VIEW dashboard.speeches_date_view AS
+SELECT *
+FROM dashboard_internal._fn_speeches_date_read();
+"""
+
+# ownership of views to dashboard_owner
+ownership_views = """
+ALTER VIEW dashboard.topics_view OWNER TO dashboard_owner;
+ALTER VIEW dashboard.speeches_date_view OWNER TO dashboard_owner;
+"""
+
+# give dashboard_reader minimal rights to access dashboard schema
+minimal_rights = """
+GRANT USAGE ON SCHEMA dashboard TO dashboard_reader;
+REVOKE ALL ON dashboard.topics_view FROM PUBLIC, anon, authenticated;
+GRANT SELECT ON dashboard.topics_view TO dashboard_reader;
+REVOKE ALL ON dashboard.speeches_date_view FROM PUBLIC, anon, authenticated;
+GRANT SELECT ON dashboard.speeches_date_view TO dashboard_reader;
+"""
+
+# give anon dashboard_reader role for read-only access
+grant_anon_role = """
+GRANT dashboard_reader TO anon;"""
 
 with psycopg2.connect(DB_URL) as conn:
     with conn.cursor() as cur:
-        cur.execute(create_dashboard_schema)
-        # cur.execute(create_ownership_dashboard)
-        # cur.execute(grant_dashboard_owner_membership_to_postgres)
-        # cur.execute(grant_dashboard_owner_schema_privs)
-
-        # cur.execute(remove_public_access_private)
-        # cur.execute(grant_minimal_private_access_to_dashboard_owner)
-
-        cur.execute(grant_public_usage_dashboard)
-
-        cur.execute(create_test_view)
-        # cur.execute(set_test_owner)
-
-        # cleanup any previous broad grants, then set the precise desired permissions
-        cur.execute(cleanup_dashboard_schema_grants)
-        cur.execute(make_view_read_only)
-        cur.execute(restrict_and_grant_view)
-
+        cur.execute(create_schemas)
+        cur.execute(create_roles)
+        cur.execute(ownership_schemas)
+        cur.execute(lockdown_schemas)
+        cur.execute(grant_select_private)
+        cur.execute(sd_functions)
+        cur.execute(ownership_functions)
+        cur.execute(create_views)
+        cur.execute(ownership_views)
+        cur.execute(minimal_rights)
+        cur.execute(grant_anon_role)
+        
     conn.commit()
