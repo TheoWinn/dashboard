@@ -1,5 +1,50 @@
 import { useEffect, useState } from "react";
 import { fetchSummary } from "../lib/api.js";
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Tooltip as ReTooltip,
+  Legend,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from "recharts";
+
+function normalizeTimeseries(ts) {
+  if (!Array.isArray(ts)) return [];
+  return ts
+    .map((row) => {
+      const date = row.date ?? row.day ?? row.dt ?? row.timestamp ?? null;
+
+      const bundestag =
+        row.bundestag_minutes ?? row.bt_minutes ?? row.bundestag ?? row.bt ?? 0;
+
+      const talkshow =
+        row.talkshow_minutes ?? row.tv_minutes ?? row.talkshow ?? row.tv ?? 0;
+
+      const mismatch =
+        row.mismatch_score ??
+        row.mismatch ??
+        Math.abs(Number(talkshow) - Number(bundestag));
+
+      return {
+        date: String(date ?? ""),
+        bundestag_minutes: Number(bundestag) || 0,
+        talkshow_minutes: Number(talkshow) || 0,
+        mismatch_score: Number(mismatch) || 0,
+      };
+    })
+    .filter((d) => d.date);
+}
+
+function formatMinutes(v) {
+  if (typeof v !== "number" || Number.isNaN(v)) return "";
+  return `${v} min`;
+}
 
 export default function Landing({ onSelectTopic }) {
   const [summary, setSummary] = useState(null);
@@ -29,6 +74,13 @@ export default function Landing({ onSelectTopic }) {
 
   const hero = summary.hero_topic;
 
+  const heroPie = [
+    { name: "Bundestag", value: Number(hero.bundestag_minutes) || 0 },
+    { name: "Talk shows", value: Number(hero.talkshow_minutes) || 0 },
+  ].filter((d) => d.value > 0);
+
+  const heroSeries = normalizeTimeseries(hero.timeseries);
+
   return (
     <div className="container">
       <header className="hero">
@@ -57,13 +109,88 @@ export default function Landing({ onSelectTopic }) {
           <button className="btn" onClick={() => onSelectTopic(hero.slug)}>
             Explore this topic
           </button>
+
+          {/* HERO CHARTS */}
+          <div className="heroCharts">
+            <div className="chartCard" style={{ height: 220 }}>
+              <h4 style={{ margin: "0 0 8px" }}>Time split</h4>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={heroPie}
+                    dataKey="value"
+                    nameKey="name"
+                    innerRadius={45}
+                    outerRadius={75}
+                    paddingAngle={2}
+                    isAnimationActive={false}
+                  />
+                  <ReTooltip formatter={(v) => formatMinutes(Number(v))} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+
+              {heroPie.length === 0 && (
+                <p className="muted" style={{ marginTop: 8 }}>
+                  No minutes available.
+                </p>
+              )}
+            </div>
+
+            <div className="chartCard" style={{ height: 220 }}>
+              <h4 style={{ margin: "0 0 8px" }}>Daily attention</h4>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={heroSeries}
+                  margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" hide />
+                  <YAxis hide />
+                  <Tooltip
+                    formatter={(value, name) => {
+                      if (name === "bundestag_minutes")
+                        return [value, "Bundestag"];
+                      if (name === "talkshow_minutes")
+                        return [value, "Talk shows"];
+                      if (name === "mismatch_score") return [value, "Mismatch"];
+                      return [value, name];
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="bundestag_minutes"
+                    dot={false}
+                    strokeWidth={2}
+                    isAnimationActive={false}
+                    name="Bundestag"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="talkshow_minutes"
+                    dot={false}
+                    strokeWidth={2}
+                    isAnimationActive={false}
+                    name="Talk shows"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+
+              {heroSeries.length === 0 && (
+                <p className="muted" style={{ marginTop: 8 }}>
+                  No timeseries available.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </header>
 
       <section className="section">
         <h3>Explore topics</h3>
         <p className="muted">
-          Click a topic to see daily attention over time and overall time allocation.
+          Click a topic to see daily attention over time and overall time
+          allocation.
         </p>
 
         <div className="grid">

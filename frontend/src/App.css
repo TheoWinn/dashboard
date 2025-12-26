@@ -54,3 +54,23 @@
 .mismatch {
   font-weight: bold;
 }
+
+.chartCard {
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+}
+
+.heroCharts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+@media (min-width: 860px) {
+  .heroCharts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
