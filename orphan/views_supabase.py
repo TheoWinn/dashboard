@@ -104,8 +104,41 @@ ALTER FUNCTION dashboard_internal._fn_speeches_date_read() OWNER TO dashboard_ow
 create_views = """
 -- topics view
 CREATE OR REPLACE VIEW dashboard.topics_view AS
-SELECT * 
-FROM dashboard_internal._fn_topics_read();
+WITH base AS (
+  SELECT
+    topic_id,
+    topic_label,
+    topic_keywords,
+    topic_duration,
+    topic_duration_bt,
+    topic_duration_ts,
+
+    -- convert intervals to seconds (numeric)
+    EXTRACT(EPOCH FROM topic_duration_bt)::numeric AS bt_seconds,
+    EXTRACT(EPOCH FROM topic_duration_ts)::numeric AS ts_seconds
+  FROM dashboard_internal._fn_topics_read()
+),
+norm AS (
+  SELECT
+    *,
+    bt_seconds / NULLIF(SUM(bt_seconds) OVER (), 0) AS bt_normalized,
+    ts_seconds / NULLIF(SUM(ts_seconds) OVER (), 0) AS ts_normalized
+  FROM base
+)
+SELECT
+  topic_id,
+  topic_label,
+  topic_keywords,
+  topic_duration,
+  topic_duration_bt,
+  topic_duration_ts,
+  (bt_normalized*100) AS bt_normalized_perc,
+  (ts_normalized*100) AS ts_normalized_perc,
+  (bt_normalized / NULLIF(bt_normalized + ts_normalized, 0))*100 AS bt_share,
+  (ts_normalized / NULLIF(bt_normalized + ts_normalized, 0))*100 AS ts_share,
+  (bt_normalized - ts_normalized)*100 AS mismatch_ppoints,
+  log((bt_normalized+0.0000001)/(ts_normalized+0.0000001)) AS mismatch_log_ratio
+FROM norm;
 
 -- speeches with date view
 CREATE OR REPLACE VIEW dashboard.speeches_date_view AS
