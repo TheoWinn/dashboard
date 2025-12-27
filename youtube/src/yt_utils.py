@@ -170,7 +170,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
             try:
                 # download audio
                 # yt = YouTube(url, client = "ANDROID_EMBED", on_progress_callback=on_progress)
-                yt = YouTube(url, on_progress_callback=on_progress)
+                yt = YouTube(url, "WEB", on_progress_callback=on_progress)
 
                 # check whether the video is not a short (short is less than 4 minutes)
                 if yt.length < 240:
