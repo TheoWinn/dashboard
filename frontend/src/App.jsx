@@ -6,7 +6,13 @@ export default function App() {
   const [selectedSlug, setSelectedSlug] = useState(null);
 
   if (selectedSlug) {
-    return <Topic slug={selectedSlug} onBack={() => setSelectedSlug(null)} />;
+    return (
+      <Topic
+        slug={selectedSlug}
+        onBack={() => setSelectedSlug(null)}
+        onSelectTopic={(slug) => setSelectedSlug(slug)}
+      />
+    );
   }
 
   return <Landing onSelectTopic={(slug) => setSelectedSlug(slug)} />;

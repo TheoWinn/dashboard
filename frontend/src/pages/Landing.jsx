@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchSummary } from "../lib/api.js";
 import {
   ResponsiveContainer,
@@ -56,6 +56,17 @@ export default function Landing({ onSelectTopic }) {
       .catch((e) => setErr(String(e)));
   }, []);
 
+  const hero = summary?.hero_topic;
+
+  // Top 4 "other topics" = from featured_topics excluding hero
+  const topOthers = useMemo(() => {
+    if (!summary?.featured_topics?.length) return [];
+    const heroSlug = hero?.slug;
+    return summary.featured_topics
+      .filter((t) => t?.slug && t.slug !== heroSlug)
+      .slice(0, 4);
+  }, [summary, hero?.slug]);
+
   if (err) {
     return (
       <div className="container">
@@ -72,7 +83,15 @@ export default function Landing({ onSelectTopic }) {
     );
   }
 
-  const hero = summary.hero_topic;
+  if (!hero) {
+    return (
+      <div className="container">
+        <h1>Mismatch Barometer</h1>
+        <p className="muted">Last updated: {summary.last_updated}</p>
+        <div className="error">No hero_topic found in summary.json</div>
+      </div>
+    );
+  }
 
   const heroPie = [
     { name: "Bundestag", value: Number(hero.bundestag_minutes) || 0 },
@@ -89,7 +108,7 @@ export default function Landing({ onSelectTopic }) {
 
         <div className="heroCard">
           <h2>{hero.label}</h2>
-          <p className="headline">{hero.headline}</p>
+          {!!hero.headline && <p className="headline">{hero.headline}</p>}
 
           <div className="metricRow">
             <div className="metric">
@@ -110,7 +129,7 @@ export default function Landing({ onSelectTopic }) {
             Explore this topic
           </button>
 
-          {/* HERO CHARTS */}
+          {/* HERO CHARTS (will show "no data" until timeseries exists) */}
           <div className="heroCharts">
             <div className="chartCard" style={{ height: 220 }}>
               <h4 style={{ margin: "0 0 8px" }}>Time split</h4>
@@ -147,16 +166,7 @@ export default function Landing({ onSelectTopic }) {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" hide />
                   <YAxis hide />
-                  <Tooltip
-                    formatter={(value, name) => {
-                      if (name === "bundestag_minutes")
-                        return [value, "Bundestag"];
-                      if (name === "talkshow_minutes")
-                        return [value, "Talk shows"];
-                      if (name === "mismatch_score") return [value, "Mismatch"];
-                      return [value, name];
-                    }}
-                  />
+                  <Tooltip />
                   <Line
                     type="monotone"
                     dataKey="bundestag_minutes"
@@ -186,15 +196,15 @@ export default function Landing({ onSelectTopic }) {
         </div>
       </header>
 
+      {/* Top 4 other topics */}
       <section className="section">
-        <h3>Explore topics</h3>
+        <h3>Top other topics</h3>
         <p className="muted">
-          Click a topic to see daily attention over time and overall time
-          allocation.
+          Four more topics with the strongest mismatch (excluding the hero).
         </p>
 
         <div className="grid">
-          {summary.featured_topics.map((t) => (
+          {topOthers.map((t) => (
             <button
               key={t.slug}
               className="card"
@@ -216,25 +226,29 @@ export default function Landing({ onSelectTopic }) {
             </button>
           ))}
         </div>
+
+        {topOthers.length === 0 && (
+          <p className="muted">No additional topics available.</p>
+        )}
       </section>
 
       <section className="section">
         <h3>Overall snapshot</h3>
         <div className="stats">
           <div className="stat">
-            <b>{summary.overall_stats.total_topics}</b>
+            <b>{summary.overall_stats?.total_topics ?? "—"}</b>
             <span>Total topics</span>
           </div>
           <div className="stat">
-            <b>{summary.overall_stats.avg_abs_mismatch}</b>
+            <b>{summary.overall_stats?.avg_abs_mismatch ?? "—"}</b>
             <span>Avg |mismatch|</span>
           </div>
           <div className="stat">
-            <b>{summary.overall_stats.topics_more_parliament}</b>
+            <b>{summary.overall_stats?.topics_more_parliament ?? "—"}</b>
             <span>More Bundestag</span>
           </div>
           <div className="stat">
-            <b>{summary.overall_stats.topics_more_talkshows}</b>
+            <b>{summary.overall_stats?.topics_more_talkshows ?? "—"}</b>
             <span>More talk shows</span>
           </div>
         </div>
