@@ -82,8 +82,8 @@ function safeNum(v) {
 }
 
 async function main() {
+  await fs.rm(TOPICS_DIR, { recursive: true, force: true });
   await fs.mkdir(TOPICS_DIR, { recursive: true });
-
   // Pull from dashboard schema
   const { data: rows, error } = await supabase
     .schema("dashboard")

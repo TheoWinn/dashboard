@@ -48,6 +48,18 @@ function formatMinutes(v) {
   return `${v} min`;
 }
 
+function formatGermanDateTime(isoString) {
+  if (!isoString) return "";
+
+  const date = new Date(isoString);
+
+  return new Intl.DateTimeFormat("de-DE", {
+    timeZone: "Europe/Berlin",
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
+}
+
 export default function Landing({ onSelectTopic }) {
   const [summary, setSummary] = useState(null);
   const [err, setErr] = useState(null);
@@ -89,7 +101,9 @@ export default function Landing({ onSelectTopic }) {
     return (
       <div className="container">
         <h1>Mismatch Barometer</h1>
-        <p className="muted">Last updated: {summary.last_updated}</p>
+        <p className="muted">
+          Last updated: {formatGermanDateTime(summary.last_updated)}
+          </p>
         <div className="error">No hero_topic found in summary.json</div>
       </div>
     );
@@ -105,9 +119,16 @@ export default function Landing({ onSelectTopic }) {
   return (
     <div className="container">
       <header className="hero">
-        <h1>Mismatch Barometer</h1>
-        <p className="muted">Last updated: {summary.last_updated}</p>
-
+        <h1 className="heroTitle"> Mismatch Barometer </h1>
+        <p className="heroExplanation">
+          Remember when the European Parliament started talking about banning conventional names for vegan substitues?
+          Yeah, that was pretty wild, and somewhat weird? How come that politicians seem to talk about arbitrary stuff, whilst the public is interested in vastly different things?
+          With this dashboard, we are trying to seek out which ohter topic mismatches are present between the Bundestag and German talkshows.
+          You can see the total minutes that where talked about in the past year per "sphere", and a normalized "Mismatch Score" which quantifies 
+          how strong the difference is. It ranges from -100 to +100, with 0 indicating an equilibrium. Negative scores indicate more salience in Talkshows,
+          positive values indicate more salience in the Bundestag.
+        </p>
+        <p className="muted">Last updated: {formatGermanDateTime(summary.last_updated)}</p>
         <div className="heroCard">
           <h2>{hero.label}</h2>
           {!!hero.headline && <p className="headline">{hero.headline}</p>}
