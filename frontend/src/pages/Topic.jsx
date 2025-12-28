@@ -14,6 +14,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import { COLORS } from "../lib/colors.js";
 
 function normalizeTimeseries(ts) {
   if (!Array.isArray(ts)) return [];
@@ -166,8 +167,12 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                     isAnimationActive={false}
                     label={(entry) => `${entry.name}: ${entry.value}`}
                   >
-                    <Cell />
-                    <Cell />
+                    {pieData.map((entry) => (
+                      <Cell
+                        key={entry.name}
+                        fill={entry.name === "Bundestag" ? COLORS.bundestag : COLORS.talkshow}
+                      />
+                    ))}
                   </Pie>
                   <ReTooltip formatter={(v) => formatMinutes(Number(v))} />
                   <Legend />
