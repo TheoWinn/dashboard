@@ -92,12 +92,157 @@ AS $$
 $$;
 REVOKE ALL ON FUNCTION dashboard_internal._fn_speeches_date_read() FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION dashboard_internal._fn_speeches_date_read() TO dashboard_reader;
+
+-- function for windowed metrics
+CREATE OR REPLACE FUNCTION dashboard_internal._fn_topics_metrics_all_xweek_windows(
+    p_year         int,
+    p_window_weeks int
+)
+RETURNS TABLE (
+    window_start date,
+    window_end   date,
+
+    topic_id integer,
+    topic_label text,
+    topic_keywords text,
+
+    topic_duration interval,
+    topic_duration_bt interval,
+    topic_duration_ts interval,
+
+    bt_normalized_perc numeric,
+    ts_normalized_perc numeric
+)
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = pg_catalog, private
+STABLE
+AS $$
+WITH params AS (
+  SELECT
+    make_date(p_year, 1, 1)::date         AS start_date,
+    make_date(p_year + 1, 1, 1)::date     AS end_date,       -- exclusive end
+    (p_window_weeks || ' weeks')::interval AS step
+),
+windows AS (
+  SELECT
+    gs::date AS window_start,
+    LEAST((gs + p.step)::date, p.end_date) AS window_end
+  FROM params p
+  CROSS JOIN generate_series(p.start_date, p.end_date - p.step, p.step) AS gs
+),
+speech_rows AS (
+  SELECT
+    w.window_start,
+    w.window_end,
+    s.topic AS topic_id,
+    f.source,
+    s.speech_duration
+  FROM windows w
+  JOIN private.files f
+    ON f.file_date >= w.window_start
+   AND f.file_date <  w.window_end
+  JOIN private.speeches s
+    ON s.file = f.file_id
+  WHERE s.topic IS NOT NULL
+),
+agg AS (
+  SELECT
+    window_start,
+    window_end,
+    topic_id,
+    SUM(speech_duration) AS topic_duration,
+    SUM(speech_duration) FILTER (WHERE source = 'bundestag') AS topic_duration_bt,
+    SUM(speech_duration) FILTER (WHERE source = 'talkshow')  AS topic_duration_ts
+  FROM speech_rows
+  GROUP BY 1,2,3
+),
+base AS (
+  SELECT
+    a.window_start,
+    a.window_end,
+    t.topic_id,
+    t.topic_label,
+    t.topic_keywords,
+    a.topic_duration,
+    a.topic_duration_bt,
+    a.topic_duration_ts,
+    EXTRACT(EPOCH FROM a.topic_duration_bt)::numeric AS bt_seconds,
+    EXTRACT(EPOCH FROM a.topic_duration_ts)::numeric AS ts_seconds
+  FROM agg a
+  JOIN private.topics t ON t.topic_id = a.topic_id
+),
+norm AS (
+  SELECT
+    *,
+    bt_seconds / NULLIF(SUM(bt_seconds) OVER (PARTITION BY window_start), 0) AS bt_normalized,
+    ts_seconds / NULLIF(SUM(ts_seconds) OVER (PARTITION BY window_start), 0) AS ts_normalized
+  FROM base
+)
+SELECT
+  window_start,
+  window_end,
+
+  topic_id,
+  topic_label,
+  topic_keywords,
+
+  topic_duration,
+  topic_duration_bt,
+  topic_duration_ts,
+
+  (bt_normalized * 100) AS bt_normalized_perc,
+  (ts_normalized * 100) AS ts_normalized_perc
+FROM norm
+ORDER BY window_start, topic_id;
+$$;
+
+REVOKE ALL ON FUNCTION dashboard_internal._fn_topics_metrics_all_xweek_windows(int,int)
+  FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION dashboard_internal._fn_topics_metrics_all_xweek_windows(int,int)
+  TO dashboard_reader;
+
+-- public wrapper function for windowed metrics
+CREATE OR REPLACE FUNCTION dashboard.topics_metrics_all_xweek_windows(
+  p_year int,
+  p_window_weeks int
+)
+RETURNS TABLE (
+  window_start date,
+  window_end   date,
+
+  topic_id integer,
+  topic_label text,
+  topic_keywords text,
+
+  topic_duration interval,
+  topic_duration_bt interval,
+  topic_duration_ts interval,
+
+  bt_normalized_perc numeric,
+  ts_normalized_perc numeric
+)
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = pg_catalog  -- keep tight; we schema-qualify everything
+STABLE
+AS $$
+  SELECT *
+  FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(p_year, p_window_weeks);
+$$;
+
+REVOKE ALL ON FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int)
+  FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int)
+  TO dashboard_reader;
 """
 
 # ownership of functions to dashboard_owner
 ownership_functions = """
 ALTER FUNCTION dashboard_internal._fn_topics_read() OWNER TO dashboard_owner;
 ALTER FUNCTION dashboard_internal._fn_speeches_date_read() OWNER TO dashboard_owner;
+ALTER FUNCTION dashboard_internal._fn_topics_metrics_all_xweek_windows(int,int) OWNER TO dashboard_owner;
+ALTER FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int) OWNER TO dashboard_owner;
 """
 
 # create view in dashboard schema from security definer function
@@ -144,12 +289,18 @@ FROM norm;
 CREATE OR REPLACE VIEW dashboard.speeches_date_view AS
 SELECT *
 FROM dashboard_internal._fn_speeches_date_read();
+
+-- 4-week windowed metrics view
+CREATE OR REPLACE VIEW dashboard.topics_view_2025_4w AS
+SELECT *
+FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(2025, 4);
 """
 
 # ownership of views to dashboard_owner
 ownership_views = """
 ALTER VIEW dashboard.topics_view OWNER TO dashboard_owner;
 ALTER VIEW dashboard.speeches_date_view OWNER TO dashboard_owner;
+ALTER VIEW dashboard.topics_view_2025_4w OWNER TO dashboard_owner;
 """
 
 # give dashboard_reader minimal rights to access dashboard schema
@@ -159,6 +310,8 @@ REVOKE ALL ON dashboard.topics_view FROM PUBLIC, anon, authenticated;
 GRANT SELECT ON dashboard.topics_view TO dashboard_reader;
 REVOKE ALL ON dashboard.speeches_date_view FROM PUBLIC, anon, authenticated;
 GRANT SELECT ON dashboard.speeches_date_view TO dashboard_reader;
+REVOKE ALL ON dashboard.topics_view_2025_4w FROM PUBLIC, anon, authenticated;
+GRANT SELECT ON dashboard.topics_view_2025_4w TO dashboard_reader;
 """
 
 # give anon dashboard_reader role for read-only access
