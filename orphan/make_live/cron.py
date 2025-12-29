@@ -25,14 +25,14 @@ cron = CronTab(user=True)
 # We wrap everything in "sh -c" so we catch shell errors (like 'cd' failing)
 # We add "-u" to python for unbuffered output
 command_string = f"cd {project_root} && {python_executable} -u {file_to_run}"
-full_command = f"/bin/sh -c '{command_string}' > {log_file} 2>&1"
+full_command = f"/bin/sh -c '{command_string}' >> {log_file} 2>&1"
 
 # 4. Create job
 cron.remove_all(comment="My daily hello job") 
 job = cron.new(command=full_command, comment="My daily hello job")
 
-# 5. Schedule (Every minute for testing, change to "0 17 * * *" for 5pm later)
-job.setall("2 14 * * *")
+# 5. Schedule ("minute hour day week year"
+job.setall("27 14 * * *")
 
 # 6. Save
 cron.write()
