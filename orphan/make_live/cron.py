@@ -13,7 +13,7 @@ python_executable = os.path.join(project_root, ".venv", "bin", "python")
 
 # Path to hello.py (It is in 'orphan/make_live' based on your screenshot)
 # IF hello.py IS IN 'orphan', CHANGE THIS TO: os.path.join(orphan_dir, "hello.py")
-file_to_run = os.path.join(make_live_dir, "hello.py")
+file_to_run = os.path.join(make_live_dir, "pipeline.py")
 
 # Path for the log file
 log_file = os.path.join(make_live_dir, "cron_log.txt")
@@ -39,7 +39,7 @@ cron.write()
 
 print("Job created!")
 print(f"Log file will be at: {log_file}")
-print("Wait 1 minute, then run: cat " + log_file)
+print("Wait 5 minutes, then run: cat " + log_file)
 
 # check if job ran: sudo service cron status
 # check output: cat and output_dir
