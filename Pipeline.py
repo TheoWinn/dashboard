@@ -87,6 +87,7 @@ def main():
         cmd = [sys.executable, "ma_utils.py"]
         if not run_step("Matching Pipeline", cmd, cwd=os.path.join(os.getcwd(), "matching", "src")):
             sys.exit(1)
-
+    # Bert
+    # Schreiben in Datenbank
 if __name__ == "__main__":
     main()
