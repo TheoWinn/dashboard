@@ -1,0 +1,73 @@
+{
+  "CategoryType": 120,
+  "containerType": 2,
+  "createTime": 0,
+  "desc": "",
+  "digged": false,
+  "forFriend": false,
+  "id": "",
+  "itemCommentStatus": 0,
+  "liveRoomInfo": {
+    "coverUrl": "https://p16-pu-sign-no.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/8144435a503346a028dfd90e0b526cbe~tplv-tiktokx-cropcenter:720:720.webp?dr=10399&refresh_token=09f81695&x-expires=1767610800&x-signature=9R8rZA9NdsdlVt6mIJ%2F5Dgk6JMU%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=fdd36af4&idc=no1a",
+    "followStatus": 0,
+    "fypRoomTag": {
+      "tag": [
+        {
+          "content": "LIVE now",
+          "da_info": "",
+          "id": 4,
+          "recommond_info": "",
+          "style": 1
+        }
+      ]
+    },
+    "highlights": [
+      {
+        "duration": 35.823001861572266,
+        "height": 1920,
+        "size": 8024799,
+        "url": "https://v16m-ttgl.tiktokcdn.com/248c735097b08d36dba63bcd95034a52/698093dd/video/tos/no1a/tos-no1a-v-6123-no/o81wAYQiHzEZrAG0FIAEW60iEfBBmcfkFByBgI/?a=1233&bti=MzY5QDQyM2A%3D&ch=0&cr=0&dr=0&cd=0%7C0%7C0%7C0&br=3500&bt=1750&cs=0&ds=4&ft=Gc-1XInz7ThYRalPXq8Zmo&mime_type=video_mp4&qs=13&rc=M3MzZ285cnNoODQzb2U6NUBpM3MzZ285cnNoODQzb2U6NUBtZDMxMmRzZGBhLS1kYjFzYSNtZDMxMmRzZGBhLS1kYjFzcw%3D%3D&vvpl=1&l=20260103120824BD802C131E3B800C826F&btag=e00048000&download=true&filename=1767442106.mp4",
+        "width": 960
+      }
+    ],
+    "landscape": 2,
+    "likeCount": 12102,
+    "liveRoomStats": {
+      "userCount": 7
+    },
+    "liveSubOnly": 0,
+    "liveUrl": "",
+    "mode": 0,
+    "ownerInfo": {
+      "avatarLarger": "https://p16-pu-sign-no.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/8144435a503346a028dfd90e0b526cbe~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=10399&refresh_token=892e6068&x-expires=1767614400&x-signature=SnLMmSjK8HkUiE53M%2B4BSGJAdVI%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=no1a",
+      "avatarMedium": "https://p16-pu-sign-no.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/8144435a503346a028dfd90e0b526cbe~tplv-tiktokx-cropcenter:720:720.jpeg?dr=10399&refresh_token=606b7f7f&x-expires=1767614400&x-signature=6zGb%2BURb0qqJzYVrsi7qoEsx75k%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=no1a",
+      "avatarThumb": "https://p16-pu-sign-no.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/8144435a503346a028dfd90e0b526cbe~tplv-tiktokx-cropcenter:100:100.jpeg?dr=10399&refresh_token=23f5b353&x-expires=1767614400&x-signature=WVt3mC5Kf7s6kHZUY%2FB4J2q%2BU50%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=no1a",
+      "ftc": false,
+      "id": "7322508781854114848",
+      "nickname": "Nicky'sKleiderstuebchen",
+      "openFavorite": false,
+      "privateAccount": false,
+      "relation": 0,
+      "secret": false,
+      "signature": "",
+      "uniqueId": "nickyskleiderstuebchen26",
+      "verified": false
+    },
+    "roomID": "7591062107569457942",
+    "shareCount": 8,
+    "status": 2,
+    "streamData": "{\"common\":{\"session_id\":\"044-20260103120824BD802C131E3B800C826F\",\"rule_ids\":\"{\\\"ab_version_trace\\\":null,\\\"sched\\\":\\\"{\\\\\\\"result\\\\\\\":{\\\\\\\"cdn\\\\\\\":4711,\\\\\\\"hit\\\\\\\":\\\\\\\"exclusive\\\\\\\"},\\\\\\\"ids\\\\\\\":[\\\\\\\"ex_3781382(Weight:100)\\\\\\\"]}\\\"}\",\"peer_anchor_level\":1},\"data\":{\"ao\":{\"main\":{\"flv\":\"https://pull-flv-f58-tt04.tiktokcdn-eu.com/stage/stream-1271531853895173441.flv?expire=1768651706\\u0026sign=ac6f8867c53b2113c2f6081c0c53b5d3\\u0026only_audio=1\",\"hls\":\"\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"\",\"tsl\":\"\",\"tile\":\"\",\"rtc\":\"\",\"sdk_params\":\"{\\\"gop\\\":4,\\\"cdn_name\\\":\\\"gcore\\\",\\\"stream_suffix\\\":\\\"ao\\\",\\\"VCodec\\\":\\\"h264\\\",\\\"vbitrate\\\":0,\\\"resolution\\\":\\\"\\\"}\"}},\"origin\":{\"main\":{\"flv\":\"https://pull-flv-f58-tt04.tiktokcdn-eu.com/stage/stream-1271531853895173441_or4.flv?expire=1768651706\\u0026sign=9f7189a171ad4705ed71ebfd7ea739e4\",\"hls\":\"\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"\",\"tsl\":\"\",\"tile\":\"\",\"rtc\":\"\",\"sdk_params\":\"{\\\"v_rtbitrate_vpaas_timestamp\\\":1767442106250,\\\"cdn_name\\\":\\\"gcore\\\",\\\"stream_suffix\\\":\\\"or4\\\",\\\"v_rtpsnr\\\":0,\\\"v_rtbitrate_std\\\":158650,\\\"VCodec\\\":\\\"h264\\\",\\\"v_rtbitrate\\\":3315160,\\\"v_rtbitrate_pct\\\":3610550,\\\"resolution\\\":\\\"960x1920\\\",\\\"v_rtbitrate_timestamp\\\":1767441651382,\\\"gop\\\":4,\\\"vbitrate\\\":1000000}\"}},\"sd\":{\"main\":{\"flv\":\"https://pull-flv-f58-tt04.tiktokcdn-eu.com/stage/stream-1271531853895173441_sd.flv?expire=1768651706\\u0026sign=66dd6836566749b8e1cce4546551d976\",\"hls\":\"\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"\",\"tsl\":\"\",\"tile\":\"\",\"rtc\":\"\",\"sdk_params\":\"{\\\"cdn_name\\\":\\\"gcore\\\",\\\"stream_suffix\\\":\\\"sd\\\",\\\"vbitrate\\\":800000,\\\"resolution\\\":\\\"480x960\\\",\\\"gop\\\":0,\\\"VCodec\\\":\\\"h264\\\"}\"}},\"ld\":{\"main\":{\"flv\":\"https://pull-flv-f58-tt04.tiktokcdn-eu.com/stage/stream-1271531853895173441_ld.flv?expire=1768651706\\u0026sign=56f835ff745525f87c35a995225e559d\",\"hls\":\"\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"\",\"tsl\":\"\",\"tile\":\"\",\"rtc\":\"\",\"sdk_params\":\"{\\\"vbitrate\\\":500000,\\\"resolution\\\":\\\"480x960\\\",\\\"gop\\\":0,\\\"cdn_name\\\":\\\"gcore\\\",\\\"stream_suffix\\\":\\\"ld\\\",\\\"VCodec\\\":\\\"h264\\\"}\"}},\"hd\":{\"main\":{\"flv\":\"https://pull-flv-f58-tt04.tiktokcdn-eu.com/stage/stream-1271531853895173441_hd.flv?expire=1768651706\\u0026sign=7752cf7f10e112b3117d9bb7f6734988\",\"hls\":\"\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"\",\"tsl\":\"\",\"tile\":\"\",\"rtc\":\"\",\"sdk_params\":\"{\\\"vbitrate\\\":1000000,\\\"gop\\\":4,\\\"cdn_name\\\":\\\"gcore\\\",\\\"stream_suffix\\\":\\\"hd\\\",\\\"v_rtpsnr\\\":0,\\\"v_rtbitrate\\\":406020,\\\"v_rtbitrate_std\\\":177250,\\\"resolution\\\":\\\"720x1440\\\",\\\"VCodec\\\":\\\"h264\\\",\\\"v_rtbitrate_pct\\\":839690,\\\"v_rtbitrate_timestamp\\\":1767440784681,\\\"v_rtbitrate_vpaas_timestamp\\\":1767442106250}\"}},\"uhd\":{\"main\":{\"flv\":\"https://pull-flv-f58-tt04.tiktokcdn-eu.com/stage/stream-1271531853895173441_uhd.flv?expire=1768651706\\u0026sign=8d9d20e4eeaf9cdff8dc8116ccda34ff\",\"hls\":\"\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"\",\"tsl\":\"\",\"tile\":\"\",\"rtc\":\"\",\"sdk_params\":\"{\\\"VCodec\\\":\\\"h264\\\",\\\"vbitrate\\\":1000000,\\\"resolution\\\":\\\"720x1440\\\",\\\"gop\\\":0,\\\"cdn_name\\\":\\\"gcore\\\",\\\"stream_suffix\\\":\\\"uhd\\\"}\"}}}}",
+    "title": "Geburtstag 🎂 ",
+    "toggleInfo": {
+      "bcToggleInfo": {
+        "bcToggleShowInterval": 15,
+        "bcToggleText": "Promotional content",
+        "ecomBcToggle": 0
+      }
+    }
+  },
+  "officalItem": false,
+  "originalItem": false,
+  "privateItem": false,
+  "secret": false
+}
