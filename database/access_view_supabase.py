@@ -11,8 +11,25 @@ print(resp.data)
 resp = supabase.schema("dashboard").table("topics_view_2025_4w").select("window_start").eq("topic_id", "1").execute()
 print(resp.data)
 
-resp = supabase.schema("dashboard").rpc("topics_metrics_all_xweek_windows", {"p_year": 2025, "p_window_weeks": 4}).select("window_start").eq("topic_id", "1").execute()
+resp = supabase.schema("dashboard").rpc("topics_metrics_all_xweek_windows", {"p_year": 2025, "p_window_weeks": 2}).select("topic_duration_ts").eq("topic_id", "1").execute()
 print(resp.data)
 
 # resp = supabase.schema("dashboard").table("speeches_date_view").select("*").execute()
 # print(resp.data)
+
+# example curl:
+"""
+curl 'https://<PROJECT_REF>.supabase.co/rest/v1/topics_view' \
+  -H "apikey: <SUPABASE_ANON_KEY>" \
+  -H "Authorization: Bearer <SUPABASE_ANON_KEY>" \
+  -H "Accept-Profile: dashboard"
+"""
+
+# get api documentation:
+"""
+curl 'https://<PROJECT_REF>.supabase.co/rest/v1/' \
+  -H "apikey: <SUPABASE_ANON_KEY>" \
+  -H "Authorization: Bearer <SUPABASE_ANON_KEY>" \
+  -H "Accept-Profile: dashboard" \
+  -H "Accept: application/openapi+json"
+"""
