@@ -519,6 +519,88 @@ def views_db(db_url):
             
         conn.commit()
 
+def comment_db(db_url):
+    views = """
+    COMMENT ON VIEW dashboard.topics_view IS 
+    'This view contains general information on all the topics identified in Bundestag and Talkshow speeches.';
+    COMMENT ON VIEW dashboard.topics_view_2025_4w IS 
+    'This view contains the same measurements as topics_view, but for a 4-week window. That means, one row in this view represents one specific topic that was talked about in a specific 4-week window.';
+    """
+
+    functions = """
+    COMMENT ON FUNCTION dashboard.topics_metrics_all_xweek_windows (int, int) IS 
+    'This function returns the topic measurements for a user defined timewindow and year.
+    
+    Paraneters:
+    - p_year: Calender year to analyze (e.g. 2025)
+    - p_window_weeks: window size in weeks (e.g. 4)
+    
+    The output of the function is a table with the same columns as in topics_view_2025_4w';
+    """
+
+    columns = """
+    -- topics_view
+    COMMENT ON COLUMN dashboard.topics_view.topic_id IS
+    'Unique topic identifier';
+    COMMENT ON COLUMN dashboard.topics_view.topic_label IS
+    'Labels of topics';
+    COMMENT ON COLUMN dashboard.topics_view.topic_keywords IS
+    'Descriptive keywords of topic';
+    COMMENT ON COLUMN dashboard.topics_view.topic_duration IS
+    'Overall observed speech time spent on topic without differentiating between Bundestag and Talkshows';
+    COMMENT ON COLUMN dashboard.topics_view.topic_duration_bt IS
+    'Observed speech time spent on topic in Bundestag';
+    COMMENT ON COLUMN dashboard.topics_view.topic_duration_ts IS
+    'Observed speech time spent on topic in Talkshows';
+    COMMENT ON COLUMN dashboard.topics_view.bt_normalized_perc IS
+    'Normalized topic speech time in Bundestag in percentages; constructed by dividing the observed time spent on specific topic in Bundestag by the total observed speech time in Bundestag.';
+    COMMENT ON COLUMN dashboard.topics_view.ts_normalized_perc IS
+    'Normalized topic speech time in Talkshows in percentages; constructed by dividing the observed time spent on specific topic in Talkshows by the total observed speech time in Talkshows.';
+    COMMENT ON COLUMN dashboard.topics_view.bt_share IS
+    'Normalized share of salience in Bundestag in percentages; constructed by dividing the normalized topic speech time of Bundestag with the total normalized topic speech time.';
+    COMMENT ON COLUMN dashboard.topics_view.ts_share IS
+    'Normalized share of salience in Talkshows in percentages; constructed by dividing the normalized topic speech time of Talkshows with the total normalized topic speech time.';
+    COMMENT ON COLUMN dashboard.topics_view.mismatch_ppoints IS
+    'Difference of normalized topic speech time in Bundestag and Talkshows in percentage points (ranges from -100 to 100); positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
+    COMMENT ON COLUMN dashboard.topics_view.mismatch_log_ratio IS
+    'Log of ratio of normalized topic speech times in Bundestag and Talkshows; positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
+    
+    -- topics_view_2025_4w
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.window_start IS
+    'Start date of window (inclusive)';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.window_end IS
+    'End date of window (exclusive)';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_id IS
+    'Unique topic identifier';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_label IS
+    'Labels of topics';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_keywords IS
+    'Descriptive keywords of topic';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration IS
+    'Overall observed speech time spent on topic without differentiating between Bundestag and Talkshows';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration_bt IS
+    'Observed speech time spent on topic in Bundestag';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration_ts IS
+    'Observed speech time spent on topic in Talkshows';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.bt_normalized_perc IS
+    'Normalized topic speech time in Bundestag in percentages; constructed by dividing the observed time spent on specific topic in Bundestag by the total observed speech time in Bundestag.';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.ts_normalized_perc IS
+    'Normalized topic speech time in Talkshows in percentages; constructed by dividing the observed time spent on specific topic in Talkshows by the total observed speech time in Talkshows.';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.mismatch_ppoints IS
+    'Difference of normalized topic speech time in Bundestag and Talkshows in percentage points (ranges from -100 to 100); positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.mismatch_log_ratio IS
+    'Log of ratio of normalized topic speech times in Bundestag and Talkshows; positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
+    """
+
+    with psycopg2.connect(db_url) as conn:
+        with conn.cursor() as cur:
+            cur.execute(views)
+            cur.execute(functions)
+            cur.execute(columns)
+            
+        conn.commit()
+
+
 def fill_db(db_url, input_path):
 
     def norm_text(x):
