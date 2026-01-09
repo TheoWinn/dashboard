@@ -5,17 +5,16 @@ import os
 load_dotenv()
 supabase = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_ANON_KEY"])
 
+
+# example supabase syntax
 resp = supabase.schema("dashboard").table("topics_view").select("*").eq("topic_id", "-1").execute()
 print(resp.data)
 
-resp = supabase.schema("dashboard").table("topics_view_2025_4w").select("window_start").eq("topic_id", "1").execute()
+resp = supabase.schema("dashboard").table("topics_view_2025_4w").select("*").execute()
 print(resp.data)
 
-resp = supabase.schema("dashboard").rpc("topics_metrics_all_xweek_windows", {"p_year": 2025, "p_window_weeks": 2}).select("topic_duration_ts").eq("topic_id", "1").execute()
+resp = supabase.schema("dashboard").rpc("topics_metrics_all_xweek_windows", {"p_year": 2025, "p_window_weeks": 2}).select("*").execute()
 print(resp.data)
-
-# resp = supabase.schema("dashboard").table("speeches_date_view").select("*").execute()
-# print(resp.data)
 
 # example curl:
 """
