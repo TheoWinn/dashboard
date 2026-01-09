@@ -4,8 +4,10 @@ import pandas as pd
 import numpy as np
 import os
 from datetime import datetime
-from topicmodelling.extract_topics import RiverBERTopicWrapper
+from bert_utils import get_gemini_labels
 
+topic_model.hdbscan_model.model.fading_factor = 0.001 
+topic_model.hdbscan_model.model.cleanup_interval = 1000
 
 # --- 2. LOAD NEW DATA ---
 new_df = pd.read_csv("new_data_2025_03.csv")
