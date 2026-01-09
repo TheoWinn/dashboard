@@ -16,7 +16,7 @@ from bert_utils import OnlineRepresentativeTracker
 ### SETUP ###
 
 talkshow_path = "../youtube/data/clustered/talkshow_clustered/*.csv"
-bundestag_path = "dashboard/youtube/data/transcribed/bundestag_transcript"#<-y<t transcript #"../matching/data/matched/*.csv" <- xml
+bundestag_path = "dashboard/youtube/data/transcribed/bundestag_transcript"#<-yt transcript #"../matching/data/matched/*.csv" <- xml
 output_path = "data/raw_topics"
 
 def extract_date_from_filename(path):
@@ -154,10 +154,10 @@ print(f"Current Threshold: 0.3")
 ##############################################################
 
 river_model = cluster.DBSTREAM(
-    clustering_threshold=0.42, # Increased from 0.18 to capture broader topics
-    minimum_weight=1.0,
-    intersection_factor=0.1,
-    fading_factor=0.0,       # 0.001 means weight halves every ~700 steps.                              # For 50k docs, this is fine, but ensures recent topics dominate.    # Clean up weak clusters every chunk
+    clustering_threshold=0.42, # niedriger= strenger = weniger cluster
+    minimum_weight=1.0, 
+    intersection_factor=0.5, # Ab wann cluster gemerged werden
+    fading_factor=0.0,       # rausgenommen, wird bei neuen Daten hinzugefügt!
 )
 
 dim_reduction_model = IncrementalPCA(n_components=70)
