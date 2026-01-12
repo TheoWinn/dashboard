@@ -97,10 +97,28 @@ async function main() {
         "topic_duration_ts",
         "mismatch_ppoints",
         "mismatch_log_ratio",
+        "bt_share",
+        "ts_share"
       ].join(",")
     );
 
   if (error) throw error;
+  console.log(
+    "DEBUG keys in first row:",
+    rows?.[0] ? Object.keys(rows[0]) : "(no rows)"
+  );
+  console.log(
+    "DEBUG first row shares:",
+    rows?.[0]?.bt_share,
+    rows?.[0]?.ts_share
+  );
+
+  const n = rows?.length ?? 0;
+  const nBtNonNull = (rows ?? []).filter((r) => r.bt_share != null).length;
+  const nTsNonNull = (rows ?? []).filter((r) => r.ts_share != null).length;
+  console.log(
+    `DEBUG rows=${n}  bt_share non-null=${nBtNonNull}  ts_share non-null=${nTsNonNull}`
+  );
 
   const topics = (rows ?? []).map((r) => {
     const bundestag_minutes = intervalToMinutes(r.topic_duration_bt);
@@ -118,6 +136,8 @@ async function main() {
       bundestag_minutes,
       talkshow_minutes,
       mismatch_score,
+      bt_share: safeNum(r.bt_share),
+      ts_share: safeNum(r.ts_share)
     };
   });
 
@@ -132,6 +152,8 @@ async function main() {
       bundestag_minutes: t.bundestag_minutes,
       talkshow_minutes: t.talkshow_minutes,
       mismatch_score: t.mismatch_score,
+      bt_share: t.bt_share,
+      ts_share: t.ts_share
     }));
 
   // Hero topic: biggest absolute mismatch
@@ -165,6 +187,8 @@ async function main() {
       totals: {
         bundestag_minutes: t.bundestag_minutes,
         talkshow_minutes: t.talkshow_minutes,
+        bt_share: t.bt_share,
+        ts_share: t.ts_share
       },
       timeseries: [], // intentionally empty for now
     };
@@ -187,6 +211,8 @@ async function main() {
           bundestag_minutes: hero.bundestag_minutes,
           talkshow_minutes: hero.talkshow_minutes,
           mismatch_score: hero.mismatch_score,
+          bt_share: hero.bt_share,
+          ts_share: hero.ts_share,
           timeseries: [], // intentionally empty for now
         }
       : null,
