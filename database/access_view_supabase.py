@@ -7,7 +7,7 @@ supabase = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_ANON_K
 
 
 # example supabase syntax
-resp = supabase.schema("dashboard").table("topics_view").select("*").eq("topic_id", "-1").execute()
+resp = supabase.schema("dashboard").table("topics_view").select("*").eq("topic_id", "1").execute()
 print(resp.data)
 
 resp = supabase.schema("dashboard").table("topics_view_2025_4w").select("*").execute()

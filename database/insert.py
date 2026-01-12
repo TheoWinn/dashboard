@@ -1,4 +1,4 @@
-from db_utils import fill_db, views_db, comment_db, rebuild_db
+from db_utils import fill_db, views_db, comment_db, rebuild_db, rebuild_views
 from dotenv import load_dotenv
 import os
 import psycopg2
@@ -25,4 +25,6 @@ DB_URL = os.environ["DATABASE_URL"]
 # print(resp.data)
 
 ##### restart database from scratch
-rebuild_db(DB_URL, "../topicmodelling/data/raw_topics/topics_representations_2025_youtube.csv", True)
+# rebuild_db(DB_URL, "../topicmodelling/data/raw_topics/topics_representations_2025_youtube.csv", True)
+
+rebuild_views(DB_URL)

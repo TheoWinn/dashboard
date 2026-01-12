@@ -250,6 +250,7 @@ def views_db(db_url):
     GRANT SELECT ON private.speeches TO dashboard_owner;
     GRANT SELECT ON private.topics TO dashboard_owner;
     GRANT SELECT ON private.files TO dashboard_owner;
+    GRANT USAGE ON SCHEMA private TO dashboard_owner
     """
 
     # security definer function in dashboard_internal (are executed with owners privileges)
@@ -757,3 +758,18 @@ def rebuild_db(db_url, input_path, youtube):
 
     # fill with data
     fill_db(db_url, input_path, youtube)
+
+def rebuild_views(db_url):
+
+    # delete everything
+    with psycopg2.connect(db_url) as conn:
+        with conn.cursor() as cur:
+            cur.execute("drop schema if exists dashboard_internal cascade;")
+            cur.execute("drop schema if exists dashboard cascade;")
+        conn.commit()
+
+    # rebuild views for dashboard
+    views_db(db_url)
+
+    # comment for api
+    comment_db(db_url)
