@@ -217,6 +217,8 @@ dist/
 node_modules/
 models/
 !frontend/src/lib/
+data
+models
 
 # Youtube Credentials and Tokens
 client_secret.json
