@@ -31,8 +31,8 @@ def main():
                         help="Cutoff date in YYYY-MM-DD format (used for both video download and protocol start date)")
     parser.add_argument("--test-mode", action="store_true",
                         help="Enable test mode (runs faster/less data)")
-    parser.add_argument("--reduce-memory", action="store_true",
-                        help="Reduce memory usage during download")
+    parser.add_argument("--many-videos", action="store_true",
+                        help="Enable many videos mode (leads to longer pauses between downloads to avoid bot detection) and goes through entire playlist instead of skipping after 20 videos were cutoff due to date.")
     parser.add_argument("--skip-download-videos", action="store_true", help="Skip YouTube video download step")
     parser.add_argument("--skip-download-protocols", action="store_true", help="Skip Bundestag protocol download step")
     parser.add_argument("--skip-transcribe", action="store_true", help="Skip transcription step")
@@ -46,9 +46,8 @@ def main():
         cmd = [sys.executable, "download_youtube.py", "--cutoff", args.cutoff]
         if args.test_mode:
             cmd.append("--test-mode")
-        if args.reduce_memory:
-            cmd.append("--reduce-memory")
-        
+        if args.many_videos:
+            cmd.append("--many-videos")
         if not run_step("YouTube Download", cmd, cwd=os.path.join(os.getcwd(), "youtube", "src")):
             sys.exit(1)
 
@@ -87,7 +86,11 @@ def main():
         cmd = [sys.executable, "ma_utils.py"]
         if not run_step("Matching Pipeline", cmd, cwd=os.path.join(os.getcwd(), "matching", "src")):
             sys.exit(1)
-    # Bert
-    # Schreiben in Datenbank
+
+    # 6. Bert
+    
+    # 7. Schreiben in Datenbank
+
+
 if __name__ == "__main__":
     main()
