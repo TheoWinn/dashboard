@@ -1,30 +1,19 @@
-from db_utils import fill_db, views_db, comment_db, rebuild_db, rebuild_views
+from db_utils import fill_db
 from dotenv import load_dotenv
 import os
-import psycopg2
-from supabase import create_client
+import argparse
 
 load_dotenv()
 DB_URL = os.environ["DATABASE_URL"]
 
-# path to csv file?
-# fill_db(DB_URL, "path_to_csv")
+parser = argparse.ArgumentParser()
+parser.add_argument("--input-path", type=str, default="../topicmodelling/data/raw_topics/topics_representations_2025_youtube.csv",
+                    help="Path to csv file")
+parser.add_argument("--youtube", action="store_true",
+                    help="Use if the BERT model was run using only transcriptions from youtube videos.")
+args = parser.parse_args()
 
-# with psycopg2.connect(DB_URL) as conn:
-#         with conn.cursor() as cur:
-#             cur.execute("drop schema if exists dashboard_internal cascade;")
-#             cur.execute("drop schema if exists dashboard cascade;")
-#         conn.commit()
+input_path = args.input_path
+youtube = args.youtube
 
-# views_db(DB_URL)
-
-# comment_db(DB_URL)
-
-# supabase = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_ANON_KEY"])
-# resp = supabase.schema("dashboard").rpc("topics_metrics_all_xweek_windows", {"p_year": 2025, "p_window_weeks": 4}).select("topic_duration_ts").eq("topic_id", "1").execute()
-# print(resp.data)
-
-##### restart database from scratch
-# rebuild_db(DB_URL, "../topicmodelling/data/raw_topics/topics_representations_2025_youtube.csv", True)
-
-rebuild_views(DB_URL)
+fill_db(DB_URL, input_path, youtube)

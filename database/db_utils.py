@@ -773,3 +773,4 @@ def rebuild_views(db_url):
 
     # comment for api
     comment_db(db_url)
+
