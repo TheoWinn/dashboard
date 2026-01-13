@@ -53,6 +53,11 @@ function formatMinutes(v) {
   return `${v} min`;
 }
 
+function formatPercent(v) {
+  if (typeof v !== "number" || Number.isNaN(v)) return "";
+  return `${v.toFixed(1)} %`;
+}
+
 export default function Topic({ slug, onBack, onSelectTopic }) {
   const [topic, setTopic] = useState(null);
   const [summary, setSummary] = useState(null);
@@ -75,8 +80,8 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
   const pieData = useMemo(() => {
     if (!topic) return [];
     return [
-      { name: "Bundestag", value: Number(topic.totals?.bundestag_minutes) || 0 },
-      { name: "Talk shows", value: Number(topic.totals?.talkshow_minutes) || 0 },
+      { name: "Bundestag", value: Number(topic.totals?.bt_share) || 0 },
+      { name: "Talk shows", value: Number(topic.totals?.ts_share) || 0 },
     ].filter((d) => d.value > 0);
   }, [topic]);
 
@@ -165,7 +170,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                     outerRadius={95}
                     paddingAngle={2}
                     isAnimationActive={false}
-                    label={(entry) => `${entry.name}: ${entry.value}`}
+                    label={(entry) => `${entry.name}: ${formatPercent(Number(entry.value))}`}
                   >
                     {pieData.map((entry) => (
                       <Cell
@@ -174,13 +179,13 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                       />
                     ))}
                   </Pie>
-                  <ReTooltip formatter={(v) => formatMinutes(Number(v))} />
+                  <ReTooltip formatter={(v) => formatPercent(Number(v))} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
               {pieData.length === 0 && (
                 <p className="muted" style={{ marginTop: 8 }}>
-                  No minutes available to plot.
+                  No share data available to plot.
                 </p>
               )}
             </div>

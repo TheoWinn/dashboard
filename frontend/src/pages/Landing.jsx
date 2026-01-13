@@ -48,6 +48,11 @@ function formatMinutes(v) {
   return `${v} min`;
 }
 
+function formatPercent(v) {
+  if (typeof v !== "number" || Number.isNaN(v)) return "";
+  return `${v.toFixed(1)} %`;
+}
+
 function formatGermanDateTime(isoString) {
   if (!isoString) return "";
 
@@ -110,8 +115,8 @@ export default function Landing({ onSelectTopic }) {
   }
 
   const heroPie = [
-    { name: "Bundestag", value: Number(hero.bundestag_minutes) || 0 },
-    { name: "Talk shows", value: Number(hero.talkshow_minutes) || 0 },
+    { name: "Bundestag", value: Number(hero.bt_share) || 0 },
+    { name: "Talk shows", value: Number(hero.ts_share) || 0 },
   ].filter((d) => d.value > 0);
 
   const heroSeries = normalizeTimeseries(hero.timeseries);
@@ -174,14 +179,14 @@ export default function Landing({ onSelectTopic }) {
                       />
                     ))}
                   </Pie>
-                  <ReTooltip formatter={(v) => formatMinutes(Number(v))} />
+                  <ReTooltip formatter={(v) => formatPercent(Number(v))} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
 
               {heroPie.length === 0 && (
                 <p className="muted" style={{ marginTop: 8 }}>
-                  No minutes available.
+                  No share data available.
                 </p>
               )}
             </div>
