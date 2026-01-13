@@ -158,7 +158,47 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
 
           {/* Charts (will show “no data” until timeseries exists) */}
           <section className="section" style={{ marginTop: "2rem" }}>
-            <h3>Mismatch split (Bundestag vs Talk shows)</h3>
+            <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              Attention share (Bundestag vs Talk shows)
+              <span className="infoWrap">
+                <span className="infoIcon">?</span>
+                <span className="infoTooltip">
+                  <strong>Definitions</strong>
+                  <br />
+                  <br />
+
+                  <strong>bt_normalized_perc</strong>
+                  <br />
+                  Topic speech time in Bundestag
+                  <br />
+                  ÷ overall speech time in Bundestag
+                  <br />
+                  <br />
+
+                  <strong>ts_normalized_perc</strong>
+                  <br />
+                  Topic speech time in Talkshows
+                  <br />
+                  ÷ overall speech time in Talkshows
+                  <br />
+                  <br />
+
+                  <strong>bt_share</strong>
+                  <br />
+                  bt_normalized_perc
+                  <br />
+                  ÷ (bt_normalized_perc + ts_normalized_perc)
+                  <br />
+                  <br />
+
+                  <strong>ts_share</strong>
+                  <br />
+                  ts_normalized_perc
+                  <br />
+                  ÷ (bt_normalized_perc + ts_normalized_perc)
+                </span>
+              </span>
+            </h3>
             <div className="chartCard" style={{ height: 320 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
