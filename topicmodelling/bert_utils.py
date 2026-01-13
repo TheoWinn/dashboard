@@ -1,10 +1,64 @@
 from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
+from bertopic import BERTopic
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+import glob
 import os
+from datetime import datetime
+from bertopic.vectorizers import OnlineCountVectorizer
+from river import cluster 
+from river import stream
+from sklearn.decomposition import IncrementalPCA
+import numpy as np
 from pydantic import BaseModel
 from typing import List
 from openai import OpenAI
 import pandas as pd
+import unicodedata
+import re
+
+def extract_date_from_filename(path):
+    """
+    Takes Filenames of 'DD-MM-YYY_***_clustered.csv' and returns date from filename
+    """
+
+    base = os.path.basename(path)
+    date_str = base.split("_")[0]
+    try:
+        return datetime.strptime(date_str, "%d-%m-%Y").date()
+    except ValueError:
+        return None
+
+    def partial_fit(self, X, y=None, sample_weight=None):
+        X = np.asarray(X, dtype=np.float64)
+        return super().partial_fit(X, y, sample_weight=sample_weight)
+
+
+class RiverBERTopicWrapper:
+    def __init__(self, model):
+        self.model = model
+        self.labels_ = []
+
+    def partial_fit(self, embeddings, y=None):
+        # Learn  phase
+        for embedding, _ in stream.iter_array(embeddings):
+            self.model.learn_one(embedding)
+        self.predict(embeddings)      
+        return self
+
+    def predict(self, embeddings):
+        labels = []
+        for embedding, _ in stream.iter_array(embeddings):
+            label = self.model.predict_one(embedding)
+            
+            # Handle noise (None -> -1)
+            if label is None:
+                labels.append(-1)
+            else:
+                labels.append(label)
+
+        self.labels_ = np.array(labels)
+        return self.labels_
 
 class OnlineRepresentativeTracker:
     def __init__(self, top_n=3, decay=1.0):
@@ -106,3 +160,67 @@ def get_gemini_labels(csv_path,n_words: int =3,language="german"):
     output_df["Gemini_Label"] = group_names
     output_df.to_csv("gemini_labeled_"+file_name,index=False)
     return group_names
+
+class CachedEmbeddingBackend:
+    """
+    Wrapper that caches embeddings so we don't compute them twice 
+    (once for partial_fit, once for rep_tracker).
+    """
+    def __init__(self, embedding_model):
+        self.embedding_model = embedding_model
+        self.current_embeddings = None
+
+    def encode(self, documents, verbose=False):
+        # We assume the loop calls encode manually first, 
+        # so here we just return what we already calculated.
+        if self.current_embeddings is not None and len(documents) == len(self.current_embeddings):
+            return self.current_embeddings
+        
+        # Fallback if called unexpectedly
+        return self.embedding_model.encode(documents, show_progress_bar=verbose)
+
+def clean_encoding_artifacts(text):
+    if not isinstance(text, str):
+        return ""
+    
+    # 1. Normalize Unicode (Fixes \xa0, \u200b, ligatures like 'fi')
+    # NFKC = Normalization Form Compatibility Composition
+    text = unicodedata.normalize('NFKC', text)
+    
+    # 2. Hard-replace the specific punctuation that NFKC leaves alone
+    # Replace different dashes with standard hyphen
+    text = re.sub(r'[–—]', '-', text)
+    # Replace smart quotes with standard quotes
+    text = re.sub(r'[“”„«»]', '"', text)
+    text = re.sub(r"[‘’‚]", "'", text)
+    
+    # 3. CRITICAL: Remove Soft Hyphens (\xad)
+    # They are invisible but will destroy word frequencies
+    text = text.replace('\xad', '')
+    
+    # 4. Collapse whitespace
+    # Turns "Hello   \n  World" into "Hello World"
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    return text
+
+# Apply to your dataframe
+
+def sliding_window(text, chunk_size=500, overlap=50):
+    """
+    Splits text into chunks of approx 'chunk_size' words (not exact tokens, but safe proxy).
+    """
+    words = text.split()
+    # If text is short enough, return it as a single chunk
+    if len(words) <= chunk_size:
+        return [text]
+    
+    chunks = []
+    # Create chunks with overlap
+    for i in range(0, len(words), chunk_size - overlap):
+        chunk = " ".join(words[i:i + chunk_size])
+        chunks.append(chunk)
+        # Stop if we've reached the end
+        if i + chunk_size >= len(words):
+            break
+    return chunks
