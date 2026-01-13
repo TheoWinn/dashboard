@@ -218,6 +218,7 @@ node_modules/
 models/
 data
 models
+matched
 
 # Youtube Credentials and Tokens
 client_secret.json
