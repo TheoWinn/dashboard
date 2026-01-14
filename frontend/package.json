@@ -8,7 +8,8 @@
     "export:data": "node src/scripts/export_data.mjs",
     "build": "npm run export:data && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:with-data": "npm run build && vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
