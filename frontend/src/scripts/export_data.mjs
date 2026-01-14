@@ -98,7 +98,9 @@ async function main() {
         "mismatch_ppoints",
         "mismatch_log_ratio",
         "bt_share",
-        "ts_share"
+        "ts_share",
+        "bt_normalized_perc",
+        "ts_normalized_perc"
       ].join(",")
     );
 
@@ -137,7 +139,9 @@ async function main() {
       talkshow_minutes,
       mismatch_score,
       bt_share: safeNum(r.bt_share),
-      ts_share: safeNum(r.ts_share)
+      ts_share: safeNum(r.ts_share),
+      bt_normalized_perc: safeNum(r.bt_normalized_perc),
+      ts_normalized_perc: safeNum(r.ts_normalized_perc)
     };
   });
 
@@ -188,7 +192,9 @@ async function main() {
         bundestag_minutes: t.bundestag_minutes,
         talkshow_minutes: t.talkshow_minutes,
         bt_share: t.bt_share,
-        ts_share: t.ts_share
+        ts_share: t.ts_share,
+        bt_normalized_perc: t.bt_normalized_perc,
+        ts_normalized_perc: t.ts_normalized_perc
       },
       timeseries: [], // intentionally empty for now
     };
@@ -213,6 +219,8 @@ async function main() {
           mismatch_score: hero.mismatch_score,
           bt_share: hero.bt_share,
           ts_share: hero.ts_share,
+          bt_normalized_perc: hero.bt_normalized_perc,
+          ts_normalized_perc: hero.ts_normalized_perc,
           timeseries: [], // intentionally empty for now
         }
       : null,
