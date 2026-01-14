@@ -12,7 +12,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Cell
+  Cell,
 } from "recharts";
 import { COLORS } from "../lib/colors.js";
 
@@ -43,11 +43,6 @@ function normalizeTimeseries(ts) {
     .filter((d) => d.date);
 }
 
-function formatMinutes(v) {
-  if (typeof v !== "number" || Number.isNaN(v)) return "";
-  return `${v} min`;
-}
-
 function formatPercent(v) {
   if (typeof v !== "number" || Number.isNaN(v)) return "";
   return `${v.toFixed(1)} %`;
@@ -66,18 +61,30 @@ function formatGermanDateTime(isoString) {
 }
 
 export default function Landing({ onSelectTopic }) {
+  const INTRO_KEY = "mismatch_intro_seen_v1";
+
   const [summary, setSummary] = useState(null);
   const [err, setErr] = useState(null);
 
+  // show intro only once per tab/session (survives refresh + back/forward)
+  const [showIntro, setShowIntro] = useState(false);
+
   useEffect(() => {
-    fetchSummary()
-      .then(setSummary)
-      .catch((e) => setErr(String(e)));
+    const seen = sessionStorage.getItem(INTRO_KEY) === "1";
+    if (!seen) setShowIntro(true);
+  }, []);
+
+  const closeIntro = () => {
+    sessionStorage.setItem(INTRO_KEY, "1");
+    setShowIntro(false);
+  };
+
+  useEffect(() => {
+    fetchSummary().then(setSummary).catch((e) => setErr(String(e)));
   }, []);
 
   const hero = summary?.hero_topic;
 
-  // Top 20 "other topics" = from featured_topics excluding hero
   const topOthers = useMemo(() => {
     if (!summary?.featured_topics?.length) return [];
     const heroSlug = hero?.slug;
@@ -108,7 +115,7 @@ export default function Landing({ onSelectTopic }) {
         <h1>Mismatch Barometer</h1>
         <p className="muted">
           Last updated: {formatGermanDateTime(summary.last_updated)}
-          </p>
+        </p>
         <div className="error">No hero_topic found in summary.json</div>
       </div>
     );
@@ -123,17 +130,42 @@ export default function Landing({ onSelectTopic }) {
 
   return (
     <div className="container">
+      {showIntro && (
+        <div className="modalBackdrop modalFadeIn" onClick={closeIntro}>
+          <div
+            className="modalCard"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="introTitle"
+            aria-describedby="introText"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="introTitle">Welcome to the Mismatch Barometer</h2>
+
+            <p id="introText">
+              Remember when the European Parliament started talking about banning
+              conventional names for vegan substitues? Yeah, that was pretty
+              wild, and somewhat weird? How come that politicians seem to talk
+              about arbitrary stuff, whilst the public is interested in vastly
+              different things? With this dashboard, we are trying to seek out
+              which ohter topic mismatches are present between the Bundestag and
+              German talkshows.
+            </p>
+
+            <button className="btn" type="button" onClick={closeIntro}>
+              Check out dashboard
+            </button>
+          </div>
+        </div>
+      )}
+
       <header className="hero">
-        <h1 className="heroTitle"> Mismatch Barometer </h1>
-        <p className="heroExplanation">
-          Remember when the European Parliament started talking about banning conventional names for vegan substitues?
-          Yeah, that was pretty wild, and somewhat weird? How come that politicians seem to talk about arbitrary stuff, whilst the public is interested in vastly different things?
-          With this dashboard, we are trying to seek out which ohter topic mismatches are present between the Bundestag and German talkshows.
-          You can see the total minutes that where talked about in the past year per "sphere", and a normalized "Mismatch Score" which quantifies 
-          how strong the difference is. It ranges from -100 to +100, with 0 indicating an equilibrium. Negative scores indicate more salience in Talkshows,
-          positive values indicate more salience in the Bundestag.
+        <h1 className="heroTitle">Mismatch Barometer</h1>
+
+        <p className="muted">
+          Last updated: {formatGermanDateTime(summary.last_updated)}
         </p>
-        <p className="muted">Last updated: {formatGermanDateTime(summary.last_updated)}</p>
+
         <div className="heroCard">
           <h2>{hero.label}</h2>
           {!!hero.headline && <p className="headline">{hero.headline}</p>}
@@ -143,13 +175,38 @@ export default function Landing({ onSelectTopic }) {
               <div className="metricValue">{hero.bundestag_minutes}</div>
               <div className="metricLabel">minutes in Bundestag</div>
             </div>
+
             <div className="metric">
               <div className="metricValue">{hero.talkshow_minutes}</div>
               <div className="metricLabel">minutes in talk shows</div>
             </div>
+
             <div className="metric">
-              <div className="metricValue">{Number(hero.mismatch_score ?? 0).toFixed(3)}</div>
-              <div className="metricLabel">mismatch score</div>
+              <div className="metricValue">
+                {Number(hero.mismatch_score ?? 0).toFixed(3)}
+              </div>
+
+              <div className="metricLabel">
+                mismatch score{" "}
+                <span className="infoWrap">
+                  <button
+                    type="button"
+                    className="infoIcon"
+                    aria-label="How mismatch score is calculated"
+                    aria-describedby="mismatchTip"
+                  >
+                    i
+                  </button>
+                  <span className="infoTooltip" id="mismatchTip" role="tooltip">
+                    You can see the total minutes that where talked about in the
+                    past year per "sphere", and a normalized "Mismatch Score"
+                    which quantifies how strong the difference is. It ranges
+                    from -100 to +100, with 0 indicating an equilibrium.
+                    Negative scores indicate more salience in Talkshows, positive
+                    values indicate more salience in the Bundestag.
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
 
@@ -175,7 +232,11 @@ export default function Landing({ onSelectTopic }) {
                     {heroPie.map((entry) => (
                       <Cell
                         key={entry.name}
-                        fill={entry.name === "Bundestag" ? COLORS.bundestag : COLORS.talkshow}
+                        fill={
+                          entry.name === "Bundestag"
+                            ? COLORS.bundestag
+                            : COLORS.talkshow
+                        }
                       />
                     ))}
                   </Pie>
@@ -235,7 +296,8 @@ export default function Landing({ onSelectTopic }) {
       <section className="section">
         <h3>Top other topics</h3>
         <p className="muted">
-          Twenty more topics with the largest normalized attention gap (excluding the hero).
+          Twenty more topics with the largest normalized attention gap (excluding
+          the hero).
         </p>
 
         <div className="grid">
