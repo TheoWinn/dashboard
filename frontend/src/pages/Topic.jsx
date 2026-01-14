@@ -121,8 +121,12 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
               <span>Talk show min</span>
             </div>
             <div className="stat">
-              <b>{topic.mismatch_score}</b>
+              <b>{Number(topic.mismatch_score ?? 0).toFixed(3)}</b>
               <span>Mismatch score</span>
+            </div>
+            <div className="stat">
+              <b>{Number(topic.norm_delta ?? 0).toFixed(1)}</b>
+              <span>Δ normalized speech time</span>
             </div>
           </div>
 
@@ -141,7 +145,10 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                     <div className="cardTitle">{t.label}</div>
                     <div className="cardMeta">
                       <span>
-                        Mismatch: <b>{t.mismatch_score}</b>
+                        Mismatch: <b>{Number(t.mismatch_score ?? 0).toFixed(3)}</b>
+                      </span>
+                      <span>
+                        Δ norm: <b>{Number(t.norm_delta ?? 0).toFixed(1)}</b>
                       </span>
                       <span>
                         BT: <b>{t.bundestag_minutes}</b> min
@@ -159,7 +166,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
           {/* Charts (will show “no data” until timeseries exists) */}
           <section className="section" style={{ marginTop: "2rem" }}>
             <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              Attention share (Bundestag vs Talk shows)
+              Time Allocation Share (Bundestag vs Talk shows)
               <span className="infoWrap">
                 <span className="infoIcon">?</span>
                 <span className="infoTooltip">
