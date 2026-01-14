@@ -148,7 +148,7 @@ export default function Landing({ onSelectTopic }) {
               <div className="metricLabel">minutes in talk shows</div>
             </div>
             <div className="metric">
-              <div className="metricValue">{hero.mismatch_score}</div>
+              <div className="metricValue">{Number(hero.mismatch_score ?? 0).toFixed(3)}</div>
               <div className="metricLabel">mismatch score</div>
             </div>
           </div>
@@ -249,7 +249,7 @@ export default function Landing({ onSelectTopic }) {
               <div className="cardTitle">{t.label}</div>
               <div className="cardMeta">
                 <span>
-                  Mismatch: <b>{t.mismatch_score}</b>
+                  Mismatch: <b>{Number(t.mismatch_score ?? 0).toFixed(3)}</b>
                 </span>
                 <span>
                   Δ norm: <b>{Number(t.norm_delta ?? 0).toFixed(1)}</b>
