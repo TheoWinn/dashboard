@@ -77,13 +77,13 @@ export default function Landing({ onSelectTopic }) {
 
   const hero = summary?.hero_topic;
 
-  // Top 4 "other topics" = from featured_topics excluding hero
+  // Top 20 "other topics" = from featured_topics excluding hero
   const topOthers = useMemo(() => {
     if (!summary?.featured_topics?.length) return [];
     const heroSlug = hero?.slug;
     return summary.featured_topics
       .filter((t) => t?.slug && t.slug !== heroSlug)
-      .slice(0, 4);
+      .slice(0, 20);
   }, [summary, hero?.slug]);
 
   if (err) {
@@ -231,11 +231,11 @@ export default function Landing({ onSelectTopic }) {
         </div>
       </header>
 
-      {/* Top 4 other topics */}
+      {/* Top 20 other topics */}
       <section className="section">
         <h3>Top other topics</h3>
         <p className="muted">
-          Four more topics with the strongest mismatch (excluding the hero).
+          Twenty more topics with the largest normalized attention gap (excluding the hero).
         </p>
 
         <div className="grid">
@@ -250,6 +250,9 @@ export default function Landing({ onSelectTopic }) {
               <div className="cardMeta">
                 <span>
                   Mismatch: <b>{t.mismatch_score}</b>
+                </span>
+                <span>
+                  Δ norm: <b>{Number(t.norm_delta ?? 0).toFixed(1)}</b>
                 </span>
                 <span>
                   BT: <b>{t.bundestag_minutes}</b> min
