@@ -194,13 +194,14 @@ async function main() {
       label: t.label,
       description: t.keywords ? `Keywords: ${t.keywords}` : "",
       mismatch_score: t.mismatch_score,
+      norm_delta: t.norm_delta,
       totals: {
         bundestag_minutes: t.bundestag_minutes,
         talkshow_minutes: t.talkshow_minutes,
         bt_share: t.bt_share,
         ts_share: t.ts_share,
         bt_normalized_perc: t.bt_normalized_perc,
-        ts_normalized_perc: t.ts_normalized_perc
+        ts_normalized_perc: t.ts_normalized_perc,
       },
       timeseries: [], // intentionally empty for now
     };
