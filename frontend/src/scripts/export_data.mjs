@@ -129,6 +129,9 @@ async function main() {
     // Pick ONE mismatch metric to expose in the UI:
     // - mismatch_ppoints is easy to interpret (-100..100)
     const mismatch_score = safeNum(r.mismatch_ppoints);
+    const bt_norm = safeNum(r.bt_normalized_perc);
+    const ts_norm = safeNum(r.ts_normalized_perc);
+    const norm_delta = Math.abs(bt_norm - ts_norm);
 
     return {
       topic_id: r.topic_id,
@@ -141,15 +144,16 @@ async function main() {
       bt_share: safeNum(r.bt_share),
       ts_share: safeNum(r.ts_share),
       bt_normalized_perc: safeNum(r.bt_normalized_perc),
-      ts_normalized_perc: safeNum(r.ts_normalized_perc)
+      ts_normalized_perc: safeNum(r.ts_normalized_perc),
+      norm_delta
     };
   });
 
   // Choose "featured" topics shown on landing:
-  // Here: top 24 by absolute mismatch
+  // Here: top 20 by delta between normalized speechtime
   const featured_topics = [...topics]
-    .sort((a, b) => Math.abs(b.mismatch_score) - Math.abs(a.mismatch_score))
-    .slice(0, 24)
+    .sort((a, b) => (b.norm_delta ?? 0) - (a.norm_delta ?? 0))
+    .slice(0, 20)
     .map((t) => ({
       slug: t.slug,
       label: t.label,
@@ -157,14 +161,16 @@ async function main() {
       talkshow_minutes: t.talkshow_minutes,
       mismatch_score: t.mismatch_score,
       bt_share: t.bt_share,
-      ts_share: t.ts_share
+      ts_share: t.ts_share,
+      bt_normalized_perc: t.bt_normalized_perc,
+      ts_normalized_perc: t.ts_normalized_perc,
+      norm_delta: t.norm_delta,
     }));
 
   // Hero topic: biggest absolute mismatch
   const hero =
-    [...topics].sort(
-      (a, b) => Math.abs(b.mismatch_score) - Math.abs(a.mismatch_score)
-    )[0] ?? null;
+    [...topics].sort((a, b) => (b.norm_delta ?? 0) - (a.norm_delta ?? 0))[0] ??
+    null;
 
   // Overall stats (landing bottom section)
   const total_topics = topics.length;
@@ -221,6 +227,7 @@ async function main() {
           ts_share: hero.ts_share,
           bt_normalized_perc: hero.bt_normalized_perc,
           ts_normalized_perc: hero.ts_normalized_perc,
+          norm_delta: hero.norm_delta,
           timeseries: [], // intentionally empty for now
         }
       : null,
