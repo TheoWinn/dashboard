@@ -235,7 +235,7 @@ export default function Landing({ onSelectTopic }) {
       <section className="section">
         <h3>Top other topics</h3>
         <p className="muted">
-          Twenty more topics with the largest normalized attention gap (excluding the hero).
+          Twenty more topics with the largest normalized attention gap.
         </p>
 
         <div className="grid">
