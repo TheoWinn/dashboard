@@ -4,6 +4,7 @@ import pandas as pd
 import unicodedata
 import hashlib
 import sys
+import ast
 
 def create_db(db_url):
 
@@ -27,6 +28,7 @@ def create_db(db_url):
         file_date DATE,
         file_year INTEGER,
         source TEXT NOT NULL,
+        talkshow_name TEXT,
         CONSTRAINT cource_check CHECK (source IN ('bundestag', 'talkshow')),
         UNIQUE (file_name)
     );"""
@@ -36,6 +38,7 @@ def create_db(db_url):
         topic_id INTEGER NOT NULL PRIMARY KEY,
         topic_keywords TEXT,
         topic_label TEXT,
+        topic_repdoc TEXT[],
         topic_duration INTERVAL NOT NULL DEFAULT INTERVAL '0',
         topic_duration_bt INTERVAL NOT NULL DEFAULT INTERVAL '0',
         topic_duration_ts INTERVAL NOT NULL DEFAULT INTERVAL '0',
@@ -261,6 +264,7 @@ def views_db(db_url):
         topic_id INTEGER,
         topic_keywords TEXT,
         topic_label TEXT,
+        topic_repdoc TEXT[],
         topic_duration INTERVAL,
         topic_duration_bt INTERVAL,
         topic_duration_ts INTERVAL
@@ -275,6 +279,42 @@ def views_db(db_url):
     REVOKE ALL ON FUNCTION dashboard_internal._fn_topics_read() FROM PUBLIC, anon, authenticated;
     GRANT EXECUTE ON FUNCTION dashboard_internal._fn_topics_read() TO dashboard_reader;
 
+    -- files read function
+    CREATE OR REPLACE FUNCTION dashboard_internal._fn_files_read()
+    RETURNS TABLE (
+        file_id BIGINT,
+        file_url TEXT,
+        file_date DATE,
+        source TEXT,
+        talkshow_name TEXT
+    )
+    LANGUAGE sql
+    SECURITY DEFINER SET search_path = pg_catalog, private
+    STABLE
+    AS $$
+        SELECT file_id, file_url, file_date, source, talkshow_name
+        FROM private.files;
+    $$;
+    REVOKE ALL ON FUNCTION dashboard_internal._fn_files_read() FROM PUBLIC, anon, authenticated;
+    GRANT EXECUTE ON FUNCTION dashboard_internal._fn_files_read() TO dashboard_reader;
+
+    -- speakers read function
+    CREATE OR REPLACE FUNCTION dashboard_internal._fn_speakers_read()
+    RETURNS TABLE (
+        speaker_id BIGINT,
+        speaker_name TEXT,
+        speaker_party TEXT
+    )
+    LANGUAGE sql
+    SECURITY DEFINER SET search_path = pg_catalog, private
+    STABLE
+    AS $$
+        SELECT * 
+        FROM private.speakers;
+    $$;
+    REVOKE ALL ON FUNCTION dashboard_internal._fn_speakers_read() FROM PUBLIC, anon, authenticated;
+    GRANT EXECUTE ON FUNCTION dashboard_internal._fn_speakers_read() TO dashboard_reader;
+
     -- function for windowed metrics
     CREATE OR REPLACE FUNCTION dashboard_internal._fn_topics_metrics_all_xweek_windows(
         p_year         int,
@@ -287,6 +327,7 @@ def views_db(db_url):
         topic_id integer,
         topic_label text,
         topic_keywords text,
+        topic_repdoc text[],
 
         topic_duration interval,
         topic_duration_bt interval,
@@ -349,6 +390,7 @@ def views_db(db_url):
         t.topic_id,
         t.topic_label,
         t.topic_keywords,
+        t.topic_repdoc,
         a.topic_duration,
         a.topic_duration_bt,
         a.topic_duration_ts,
@@ -371,6 +413,7 @@ def views_db(db_url):
     topic_id,
     topic_label,
     topic_keywords,
+    topic_repdoc,
 
     topic_duration,
     topic_duration_bt,
@@ -401,6 +444,7 @@ def views_db(db_url):
     topic_id integer,
     topic_label text,
     topic_keywords text,
+    topic_repdoc text[],
 
     topic_duration interval,
     topic_duration_bt interval,
@@ -441,6 +485,7 @@ def views_db(db_url):
         topic_id,
         topic_label,
         topic_keywords,
+        topic_repdoc,
         topic_duration,
         topic_duration_bt,
         topic_duration_ts,
@@ -462,6 +507,7 @@ def views_db(db_url):
     topic_label,
     topic_keywords,
     topic_duration,
+    topic_repdoc,
     topic_duration_bt,
     topic_duration_ts,
     (bt_normalized*100) AS bt_normalized_perc,
@@ -476,11 +522,23 @@ def views_db(db_url):
     CREATE OR REPLACE VIEW dashboard.topics_view_2025_4w AS
     SELECT *
     FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(2025, 4);
+
+    -- files view
+    CREATE OR REPLACE VIEW dashboard.files_view AS
+    SELECT *
+    FROM dashboard_internal._fn_files_read();
+
+    -- speakers view
+    CREATE OR REPLACE VIEW dashboard.speakers_view AS
+    SELECT *
+    FROM dashboard_internal._fn_speakers_read();
     """
 
     ownership_views = """
     ALTER VIEW dashboard.topics_view OWNER TO dashboard_owner;
     ALTER VIEW dashboard.topics_view_2025_4w OWNER TO dashboard_owner;
+    ALTER VIEW dashboard.files_view OWNER TO dashboard_owner;
+    ALTER VIEW dashboard.speakers_view OWNER TO dashboard_owner;
     """
 
     minimal_rights = """
@@ -489,6 +547,10 @@ def views_db(db_url):
     GRANT SELECT ON dashboard.topics_view TO dashboard_reader;
     REVOKE ALL ON dashboard.topics_view_2025_4w FROM PUBLIC, anon, authenticated;
     GRANT SELECT ON dashboard.topics_view_2025_4w TO dashboard_reader;
+    REVOKE ALL ON dashboard.files_view FROM PUBLIC, anon, authenticated;
+    GRANT SELECT ON dashboard.files_view TO dashboard_reader;
+    REVOKE ALL ON dashboard.speakers_view FROM PUBLIC, anon, authenticated;
+    GRANT SELECT ON dashboard.speakers_view TO dashboard_reader;
     """
 
     grant_anon_role = """
@@ -516,6 +578,10 @@ def comment_db(db_url):
     'This view contains general information on all the topics identified in Bundestag and Talkshow speeches.';
     COMMENT ON VIEW dashboard.topics_view_2025_4w IS 
     'This view contains the same measurements as topics_view, but for a 4-week window. That means, one row in this view represents one specific topic that was talked about in a specific 4-week window.';
+    COMMENT ON VIEW dashboard.files_view IS 
+    'This view contains general information about the protocols from the Bundestag and Talkshows.';
+    COMMENT ON VIEW dashboard.speakers_view IS
+    'This view contains all speakers identified in Bundestag protocols.';
     """
 
     functions = """
@@ -537,6 +603,8 @@ def comment_db(db_url):
     'Labels of topics';
     COMMENT ON COLUMN dashboard.topics_view.topic_keywords IS
     'Descriptive keywords of topic';
+    COMMENT ON COLUMN dashboard.topics_view.topic_repdoc IS
+    'Representative Speeches';
     COMMENT ON COLUMN dashboard.topics_view.topic_duration IS
     'Overall observed speech time spent on topic without differentiating between Bundestag and Talkshows';
     COMMENT ON COLUMN dashboard.topics_view.topic_duration_bt IS
@@ -554,7 +622,7 @@ def comment_db(db_url):
     COMMENT ON COLUMN dashboard.topics_view.mismatch_ppoints IS
     'Difference of normalized topic speech time in Bundestag and Talkshows in percentage points (ranges from -100 to 100); positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
     COMMENT ON COLUMN dashboard.topics_view.mismatch_log_ratio IS
-    'Log (base 2) of ratio of normalized topic speech times in Bundestag and Talkshows; positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
+    'Log (base 2) of ratio of normalized topic speech times in Bundestag and Talkshows; generally, positive means higher salience of topic in Bundestag (max: 23.25), negative means higher salience in Talkshows (min: -23.25), 0 indicates equal salience.';
     
     -- topics_view_2025_4w
     COMMENT ON COLUMN dashboard.topics_view_2025_4w.window_start IS
@@ -567,6 +635,8 @@ def comment_db(db_url):
     'Labels of topics';
     COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_keywords IS
     'Descriptive keywords of topic';
+    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_repdoc IS
+    'Representative Speeches';
     COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration IS
     'Overall observed speech time spent on topic without differentiating between Bundestag and Talkshows';
     COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration_bt IS
@@ -580,7 +650,25 @@ def comment_db(db_url):
     COMMENT ON COLUMN dashboard.topics_view_2025_4w.mismatch_ppoints IS
     'Difference of normalized topic speech time in Bundestag and Talkshows in percentage points (ranges from -100 to 100); positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
     COMMENT ON COLUMN dashboard.topics_view_2025_4w.mismatch_log_ratio IS
-    'Log (base 2) of ratio of normalized topic speech times in Bundestag and Talkshows; generally, positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
+    'Log (base 2) of ratio of normalized topic speech times in Bundestag and Talkshows; generally, positive means higher salience of topic in Bundestag (max: 23.25), negative means higher salience in Talkshows (min: -23.25), 0 indicates equal salience.';
+
+    COMMENT ON COLUMN dashboard.files_view.file_id IS
+    'Unique file identifier';
+    COMMENT ON COLUMN dashboard.files_view.file_url IS
+    'Link to either Bundestag protocol in pdf form or Talkshow video on youtube';
+    COMMENT ON COLUMN dashboard.files_view.file_date IS
+    'Date of Bundestag session or Talkshow';
+    COMMENT ON COLUMN dashboard.files_view.source IS
+    'Indicator whether file comes from Bundestag or Talkshows (can be either "bundestag" or "talkshow")';
+    COMMENT ON COLUMN dashboard.files_view.talkshow_name IS
+    'Name of Talkshow (if source is "bundestag" than this columns is also "bundestag")';
+
+    COMMENT ON COLUMN dashboard.speakers_view.speaker_id IS
+    'Unique speaker identifier';
+    COMMENT ON COLUMN dashboard.speakers_view.speaker_name IS
+    'Name of speaker';
+    COMMENT ON COLUMN dashboard.speakers_view.speaker_party IS
+    'Party or role of speaker';
     """
 
     with psycopg2.connect(db_url) as conn:
@@ -592,7 +680,7 @@ def comment_db(db_url):
         conn.commit()
 
 
-def fill_db(db_url, input_path, youtube):
+def fill_db(db_url, input_path, label_path, youtube):
 
     def norm_text(x):
         if x is None or pd.isna(x):
@@ -614,16 +702,16 @@ def fill_db(db_url, input_path, youtube):
     RETURNING speaker_id;"""
 
     upsert_file = """
-    INSERT INTO private.files (file_name, file_url, file_date, file_year, source)
-    VALUES (%s, %s, %s, %s, %s)
+    INSERT INTO private.files (file_name, file_url, file_date, file_year, source, talkshow_name)
+    VALUES (%s, %s, %s, %s, %s, %s)
     ON CONFLICT (file_name)
     DO UPDATE SET 
         file_name = EXCLUDED.file_name
     RETURNING file_id;"""
 
     upsert_topic = """
-    INSERT INTO private.topics (topic_id, topic_keywords, topic_label)
-    VALUES (%s, %s, %s)
+    INSERT INTO private.topics (topic_id, topic_keywords, topic_label, topic_repdoc)
+    VALUES (%s, %s, %s, %s)
     ON CONFLICT (topic_id)
     DO NOTHING;"""
 
@@ -661,9 +749,21 @@ def fill_db(db_url, input_path, youtube):
 
     with psycopg2.connect(db_url) as conn:
         with conn.cursor() as cur:
+
+            # insert topics
+            with open(label_path, encoding="utf-8") as la:
+                reader = csv.DictReader(la)
+                for row in reader:
+                    topic_id = row["topic"]
+                    topic_keywords = row["Representation"]
+                    topic_label = row["Gemini_Label"]
+                    topic_repdoc = ast.literal_eval(row["Representative_Docs"])
+                    cur.execute(upsert_topic, (topic_id, topic_keywords, topic_label, topic_repdoc))
+            conn.commit()
+
+            # insert rest
             with open(input_path, encoding="utf-8") as tr:
                 reader = csv.DictReader(tr)
-
                 for i, row in enumerate(reader, start=1):
                     # getting data
                     if not youtube:
@@ -680,17 +780,24 @@ def fill_db(db_url, input_path, youtube):
                     else:
                         print(f"Unknown source: {source}")
                         continue
-                    topic_id = int(row["Topic"])
-                    topic_keywords = row["Representation"]
-                    topic_label = "Unknown"
-                    speech_text = norm_text(row["text"])  
+                    if youtube:
+                        topic_id = int(row["Topic"])
+                    else:
+                        topic_id = int(row["topic"])
+                    speech_text = norm_text(row["text"]) 
+                    talkshow_name = "bundestag" 
                     if "matched" in file_name:
-                        url = bt_meta.loc[bt_meta["filename"] == file_name, "fundstelle.xml_url"] 
+                        url = bt_meta.loc[bt_meta["filename"] == file_name, "fundstelle.pdf_url"] 
                     elif "clustered" in file_name:
                         if source == "bundestag":
                             url = bt_meta.loc[bt_meta["filename"] == file_name, "url"]  
                         elif source == "talkshow":
-                            url = ts_meta.loc[ts_meta["filename"] == file_name, "url"]  
+                            url = ts_meta.loc[ts_meta["filename"] == file_name, "url"]
+                            ts_name = ts_meta.loc[ts_meta["filename"] == file_name, "talkshow_name"] 
+                            if not ts_name.empty:
+                                talkshow_name = ts_name.values[0] 
+                            else:
+                                talkshow_name = "not found"
                         else:
                             print(f"Unknown source: {source}")
                             continue
@@ -703,7 +810,7 @@ def fill_db(db_url, input_path, youtube):
                     else:
                         print(f"Unknown URL for file: {file_name}")
                         continue
-
+                    
                     # upserting data
                     # speaker
                     if not youtube:
@@ -716,13 +823,9 @@ def fill_db(db_url, input_path, youtube):
                     # file
                     file_id = file_cache.get(file_name)
                     if file_id is None:
-                        cur.execute(upsert_file, (file_name, file_raw_url, file_date, file_year, source))
+                        cur.execute(upsert_file, (file_name, file_raw_url, file_date, file_year, source, talkshow_name))
                         file_id = cur.fetchone()[0]
                         file_cache[file_name] = file_id
-                    # topic
-                    if topic_id not in topic_cache:
-                        cur.execute(upsert_topic, (topic_id, topic_keywords, topic_label))
-                        topic_cache.add(topic_id)
                     # speech
                     if youtube:
                         speaker_id = 1
@@ -737,7 +840,7 @@ def fill_db(db_url, input_path, youtube):
 
     print("Database population completed.")
 
-def rebuild_db(db_url, input_path, youtube):
+def rebuild_db(db_url, input_path, label_path, youtube):
 
     # delete everything
     with psycopg2.connect(db_url) as conn:
@@ -757,7 +860,7 @@ def rebuild_db(db_url, input_path, youtube):
     comment_db(db_url)
 
     # fill with data
-    fill_db(db_url, input_path, youtube)
+    fill_db(db_url, input_path, label_path, youtube)
 
 def rebuild_views(db_url):
 
@@ -774,3 +877,9 @@ def rebuild_views(db_url):
     # comment for api
     comment_db(db_url)
 
+from dotenv import load_dotenv
+import os
+load_dotenv()
+DB_URL = os.environ["DATABASE_URL"]
+
+rebuild_views(DB_URL)
