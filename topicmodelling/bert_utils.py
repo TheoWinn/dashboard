@@ -15,6 +15,7 @@ import pandas as pd
 import unicodedata
 import re
 from dotenv import load_dotenv, find_dotenv
+from pathlib import Path
 
 def extract_date_from_filename(path):
     """
@@ -40,7 +41,6 @@ class OutputCollection(BaseModel):
     groups: List[NamedGroup]
 
 def get_gemini_labels(csv_path, n_words: int = 3, language="german"):
-    file_name = os.path.basename(csv_path)
     
     # Load Data
     input_Data = pd.read_csv(csv_path)
@@ -107,8 +107,11 @@ def get_gemini_labels(csv_path, n_words: int = 3, language="german"):
     # 3. Assign back to DataFrame
     output_df = input_Data.copy()
     output_df["Gemini_Label"] = all_labels
+
+    in_path = Path(csv_path)
+    out_path = in_path.with_name(in_path.stem + "_gemini_labeled" + in_path.suffix)
     
-    output_df.to_csv("gemini_labeled_" + file_name, index=False)
+    output_df.to_csv(out_path, index=False)
     return all_labels
 
 
