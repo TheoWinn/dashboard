@@ -81,8 +81,11 @@ for file in glob.glob(bundestag_path):
     bundestag_dfs.append(df)
 
 bundestag_df_full = pd.concat(bundestag_dfs, ignore_index=True)
+print(f"b full: {bundestag_df_full.shape}")
 bundestag_df_split = bundestag_df_full.assign(text=bundestag_df_full['text'].str.split(r'\n\n+')).explode('text')
+print(f"b split: {bundestag_df_split.shape}")
 bundestag_df_cleaned = bundestag_df_split[bundestag_df_split['text'].str.strip().str.len() > 200]
+print(f"b cleaned: {bundestag_df_cleaned.shape}")
 
 talkshow_dfs = []
 
@@ -94,26 +97,37 @@ for file in glob.glob(talkshow_path):
     talkshow_dfs.append(df)
 
 talkshow_df_full =pd.concat(talkshow_dfs, ignore_index=True)
+print(f"t full: {talkshow_df_full.shape}")
 talkshow_df_full['text'] = talkshow_df_full['text'].apply(sliding_window)
+print(f"t full: {talkshow_df_full.shape}")
 
 # 4. Explode to create new rows
 # Metadata (speaker, date, etc.) is automatically duplicated for each new chunk
 talkshow_df_ready = talkshow_df_full.explode('text').dropna(subset=['text']).reset_index(drop=True)
+print(f"t ready: {talkshow_df_ready.shape}")
 
 bundestag_fixed = bundestag_df_cleaned.copy()
 bundestag_fixed['text'] = bundestag_fixed['text'].apply(lambda x: sliding_window(str(x)))
+print(f"b fixed: {bundestag_fixed.shape}")
 bundestag_fixed = bundestag_fixed.explode('text').reset_index(drop=True)
+print(f"b fixed: {bundestag_fixed.shape}")
 
 combined_talkshows = pd.concat(talkshow_dfs, ignore_index=True)
+print(f"comb ts: {combined_talkshows.shape}")
 talkshows_test = combined_talkshows[combined_talkshows['text'].str.strip().str.len() > 200]
+print(f"ts test: {talkshows_test.shape}")
 # Combine DFs
 raw_combined_df= pd.concat([bundestag_fixed, talkshow_df_ready], ignore_index=True)
+print(f"raw comb: {raw_combined_df.shape}")
 combined_df = raw_combined_df.sample(frac=1, random_state=42).reset_index(drop=True)
+print(f"comb: {combined_df.shape}")
 
 # Aggregate texts by filename to create larger "documents"
 combined_df_clean = combined_df.copy()
 combined_df_clean["text"] = combined_df["text"].apply(clean_encoding_artifacts)
+print(f"comb clean: {combined_df_clean.shape}")
 docs= combined_df_clean["text"].astype(str).tolist()
+print(f"docs: {len(docs)}")
 
 
 embedding_model = SentenceTransformer("paraphrase-multilingual-mpnet-base-v2").to("cuda")
