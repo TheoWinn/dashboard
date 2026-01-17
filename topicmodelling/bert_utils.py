@@ -228,6 +228,9 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
     for file in glob.glob(bundestag_path):
         filename = os.path.basename(file)
         if filename not in log_files:
+            if re.match(r"^\d{2}-\d{2}-2026\b", filename):
+                print(f"Skipping {filename}")
+                continue
             if "meta" in file.lower():
                 continue
             df = pd.read_csv(file)
@@ -262,6 +265,9 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
     for file in glob.glob(talkshow_path):
         filename = os.path.basename(file)
         if filename not in log_files:
+            if re.match(r"^\d{2}-\d{2}-2026\b", filename):
+                print(f"Skipping {filename}")
+                continue
             df = pd.read_csv(file)
             df["date"] = extract_date_from_filename(file)
             df["source"] = "talkshow"
@@ -270,9 +276,6 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
             # append to meta list
             meta.append([filename, today])
 
-    # save metadata
-    if meta:
-        pd.DataFrame(meta, columns=["filename", "date_processed"]).to_csv(meta_file, index=False, header=False)
 
     if talkshow_dfs:
         # concatenated df
@@ -338,17 +341,6 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
         )
         topics, probs = topic_model.fit_transform(docs)
 
-    # save model
-    model_dir = Path(model_path)
-    model_dir.mkdir(parents=True, exist_ok=True)
-    now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    model_name = f"bertopic_{now}"
-    model_path = model_dir / model_name
-    topic_model.save(str(model_path)) 
-    print(f"Saved model to: {model_path}")
-    with open(model_path, "w", encoding="utf-8") as f:
-        f.write(model_name)
-
     print(topic_model.get_topic_info().head(20))
 
     # append topics to speeches
@@ -365,11 +357,6 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
         on = "topic"
     )
 
-    # save speeches with topics
-    speeches_filename = f"topic_speeches_{now}.csv"
-    output_file = os.path.join(output_path, speeches_filename)
-    os.makedirs(output_path, exist_ok = True)
-    combined_df.to_csv(output_file, index = False)
 
     # filter topic_info if necessary (i.e. topics are new)
     topic_info_to_save = topic_info
@@ -386,6 +373,27 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
         topic_info_to_save.to_csv((os.path.join(output_path, info_filename)), index = False)
         get_gemini_labels((os.path.join(output_path, info_filename)), language="german")
         print("New topics with labels saved")
+
+    # save metadata
+    if meta:
+        pd.DataFrame(meta, columns=["filename", "date_processed"]).to_csv(meta_file, index=False, header=False)
+
+    # save model and txt-file with model name
+    model_dir = Path(model_path)
+    model_dir.mkdir(parents=True, exist_ok=True)
+    now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    model_name = f"bertopic_{now}"
+    save_model = model_dir / model_name
+    topic_model.save(str(save_model)) 
+    print(f"Saved model to: {save_model}")
+    with open(f"{model_path}/last_model.txt", "w", encoding="utf-8") as f:
+        f.write(model_name)
+
+    # save speeches with topics
+    speeches_filename = f"topic_speeches_{now}.csv"
+    output_file = os.path.join(output_path, speeches_filename)
+    os.makedirs(output_path, exist_ok = True)
+    combined_df.to_csv(output_file, index = False)
 
     print("Done")
 

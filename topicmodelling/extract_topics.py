@@ -6,7 +6,7 @@ from pathlib import Path
 parser = argparse.ArgumentParser()
 parser.add_argument("--talkshow-path", type=str, default="../youtube/data/clustered/talkshow_clustered/*.csv",
                     help="path to talkshow data")
-parser.add_argument("--bundestag-path", type=str, default="../matching/data/matched/*.csv",
+parser.add_argument("--bundestag-path", type=str, default="../youtube/data/clustered/bundestag_clustered/*.csv",
                     help="path to bundestag data")
 parser.add_argument("--output-path", type=str, default="data/raw_topics",
                     help="path to output")
@@ -42,18 +42,14 @@ if log_path.exists():
 if old_log is not None:
     speeches_old = old_log.get("speeches_file")
     info_old = old_log.get("info_file")
-    if type(speeches_old) == str:
-        speeches_old = list(speeches_old)
-    if type(info_old) == str:
-        info_old = list(info_old)
     speeches_old.append(speeches_new)
     info_old.append(info_new)
     speeches = speeches_old
     info = info_old
     print("Appended new files to old files that have not been inserted to DB yet.")
 else:
-    speeches = speeches_new
-    info = info_new
+    speeches = list(speeches_new)
+    info = list(info_new)
     print("Overwritten already inserted files.")
 # write new log file
 logfile = {"speeches_file": speeches,

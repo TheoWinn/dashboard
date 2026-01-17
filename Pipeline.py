@@ -5,6 +5,67 @@ import os
 from pathlib import Path
 import json
 
+def venv_python(venv_dir: str) -> str:
+    venv_dir = Path(venv_dir)
+    if os.name == "nt":
+        return str(venv_dir / "Scripts" / "python.exe")
+    return str(venv_dir / "bin" / "python")
+
+def build_cuda_env_from_venv(venv_py: str) -> dict:
+    """
+    Computes CUDNN_LIBDIR using the *venv python* and returns an env dict
+    with CUDNN_LIBDIR and LD_LIBRARY_PATH updated.
+    """
+    env = os.environ.copy()
+
+    # Equivalent to your:
+    # export CUDNN_LIBDIR=$(python -c "import os, importlib.resources as ir; ...")
+    cmd = [
+        venv_py,
+        "-c",
+        "import os, importlib.resources as ir; print(os.fspath(ir.files('nvidia.cudnn')/'lib'))",
+    ]
+    cudnn_libdir = subprocess.check_output(cmd, text=True).strip()
+
+    env["CUDNN_LIBDIR"] = cudnn_libdir
+
+    old_ld = env.get("LD_LIBRARY_PATH", "")
+    # prepend cudnn lib dir (avoid double colons)
+    env["LD_LIBRARY_PATH"] = f"{cudnn_libdir}:{old_ld}" if old_ld else cudnn_libdir
+
+    return env
+
+def preflight_transcription(venv_py: str, env: dict) -> bool:
+    # 1) confirm we are running the venv python
+    cmd1 = [venv_py, "-c", "import sys; print('PYTHON:', sys.executable)"]
+    if not run_step("Preflight: Python interpreter", cmd1, env=env):
+        return False
+
+    # 2) confirm nvidia.cudnn libs are discoverable
+    cmd2 = [venv_py, "-c",
+            "import os, importlib.resources as ir; "
+            "p = ir.files('nvidia.cudnn')/'lib'; "
+            "print('CUDNN_LIBDIR:', os.fspath(p)); "
+            "print('EXISTS:', p.exists()); "
+            "print('CONTENTS:', [x.name for x in p.iterdir()])"]
+    if not run_step("Preflight: nvidia.cudnn lib folder", cmd2, env=env):
+        return False
+
+    # 3) confirm torch sees CUDA + cuDNN
+    cmd3 = [venv_py, "-c",
+            "import os, torch, glob; "
+            "print('Torch:', torch.__version__); "
+            "print('CUDA build:', torch.version.cuda); "
+            "print('CUDA available:', torch.cuda.is_available()); "
+            "print('GPU count:', torch.cuda.device_count()); "
+            "print('GPU0:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else None); "
+            "print('cuDNN:', torch.backends.cudnn.version()); "
+            "print('CUDNN_LIBDIR env:', os.environ.get('CUDNN_LIBDIR')); "
+            "print('has libcudnn_cnn:', bool(glob.glob(os.environ.get('CUDNN_LIBDIR','') + '/libcudnn_cnn.so*')))"
+           ]
+    return run_step("Preflight: torch CUDA/cuDNN", cmd3, env=env)
+
+
 def run_step(description, command, cwd=None, env=None):
     print("\n" + "="*60)
     print(f"### Running: {description} ###")
@@ -63,14 +124,20 @@ def main():
 
     # 3. Transcribe Audio
     if not args.skip_transcribe:
+        VENV_py = venv_python("/home/mlci_2025s1_group1/Dashboard/leonie-worktree/.venv")
+        transcribe_env = build_cuda_env_from_venv(VENV_py)
+
+        if not preflight_transcription(VENV_py, transcribe_env):
+            sys.exit(1)
+
         # 3a. Talkshows
-        cmd_ts = [sys.executable, "transcribe_audio.py"]
-        if not run_step("Transcribe Talkshows", cmd_ts, cwd=os.path.join(os.getcwd(), "youtube", "src")):
+        cmd_ts = [VENV_py, "transcribe_audio.py"]
+        if not run_step("Transcribe Talkshows", cmd_ts, cwd=os.path.join(os.getcwd(), "youtube", "src"), env=transcribe_env):
             sys.exit(1)
             
         # 3b. Bundestag
-        cmd_bt = [sys.executable, "transcribe_audio.py", "--bundestag"]
-        if not run_step("Transcribe Bundestag", cmd_bt, cwd=os.path.join(os.getcwd(), "youtube", "src")):
+        cmd_bt = [VENV_py, "transcribe_audio.py", "--bundestag"]
+        if not run_step("Transcribe Bundestag", cmd_bt, cwd=os.path.join(os.getcwd(), "youtube", "src"), env=transcribe_env):
             sys.exit(1)
 
     # 4. Cluster/Clean Transcripts
@@ -101,22 +168,14 @@ def main():
     # no skipping of database inserting
 
     # read in log file
-    log_path = Path("data/latest_files_bert.json")
+    log_path = Path("topicmodelling/data/latest_files_bert.json")
     if not log_path.exists():
         raise FileNotFoundError(f"Log file with filenames to insert into database not found: {log_path}")
     with open(log_path, "r", encoding="utf-8") as f:
         log_file = json.load(f)
-    speeches_file = log_file.get("speeches_file")
-    info_file = log_file.get("info_file")
-    inserted = log_file.get("inserted")
-
-    # transform to list for queue
-    if isinstance(speeches_file, str):
-        speeches_file = [speeches_file]
-    if isinstance(info_file, str):
-        info_file = [info_file]
 
     # check whether all files are already inserted
+    inserted = log_file.get("inserted")
     if inserted:
         print("Log File says files are inserted already. Stopping further proceedings. Check if files are really inserted.")
         sys.exit(1)
@@ -127,8 +186,15 @@ def main():
             # current speech
             speech = log_file["speeches_file"][0]
             info = log_file["info_file"][0]
+            print(info)
+            p = Path(info)
+            labeled_info = f"{p.stem}_gemini_labeled{p.suffix}"
+            print(labeled_info)
 
-            cmd = [sys.executable, "insert.py", "--input-path", speech, "--label-path", info]
+            speech_path = f"../topicmodelling/data/raw_topics/{speech}"
+            info_path = f"../topicmodelling/data/raw_topics/{labeled_info}"
+
+            cmd = [sys.executable, "insert.py", "--input-path", speech_path, "--label-path", info_path, "--youtube"]
             if not run_step("Insert into DB", cmd, cwd=os.path.join(os.getcwd(), "database")):
                 sys.exit(1)
 
@@ -144,10 +210,9 @@ def main():
                 json.dump(log_file, f, ensure_ascii=False, indent=4)
 
         print("Everything inserted successfully")
+    
+    print("DONE!!")
                 
-                
-
-
 
 if __name__ == "__main__":
     main()
