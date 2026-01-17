@@ -12,7 +12,7 @@ parser.add_argument("--output-path", type=str, default="data/raw_topics",
 parser.add_argument("--model-path", type=str, default="models",
                     help="path to models")                   
 parser.add_argument("--new", action="store_true",
-                        help="new model will be run, otherwise model will be merged to last model")
+                    help="new model will be run, otherwise model will be merged to last model")
 args = parser.parse_args()
 talkshow_path = args.talkshow_path
 bundestag_path = args.bundestag_path

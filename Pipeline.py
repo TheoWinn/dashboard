@@ -38,6 +38,7 @@ def main():
     parser.add_argument("--skip-transcribe", action="store_true", help="Skip transcription step")
     parser.add_argument("--skip-cluster", action="store_true", help="Skip clustering step")
     parser.add_argument("--skip-match", action="store_true", help="Skip matching step")
+    parser.add_argument("--skip-bert", action="store_true", help="Skip Bert step")
     
     args = parser.parse_args()
     
@@ -88,6 +89,10 @@ def main():
             sys.exit(1)
 
     # 6. Bert
+    if not args.skip_bert:
+        cmd = [sys.executable, "extract_topics"]
+        if not run_step("Bert with Gemini Labels", cmd, cwd=os.path.join(os.getcwd(), "topicmodelling")):
+            sys.exit(1)
     
     # 7. Schreiben in Datenbank
 
