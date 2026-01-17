@@ -879,10 +879,3 @@ def rebuild_views(db_url):
 
     # comment for api
     comment_db(db_url)
-
-from dotenv import load_dotenv
-import os
-load_dotenv()
-DB_URL = os.environ["DATABASE_URL"]
-
-rebuild_views(DB_URL)
