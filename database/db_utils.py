@@ -745,98 +745,105 @@ def fill_db(db_url, input_path, label_path, youtube):
 
     speaker_cache = {}
     file_cache = {}
-    topic_cache = set()
 
     with psycopg2.connect(db_url) as conn:
         with conn.cursor() as cur:
 
             # insert topics
-            with open(label_path, encoding="utf-8") as la:
-                reader = csv.DictReader(la)
-                for row in reader:
-                    topic_id = row["topic"]
-                    topic_keywords = row["Representation"]
-                    topic_label = row["Gemini_Label"]
-                    topic_repdoc = ast.literal_eval(row["Representative_Docs"])
-                    cur.execute(upsert_topic, (topic_id, topic_keywords, topic_label, topic_repdoc))
-            conn.commit()
+            if label_path != "none":
+                with open(label_path, encoding="utf-8") as la:
+                    reader = csv.DictReader(la)
+                    for row in reader:
+                        topic_id = row["topic"]
+                        topic_keywords = row["Representation"]
+                        topic_label = row["Gemini_Label"]
+                        topic_repdoc = ast.literal_eval(row["Representative_Docs"])
+                        cur.execute(upsert_topic, (topic_id, topic_keywords, topic_label, topic_repdoc))
+                conn.commit()
+                print("Successfully inserted info on topics.")
+            else:
+                print("No new topics given, so none were inserted.")
 
             # insert rest
-            with open(input_path, encoding="utf-8") as tr:
-                reader = csv.DictReader(tr)
-                for i, row in enumerate(reader, start=1):
-                    # getting data
-                    if not youtube:
-                        speaker_name = norm_text(row["protokoll_name"])
-                        speaker_party = norm_text(row["protokoll_party"])
-                    file_name = norm_text(row["filename"])
-                    file_date = norm_text(row["date"])
-                    file_year = int(file_date[:4])
-                    source = row["source"]
-                    if not youtube and source == "bundestag":
-                        seconds = float(row["transcript_end"]) - float(row["transcript_start"])
-                    elif youtube or (not youtube and source == "talkshow"):
-                        seconds = float(row["end"]) - float(row["start"])
-                    else:
-                        print(f"Unknown source: {source}")
-                        continue
-                    if youtube:
-                        topic_id = int(row["Topic"])
-                    else:
-                        topic_id = int(row["topic"])
-                    speech_text = norm_text(row["text"]) 
-                    talkshow_name = "bundestag" 
-                    if "matched" in file_name:
-                        url = bt_meta.loc[bt_meta["filename"] == file_name, "fundstelle.pdf_url"] 
-                    elif "clustered" in file_name:
-                        if source == "bundestag":
-                            url = bt_meta.loc[bt_meta["filename"] == file_name, "url"]  
-                        elif source == "talkshow":
-                            url = ts_meta.loc[ts_meta["filename"] == file_name, "url"]
-                            ts_name = ts_meta.loc[ts_meta["filename"] == file_name, "talkshow_name"] 
-                            if not ts_name.empty:
-                                talkshow_name = ts_name.values[0] 
-                            else:
-                                talkshow_name = "not found"
+            if input_path != "none":
+                with open(input_path, encoding="utf-8") as tr:
+                    reader = csv.DictReader(tr)
+                    for i, row in enumerate(reader, start=1):
+                        # getting data
+                        if not youtube:
+                            speaker_name = norm_text(row["protokoll_name"])
+                            speaker_party = norm_text(row["protokoll_party"])
+                        file_name = norm_text(row["filename"])
+                        file_date = norm_text(row["date"])
+                        file_year = int(file_date[:4])
+                        source = row["source"]
+                        if not youtube and source == "bundestag":
+                            seconds = float(row["transcript_end"]) - float(row["transcript_start"])
+                        elif youtube or (not youtube and source == "talkshow"):
+                            seconds = float(row["end"]) - float(row["start"])
                         else:
                             print(f"Unknown source: {source}")
                             continue
-                    else:
-                        print(f"Unknown file used: {file_name}")
-                        continue
-                    file_raw_url = "Unknown"
-                    if not url.empty:
-                        file_raw_url = url.values[0]
-                    else:
-                        print(f"Unknown URL for file: {file_name}")
-                        continue
-                    
-                    # upserting data
-                    # speaker
-                    if not youtube:
-                        skey = (speaker_name, speaker_party)
-                        speaker_id = speaker_cache.get(skey)
-                        if speaker_id is None:
-                            cur.execute(upsert_speaker, (speaker_name, speaker_party))
-                            speaker_id = cur.fetchone()[0]
-                            speaker_cache[skey] = speaker_id
-                    # file
-                    file_id = file_cache.get(file_name)
-                    if file_id is None:
-                        cur.execute(upsert_file, (file_name, file_raw_url, file_date, file_year, source, talkshow_name))
-                        file_id = cur.fetchone()[0]
-                        file_cache[file_name] = file_id
-                    # speech
-                    if youtube:
-                        speaker_id = 1
-                    speech_key = make_speech_key(speech_text, seconds, file_id, speaker_id, topic_id)
-                    cur.execute(upsert_speech, (speech_key, speech_text, seconds, file_id, speaker_id, topic_id))
-            
-                    # committing
-                    if i % 5000 == 0:
-                        conn.commit()
-                        print(f"Inserted/updated {i} rows...")
-            conn.commit()
+                        if youtube:
+                            topic_id = int(row["Topic"])
+                        else:
+                            topic_id = int(row["topic"])
+                        speech_text = norm_text(row["text"]) 
+                        talkshow_name = "bundestag" 
+                        if "matched" in file_name:
+                            url = bt_meta.loc[bt_meta["filename"] == file_name, "fundstelle.pdf_url"] 
+                        elif "clustered" in file_name:
+                            if source == "bundestag":
+                                url = bt_meta.loc[bt_meta["filename"] == file_name, "url"]  
+                            elif source == "talkshow":
+                                url = ts_meta.loc[ts_meta["filename"] == file_name, "url"]
+                                ts_name = ts_meta.loc[ts_meta["filename"] == file_name, "talkshow_name"] 
+                                if not ts_name.empty:
+                                    talkshow_name = ts_name.values[0] 
+                                else:
+                                    talkshow_name = "not found"
+                            else:
+                                print(f"Unknown source: {source}")
+                                continue
+                        else:
+                            print(f"Unknown file used: {file_name}")
+                            continue
+                        file_raw_url = "Unknown"
+                        if not url.empty:
+                            file_raw_url = url.values[0]
+                        else:
+                            print(f"Unknown URL for file: {file_name}")
+                            continue
+                        
+                        # upserting data
+                        # speaker
+                        if not youtube:
+                            skey = (speaker_name, speaker_party)
+                            speaker_id = speaker_cache.get(skey)
+                            if speaker_id is None:
+                                cur.execute(upsert_speaker, (speaker_name, speaker_party))
+                                speaker_id = cur.fetchone()[0]
+                                speaker_cache[skey] = speaker_id
+                        # file
+                        file_id = file_cache.get(file_name)
+                        if file_id is None:
+                            cur.execute(upsert_file, (file_name, file_raw_url, file_date, file_year, source, talkshow_name))
+                            file_id = cur.fetchone()[0]
+                            file_cache[file_name] = file_id
+                        # speech
+                        if youtube:
+                            speaker_id = 1
+                        speech_key = make_speech_key(speech_text, seconds, file_id, speaker_id, topic_id)
+                        cur.execute(upsert_speech, (speech_key, speech_text, seconds, file_id, speaker_id, topic_id))
+                
+                        # committing
+                        if i % 5000 == 0:
+                            conn.commit()
+                            print(f"Inserted/updated {i} rows...")
+                conn.commit()
+                print("Successfully inserted speeches.")
+            else:
+                print("No new speeches given, so none were inserted.")
 
     print("Database population completed.")
 

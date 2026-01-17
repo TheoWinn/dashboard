@@ -2,6 +2,8 @@ import argparse
 import subprocess
 import sys
 import os
+from pathlib import Path
+import json
 
 def run_step(description, command, cwd=None, env=None):
     print("\n" + "="*60)
@@ -22,6 +24,7 @@ def run_step(description, command, cwd=None, env=None):
     except Exception as e:
         print(f"\n[ERROR] An unexpected error occurred during {description}: {e}")
         return False
+
 
 def main():
     parser = argparse.ArgumentParser(description="Full Processing Pipeline: Download -> Transcribe -> Cluster -> Match")
@@ -95,6 +98,55 @@ def main():
             sys.exit(1)
     
     # 7. Schreiben in Datenbank
+    # no skipping of database inserting
+
+    # read in log file
+    log_path = Path("data/latest_files_bert.json")
+    if not log_path.exists():
+        raise FileNotFoundError(f"Log file with filenames to insert into database not found: {log_path}")
+    with open(log_path, "r", encoding="utf-8") as f:
+        log_file = json.load(f)
+    speeches_file = log_file.get("speeches_file")
+    info_file = log_file.get("info_file")
+    inserted = log_file.get("inserted")
+
+    # transform to list for queue
+    if isinstance(speeches_file, str):
+        speeches_file = [speeches_file]
+    if isinstance(info_file, str):
+        info_file = [info_file]
+
+    # check whether all files are already inserted
+    if inserted:
+        print("Log File says files are inserted already. Stopping further proceedings. Check if files are really inserted.")
+        sys.exit(1)
+    else:
+
+        # step by step insert files and remove from log file if inserted successfully
+        while log_file["speeches_file"]:
+            # current speech
+            speech = log_file["speeches_file"][0]
+            info = log_file["info_file"][0]
+
+            cmd = [sys.executable, "insert.py", "--input-path", speech, "--label-path", info]
+            if not run_step("Insert into DB", cmd, cwd=os.path.join(os.getcwd(), "database")):
+                sys.exit(1)
+
+            # remove from log 
+            log_file["speeches_file"].pop(0)
+            log_file["info_file"].pop(0)
+
+            # update inserted flag if queue now empty
+            log_file["inserted"] = (len(log_file["speeches_file"]) == 0)
+
+            # write to file
+            with open(log_path, "w", encoding="utf-8") as f:
+                json.dump(log_file, f, ensure_ascii=False, indent=4)
+
+        print("Everything inserted successfully")
+                
+                
+
 
 
 if __name__ == "__main__":
