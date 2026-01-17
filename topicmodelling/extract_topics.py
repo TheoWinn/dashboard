@@ -48,8 +48,8 @@ if old_log is not None:
     info = info_old
     print("Appended new files to old files that have not been inserted to DB yet.")
 else:
-    speeches = list(speeches_new)
-    info = list(info_new)
+    speeches = [speeches_new]
+    info = [info_new]
     print("Overwritten already inserted files.")
 # write new log file
 logfile = {"speeches_file": speeches,

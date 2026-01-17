@@ -40,7 +40,7 @@ fi
 export CUDNN_LIBDIR
 export LD_LIBRARY_PATH="${CUDNN_LIBDIR}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
-# --- optional sanity check: verify torch sees CUDA/cuDNN ---
+# --- sanity check: verify torch sees CUDA/cuDNN ---
 "$VENV_PY" - << 'PY'
 import torch, os, glob
 print("CUDA:", torch.version.cuda, "cuDNN:", torch.backends.cudnn.version())
@@ -48,10 +48,5 @@ print("CUDNN_LIBDIR:", os.environ.get("CUDNN_LIBDIR"))
 print("has libcudnn_cnn:", bool(glob.glob(os.environ["CUDNN_LIBDIR"] + "/libcudnn_cnn.so*")))
 PY
 
-# --- run your actual script (choose one of these two) ---
-
-# Option A: call with venv python directly
+# --- run your actual script ---
 "$VENV_PY" youtube/src/transcribe_audio.py "$@"
-
-# Option B (if you prefer uv semantics instead):
-# uv run YouTube/src/myscript.py

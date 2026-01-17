@@ -784,10 +784,7 @@ def fill_db(db_url, input_path, label_path, youtube):
                         else:
                             print(f"Unknown source: {source}")
                             continue
-                        if youtube:
-                            topic_id = int(row["Topic"])
-                        else:
-                            topic_id = int(row["topic"])
+                        topic_id = int(row["topic"])
                         speech_text = norm_text(row["text"]) 
                         talkshow_name = "bundestag" 
                         if "matched" in file_name:

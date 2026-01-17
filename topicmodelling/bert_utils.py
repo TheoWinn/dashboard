@@ -228,9 +228,6 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
     for file in glob.glob(bundestag_path):
         filename = os.path.basename(file)
         if filename not in log_files:
-            if re.match(r"^\d{2}-\d{2}-2026\b", filename):
-                print(f"Skipping {filename}")
-                continue
             if "meta" in file.lower():
                 continue
             df = pd.read_csv(file)
@@ -265,9 +262,6 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
     for file in glob.glob(talkshow_path):
         filename = os.path.basename(file)
         if filename not in log_files:
-            if re.match(r"^\d{2}-\d{2}-2026\b", filename):
-                print(f"Skipping {filename}")
-                continue
             df = pd.read_csv(file)
             df["date"] = extract_date_from_filename(file)
             df["source"] = "talkshow"
@@ -367,6 +361,7 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
             topic_info_to_save = None
     
     # generate label and save topic_info if necessary (i.e. topics are new)
+    now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     info_filename = None
     if topic_info_to_save is not None:
         info_filename = f"topic_info_{now}.csv"
@@ -381,7 +376,6 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
     # save model and txt-file with model name
     model_dir = Path(model_path)
     model_dir.mkdir(parents=True, exist_ok=True)
-    now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     model_name = f"bertopic_{now}"
     save_model = model_dir / model_name
     topic_model.save(str(save_model)) 
