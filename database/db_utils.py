@@ -809,8 +809,7 @@ def fill_db(db_url, input_path, label_path, youtube):
                         if not url.empty:
                             file_raw_url = url.values[0]
                         else:
-                            print(f"Unknown URL for file: {file_name}")
-                            continue
+                            print(f"Unknown URL for file: {file_name}, still inserted")
                         
                         # upserting data
                         # speaker
