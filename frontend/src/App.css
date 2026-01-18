@@ -192,3 +192,14 @@
 }
 
 
+.stat .mismatchValue {
+  color: #111; 
+}
+
+.stat > span,
+.stat .muted,
+.stat .metricLabel {
+  color: #777;
+}
+
+

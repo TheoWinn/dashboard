@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { fetchTopic, fetchSummary } from "../lib/api.js";
-import MismatchScoreLabel from "scripts/MismatchScoreLabel.jsx";
+import MismatchScoreLabel from "../scripts/MismatchScoreLabel.jsx";
+
 
 import {
   PieChart,
@@ -143,7 +144,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
 
             <div className="stat">
               <b>
-                <MismatchScoreLabel score={mismatchScore} />
+                <MismatchScoreLabel score={mismatchScore} decimals={3} />
               </b>
               <span>Mismatch score</span>
             </div>

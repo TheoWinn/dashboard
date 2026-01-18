@@ -132,76 +132,75 @@ export default function Landing({ onSelectTopic }) {
 
   const heroSeries = normalizeTimeseries(hero.timeseries);
 
-  return (
-    <div className="container">
-      {showIntro && (
-        <div className="modalBackdrop modalFadeIn" onClick={closeIntro}>
-          <div
-            className="modalCard"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="introTitle"
-            aria-describedby="introText"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 id="introTitle">Welcome to the Mismatch Barometer</h2>
+return (
+  <div className="container">
+    {showIntro && (
+      <div className="modalBackdrop modalFadeIn" onClick={closeIntro}>
+        <div
+          className="modalCard"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="introTitle"
+          aria-describedby="introText"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h2 id="introTitle">Welcome to the Mismatch Barometer</h2>
 
-            <p id="introText">
-              Remember when the European Parliament started talking about banning
-              conventional names for vegan substitues? Yeah, that was pretty
-              wild, and somewhat weird? How come that politicians seem to talk
-              about arbitrary stuff, whilst the public is interested in vastly
-              different things? With this dashboard, we are trying to seek out
-              which other topic mismatches are present between the Bundestag and
-              German talkshows.
-            </p>
+          <p id="introText">
+            Remember when the European Parliament started talking about banning
+            conventional names for vegan substitues? Yeah, that was pretty wild,
+            and somewhat weird? How come that politicians seem to talk about
+            arbitrary stuff, whilst the public is interested in vastly different
+            things? With this dashboard, we are trying to seek out which other
+            topic mismatches are present between the Bundestag and German
+            talkshows.
+          </p>
 
-            <button className="btn" type="button" onClick={closeIntro}>
-              Check out dashboard
-            </button>
+          <button className="btn" type="button" onClick={closeIntro}>
+            Check out dashboard
+          </button>
+        </div>
+      </div>
+    )}
+
+    <header className="hero">
+      <h1 className="heroTitle">Mismatch Barometer</h1>
+
+      <p className="muted">
+        Last updated: {formatGermanDateTime(summary.last_updated)}
+      </p>
+
+      <div className="heroCard">
+        <h2>{hero.label}</h2>
+        {!!hero.headline && <p className="headline">{hero.headline}</p>}
+
+        <div className="metricRow">
+          <div className="metric">
+            <div className="metricValue">{hero.bundestag_minutes}</div>
+            <div className="metricLabel">minutes in Bundestag</div>
+          </div>
+
+          <div className="metric">
+            <div className="metricValue">{hero.talkshow_minutes}</div>
+            <div className="metricLabel">minutes in talk shows</div>
+          </div>
+
+          <div className="metric">
+            <div className="metricValue">
+              <MismatchScoreLabel score={hero.mismatch_score ?? 0} decimals={3} />
+            </div>
+            <div className="metricLabel">mismatch score</div>
           </div>
         </div>
-      )}
 
-      <header className="hero">
-        <h1 className="heroTitle">Mismatch Barometer</h1>
+        <button
+          className="btn"
+          type="button"
+          onClick={() => onSelectTopic?.(hero.slug)}
+        >
+          Explore this topic
+        </button>
 
-        <p className="muted">
-          Last updated: {formatGermanDateTime(summary.last_updated)}
-        </p>
-
-        <div className="heroCard">
-          <h2>{hero.label}</h2>
-          {!!hero.headline && <p className="headline">{hero.headline}</p>}
-
-          <div className="metricRow">
-            <div className="metric">
-              <div className="metricValue">{hero.bundestag_minutes}</div>
-              <div className="metricLabel">minutes in Bundestag</div>
-            </div>
-
-            <div className="metric">
-              <div className="metricValue">{hero.talkshow_minutes}</div>
-              <div className="metricLabel">minutes in talk shows</div>
-            </div>
-
-            <div className="metric">
-              <div className="metricValue">
-                {Number(hero.mismatch_score ?? 0).toFixed(3)}
-              </div>
-              <div className="metricLabel">
-                <MismatchScoreLabel />
-              </div>
-            </div>
-          </div>
-
-          <button
-            className="btn"
-            type="button"
-            onClick={() => onSelectTopic?.(hero.slug)}
-          >
-            Explore this topic
-          </button>
 
           <div className="heroCharts">
             <div className="chartCard" style={{ height: 220 }}>
