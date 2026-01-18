@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import MismatchScoreLabel from "scripts/MismatchScoreLabel.jsx";
 import { fetchSummary } from "../lib/api.js";
+
 import {
   ResponsiveContainer,
   PieChart,
@@ -14,6 +16,7 @@ import {
   Tooltip,
   Cell,
 } from "recharts";
+
 import { COLORS } from "../lib/colors.js";
 
 function normalizeTimeseries(ts) {
@@ -50,7 +53,6 @@ function formatPercent(v) {
 
 function formatGermanDateTime(isoString) {
   if (!isoString) return "";
-
   const date = new Date(isoString);
 
   return new Intl.DateTimeFormat("de-DE", {
@@ -80,7 +82,9 @@ export default function Landing({ onSelectTopic }) {
   };
 
   useEffect(() => {
-    fetchSummary().then(setSummary).catch((e) => setErr(String(e)));
+    fetchSummary()
+      .then(setSummary)
+      .catch((e) => setErr(String(e)));
   }, []);
 
   const hero = summary?.hero_topic;
@@ -148,7 +152,7 @@ export default function Landing({ onSelectTopic }) {
               wild, and somewhat weird? How come that politicians seem to talk
               about arbitrary stuff, whilst the public is interested in vastly
               different things? With this dashboard, we are trying to seek out
-              which ohter topic mismatches are present between the Bundestag and
+              which other topic mismatches are present between the Bundestag and
               German talkshows.
             </p>
 
@@ -185,39 +189,25 @@ export default function Landing({ onSelectTopic }) {
               <div className="metricValue">
                 {Number(hero.mismatch_score ?? 0).toFixed(3)}
               </div>
-
               <div className="metricLabel">
-                mismatch score{" "}
-                <span className="infoWrap">
-                  <button
-                    type="button"
-                    className="infoIcon"
-                    aria-label="How mismatch score is calculated"
-                    aria-describedby="mismatchTip"
-                  >
-                    i
-                  </button>
-                  <span className="infoTooltip" id="mismatchTip" role="tooltip">
-                    You can see the total minutes that where talked about in the
-                    past year per "sphere", and a normalized "Mismatch Score"
-                    which quantifies how strong the difference is. It ranges
-                    from -100 to +100, with 0 indicating an equilibrium.
-                    Negative scores indicate more salience in Talkshows, positive
-                    values indicate more salience in the Bundestag.
-                  </span>
-                </span>
+                <MismatchScoreLabel />
               </div>
             </div>
           </div>
 
-          <button className="btn" onClick={() => onSelectTopic(hero.slug)}>
+          <button
+            className="btn"
+            type="button"
+            onClick={() => onSelectTopic?.(hero.slug)}
+          >
             Explore this topic
           </button>
 
-          {/* HERO CHARTS (will show "no data" until timeseries exists) */}
+          {/* HERO CHARTS */}
           <div className="heroCharts">
             <div className="chartCard" style={{ height: 220 }}>
               <h4 style={{ margin: "0 0 8px" }}>Time split</h4>
+
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -228,6 +218,9 @@ export default function Landing({ onSelectTopic }) {
                     outerRadius={75}
                     paddingAngle={2}
                     isAnimationActive={false}
+                    label={(entry) =>
+                      `${entry.name}: ${formatPercent(Number(entry.value))}`
+                    }
                   >
                     {heroPie.map((entry) => (
                       <Cell
@@ -240,6 +233,7 @@ export default function Landing({ onSelectTopic }) {
                       />
                     ))}
                   </Pie>
+
                   <ReTooltip formatter={(v) => formatPercent(Number(v))} />
                   <Legend />
                 </PieChart>
@@ -254,6 +248,7 @@ export default function Landing({ onSelectTopic }) {
 
             <div className="chartCard" style={{ height: 220 }}>
               <h4 style={{ margin: "0 0 8px" }}>Daily attention</h4>
+
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={heroSeries}
@@ -270,6 +265,7 @@ export default function Landing({ onSelectTopic }) {
                     strokeWidth={2}
                     isAnimationActive={false}
                     name="Bundestag"
+                    stroke={COLORS.bundestag}
                   />
                   <Line
                     type="monotone"
@@ -278,6 +274,7 @@ export default function Landing({ onSelectTopic }) {
                     strokeWidth={2}
                     isAnimationActive={false}
                     name="Talk shows"
+                    stroke={COLORS.talkshow}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -305,8 +302,8 @@ export default function Landing({ onSelectTopic }) {
             <button
               key={t.slug}
               className="card"
-              onClick={() => onSelectTopic(t.slug)}
               type="button"
+              onClick={() => onSelectTopic?.(t.slug)}
             >
               <div className="cardTitle">{t.label}</div>
               <div className="cardMeta">

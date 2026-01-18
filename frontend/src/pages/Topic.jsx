@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { fetchTopic, fetchSummary } from "../lib/api.js";
+import MismatchScoreLabel from "scripts/MismatchScoreLabel.jsx";
+
 import {
   PieChart,
   Pie,
@@ -18,24 +20,21 @@ import { COLORS } from "../lib/colors.js";
 
 function normalizeTimeseries(ts) {
   if (!Array.isArray(ts)) return [];
+
   return ts
     .map((row) => {
       const date =
-        row.date ?? row.day ?? row.dt ?? row.timestamp ?? row.week ?? null;
+        row?.date ?? row?.day ?? row?.dt ?? row?.timestamp ?? row?.week ?? null;
 
       const bundestag =
-        row.bundestag_minutes ??
-        row.bt_minutes ??
-        row.bundestag ??
-        row.bt ??
-        0;
+        row?.bundestag_minutes ?? row?.bt_minutes ?? row?.bundestag ?? row?.bt ?? 0;
 
       const talkshow =
-        row.talkshow_minutes ?? row.tv_minutes ?? row.talkshow ?? row.tv ?? 0;
+        row?.talkshow_minutes ?? row?.tv_minutes ?? row?.talkshow ?? row?.tv ?? 0;
 
       const mismatch =
-        row.mismatch_score ??
-        row.mismatch ??
+        row?.mismatch_score ??
+        row?.mismatch ??
         Math.abs(Number(talkshow) - Number(bundestag));
 
       return {
@@ -46,11 +45,6 @@ function normalizeTimeseries(ts) {
       };
     })
     .filter((d) => d.date);
-}
-
-function formatMinutes(v) {
-  if (typeof v !== "number" || Number.isNaN(v)) return "";
-  return `${v} min`;
 }
 
 function formatPercent(v) {
@@ -64,30 +58,55 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
   const [err, setErr] = useState(null);
 
   useEffect(() => {
+    let cancelled = false;
+
     setTopic(null);
     setErr(null);
 
     fetchTopic(slug)
-      .then(setTopic)
-      .catch((e) => setErr(String(e)));
+      .then((data) => {
+        if (!cancelled) setTopic(data);
+      })
+      .catch((e) => {
+        if (!cancelled) setErr(String(e));
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
   // fetch summary once (for "top other topics")
   useEffect(() => {
-    fetchSummary().then(setSummary).catch(() => {});
+    let cancelled = false;
+
+    fetchSummary()
+      .then((data) => {
+        if (!cancelled) setSummary(data);
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  const mismatchScore = useMemo(() => {
+    const ms = topic?.mismatch_score ?? topic?.mismatch ?? topic?.totals?.mismatch_score;
+    return Number(ms ?? 0);
+  }, [topic]);
 
   const pieData = useMemo(() => {
     if (!topic) return [];
     return [
-      { name: "Bundestag", value: Number(topic.totals?.bt_share) || 0 },
-      { name: "Talk shows", value: Number(topic.totals?.ts_share) || 0 },
+      { name: "Bundestag", value: Number(topic?.totals?.bt_share) || 0 },
+      { name: "Talk shows", value: Number(topic?.totals?.ts_share) || 0 },
     ].filter((d) => d.value > 0);
   }, [topic]);
 
   const series = useMemo(() => {
     if (!topic) return [];
-    return normalizeTimeseries(topic.timeseries);
+    return normalizeTimeseries(topic?.timeseries);
   }, [topic]);
 
   const topOthers = useMemo(() => {
@@ -108,24 +127,29 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
 
       {topic && (
         <>
-          <h1>{topic.label}</h1>
-          {!!topic.description && <p className="muted">{topic.description}</p>}
+          <h1>{topic?.label}</h1>
+          {!!topic?.description && <p className="muted">{topic.description}</p>}
 
           <div className="stats">
             <div className="stat">
-              <b>{topic.totals.bundestag_minutes}</b>
+              <b>{Number(topic?.totals?.bundestag_minutes ?? 0)}</b>
               <span>Bundestag min</span>
             </div>
+
             <div className="stat">
-              <b>{topic.totals.talkshow_minutes}</b>
+              <b>{Number(topic?.totals?.talkshow_minutes ?? 0)}</b>
               <span>Talk show min</span>
             </div>
+
             <div className="stat">
-              <b>{Number(topic.mismatch_score ?? 0).toFixed(3)}</b>
+              <b>
+                <MismatchScoreLabel score={mismatchScore} />
+              </b>
               <span>Mismatch score</span>
             </div>
+
             <div className="stat">
-              <b>{Number(topic.norm_delta ?? 0).toFixed(1)}</b>
+              <b>{Number(topic?.norm_delta ?? 0).toFixed(1)}</b>
               <span>Δ normalized speech time</span>
             </div>
           </div>
@@ -135,35 +159,46 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
             <section className="section" style={{ marginTop: "2rem" }}>
               <h3>Top other topics</h3>
               <div className="grid">
-                {topOthers.map((t) => (
-                  <button
-                    key={t.slug}
-                    className="card"
-                    type="button"
-                    onClick={() => onSelectTopic(t.slug)}
-                  >
-                    <div className="cardTitle">{t.label}</div>
-                    <div className="cardMeta">
-                      <span>
-                        Mismatch: <b>{Number(t.mismatch_score ?? 0).toFixed(3)}</b>
-                      </span>
-                      <span>
-                        Δ norm: <b>{Number(t.norm_delta ?? 0).toFixed(1)}</b>
-                      </span>
-                      <span>
-                        BT: <b>{t.bundestag_minutes}</b> min
-                      </span>
-                      <span>
-                        TV: <b>{t.talkshow_minutes}</b> min
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                {topOthers.map((t) => {
+                  const otherMismatch = Number(
+                    t?.mismatch_score ?? t?.mismatch ?? t?.totals?.mismatch_score ?? 0
+                  );
+
+                  return (
+                    <button
+                      key={t.slug}
+                      className="card"
+                      type="button"
+                      onClick={() => onSelectTopic(t.slug)}
+                    >
+                      <div className="cardTitle">{t.label}</div>
+                      <div className="cardMeta">
+                        <span>
+                          Mismatch:{" "}
+                          <b>
+                            <MismatchScoreLabel score={otherMismatch} />
+                          </b>
+                        </span>
+                        <span>
+                          Δ norm: <b>{Number(t?.norm_delta ?? 0).toFixed(1)}</b>
+                        </span>
+                        <span>
+                          BT: <b>{Number(t?.bundestag_minutes ?? t?.totals?.bundestag_minutes ?? 0)}</b>{" "}
+                          min
+                        </span>
+                        <span>
+                          TV: <b>{Number(t?.talkshow_minutes ?? t?.totals?.talkshow_minutes ?? 0)}</b>{" "}
+                          min
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </section>
           )}
 
-          {/* Charts (will show “no data” until timeseries exists) */}
+          {/* Charts */}
           <section className="section" style={{ marginTop: "2rem" }}>
             <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
               Time Allocation Share (Bundestag vs Talk shows)
@@ -173,7 +208,6 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                   <strong>Definitions</strong>
                   <br />
                   <br />
-
                   <strong>bt_normalized_perc</strong>
                   <br />
                   Topic speech time in Bundestag
@@ -181,7 +215,6 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                   ÷ overall speech time in Bundestag
                   <br />
                   <br />
-
                   <strong>ts_normalized_perc</strong>
                   <br />
                   Topic speech time in Talkshows
@@ -189,7 +222,6 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                   ÷ overall speech time in Talkshows
                   <br />
                   <br />
-
                   <strong>bt_share</strong>
                   <br />
                   bt_normalized_perc
@@ -197,7 +229,6 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                   ÷ (bt_normalized_perc + ts_normalized_perc)
                   <br />
                   <br />
-
                   <strong>ts_share</strong>
                   <br />
                   ts_normalized_perc
@@ -206,6 +237,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                 </span>
               </span>
             </h3>
+
             <div className="chartCard" style={{ height: 320 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -217,12 +249,18 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                     outerRadius={95}
                     paddingAngle={2}
                     isAnimationActive={false}
-                    label={(entry) => `${entry.name}: ${formatPercent(Number(entry.value))}`}
+                    label={(entry) =>
+                      `${entry.name}: ${formatPercent(Number(entry.value))}`
+                    }
                   >
                     {pieData.map((entry) => (
                       <Cell
                         key={entry.name}
-                        fill={entry.name === "Bundestag" ? COLORS.bundestag : COLORS.talkshow}
+                        fill={
+                          entry.name === "Bundestag"
+                            ? COLORS.bundestag
+                            : COLORS.talkshow
+                        }
                       />
                     ))}
                   </Pie>
@@ -230,6 +268,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
+
               {pieData.length === 0 && (
                 <p className="muted" style={{ marginTop: 8 }}>
                   No share data available to plot.
@@ -242,17 +281,46 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
             <h3>Daily attention over time</h3>
             <div className="chartCard" style={{ height: 360 }}>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={series} margin={{ top: 10, right: 20, bottom: 0, left: 0 }}>
+                <LineChart
+                  data={series}
+                  margin={{ top: 10, right: 20, bottom: 0, left: 0 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" tickMargin={8} />
-                  <YAxis tickFormatter={(v) => `${v}`} />
+                  <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="bundestag_minutes" dot={false} strokeWidth={2} isAnimationActive={false} name="Bundestag" />
-                  <Line type="monotone" dataKey="talkshow_minutes" dot={false} strokeWidth={2} isAnimationActive={false} name="Talk shows" />
-                  <Line type="monotone" dataKey="mismatch_score" dot={false} strokeWidth={2} isAnimationActive={false} name="Mismatch" />
+
+                  <Line
+                    type="monotone"
+                    dataKey="bundestag_minutes"
+                    dot={false}
+                    strokeWidth={2}
+                    isAnimationActive={false}
+                    name="Bundestag"
+                    stroke={COLORS.bundestag}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="talkshow_minutes"
+                    dot={false}
+                    strokeWidth={2}
+                    isAnimationActive={false}
+                    name="Talk shows"
+                    stroke={COLORS.talkshow}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="mismatch_score"
+                    dot={false}
+                    strokeWidth={2}
+                    isAnimationActive={false}
+                    name="Mismatch"
+                    stroke={COLORS.mismatch ?? "#8884d8"}
+                  />
                 </LineChart>
               </ResponsiveContainer>
+
               {series.length === 0 && (
                 <p className="muted" style={{ marginTop: 8 }}>
                   No timeseries data available to plot.
@@ -262,7 +330,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
           </section>
 
           <h3 style={{ marginTop: "2rem" }}>Timeseries (raw)</h3>
-          <pre className="pre">{JSON.stringify(topic.timeseries, null, 2)}</pre>
+          <pre className="pre">{JSON.stringify(topic?.timeseries ?? [], null, 2)}</pre>
         </>
       )}
     </div>
