@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import MismatchScoreLabel from "scripts/MismatchScoreLabel.jsx";
+import MismatchScoreLabel from "../scripts/MismatchScoreLabel.jsx";
 import { fetchSummary } from "../lib/api.js";
 
 import {
@@ -18,6 +18,7 @@ import {
 } from "recharts";
 
 import { COLORS } from "../lib/colors.js";
+
 
 function normalizeTimeseries(ts) {
   if (!Array.isArray(ts)) return [];
@@ -68,7 +69,6 @@ export default function Landing({ onSelectTopic }) {
   const [summary, setSummary] = useState(null);
   const [err, setErr] = useState(null);
 
-  // show intro only once per tab/session (survives refresh + back/forward)
   const [showIntro, setShowIntro] = useState(false);
 
   useEffect(() => {
@@ -203,7 +203,6 @@ export default function Landing({ onSelectTopic }) {
             Explore this topic
           </button>
 
-          {/* HERO CHARTS */}
           <div className="heroCharts">
             <div className="chartCard" style={{ height: 220 }}>
               <h4 style={{ margin: "0 0 8px" }}>Time split</h4>
@@ -289,12 +288,10 @@ export default function Landing({ onSelectTopic }) {
         </div>
       </header>
 
-      {/* Top 20 other topics */}
       <section className="section">
         <h3>Top other topics</h3>
         <p className="muted">
-          Twenty more topics with the largest normalized attention gap (excluding
-          the hero).
+          Twenty more topics with the largest normalized attention gap.
         </p>
 
         <div className="grid">
@@ -353,3 +350,5 @@ export default function Landing({ onSelectTopic }) {
     </div>
   );
 }
+
+
