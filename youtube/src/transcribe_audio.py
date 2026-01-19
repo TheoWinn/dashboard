@@ -71,24 +71,33 @@ if __name__ == "__main__":
         print("\n Exiting script without any results.")
         exit()
 
+    failed = []
+
     for i, f in enumerate(files, start = 1):
-        print(f"\n ### File {i}/{len(files)} ###")
 
         out_file = out_dir / f"{f.stem}_aligned.csv"
 
         if out_file.exists():
-            print(f"Skipping {f.name}, already transcribed.")
+            # print(f"Skipping {f.name}, already transcribed.")
             continue
-
-        process_one_file(audio_path = f, 
-                         out_dir = out_dir, 
-                         model_dir = model_dir,
-                         device = DEVICE,
-                         compute_type = COMPUTE_TYPE,
-                         batch_size = BATCH_SIZE,
-                         forced_language = FORCED_LANGUAGE,
-                         HF_TOKEN = HF_TOKEN
-                         )
+        
+        print(f"\n ### File {i}/{len(files)} ###")
+        ok, err = process_one_file(audio_path = f, 
+                                   out_dir = out_dir, 
+                                   model_dir = model_dir,
+                                   device = DEVICE,
+                                   compute_type = COMPUTE_TYPE,
+                                   batch_size = BATCH_SIZE,
+                                   forced_language = FORCED_LANGUAGE,
+                                   HF_TOKEN = HF_TOKEN
+                                   )
+        if not ok:
+            failed.append((f, err))
         print("Cache cleared, moving to next file... \n")
 
     print(f"All done in {time.time() - start_all:.1f}s total.")
+    print(f"Summary: total={len(files)}, failed={len(failed)}")
+    if failed:
+        print("\nFailures:")
+        for f, err in failed:
+            print(f"- {f.name}: {err}")

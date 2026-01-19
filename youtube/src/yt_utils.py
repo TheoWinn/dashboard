@@ -308,11 +308,15 @@ def process_one_file(audio_path: Path, out_dir: Path, model_dir: Path, device: s
         out_csv = out_dir / f"{audio_path.stem}_aligned.csv"
         pd.DataFrame(result["segments"]).to_csv(out_csv, index=False)
         print(f"Done {audio_path.name} in {time.time()-t0:.1f}s → {out_csv.name}")
+        return True, None
 
     except torch.cuda.OutOfMemoryError:
-        print("CUDA OOM. Try lower batch_size (e.g., 16/8) or set device='cpu'.")
+        msg = "CUDA OOM. Try lower batch_size (e.g., 16/8) or set device='cpu'."
+        print(msg)
+        return False, msg
     except Exception as e:
         print(f"Error on {audio_path.name}: {e}")
+        return False, repr(e)
     finally:
         # Cleanup always
         del model, model_a, metadata, diarize_model, audio, result, diarize_segments
@@ -407,8 +411,12 @@ def cluster_transcript(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def process_one_csv(in_csv: Path, out_csv: Path):
-    print(f"Processing: {in_csv.name}")
-    df = pd.read_csv(in_csv)
-    out = cluster_transcript(df)
-    out.to_csv(out_csv, index = False)
-    print(f"Wrote {out_csv.name} ({len(out)} clusters)")
+    try:
+        print(f"Processing: {in_csv.name}")
+        df = pd.read_csv(in_csv)
+        out = cluster_transcript(df)
+        out.to_csv(out_csv, index = False)
+        print(f"Wrote {out_csv.name} ({len(out)} clusters)")
+    except Exception as e:
+        print(f"Error on {in_csv.name}: {e}")
+        return False, repr(e)

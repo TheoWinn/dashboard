@@ -2,6 +2,9 @@ import argparse
 import subprocess
 import sys
 import os
+from pathlib import Path
+import json
+
 
 def run_step(description, command, cwd=None, env=None):
     print("\n" + "="*60)
@@ -23,6 +26,7 @@ def run_step(description, command, cwd=None, env=None):
         print(f"\n[ERROR] An unexpected error occurred during {description}: {e}")
         return False
 
+
 def main():
     parser = argparse.ArgumentParser(description="Full Processing Pipeline: Download -> Transcribe -> Cluster -> Match")
     
@@ -39,6 +43,7 @@ def main():
     parser.add_argument("--skip-cluster", action="store_true", help="Skip clustering step")
     parser.add_argument("--skip-match", action="store_true", help="Skip matching step")
     parser.add_argument("--skip-bert", action="store_true", help="Skip Bert step")
+    parser.add_argument("--skip-database", action="store_true", help="Skip Database step")
     
     args = parser.parse_args()
     
@@ -61,13 +66,13 @@ def main():
     # 3. Transcribe Audio
     if not args.skip_transcribe:
         # 3a. Talkshows
-        cmd_ts = [sys.executable, "transcribe_audio.py"]
-        if not run_step("Transcribe Talkshows", cmd_ts, cwd=os.path.join(os.getcwd(), "youtube", "src")):
+        cmd_ts = ["bash", "run_whisperx.sh"]
+        if not run_step("Transcribe Talkshows", cmd_ts, cwd=os.getcwd()):
             sys.exit(1)
             
         # 3b. Bundestag
-        cmd_bt = [sys.executable, "transcribe_audio.py", "--bundestag"]
-        if not run_step("Transcribe Bundestag", cmd_bt, cwd=os.path.join(os.getcwd(), "youtube", "src")):
+        cmd_bt = ["bash", "run_whisperx.sh", "--bundestag"]
+        if not run_step("Transcribe Bundestag", cmd_bt, cwd=os.getcwd()):
             sys.exit(1)
 
     # 4. Cluster/Clean Transcripts
@@ -90,12 +95,65 @@ def main():
 
     # 6. Bert
     if not args.skip_bert:
-        cmd = [sys.executable, "extract_topics"]
+        cmd = [sys.executable, "extract_topics.py"]
         if not run_step("Bert with Gemini Labels", cmd, cwd=os.path.join(os.getcwd(), "topicmodelling")):
             sys.exit(1)
     
     # 7. Schreiben in Datenbank
+    if not args.skip_database:
 
+        # read in log file
+        log_path = Path("topicmodelling/data/latest_files_bert.json")
+        if not log_path.exists():
+            raise FileNotFoundError(f"Log file with filenames to insert into database not found: {log_path}")
+        with open(log_path, "r", encoding="utf-8") as f:
+            log_file = json.load(f)
+
+        # check whether all files are already inserted
+        inserted = log_file.get("inserted")
+        if inserted:
+            print("Log File says files are inserted already. Stopping further proceedings. Check if files are really inserted.")
+            sys.exit(1)
+        else:
+
+            # step by step insert files and remove from log file if inserted successfully
+            while log_file["speeches_file"]:
+
+                # current files to insert
+                speech = log_file["speeches_file"][0]
+                info = log_file["info_file"][0]
+                if info != "none":
+                    p = Path(info)
+                    labeled_info = f"{p.stem}_gemini_labeled{p.suffix}"
+                    info_path = f"../topicmodelling/data/raw_topics/{labeled_info}"
+                else:
+                    info_path = "none"
+
+                if speech != "none":
+                    speech_path = f"../topicmodelling/data/raw_topics/{speech}"
+                else:
+                    speech_path = "none"
+                
+                # insert into database
+                cmd = [sys.executable, "insert.py", "--input-path", speech_path, "--label-path", info_path, "--youtube"]
+                if not run_step("Insert into DB", cmd, cwd=os.path.join(os.getcwd(), "database")):
+                    sys.exit(1)
+
+                # remove from log 
+                log_file["speeches_file"].pop(0)
+                log_file["info_file"].pop(0)
+
+                # update inserted flag if queue now empty
+                log_file["inserted"] = (len(log_file["speeches_file"]) == 0)
+
+                # write to file
+                with open(log_path, "w", encoding="utf-8") as f:
+                    json.dump(log_file, f, ensure_ascii=False, indent=4)
+
+            print("Everything inserted successfully")
+    
+    print("DONE!!")
+                
 
 if __name__ == "__main__":
     main()
