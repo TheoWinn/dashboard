@@ -1,5 +1,3 @@
-from crontab import CronTab
-import os
 
 from crontab import CronTab
 import os
@@ -23,14 +21,16 @@ def build_cmd(extra_args: str = "") -> str:
 
 # Remove old jobs (no dublicates )
 cron.remove_all(comment="pipeline_daily")
-cron.remove_all(comment="pipeline_weekly_bert")
+cron.remove_all(comment="pipeline_weekly_including_bert")
 
-# 1) Daily job: skip BERT
+
+# 1) Daily job: skip BERT, skip writing into pipeline
 daily_job = cron.new(
-    command=build_cmd("--skip-bert"),
+    command=build_cmd("--skip-bert --skip-database"),
     comment="pipeline_daily",
 )
-daily_job.setall("30 3 * * *")  # every day at 3:30 am
+daily_job.setall("30 3 * * *")
+
 
 # 2) Weekly job: run with BERT
 weekly_job = cron.new(
