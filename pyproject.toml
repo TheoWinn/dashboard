@@ -22,14 +22,18 @@ dependencies = [
     "python-crontab>=3.3.0",
     "tiktokapi>=7.2.1",
     "playwright>=1.57.0",
-<<<<<<< HEAD
     "isodate>=0.7.2",
     "google-api-python-client==1.7.2",
     "google-auth==1.8.0",
     "google-auth-oauthlib==0.4.1",
+    "psycopg2-binary",
+    "unidecode>=1.4.0",
+    "pathvalidate>=3.3.1",
+    "supabase>=2.25.1",
     "python-slugify>=8.0.4",
-=======
     "tweepy>=4.16.0",
     "snscrape>=0.7.0.20230622",
->>>>>>> 331ee49 (tried to scrape x)
-]
+
+    "pydantic>=2.12.5",
+    "openai>=2.15.0",
+

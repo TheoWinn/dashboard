@@ -172,14 +172,14 @@ def matching_pipeline():
             total_speeches_in_matched = len(out_df)
 
         
-        print(f"Total speeches in csv: {total_speeches_in_csv} ")
-        print(f"Total speeches in xml: {total_speeches_in_xml} ")
-        print(f"Total speeches matched: {total_speeches_in_matched} ")
-        print(f"Differenes in speeches in xml vs csv: {total_speeches_in_xml - total_speeches_in_csv} ")
-        print(f"Difference in speeches in matched vs csv: {total_speeches_in_matched - total_speeches_in_csv} ")
-        print(f"Difference in speeches in matched vs xml: {total_speeches_in_matched - total_speeches_in_xml} ")
-        print(f"matched / csv: {total_speeches_in_matched / total_speeches_in_csv:.2%}")
-        print(f"matched / xml: {total_speeches_in_matched / total_speeches_in_xml:.2%}")
+        # print(f"Total speeches in csv: {total_speeches_in_csv} ")
+        # print(f"Total speeches in xml: {total_speeches_in_xml} ")
+        # print(f"Total speeches matched: {total_speeches_in_matched} ")
+        # print(f"Differenes in speeches in xml vs csv: {total_speeches_in_xml - total_speeches_in_csv} ")
+        # print(f"Difference in speeches in matched vs csv: {total_speeches_in_matched - total_speeches_in_csv} ")
+        # print(f"Difference in speeches in matched vs xml: {total_speeches_in_matched - total_speeches_in_xml} ")
+        # print(f"matched / csv: {total_speeches_in_matched / total_speeches_in_csv:.2%}")
+        # print(f"matched / xml: {total_speeches_in_matched / total_speeches_in_xml:.2%}")
 
        
 

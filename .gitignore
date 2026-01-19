@@ -216,7 +216,12 @@ data/
 dist/
 node_modules/
 models/
-
+#added to ignore simlinks
+data
+models
 # Youtube Credentials and Tokens
 client_secret.json
 token.pkl
+
+data
+models
