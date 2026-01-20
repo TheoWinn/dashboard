@@ -1,0 +1,173 @@
+2025-12-29 14:02:01,063 INFO Toy pipeline triggered
+2025-12-29 14:02:01,064 INFO Step 1: start
+2025-12-29 14:02:01,065 INFO Step 2: do nothing, just a toy pipeline
+2025-12-29 14:02:01,065 INFO Step 3: finished at 2025-12-29 14:02:01.065601
+2025-12-29 14:02:01,066 INFO Toy pipeline completed successfully
+2025-12-29 14:25:06,831 INFO Toy pipeline triggered
+2025-12-29 14:25:06,832 INFO Step 1: start
+2025-12-29 14:25:06,832 INFO Step 2: do nothing, just a toy pipeline
+2025-12-29 14:25:06,832 INFO Step 3: finished at 2025-12-29 14:25:06.832291
+2025-12-29 14:25:06,832 INFO Toy pipeline completed successfully
+2025-12-29 14:27:01,397 INFO Toy pipeline triggered
+2025-12-29 14:27:01,397 INFO Step 1: start
+2025-12-29 14:27:01,397 INFO Step 2: do nothing, just a toy pipeline
+2025-12-29 14:27:01,397 INFO Step 3: finished at 2025-12-29 14:27:01.397507
+2025-12-29 14:27:01,397 INFO Toy pipeline completed successfully
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/aranka/semester3/lab/dashboard/.venv/bin/python download_youtube.py --cutoff 2025-01-01
+Working Directory: /home/aranka/semester3/lab/dashboard/youtube/src
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+Chunk size: 131072 bytes
+------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/__main__.py", line 817, in title
+    if 'title' in self.vid_info['videoDetails']:
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'videoDetails'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/download_youtube.py", line 19, in <module>
+    download_from_playlist(playlist_url, bundestag=bundestag)
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/yt_utils.py", line 167, in download_from_playlist
+    print(f'Downloading: {yt.title}')
+                          ^^^^^^^^
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/__main__.py", line 856, in title
+    self.check_availability()
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/__main__.py", line 404, in check_availability
+    raise exceptions.BotDetection(video_id=self.video_id)
+pytubefix.exceptions.BotDetection: KUAGzzGUOWY This request was detected as a bot. DO NOT OPEN AN ISSUE! See more details at https://pytubefix.readthedocs.io/en/latest/user/po_token.html
+
+[ERROR] YouTube Download failed with exit code 1
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/aranka/semester3/lab/dashboard/.venv/bin/python download_youtube.py --cutoff 2025-01-01
+Working Directory: /home/aranka/semester3/lab/dashboard/youtube/src
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+Chunk size: 131072 bytes
+------------------------------------------------------------
+Downloading: Internationale Kooperation in Bildung, Wissenschaft und Forschung
+ ↳ |                                            | 0.4% ↳ |                                            | 0.8% ↳ |█                                           | 1.2% ↳ |█                                           | 1.6% ↳ |█                                           | 2.1% ↳ |█                                           | 2.5% ↳ |█                                           | 2.9% ↳ |█                                           | 3.3% ↳ |██                                          | 3.7% ↳ |██                                          | 4.1% ↳ |██                                          | 4.5% ↳ |██                                          | 4.9% ↳ |██                                          | 5.3% ↳ |███                                         | 5.7% ↳ |███                                         | 6.2% ↳ |███                                         | 6.6% ↳ |███                                         | 7.0% ↳ |███                                         | 7.4% ↳ |███                                         | 7.8% ↳ |████                                        | 8.2% ↳ |████                                        | 8.6% ↳ |████                                        | 9.0% ↳ |████                                        | 9.4% ↳ |████                                        | 9.8% ↳ |█████                                       | 10.3% ↳ |█████                                       | 10.7% ↳ |█████                                       | 11.1% ↳ |█████                                       | 11.5% ↳ |█████                                       | 11.9% ↳ |█████                                       | 12.3% ↳ |██████                                      | 12.7% ↳ |██████                                      | 13.1% ↳ |██████                                      | 13.5% ↳ |██████                                      | 13.9% ↳ |██████                                      | 14.4% ↳ |██████                                      | 14.8% ↳ |███████                                     | 15.2% ↳ |███████                                     | 15.6% ↳ |███████                                     | 16.0% ↳ |███████                                     | 16.4% ↳ |███████                                     | 16.8% ↳ |████████                                    | 17.2% ↳ |████████                                    | 17.6% ↳ |████████                                    | 18.1% ↳ |████████                                    | 18.5% ↳ |████████                                    | 18.9% ↳ |████████                                    | 19.3% ↳ |█████████                                   | 19.7% ↳ |█████████                                   | 20.1% ↳ |█████████                                   | 20.5% ↳ |█████████                                   | 20.9% ↳ |█████████                                   | 21.3% ↳ |██████████                                  | 21.7% ↳ |██████████                                  | 22.2% ↳ |██████████                                  | 22.6% ↳ |██████████                                  | 23.0% ↳ |██████████                                  | 23.4% ↳ |██████████                                  | 23.8% ↳ |███████████                                 | 24.2% ↳ |███████████                                 | 24.6% ↳ |███████████                                 | 25.0% ↳ |███████████                                 | 25.4% ↳ |███████████                                 | 25.8% ↳ |████████████                                | 26.3% ↳ |████████████                                | 26.7% ↳ |████████████                                | 27.1% ↳ |████████████                                | 27.5% ↳ |████████████                                | 27.9% ↳ |████████████                                | 28.3% ↳ |█████████████                               | 28.7% ↳ |█████████████                               | 29.1% ↳ |█████████████                               | 29.5% ↳ |█████████████                               | 29.9% ↳ |█████████████                               | 30.4% ↳ |██████████████                              | 30.8% ↳ |██████████████                              | 31.2% ↳ |██████████████                              | 31.6% ↳ |██████████████                              | 32.0% ↳ |██████████████                              | 32.4% ↳ |██████████████                              | 32.8% ↳ |███████████████                             | 33.2% ↳ |███████████████                             | 33.6% ↳ |███████████████                             | 34.1% ↳ |███████████████                             | 34.5% ↳ |███████████████                             | 34.9% ↳ |████████████████                            | 35.3% ↳ |████████████████                            | 35.7% ↳ |████████████████                            | 36.1% ↳ |████████████████                            | 36.5% ↳ |████████████████                            | 36.9% ↳ |████████████████                            | 37.3% ↳ |█████████████████                           | 37.7% ↳ |█████████████████                           | 38.2% ↳ |█████████████████                           | 38.6% ↳ |█████████████████                           | 39.0% ↳ |█████████████████                           | 39.4% ↳ |██████████████████                          | 39.8% ↳ |██████████████████                          | 40.2% ↳ |██████████████████                          | 40.6% ↳ |██████████████████                          | 41.0% ↳ |██████████████████                          | 41.4% ↳ |██████████████████                          | 41.8% ↳ |███████████████████                         | 42.3% ↳ |███████████████████                         | 42.7% ↳ |███████████████████                         | 43.1% ↳ |███████████████████                         | 43.5%Traceback (most recent call last):
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/download_youtube.py", line 19, in <module>
+    download_from_playlist(playlist_url, bundestag=bundestag)
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/yt_utils.py", line 180, in download_from_playlist
+    ys.download(output_path=str(output_dir), filename = filename_stem)
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/streams.py", line 398, in download
+    for chunk in request.stream(
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/request.py", line 154, in stream
+    response = _execute_request(
+               ^^^^^^^^^^^^^^^^^
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/request.py", line 35, in _execute_request
+    return urlopen(request, timeout=timeout)  # nosec
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+[ERROR] YouTube Download failed with exit code 1
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/aranka/semester3/lab/dashboard/.venv/bin/python download_youtube.py --cutoff 2025-01-01
+Working Directory: /home/aranka/semester3/lab/dashboard/youtube/src
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+Chunk size: 131072 bytes
+------------------------------------------------------------
+Downloading: Internationale Kooperation in Bildung, Wissenschaft und Forschung
+ ↳ |                                            | 0.4% ↳ |                                            | 0.8% ↳ |█                                           | 1.2% ↳ |█                                           | 1.6% ↳ |█                                           | 2.1% ↳ |█                                           | 2.5% ↳ |█                                           | 2.9% ↳ |█                                           | 3.3% ↳ |██                                          | 3.7% ↳ |██                                          | 4.1% ↳ |██                                          | 4.5% ↳ |██                                          | 4.9% ↳ |██                                          | 5.3% ↳ |███                                         | 5.7% ↳ |███                                         | 6.2% ↳ |███                                         | 6.6% ↳ |███                                         | 7.0% ↳ |███                                         | 7.4% ↳ |███                                         | 7.8% ↳ |████                                        | 8.2% ↳ |████                                        | 8.6% ↳ |████                                        | 9.0% ↳ |████                                        | 9.4% ↳ |████                                        | 9.8% ↳ |█████                                       | 10.3% ↳ |█████                                       | 10.7% ↳ |█████                                       | 11.1% ↳ |█████                                       | 11.5% ↳ |█████                                       | 11.9% ↳ |█████                                       | 12.3% ↳ |██████                                      | 12.7% ↳ |██████                                      | 13.1% ↳ |██████                                      | 13.5% ↳ |██████                                      | 13.9% ↳ |██████                                      | 14.4% ↳ |██████                                      | 14.8% ↳ |███████                                     | 15.2% ↳ |███████                                     | 15.6% ↳ |███████                                     | 16.0% ↳ |███████                                     | 16.4% ↳ |███████                                     | 16.8% ↳ |████████                                    | 17.2% ↳ |████████                                    | 17.6%Traceback (most recent call last):
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/download_youtube.py", line 19, in <module>
+    download_from_playlist(playlist_url, bundestag=bundestag)
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/yt_utils.py", line 180, in download_from_playlist
+    ys.download(output_path=str(output_dir), filename = filename_stem)
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/streams.py", line 398, in download
+    for chunk in request.stream(
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/request.py", line 154, in stream
+    response = _execute_request(
+               ^^^^^^^^^^^^^^^^^
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/request.py", line 35, in _execute_request
+    return urlopen(request, timeout=timeout)  # nosec
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+[ERROR] YouTube Download failed with exit code 1
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/aranka/semester3/lab/dashboard/.venv/bin/python download_youtube.py --cutoff 2025-01-01
+Working Directory: /home/aranka/semester3/lab/dashboard/youtube/src
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+Chunk size: 131072 bytes
+------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/__main__.py", line 817, in title
+    if 'title' in self.vid_info['videoDetails']:
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'videoDetails'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/download_youtube.py", line 19, in <module>
+    download_from_playlist(playlist_url, bundestag=bundestag)
+  File "/home/aranka/semester3/lab/dashboard/youtube/src/yt_utils.py", line 167, in download_from_playlist
+    print(f'Downloading: {yt.title}')
+                          ^^^^^^^^
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/__main__.py", line 856, in title
+    self.check_availability()
+  File "/home/aranka/semester3/lab/dashboard/.venv/lib/python3.12/site-packages/pytubefix/__main__.py", line 404, in check_availability
+    raise exceptions.BotDetection(video_id=self.video_id)
+pytubefix.exceptions.BotDetection: KUAGzzGUOWY This request was detected as a bot. DO NOT OPEN AN ISSUE! See more details at https://pytubefix.readthedocs.io/en/latest/user/po_token.html
+
+[ERROR] YouTube Download failed with exit code 1
