@@ -2,7 +2,7 @@ export default function MismatchScoreLabel({
   score,
   decimals = 3,
   text = `Shows the log-ratio between Bundestag and talk show coverage for this topic.
-A score of 0 means “equal emphasis”; positive values mean the topic is relatively more prominent in Bundestag, negative values mean it’s relatively more prominent in talk shows.
+A score of 0 means "equal emphasis"; positive values mean the topic is relatively more prominent in Bundestag, negative values mean it's relatively more prominent in talk shows.
 The log metric is not bounded (it can be negative or positive without a fixed min/max).`,
 }) {
   const n = Number(score);
@@ -18,9 +18,7 @@ The log metric is not bounded (it can be negative or positive without a fixed mi
         {hasScore ? n.toFixed(decimals) : "—"}
       </span>
 
-      <span className="mismatchValue" style={{ fontVariantNumeric: "tabular-nums" }}>
-        {hasScore ? n.toFixed(decimals) : "—"}
-      </span>
+      {/* REMOVED: duplicate mismatchValue span */}
 
       <span className="infoWrap" style={{ position: "relative", display: "inline-flex" }}>
         <button
