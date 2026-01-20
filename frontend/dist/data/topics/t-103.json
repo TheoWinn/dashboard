@@ -1,0 +1,16 @@
+{
+  "slug": "t-103",
+  "label": "Bundeswehr Auslandseinsätze",
+  "description": "Keywords: Soldaten, Soldatinnen Soldaten, Soldatinnen, Libanon, Stabilität, Dienst, Wehrbeauftragte, Horn Afrika, leisten, Horn",
+  "mismatch_score": 0.19895759633542098,
+  "norm_delta": 0.19895759633542098,
+  "totals": {
+    "bundestag_minutes": 87,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.19895759633542098,
+    "ts_normalized_perc": 0
+  },
+  "timeseries": []
+}

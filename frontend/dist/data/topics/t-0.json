@@ -1,0 +1,16 @@
+{
+  "slug": "t-0",
+  "label": "Ukraine-Krieg",
+  "description": "Keywords: Ukraine, Putin, Russland, Trump, Krieg, NATO, Europäer, russischen, Europa, Russen",
+  "mismatch_score": -8.190811620666837,
+  "norm_delta": 8.190811620666837,
+  "totals": {
+    "bundestag_minutes": 966,
+    "talkshow_minutes": 1594,
+    "bt_share": 17.496908816027947,
+    "ts_share": 82.50309118397206,
+    "bt_normalized_perc": 2.204619296744624,
+    "ts_normalized_perc": 10.395430917411462
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-99",
+  "label": "Gewalt an Jobcentern",
+  "description": "Keywords: Täter, Aschaffenburg, Magdeburg, Bielefeld, verletzt, Messer, Taten, schrecklichen, Jobcenters, Jobcenter",
+  "mismatch_score": 0.25215956383974136,
+  "norm_delta": 0.25215956383974136,
+  "totals": {
+    "bundestag_minutes": 115,
+    "talkshow_minutes": 2,
+    "bt_share": 96.26795745698273,
+    "ts_share": 3.732042543017269,
+    "bt_normalized_perc": 0.262329347331411,
+    "ts_normalized_perc": 0.010169783491669655
+  },
+  "timeseries": []
+}

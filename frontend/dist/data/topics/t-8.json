@@ -1,0 +1,16 @@
+{
+  "slug": "t-8",
+  "label": "Deutsche Spitzenpolitiker",
+  "description": "Keywords: Merz, Friedrich Merz, Friedrich, Kanzler, Merkel, Angela Merkel, Angela, Scholz, CDU, Spahn",
+  "mismatch_score": -1.6564743891279752,
+  "norm_delta": 1.6564743891279754,
+  "totals": {
+    "bundestag_minutes": 44,
+    "talkshow_minutes": 269,
+    "bt_share": 5.36626388028411,
+    "ts_share": 94.63373611971589,
+    "bt_normalized_perc": 0.09957802612749014,
+    "ts_normalized_perc": 1.7560524152554655
+  },
+  "timeseries": []
+}

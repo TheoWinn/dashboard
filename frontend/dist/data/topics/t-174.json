@@ -1,0 +1,16 @@
+{
+  "slug": "t-174",
+  "label": "Sportförderung Fußball Spitzensport",
+  "description": "Keywords: Glückwünsche, Fußball, FC, Fußballer, Sportmilliarde, Finale, FC Bundestag, Sport, Spiele, Spitzensport",
+  "mismatch_score": 0.045945996951576265,
+  "norm_delta": 0.045945996951576265,
+  "totals": {
+    "bundestag_minutes": 25,
+    "talkshow_minutes": 2,
+    "bt_share": 84.60800779405517,
+    "ts_share": 15.391992205944828,
+    "bt_normalized_perc": 0.05616329161906225,
+    "ts_normalized_perc": 0.010217294667485985
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-157",
+  "label": "Kindesmissbrauch Prävention",
+  "description": "Keywords: Gewalt, Missbrauch, sexueller, Beauftragten, Kindern, sexuellen, sexualisierter, unabhängigen Beauftragten, Kinder, Kindern Jugendlichen",
+  "mismatch_score": 0.1127171037035577,
+  "norm_delta": 0.1127171037035577,
+  "totals": {
+    "bundestag_minutes": 51,
+    "talkshow_minutes": 0,
+    "bt_share": 97.2960481310958,
+    "ts_share": 2.7039518689041944,
+    "bt_normalized_perc": 0.11593916596097828,
+    "ts_normalized_perc": 0.0032220622574205887
+  },
+  "timeseries": []
+}

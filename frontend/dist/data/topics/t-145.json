@@ -1,0 +1,16 @@
+{
+  "slug": "t-145",
+  "label": "China als Weltmacht",
+  "description": "Keywords: China, Chinesen, Xi, Weltmacht, chinesische, Xi Jinping, Jinping, Trump, first, chinesischen",
+  "mismatch_score": -0.06833542202573296,
+  "norm_delta": 0.06833542202573296,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 10,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.06833542202573296
+  },
+  "timeseries": []
+}

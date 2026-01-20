@@ -1,0 +1,16 @@
+{
+  "slug": "t-164",
+  "label": "Schwieriger Wahlkampf",
+  "description": "Keywords: Wähler, schief, Wahlkampf, mache Sorgen, Autorität, versuchen, richtiges Thema, setzen versuchen, selbstkritisch anerkennen, ziehen kurzer",
+  "mismatch_score": -0.054174808486717595,
+  "norm_delta": 0.054174808486717595,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 8,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.054174808486717595
+  },
+  "timeseries": []
+}

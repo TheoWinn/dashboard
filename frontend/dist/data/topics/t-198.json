@@ -1,0 +1,16 @@
+{
+  "slug": "t-198",
+  "label": "Gesellschaftliche Probleme Migration",
+  "description": "Keywords: Kriegen, Alternativen, Vieles unserem, Land ändern, suchen, echten Probleme, Begrenzung Migration, Vieles, gelingt, Probleme",
+  "mismatch_score": 0.018221732773645413,
+  "norm_delta": 0.018221732773645416,
+  "totals": {
+    "bundestag_minutes": 25,
+    "talkshow_minutes": 6,
+    "bt_share": 59.60522456134773,
+    "ts_share": 40.39477543865227,
+    "bt_normalized_perc": 0.056537484726833384,
+    "ts_normalized_perc": 0.03831575195318797
+  },
+  "timeseries": []
+}

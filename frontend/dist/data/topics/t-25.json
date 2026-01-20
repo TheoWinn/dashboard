@@ -1,0 +1,16 @@
+{
+  "slug": "t-25",
+  "label": "Afghanistan-Einsatz Nachwirkungen",
+  "description": "Keywords: Afghanistan, Taliban, Ortskräfte, Pakistan, Afghanen, afghanischen, Aufnahmezusage, Einsatz, Kabul, Bundeswehr",
+  "mismatch_score": 0.5870389742395057,
+  "norm_delta": 0.5870389742395057,
+  "totals": {
+    "bundestag_minutes": 330,
+    "talkshow_minutes": 26,
+    "bt_share": 81.87768424604367,
+    "ts_share": 18.122315753956325,
+    "bt_normalized_perc": 0.7539034423253155,
+    "ts_normalized_perc": 0.16686446808580982
+  },
+  "timeseries": []
+}

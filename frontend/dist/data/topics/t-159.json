@@ -1,0 +1,16 @@
+{
+  "slug": "t-159",
+  "label": "Schuldenbremse Verteidigungsausgaben",
+  "description": "Keywords: Schuldenbremse, ausgenommen, Verteidigungsausgaben, Schulden, Schuldenbremse ausgenommen, Verteidigung, Schuldenbremse Verteidigungspolitik, unterliegt Schuldenbremse, Prozent, Schuldenbremse Verteidigungsausgaben",
+  "mismatch_score": -0.06924857160395119,
+  "norm_delta": 0.06924857160395119,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 11,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.06924857160395119
+  },
+  "timeseries": []
+}
