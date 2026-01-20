@@ -19,7 +19,6 @@ import {
 
 import { COLORS } from "../lib/colors.js";
 
-
 function normalizeTimeseries(ts) {
   if (!Array.isArray(ts)) return [];
 
@@ -34,40 +33,15 @@ function normalizeTimeseries(ts) {
         row.timestamp ??
         null;
 
-      const bundestag =
-        row.bundestag_minutes ??
-        row.bt_minutes ??
-        row.bundestag ??
-        row.bt ??
-        0;
-
-      const talkshow =
-        row.talkshow_minutes ??
-        row.tv_minutes ??
-        row.talkshow ??
-        row.tv ??
-        0;
-
-      // you could also use norm_delta here if you prefer
-      const mismatch =
-        row.mismatch_score ??
-        row.norm_delta ??
-        Math.abs(Number(talkshow) - Number(bundestag));
-
       return {
-        // keep full ISO string so the tooltip can show it nicely
         date: rawDate ? String(rawDate) : "",
-        bundestag_minutes: Number(bundestag) || 0,
-        talkshow_minutes: Number(talkshow) || 0,
-        mismatch_score: Number(mismatch) || 0,
-        // keep the original window info around for richer tooltips later
-        window_start: row.window_start ?? null,
-        window_end: row.window_end ?? null,
+        bt_normalized_perc: Number(row.bt_normalized_perc) || 0,
+        ts_normalized_perc: Number(row.ts_normalized_perc) || 0,
       };
     })
-    .filter((d) => d.date);
+    .filter((d) => d.date)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 }
-
 
 function formatPercent(v) {
   if (typeof v !== "number" || Number.isNaN(v)) return "";
@@ -267,38 +241,41 @@ return (
             </div>
 
             <div className="chartCard" style={{ height: 220 }}>
-              <h4 style={{ margin: "0 0 8px" }}>Daily attention</h4>
+              <h4 style={{ margin: "0 0 8px" }}>Monthly Normalized Attention Share</h4>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={heroSeries}
+                    margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
 
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={heroSeries}
-                  margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date"/>
-                  <YAxis />
-                  <Tooltip />
-                  <Line
-                    type="monotone"
-                    dataKey="bundestag_minutes"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Bundestag"
-                    stroke={COLORS.bundestag}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="talkshow_minutes"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Talk shows"
-                    stroke={COLORS.talkshow}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+                    {/* Y axis as percentages */}
+                    <YAxis tickFormatter={(v) => `${v.toFixed(1)} %`} />
 
+                    {/* Tooltip as percentages */}
+                    <Tooltip formatter={(v) => `${Number(v).toFixed(1)} %`} />
+
+                    <Line
+                      type="monotone"
+                      dataKey="bt_normalized_perc"
+                      dot={false}
+                      strokeWidth={2}
+                      isAnimationActive={false}
+                      name="Bundestag (normalized %)"
+                      stroke={COLORS.bundestag}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="ts_normalized_perc"
+                      dot={false}
+                      strokeWidth={2}
+                      isAnimationActive={false}
+                      name="Talk shows (normalized %)"
+                      stroke={COLORS.talkshow}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
               {heroSeries.length === 0 && (
                 <p className="muted" style={{ marginTop: 8 }}>
                   No timeseries available.

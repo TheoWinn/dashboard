@@ -24,7 +24,6 @@ function normalizeTimeseries(ts) {
 
   return ts
     .map((row) => {
-      // use the start of the window as the x-axis "date"
       const rawDate =
         row.window_start ??
         row.date ??
@@ -34,36 +33,10 @@ function normalizeTimeseries(ts) {
         row.week ??
         null;
 
-      const bundestag =
-        row.bundestag_minutes ??
-        row.bt_minutes ??
-        row.bundestag ??
-        row.bt ??
-        0;
-
-      const talkshow =
-        row.talkshow_minutes ??
-        row.tv_minutes ??
-        row.talkshow ??
-        row.tv ??
-        0;
-
-      // use mismatch_score or fall back to norm_delta or abs diff
-      const mismatch =
-        row.mismatch_score ??
-        row.norm_delta ??
-        row.mismatch ??
-        Math.abs(Number(talkshow) - Number(bundestag));
-
       return {
-        // keep full ISO string for X axis + tooltip
         date: rawDate ? String(rawDate) : "",
-        bundestag_minutes: Number(bundestag) || 0,
-        talkshow_minutes: Number(talkshow) || 0,
-        mismatch_score: Number(mismatch) || 0,
-        // keep raw window info (handy for future tooltips)
-        window_start: row.window_start ?? null,
-        window_end: row.window_end ?? null,
+        bt_normalized_perc: Number(row.bt_normalized_perc) || 0,
+        ts_normalized_perc: Number(row.ts_normalized_perc) || 0,
       };
     })
     .filter((d) => d.date)
@@ -301,7 +274,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
           </section>
 
           <section className="section" style={{ marginTop: "2rem" }}>
-            <h3>Daily attention over time</h3>
+            <h3>Monthly Normalized Attention Share</h3>
             <div className="chartCard" style={{ height: 360 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -310,36 +283,27 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" tickMargin={8} />
-                  <YAxis />
-                  <Tooltip />
+                  <YAxis tickFormatter={(v) => `${v.toFixed(1)} %`} />
+                  <Tooltip formatter={(v) => `${Number(v).toFixed(1)} %`} />
                   <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="bt_normalized_perc"
+                    dot={false}
+                    strokeWidth={2}
+                    isAnimationActive={false}
+                    name="Bundestag (normalized %)"
+                    stroke={COLORS.bundestag}
+                  />
 
                   <Line
                     type="monotone"
-                    dataKey="bundestag_minutes"
+                    dataKey="ts_normalized_perc"
                     dot={false}
                     strokeWidth={2}
                     isAnimationActive={false}
-                    name="Bundestag"
-                    stroke={COLORS.bundestag}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="talkshow_minutes"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Talk shows"
+                    name="Talk shows (normalized %)"
                     stroke={COLORS.talkshow}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="mismatch_score"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Mismatch"
-                    stroke={COLORS.mismatch ?? "#8884d8"}
                   />
                 </LineChart>
               </ResponsiveContainer>
