@@ -1,0 +1,16 @@
+{
+  "slug": "t-24",
+  "label": "Parlamentarisches Verfahren",
+  "description": "Keywords: vorgeschlagen, Interfraktionell Überweisung, Interfraktionell, Überweisung, Ausschüsse vorgeschlagen, Überweisungsvorschläge, aufgeführten Ausschüsse, Tagesordnung aufgeführten, aufgeführten, verfahren",
+  "mismatch_score": 0.2015285527974116,
+  "norm_delta": 0.2015285527974116,
+  "totals": {
+    "bundestag_minutes": 91,
+    "talkshow_minutes": 1,
+    "bt_share": 97.2514701127604,
+    "ts_share": 2.7485298872396005,
+    "bt_normalized_perc": 0.20738982281900026,
+    "ts_normalized_perc": 0.0058612700215886545
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-7",
+  "label": "Wohnungsbau Mietpolitik",
+  "description": "Keywords: Mietpreisbremse, Wohnungen, Wohnraum, Mieten, bauen, Bauen, Wohnungsbau, Wohnen, Bauturbo, Wohnung",
+  "mismatch_score": 2.034834588551102,
+  "norm_delta": 2.034834588551102,
+  "totals": {
+    "bundestag_minutes": 1072,
+    "talkshow_minutes": 63,
+    "bt_share": 85.5834406301526,
+    "ts_share": 14.416559369847404,
+    "bt_normalized_perc": 2.4470391580666186,
+    "ts_normalized_perc": 0.4122045695155165
+  },
+  "timeseries": []
+}

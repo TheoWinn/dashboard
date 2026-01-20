@@ -1,0 +1,16 @@
+{
+  "slug": "t-15",
+  "label": "Bundeshaushalt",
+  "description": "Keywords: Haushalt, Euro, Milliarden Euro, Milliarden, 2025, Einzelplan, 2026, Millionen Euro, Millionen, geehrte",
+  "mismatch_score": 2.451885976765729,
+  "norm_delta": 2.4518859767657286,
+  "totals": {
+    "bundestag_minutes": 1084,
+    "talkshow_minutes": 3,
+    "bt_share": 99.08882425401345,
+    "ts_share": 0.91117574598655,
+    "bt_normalized_perc": 2.474641655557229,
+    "ts_normalized_perc": 0.022755678791500252
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-58",
+  "label": "Humanitäre Hilfe Sudan",
+  "description": "Keywords: Sudan, humanitäre, Südsudan, Hilfe, humanitäre Hilfe, RSF, Millionen, Al, humanitären, Emirate",
+  "mismatch_score": 0.41954712801215743,
+  "norm_delta": 0.4195471280121574,
+  "totals": {
+    "bundestag_minutes": 203,
+    "talkshow_minutes": 7,
+    "bt_share": 91.29875507180309,
+    "ts_share": 8.70124492819691,
+    "bt_normalized_perc": 0.46374437213499314,
+    "ts_normalized_perc": 0.04419724412283575
+  },
+  "timeseries": []
+}

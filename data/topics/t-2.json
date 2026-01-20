@@ -1,0 +1,16 @@
+{
+  "slug": "t-2",
+  "label": "Nahostkonflikt",
+  "description": "Keywords: Israel, Hamas, Gaza, Iran, israelischen, israelische, Geiseln, Palästinenser, Israels, Oktober",
+  "mismatch_score": -2.6397685392363526,
+  "norm_delta": 2.639768539236353,
+  "totals": {
+    "bundestag_minutes": 1005,
+    "talkshow_minutes": 756,
+    "bt_share": 31.742759647557158,
+    "ts_share": 68.25724035244284,
+    "bt_normalized_perc": 2.2948029562132297,
+    "ts_normalized_perc": 4.934571495449583
+  },
+  "timeseries": []
+}

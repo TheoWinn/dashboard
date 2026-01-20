@@ -1,0 +1,16 @@
+{
+  "slug": "t-14",
+  "label": "Drohnenverteidigung Sicherheit",
+  "description": "Keywords: Drohnen, Luftraum, Bundeswehr, NATO, Russland, Drohne, Drohnenabwehr, Ukraine, Drohnenüberflüge, abschießen",
+  "mismatch_score": -0.6969815527379816,
+  "norm_delta": 0.6969815527379815,
+  "totals": {
+    "bundestag_minutes": 204,
+    "talkshow_minutes": 178,
+    "bt_share": 28.619352760380707,
+    "ts_share": 71.3806472396193,
+    "bt_normalized_perc": 0.46647701310751727,
+    "ts_normalized_perc": 1.1634585658454988
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-43",
+  "label": "Aufarbeitung NS-Geschichte",
+  "description": "Keywords: Nazis, Opfer, Hitler, Auschwitz, polnischen, Europa erwachsen, Geschichte, geeintes Europa, geeintes, erwachsen",
+  "mismatch_score": 0.37332058516779354,
+  "norm_delta": 0.37332058516779354,
+  "totals": {
+    "bundestag_minutes": 263,
+    "talkshow_minutes": 35,
+    "bt_share": 72.5376146610147,
+    "ts_share": 27.462385338985293,
+    "bt_normalized_perc": 0.6007686518566717,
+    "ts_normalized_perc": 0.2274480666888782
+  },
+  "timeseries": []
+}

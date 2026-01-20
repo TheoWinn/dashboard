@@ -1,0 +1,16 @@
+{
+  "slug": "t-196",
+  "label": "Euro-Raum Verschuldung",
+  "description": "Keywords: Euro Raum, Schulden, Zahlungsunfähigkeit, Summe, europäisches Geld, Volumen, Moment Schulden, europäischen, 140, Verschuldung",
+  "mismatch_score": -0.029508057009719223,
+  "norm_delta": 0.029508057009719223,
+  "totals": {
+    "bundestag_minutes": 10,
+    "talkshow_minutes": 8,
+    "bt_share": 30.102462300463895,
+    "ts_share": 69.8975376995361,
+    "bt_normalized_perc": 0.022320982302139865,
+    "ts_normalized_perc": 0.05182903931185909
+  },
+  "timeseries": []
+}

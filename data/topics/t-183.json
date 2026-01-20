@@ -1,0 +1,16 @@
+{
+  "slug": "t-183",
+  "label": "Merz und Trump",
+  "description": "Keywords: Friedrich Merz, Friedrich, Trump, Merz, Donald Trump, Donald, Oval Office, Oval, Office, very",
+  "mismatch_score": -0.03566829023967759,
+  "norm_delta": 0.03566829023967759,
+  "totals": {
+    "bundestag_minutes": 5,
+    "talkshow_minutes": 7,
+    "bt_share": 19.788813345528794,
+    "ts_share": 80.2111866544712,
+    "bt_normalized_perc": 0.01168165199831143,
+    "ts_normalized_perc": 0.047349942237989016
+  },
+  "timeseries": []
+}

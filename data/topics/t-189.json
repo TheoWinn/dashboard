@@ -1,0 +1,16 @@
+{
+  "slug": "t-189",
+  "label": "Mindestlohn Debatte",
+  "description": "Keywords: Mindestlohn, 15 Euro, Rentenpunkte, 15, 18 Euro, Mindestlohnes, ausbaufähig, 82 Euro, Steuervergünstigungen, Euro",
+  "mismatch_score": -0.03684978344277568,
+  "norm_delta": 0.03684978344277568,
+  "totals": {
+    "bundestag_minutes": 1,
+    "talkshow_minutes": 6,
+    "bt_share": 5.382399295456613,
+    "ts_share": 94.61760070454339,
+    "bt_normalized_perc": 0.0022226682442376125,
+    "ts_normalized_perc": 0.039072451687013295
+  },
+  "timeseries": []
+}

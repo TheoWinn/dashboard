@@ -1,0 +1,16 @@
+{
+  "slug": "t-109",
+  "label": "Deutsche Entwicklungspolitik",
+  "description": "Keywords: Entwicklungszusammenarbeit, Deutschland, Staat, Innovationen, Wohlstand, Verantwortung, unseres Landes, Antworten, geben Antworten, geehrte Deutschland",
+  "mismatch_score": 0.2309024519579651,
+  "norm_delta": 0.2309024519579651,
+  "totals": {
+    "bundestag_minutes": 102,
+    "talkshow_minutes": 0,
+    "bt_share": 99.27688050511674,
+    "ts_share": 0.7231194948832664,
+    "bt_normalized_perc": 0.23259665482466052,
+    "ts_normalized_perc": 0.0016942028666954055
+  },
+  "timeseries": []
+}

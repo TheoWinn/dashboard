@@ -1,0 +1,16 @@
+{
+  "slug": "t-199",
+  "label": "Error_API_Fail",
+  "description": "Keywords: Handel, Exportstrategie, Abkommen, Zölle Antwort, klimafreundlichen Stahl, Abfederungssystem, USA, Handelsliberalisierung, Betreuungsmöglichkeiten, Binnenmarkts",
+  "mismatch_score": 0.03897943356731457,
+  "norm_delta": 0.038979433567314564,
+  "totals": {
+    "bundestag_minutes": 30,
+    "talkshow_minutes": 5,
+    "bt_share": 69.44171738371341,
+    "ts_share": 30.558282616286586,
+    "bt_normalized_perc": 0.06961316112500976,
+    "ts_normalized_perc": 0.030633727557695195
+  },
+  "timeseries": []
+}

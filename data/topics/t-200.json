@@ -1,0 +1,16 @@
+{
+  "slug": "t-200",
+  "label": "Error_API_Fail",
+  "description": "Keywords: Frappe, Forst de, de Frappe, Forst, Europäischen, Gewaltspirale, Europäischen Union, Luxemburg, de, Präsidentin Europäischen",
+  "mismatch_score": 0.07781879874315752,
+  "norm_delta": 0.07781879874315752,
+  "totals": {
+    "bundestag_minutes": 52,
+    "talkshow_minutes": 6,
+    "bt_share": 74.11250507657098,
+    "ts_share": 25.887494923429017,
+    "bt_normalized_perc": 0.11959242929322975,
+    "ts_normalized_perc": 0.04177363055007223
+  },
+  "timeseries": []
+}

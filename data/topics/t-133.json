@@ -1,0 +1,16 @@
+{
+  "slug": "t-133",
+  "label": "Bürokratieabbau Transparenz",
+  "description": "Keywords: Transparenz, Zahlungen, Bürokratie, Modernisierungsagenda, Organisationen, Zendes, Normenkontrollrat, Antrag, Frohnmaier, System",
+  "mismatch_score": 0.11589930745804593,
+  "norm_delta": 0.11589930745804594,
+  "totals": {
+    "bundestag_minutes": 56,
+    "talkshow_minutes": 2,
+    "bt_share": 91.56783672925746,
+    "ts_share": 8.432163270742539,
+    "bt_normalized_perc": 0.12765457259028667,
+    "ts_normalized_perc": 0.011755265132240731
+  },
+  "timeseries": []
+}

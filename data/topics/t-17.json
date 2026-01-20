@@ -1,0 +1,16 @@
+{
+  "slug": "t-17",
+  "label": "Öffentliche Unzufriedenheit",
+  "description": "Keywords: einfach einfach, Unzufrieden, sterben sterben, eher selten, einfach, Leute eher, hab, Gefühl, sterben, Leute",
+  "mismatch_score": -0.6545316110045343,
+  "norm_delta": 0.6545316110045343,
+  "totals": {
+    "bundestag_minutes": 16,
+    "talkshow_minutes": 106,
+    "bt_share": 5.0345642877826,
+    "ts_share": 94.9654357122174,
+    "bt_normalized_perc": 0.036642383441787614,
+    "ts_normalized_perc": 0.6911739944463219
+  },
+  "timeseries": []
+}

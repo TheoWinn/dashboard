@@ -1,0 +1,16 @@
+{
+  "slug": "t-191",
+  "label": "Abschiebung Straftäter",
+  "description": "Keywords: Straftat, Strafe, abzuschieben, Gesetz hält, Lanz bitte, schwere Straftat, Schwarzfahren, abgeschoben, verurteilt, Lanz",
+  "mismatch_score": -0.03099935704115131,
+  "norm_delta": 0.03099935704115131,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 5,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.03099935704115131
+  },
+  "timeseries": []
+}

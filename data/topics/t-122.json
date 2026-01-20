@@ -1,0 +1,16 @@
+{
+  "slug": "t-122",
+  "label": "Inflation Kaufkraft Wirtschaft",
+  "description": "Keywords: Inflation, Angebotsseite, Zölle, Treasury Bills, Bills, Treasury, Kaufkraft, überbewertet, Amerikaner, Protest",
+  "mismatch_score": -0.093512322523022,
+  "norm_delta": 0.093512322523022,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 14,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.093512322523022
+  },
+  "timeseries": []
+}

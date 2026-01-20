@@ -1,0 +1,16 @@
+{
+  "slug": "t-88",
+  "label": "Energieversorgung Russland",
+  "description": "Keywords: Gas, Nord Stream, Stream, Nord, russisches, Pipeline, Ölpreisdeckel, Russland, Flüssiggas, russisches Gas",
+  "mismatch_score": -0.04038917480448862,
+  "norm_delta": 0.040389174804488615,
+  "totals": {
+    "bundestag_minutes": 28,
+    "talkshow_minutes": 16,
+    "bt_share": 37.83627667218492,
+    "ts_share": 62.16372332781508,
+    "bt_normalized_perc": 0.06281694968223073,
+    "ts_normalized_perc": 0.10320612448671934
+  },
+  "timeseries": []
+}
