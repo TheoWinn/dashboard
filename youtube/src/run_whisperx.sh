@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 # --- ensure venv exists (.venv created by uv) ---
-VENV_PY=".venv/bin/python"
+VENV_PY="../../.venv/bin/python"
 if [[ ! -x "$VENV_PY" ]]; then
   echo "Error: .venv/bin/python not found. Did you run 'uv venv' or 'uv sync'?" >&2
   exit 1
@@ -49,4 +49,4 @@ print("has libcudnn_cnn:", bool(glob.glob(os.environ["CUDNN_LIBDIR"] + "/libcudn
 PY
 
 # --- run your actual script ---
-"$VENV_PY" youtube/src/transcribe_audio.py "$@"
+"$VENV_PY" transcribe_audio.py "$@"

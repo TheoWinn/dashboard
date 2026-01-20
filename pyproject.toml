@@ -36,4 +36,4 @@ dependencies = [
 
     "pydantic>=2.12.5",
     "openai>=2.15.0",
-
+]

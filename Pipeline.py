@@ -11,7 +11,7 @@ def run_step(description, command, cwd=None, env=None):
     print(f"### Running: {description} ###")
     print("="*60 + "\n")
     
-    print(f"Command: {" ".join(command)}")
+    print(f"Command: {' '.join(command)}")
     if cwd:
         print(f"Working Directory: {cwd}")
     
@@ -67,12 +67,12 @@ def main():
     if not args.skip_transcribe:
         # 3a. Talkshows
         cmd_ts = ["bash", "run_whisperx.sh"]
-        if not run_step("Transcribe Talkshows", cmd_ts, cwd=os.getcwd()):
+        if not run_step("Transcribe Talkshows", cmd_ts, cwd=os.path.join(os.getcwd(), "youtube", "src")):
             sys.exit(1)
             
         # 3b. Bundestag
         cmd_bt = ["bash", "run_whisperx.sh", "--bundestag"]
-        if not run_step("Transcribe Bundestag", cmd_bt, cwd=os.getcwd()):
+        if not run_step("Transcribe Bundestag", cmd_bt, cwd=os.path.join(os.getcwd(), "youtube", "src")):
             sys.exit(1)
 
     # 4. Cluster/Clean Transcripts

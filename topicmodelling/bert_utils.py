@@ -35,7 +35,7 @@ class NamedGroup(BaseModel):
 class OutputCollection(BaseModel):
     groups: List[NamedGroup]
 
-def get_gemini_labels(csv_path, n_words: int = 3, language="german"):
+def get_gemini_labels(csv_path, n_words: int = 3, language="english"):
     
     # Load Data
     input_Data = pd.read_csv(csv_path)
@@ -168,7 +168,7 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
 
     ### STOP-WORDS ###
 
-    initial_words=open('../stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
+    initial_words=open('stp_wrds.txt', 'r', encoding='utf-8').read().splitlines()
     speech_fillers = [
         # Hesitations & Interjections
         "äh", "ähm", "hm", "tja", "pff", "naja", "oh", "ah", "okay", "ok", 
@@ -366,7 +366,7 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
     if topic_info_to_save is not None:
         info_filename = f"topic_info_{now}.csv"
         topic_info_to_save.to_csv((os.path.join(output_path, info_filename)), index = False)
-        get_gemini_labels((os.path.join(output_path, info_filename)), language="german")
+        get_gemini_labels((os.path.join(output_path, info_filename)), language="english")
         print("New topics with labels saved")
 
     # save metadata
