@@ -223,3 +223,6 @@ models
 # Youtube Credentials and Tokens
 client_secret.json
 token.pkl
+
+data
+models
