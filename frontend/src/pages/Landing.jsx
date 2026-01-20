@@ -22,30 +22,52 @@ import { COLORS } from "../lib/colors.js";
 
 function normalizeTimeseries(ts) {
   if (!Array.isArray(ts)) return [];
+
   return ts
     .map((row) => {
-      const date = row.date ?? row.day ?? row.dt ?? row.timestamp ?? null;
+      // use the start of the window as the x-axis "date"
+      const rawDate =
+        row.window_start ??
+        row.date ??
+        row.day ??
+        row.dt ??
+        row.timestamp ??
+        null;
 
       const bundestag =
-        row.bundestag_minutes ?? row.bt_minutes ?? row.bundestag ?? row.bt ?? 0;
+        row.bundestag_minutes ??
+        row.bt_minutes ??
+        row.bundestag ??
+        row.bt ??
+        0;
 
       const talkshow =
-        row.talkshow_minutes ?? row.tv_minutes ?? row.talkshow ?? row.tv ?? 0;
+        row.talkshow_minutes ??
+        row.tv_minutes ??
+        row.talkshow ??
+        row.tv ??
+        0;
 
+      // you could also use norm_delta here if you prefer
       const mismatch =
         row.mismatch_score ??
-        row.mismatch ??
+        row.norm_delta ??
         Math.abs(Number(talkshow) - Number(bundestag));
 
       return {
-        date: String(date ?? ""),
+        // keep full ISO string so the tooltip can show it nicely
+        date: rawDate ? String(rawDate) : "",
         bundestag_minutes: Number(bundestag) || 0,
         talkshow_minutes: Number(talkshow) || 0,
         mismatch_score: Number(mismatch) || 0,
+        // keep the original window info around for richer tooltips later
+        window_start: row.window_start ?? null,
+        window_end: row.window_end ?? null,
       };
     })
     .filter((d) => d.date);
 }
+
 
 function formatPercent(v) {
   if (typeof v !== "number" || Number.isNaN(v)) return "";
@@ -253,8 +275,8 @@ return (
                   margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" hide />
-                  <YAxis hide />
+                  <XAxis dataKey="date"/>
+                  <YAxis />
                   <Tooltip />
                   <Line
                     type="monotone"

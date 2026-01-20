@@ -24,28 +24,50 @@ function normalizeTimeseries(ts) {
 
   return ts
     .map((row) => {
-      const date =
-        row?.date ?? row?.day ?? row?.dt ?? row?.timestamp ?? row?.week ?? null;
+      // use the start of the window as the x-axis "date"
+      const rawDate =
+        row.window_start ??
+        row.date ??
+        row.day ??
+        row.dt ??
+        row.timestamp ??
+        row.week ??
+        null;
 
       const bundestag =
-        row?.bundestag_minutes ?? row?.bt_minutes ?? row?.bundestag ?? row?.bt ?? 0;
+        row.bundestag_minutes ??
+        row.bt_minutes ??
+        row.bundestag ??
+        row.bt ??
+        0;
 
       const talkshow =
-        row?.talkshow_minutes ?? row?.tv_minutes ?? row?.talkshow ?? row?.tv ?? 0;
+        row.talkshow_minutes ??
+        row.tv_minutes ??
+        row.talkshow ??
+        row.tv ??
+        0;
 
+      // use mismatch_score or fall back to norm_delta or abs diff
       const mismatch =
-        row?.mismatch_score ??
-        row?.mismatch ??
+        row.mismatch_score ??
+        row.norm_delta ??
+        row.mismatch ??
         Math.abs(Number(talkshow) - Number(bundestag));
 
       return {
-        date: String(date ?? ""),
+        // keep full ISO string for X axis + tooltip
+        date: rawDate ? String(rawDate) : "",
         bundestag_minutes: Number(bundestag) || 0,
         talkshow_minutes: Number(talkshow) || 0,
         mismatch_score: Number(mismatch) || 0,
+        // keep raw window info (handy for future tooltips)
+        window_start: row.window_start ?? null,
+        window_end: row.window_end ?? null,
       };
     })
-    .filter((d) => d.date);
+    .filter((d) => d.date)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
 function formatPercent(v) {
