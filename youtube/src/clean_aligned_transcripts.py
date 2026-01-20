@@ -56,7 +56,7 @@ if __name__ == "__main__":
         out_path = out_dir/f"{f.stem.replace('_aligned', '')}_clustered.csv"
 
         if out_path.exists():
-            print(f"Skipping {f.name} for it has already been cleaned!")
+            # print(f"Skipping {f.name} for it has already been cleaned!")
             continue
 
         try:

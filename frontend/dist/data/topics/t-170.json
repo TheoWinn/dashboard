@@ -1,0 +1,16 @@
+{
+  "slug": "t-170",
+  "label": "US Demokraten Wahlen",
+  "description": "Keywords: Demokraten, Virginia, New, Harris, New Jersey, Jersey, Kandidaten, Mamdani, New York, York",
+  "mismatch_score": -0.06109871977244543,
+  "norm_delta": 0.06109871977244543,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 9,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.06109871977244543
+  },
+  "timeseries": []
+}

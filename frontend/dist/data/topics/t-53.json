@@ -1,0 +1,16 @@
+{
+  "slug": "t-53",
+  "label": "Sportförderung Großveranstaltungen",
+  "description": "Keywords: Sport, Spiele, Sportstätten, olympische, Olympia, Athleten, Bewerbung, Sportmilliarde, Ehrenamt, paralympische",
+  "mismatch_score": 0.6029190103334491,
+  "norm_delta": 0.6029190103334491,
+  "totals": {
+    "bundestag_minutes": 265,
+    "talkshow_minutes": 1,
+    "bt_share": 99.4623807576588,
+    "ts_share": 0.5376192423411928,
+    "bt_normalized_perc": 0.606195650646384,
+    "ts_normalized_perc": 0.0032766403129350016
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-169",
+  "label": "Bundeswehr Modernisierung Attraktivität",
+  "description": "Keywords: Bundeswehr, Funkgeräte, Abgeordneten Dr, Kasernen, Attraktivität, planmäßig, Dienstzeit, Aufwuchsfähigkeit, Rainer Kraft, Liebe Antwort",
+  "mismatch_score": 0.06556245318607046,
+  "norm_delta": 0.06556245318607046,
+  "totals": {
+    "bundestag_minutes": 29,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.06556245318607046,
+    "ts_normalized_perc": 0
+  },
+  "timeseries": []
+}

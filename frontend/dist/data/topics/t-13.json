@@ -1,0 +1,16 @@
+{
+  "slug": "t-13",
+  "label": "Verkehrsinfrastruktur",
+  "description": "Keywords: Bahn, Deutschlandticket, Schiene, Infrastruktur, Ticket, Brücken, Euro, Milliarden, Milliarden Euro, Verkehrspolitik",
+  "mismatch_score": 1.7848040092738184,
+  "norm_delta": 1.7848040092738182,
+  "totals": {
+    "bundestag_minutes": 880,
+    "talkshow_minutes": 34,
+    "bt_share": 89.95094935438628,
+    "ts_share": 10.049050645613713,
+    "bt_normalized_perc": 2.009274092857925,
+    "ts_normalized_perc": 0.22447008358410672
+  },
+  "timeseries": []
+}

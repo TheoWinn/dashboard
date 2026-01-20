@@ -1,0 +1,16 @@
+{
+  "slug": "t-150",
+  "label": "Coronapandemie Aufarbeitung",
+  "description": "Keywords: Corona, Masken, Pandemie, Aufarbeitung, Coronapandemie, Krise, Jens Spahn, Enquetekommission, Jens, Untersuchungsausschuss",
+  "mismatch_score": 0.0957853127546405,
+  "norm_delta": 0.0957853127546405,
+  "totals": {
+    "bundestag_minutes": 61,
+    "talkshow_minutes": 7,
+    "bt_share": 76.48272638914604,
+    "ts_share": 23.51727361085396,
+    "bt_normalized_perc": 0.13831509943240744,
+    "ts_normalized_perc": 0.04252978667776693
+  },
+  "timeseries": []
+}

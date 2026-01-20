@@ -1,0 +1,16 @@
+{
+  "slug": "t-10",
+  "label": "Parlamentarische Verfahren",
+  "description": "Keywords: Aussprache, Fraktion, Bündnis 90, 90 Grünen, Beratung, 90, stimmt, Bündnis, Drucksache, 19",
+  "mismatch_score": 1.2523810252634187,
+  "norm_delta": 1.2523810252634187,
+  "totals": {
+    "bundestag_minutes": 550,
+    "talkshow_minutes": 1,
+    "bt_share": 99.65110763475019,
+    "ts_share": 0.34889236524981027,
+    "bt_normalized_perc": 1.2567811907271225,
+    "ts_normalized_perc": 0.004400165463703808
+  },
+  "timeseries": []
+}

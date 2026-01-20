@@ -1,0 +1,16 @@
+{
+  "slug": "t-72",
+  "label": "Digitale Souveränität",
+  "description": "Keywords: Souveränität, digitale Souveränität, digitale, Microsoft, digitalen, Cloud, Digitale, Open, KI, digitalen Souveränität",
+  "mismatch_score": 0.1995561451309971,
+  "norm_delta": 0.1995561451309971,
+  "totals": {
+    "bundestag_minutes": 108,
+    "talkshow_minutes": 7,
+    "bt_share": 84.16033919749835,
+    "ts_share": 15.839660802501657,
+    "bt_normalized_perc": 0.24582181058084818,
+    "ts_normalized_perc": 0.04626566544985109
+  },
+  "timeseries": []
+}

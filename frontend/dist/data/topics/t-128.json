@@ -1,0 +1,16 @@
+{
+  "slug": "t-128",
+  "label": "Fleischkonsum Ernährungswende",
+  "description": "Keywords: Wurst, Fleisch, Schnitzel, Döner, vegane, Produkte, Verbraucher, Burger, essen, pflanzliche",
+  "mismatch_score": 0.11755103335467663,
+  "norm_delta": 0.11755103335467665,
+  "totals": {
+    "bundestag_minutes": 68,
+    "talkshow_minutes": 6,
+    "bt_share": 80.3993029045205,
+    "ts_share": 19.6006970954795,
+    "bt_normalized_perc": 0.1554479911448337,
+    "ts_normalized_perc": 0.03789695779015706
+  },
+  "timeseries": []
+}

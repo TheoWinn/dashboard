@@ -1,0 +1,16 @@
+{
+  "slug": "t-44",
+  "label": "Prominente Fachleute",
+  "description": "Keywords: Dr, Stefan, Thomas, Michael, Matthias, Jan, Johannes, Andreas, Martin, Christoph",
+  "mismatch_score": 0.13823343377500105,
+  "norm_delta": 0.13823343377500105,
+  "totals": {
+    "bundestag_minutes": 61,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.13823343377500105,
+    "ts_normalized_perc": 0
+  },
+  "timeseries": []
+}

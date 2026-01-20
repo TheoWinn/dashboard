@@ -1,0 +1,16 @@
+{
+  "slug": "t-102",
+  "label": "Situation Bundeswehr",
+  "description": "Keywords: Bundeswehr, Soldaten, Soldatinnen, Soldatinnen Soldaten, Truppe, Wehrbeauftragte, Eva, Högl, Uniform, Dienst",
+  "mismatch_score": 0.11725039595635686,
+  "norm_delta": 0.11725039595635686,
+  "totals": {
+    "bundestag_minutes": 63,
+    "talkshow_minutes": 4,
+    "bt_share": 84.70613053780157,
+    "ts_share": 15.293869462198426,
+    "bt_normalized_perc": 0.14308462498679358,
+    "ts_normalized_perc": 0.025834229030436726
+  },
+  "timeseries": []
+}

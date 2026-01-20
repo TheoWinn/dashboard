@@ -1,0 +1,16 @@
+{
+  "slug": "t-22",
+  "label": "Parlamentarische Aufklärungsausschüsse",
+  "description": "Keywords: Untersuchungsausschuss, Enquete, Bericht, Enquete Kommission, Enquetekommission, Kommission, Pandemie, Untersuchungsausschusses, Abschlussbericht, Thema",
+  "mismatch_score": 0.18665820969215177,
+  "norm_delta": 0.18665820969215177,
+  "totals": {
+    "bundestag_minutes": 152,
+    "talkshow_minutes": 25,
+    "bt_share": 68.36667869651835,
+    "ts_share": 31.633321303481654,
+    "bt_normalized_perc": 0.34740091169857906,
+    "ts_normalized_perc": 0.1607427020064273
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-167",
+  "label": "Bekämpfung Schwarzarbeit Zoll",
+  "description": "Keywords: Schwarzarbeit, Finanzkontrolle Schwarzarbeit, Finanzkontrolle, Zoll, Zolls, Gesetz, organisierte, Cum, Zolls Finanzkontrolle, Subunternehmerketten",
+  "mismatch_score": 0.05797468167573946,
+  "norm_delta": 0.05797468167573945,
+  "totals": {
+    "bundestag_minutes": 29,
+    "talkshow_minutes": 1,
+    "bt_share": 88.14647234222075,
+    "ts_share": 11.853527657779257,
+    "bt_normalized_perc": 0.06698212653891392,
+    "ts_normalized_perc": 0.009007444863174462
+  },
+  "timeseries": []
+}

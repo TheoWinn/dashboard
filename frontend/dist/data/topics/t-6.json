@@ -1,0 +1,16 @@
+{
+  "slug": "t-6",
+  "label": "Parlamentarische Debatten",
+  "description": "Keywords: Wort, Redner, bitte, Fraktion, Redezeit, Bitte, Debatte, nächste, AfD Fraktion, Abgeordneten",
+  "mismatch_score": 0.5242030829887276,
+  "norm_delta": 0.5242030829887276,
+  "totals": {
+    "bundestag_minutes": 271,
+    "talkshow_minutes": 15,
+    "bt_share": 86.6668176500611,
+    "ts_share": 13.333182349938893,
+    "bt_normalized_perc": 0.6195112627248713,
+    "ts_normalized_perc": 0.09530817973614365
+  },
+  "timeseries": []
+}

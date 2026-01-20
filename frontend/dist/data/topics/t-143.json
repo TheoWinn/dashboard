@@ -1,0 +1,16 @@
+{
+  "slug": "t-143",
+  "label": "Kirche und Politik",
+  "description": "Keywords: Kirche, Christen, Verständigung, Neid, verunglimpft, spalten, wählen, Verteufelung, Kirche Politik, Christsozialer starke",
+  "mismatch_score": 0.003900498036670223,
+  "norm_delta": 0.0039004980366702177,
+  "totals": {
+    "bundestag_minutes": 21,
+    "talkshow_minutes": 7,
+    "bt_share": 52.10341220154607,
+    "ts_share": 47.89658779845393,
+    "bt_normalized_perc": 0.04830942238677004,
+    "ts_normalized_perc": 0.04440892435009982
+  },
+  "timeseries": []
+}

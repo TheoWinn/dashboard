@@ -1,50 +1,5 @@
 import os
-from pydantic import BaseModel
-from typing import List
-from openai import OpenAI
-import pandas as pd
-
-
-
-class NamedGroup(BaseModel):
-    group_name: str       
-    items: List[str]     
-
-class OutputCollection(BaseModel):
-    groups: List[NamedGroup]
-
-def get_gemini_labels(csv_path,n_words: int =3,language="german"):
-
-    file_name = os.path.basename(csv_path)
-
-    input_Data=pd.read_csv(csv_path)
-    input_data=input_Data["Representation"] #input_Data["Representation"].head(20)
-
-    client = OpenAI(
-        api_key=os.getenv("GEMINI_API_KEY"),
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-    )
-    completion = client.beta.chat.completions.parse(
-        model="gemini-2.5-flash", # Using a model optimized for Structured Outputs
-        messages=[
-            {
-                "role": "system", 
-                "content": "You are a data organizer. Analyze the list of lists provided by the user. Give each sub-list a short, descriptive name based on its contents."
-            },
-            {
-                "role": "user", 
-                "content": f"Here is the input data: {input_data} for the description use a maximum of {n_words} words. Do this in {language}."
-            },
-        ],
-        response_format=OutputCollection, # Pass the Pydantic class here
-    )
-
-    parsed_response = completion.choices[0].message.parsed
-
-    group_names = [group.group_name for group in parsed_response.groups]
-    for group_name in group_names:
-        print(group_name)
-    output_df = pd.DataFrame(input_Data)
-    output_df["Gemini_Label"] = group_names
-    output_df.to_csv("gemini_labeled_"+file_name,index=False)
-    return group_names
+from bert_utils import get_gemini_labels
+print(api_key)
+output_path = "data/raw_topics"
+get_gemini_labels((os.path.join(output_path, "topic_info_2025.csv")),language="german")

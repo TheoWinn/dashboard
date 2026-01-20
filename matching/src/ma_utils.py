@@ -76,6 +76,25 @@ def matching_pipeline():
 
     print(f"Found {len(common_dates)} common dates: {common_dates}")
 
+    print("CSV-only dates:", sorted(set(csv_by_date.keys()) - set(xml_by_date.keys())))
+    print("XML-only dates:", sorted(set(xml_by_date.keys()) - set(csv_by_date.keys())))
+
+    # read in meta data
+    meta_path = out_dir / "meta_file_matching.csv"
+    already_matched_csv = []
+    global_meta_rows = []
+    if meta_path.exists():
+        old_meta = pd.read_csv(meta_path)
+        already_matched_csv = old_meta[old_meta["flag"] == "matched"]["video_data"].tolist()
+        global_meta_rows = old_meta.values.tolist()
+
+    # # read in meta data from downloading protocols
+    # download_meta_path = xml_dir / "../raw/metadata.csv"
+    # incomplete_xml_dates = []
+    # if download_meta_path.exists():
+    #     download_meta = pd.read_csv(download_meta_path)
+    #     incomplete_xml_dates = download_meta[download_meta["is_complete"] == False]["date_formatted"].tolist()
+
     # === Step 2: Process each date ===
     for date_str in common_dates:
         print(f"\n=== Processing {date_str} ===")
@@ -100,13 +119,13 @@ def matching_pipeline():
                 already_done = set(tuple(x) for x in matched_pairs.values)
 
         # Filter out CSV files that are already matched
-        filtered_csv_files = []
+        unmatched_csv = []
         for csv_file in csv_files:
             video_data = csv_file.stem  # EXACT string written to meta
             if (date_str, video_data) in already_done:
                 print(f"  Skipping {video_data}: already matched in meta file.")
             else:
-                filtered_csv_files.append(csv_file)
+                unmatched_csv.append(csv_file)
 
         if len(filtered_csv_files) == 0:
             print(f"Skipping {date_str}: all videos already matched.")
@@ -118,9 +137,11 @@ def matching_pipeline():
         df_csv = pd.concat([pd.read_csv(f) for f in csv_files], ignore_index=True)
         df_csv = df_csv[df_csv["text"].astype(str).str.strip().ne("")].reset_index(drop=True)
         print(f"  Loaded {len(df_csv)} transcript segments")
+        total_speeches_in_csv = len(df_csv)
 
         # Load all XML speeches for that date
         protokoll_name, protokoll_party, protokoll_text, protokoll_docid = [], [], [], []
+        total_speeches_in_xml = 0
         for xml_file in xml_files:
             try:
                 tree = ET.parse(xml_file)
@@ -128,6 +149,8 @@ def matching_pipeline():
             except ET.ParseError:
                 print(f"  Warning: failed to parse {xml_file}, skipping")
                 continue
+
+            total_speeches_in_xml += len(root.findall(".//speech"))
 
             for sp in root.findall(".//speech"):
                 speaker = (sp.findtext("speaker") or sp.findtext("name") or "").strip()

@@ -1,0 +1,16 @@
+{
+  "slug": "t-100",
+  "label": "Verbraucherschutz & Schulden",
+  "description": "Keywords: Verbraucherschutz, Verbraucher, Verbraucherinnen, Schuldnerberatung, Verbraucherinnen Verbraucher, Verbraucherkreditrichtlinie, Richtlinie, EU Verbraucherkreditrichtlinie, EU, Überschuldung",
+  "mismatch_score": 0.20079884105487572,
+  "norm_delta": 0.20079884105487572,
+  "totals": {
+    "bundestag_minutes": 88,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.20079884105487572,
+    "ts_normalized_perc": 0
+  },
+  "timeseries": []
+}

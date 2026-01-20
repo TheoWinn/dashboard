@@ -1,0 +1,16 @@
+{
+  "slug": "t-83",
+  "label": "Mindestlohn Höhe",
+  "description": "Keywords: Mindestlohn, Mindestlohnkommission, 15 Euro, 12 Euro, Kommission, 15, Mindestlohns, 12, Arbeitgeberseite, Mindestlohn 15",
+  "mismatch_score": 0.07991362902639378,
+  "norm_delta": 0.07991362902639376,
+  "totals": {
+    "bundestag_minutes": 72,
+    "talkshow_minutes": 13,
+    "bt_share": 65.97817119233193,
+    "ts_share": 34.02182880766807,
+    "bt_normalized_perc": 0.16499244603895163,
+    "ts_normalized_perc": 0.08507881701255787
+  },
+  "timeseries": []
+}

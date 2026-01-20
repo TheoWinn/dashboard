@@ -13,6 +13,7 @@ import time
 import random
 import re
 from datetime import datetime, date
+from slugify import slugify
 
 ### YouTube Downloading Utilities ###
 
@@ -124,7 +125,7 @@ def _date_from_description(desc: str) -> str | None:
 
     return None
 
-def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: str = None, test_mode: bool = False, cutoff = date(2025, 1, 1)):
+def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: str = None, test_mode: bool = False, cutoff = date(2025, 1, 1), many_mode: bool = False):
     """
     Download audio files from a YouTube playlist and save metadata into csv file. It will all be saved in the specified output directory.
     If the output directory is empty, all files from the playlist will be downloaded.
@@ -169,7 +170,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
             try:
                 # download audio
                 # yt = YouTube(url, client = "ANDROID_EMBED", on_progress_callback=on_progress)
-                yt = YouTube(url, on_progress_callback=on_progress)
+                yt = YouTube(url, "WEB", on_progress_callback=on_progress)
 
                 # check whether the video is not a short (short is less than 4 minutes)
                 if yt.length < 240:
@@ -181,9 +182,11 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                 # check that the publish date is after or on cutoff
                 if publish_date < cutoff:
                     skipped_cutoff_consecutive += 1
-                    if skipped_cutoff_consecutive >= max_consecutive_cutoff_skips:
-                        print(f"Reached {skipped_cutoff_consecutive} consecutive videos before cutoff date. Stopping download.")
-                        break
+                    print(f'Skipping video published on {publish_date} before cutoff date {cutoff}: {yt.title}')
+                    if not many_mode:
+                        if skipped_cutoff_consecutive >= max_consecutive_cutoff_skips:
+                            print(f"Reached {skipped_cutoff_consecutive} consecutive videos before cutoff date. Stopping download.")
+                            break
                     continue
                 else:
                     skipped_cutoff_consecutive = 0  # reset counter
@@ -197,23 +200,24 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                     else:
                         date_prefix = datetime.today().strftime("%d-%m-%Y")
 
-                safe_title = _sanitize_filename(yt.title)
+                # safe_title = _sanitize_filename(yt.title)
+                safe_title = slugify(yt.title)
                 filename_stem = f"{date_prefix}_{safe_title}.m4a"
 
                 ys = yt.streams.get_audio_only()
                 # ys = yt.streams.filter(only_audio=True, file_extension="m4a").order_by('abr').desc().first()
                 ys.download(output_path=str(output_dir), filename = filename_stem)
                 # append to dataframe
-                title = yt.title
+                # title = yt.title
                 channel = yt.author
                 date = date_prefix
 
                 if bundestag:
-                    meta.append([url, title, channel, date])
+                    meta.append([url, safe_title, channel, date])
                     pd.DataFrame(meta, columns=["url", "title", "channel", "date"]).to_csv(
                         meta_file, index=False, header=False)
                 else:
-                    meta.append([url, title, channel, date, talkshow_name])
+                    meta.append([url, safe_title, channel, date, talkshow_name])
                     pd.DataFrame(meta, columns=["url", "title", "channel", "date", "talkshow_name"]).to_csv(
                         meta_file, index=False, header=False)
 
@@ -235,6 +239,10 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
             except Exception as e:
                 print(f"Error downloading {url}: {e}")
+                exc_name = type(e).__name__  
+                if exc_name == "BotDetection":
+                    print("Detected bot prevention - stopping further downloads.")
+                    return e
                 continue
 
     # save updated dataframe
@@ -300,11 +308,15 @@ def process_one_file(audio_path: Path, out_dir: Path, model_dir: Path, device: s
         out_csv = out_dir / f"{audio_path.stem}_aligned.csv"
         pd.DataFrame(result["segments"]).to_csv(out_csv, index=False)
         print(f"Done {audio_path.name} in {time.time()-t0:.1f}s → {out_csv.name}")
+        return True, None
 
     except torch.cuda.OutOfMemoryError:
-        print("CUDA OOM. Try lower batch_size (e.g., 16/8) or set device='cpu'.")
+        msg = "CUDA OOM. Try lower batch_size (e.g., 16/8) or set device='cpu'."
+        print(msg)
+        return False, msg
     except Exception as e:
         print(f"Error on {audio_path.name}: {e}")
+        return False, repr(e)
     finally:
         # Cleanup always
         del model, model_a, metadata, diarize_model, audio, result, diarize_segments
@@ -399,8 +411,12 @@ def cluster_transcript(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def process_one_csv(in_csv: Path, out_csv: Path):
-    print(f"Processing: {in_csv.name}")
-    df = pd.read_csv(in_csv)
-    out = cluster_transcript(df)
-    out.to_csv(out_csv, index = False)
-    print(f"Wrote {out_csv.name} ({len(out)} clusters)")
+    try:
+        print(f"Processing: {in_csv.name}")
+        df = pd.read_csv(in_csv)
+        out = cluster_transcript(df)
+        out.to_csv(out_csv, index = False)
+        print(f"Wrote {out_csv.name} ({len(out)} clusters)")
+    except Exception as e:
+        print(f"Error on {in_csv.name}: {e}")
+        return False, repr(e)

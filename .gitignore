@@ -216,13 +216,13 @@ data/
 dist/
 node_modules/
 models/
+!frontend/src/lib/
+data
+models
 
 # Youtube Credentials and Tokens
 client_secret.json
 token.pkl
-topic_info_2025.csv
-gemini_labeled_topic_info_2025.csv
-GEMINI.md
 
 data
 models
