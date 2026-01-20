@@ -316,8 +316,8 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
             </div>
           </section>
 
-          <h3 style={{ marginTop: "2rem" }}>Timeseries (raw)</h3>
-          <pre className="pre">{JSON.stringify(topic?.timeseries ?? [], null, 2)}</pre>
+          {/*<h3 style={{ marginTop: "2rem" }}>Timeseries (raw)</h3>
+          <pre className="pre">{JSON.stringify(topic?.timeseries ?? [], null, 2)}</pre>*/}
         </>
       )}
     </div>
