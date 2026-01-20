@@ -1,0 +1,16 @@
+{
+  "slug": "t-12",
+  "label": "Wehrpflicht Bundeswehr",
+  "description": "Keywords: Wehrpflicht, Bundeswehr, Wehrdienst, Soldaten, 000, Freiwilligkeit, Männer, Dienst, Reservisten, junge",
+  "mismatch_score": -0.6929126130151753,
+  "norm_delta": 0.6929126130151753,
+  "totals": {
+    "bundestag_minutes": 162,
+    "talkshow_minutes": 163,
+    "bt_share": 25.847119943686653,
+    "ts_share": 74.15288005631335,
+    "bt_normalized_perc": 0.37075900218398816,
+    "ts_normalized_perc": 1.0636716151991634
+  },
+  "timeseries": []
+}

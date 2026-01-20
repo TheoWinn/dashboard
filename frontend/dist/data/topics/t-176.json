@@ -1,0 +1,16 @@
+{
+  "slug": "t-176",
+  "label": "Deutsche Kulturpolitik Museen",
+  "description": "Keywords: Kultur, Kulturgüter, Kunst, Kassiererin, Kulturgut, Kulturpolitik, Museen, Staatsminister, Museum, Gedächtnis",
+  "mismatch_score": 0.06581962487592333,
+  "norm_delta": 0.06581962487592334,
+  "totals": {
+    "bundestag_minutes": 32,
+    "talkshow_minutes": 1,
+    "bt_share": 91.6478412720944,
+    "ts_share": 8.352158727905596,
+    "bt_normalized_perc": 0.07241943818657455,
+    "ts_normalized_perc": 0.006599813310651215
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-26",
+  "label": "Bundespolizei Aufgaben",
+  "description": "Keywords: Bundespolizei, Polizei, Polizisten, Polizistinnen, Polizistinnen Polizisten, Sicherheit, Befugnisse, Einsatz, Beamten, Bundespolizeigesetz",
+  "mismatch_score": 0.7084170594693839,
+  "norm_delta": 0.7084170594693839,
+  "totals": {
+    "bundestag_minutes": 359,
+    "talkshow_minutes": 17,
+    "bt_share": 88.09754549116984,
+    "ts_share": 11.902454508830159,
+    "bt_normalized_perc": 0.8190790682012574,
+    "ts_normalized_perc": 0.11066200873187353
+  },
+  "timeseries": []
+}

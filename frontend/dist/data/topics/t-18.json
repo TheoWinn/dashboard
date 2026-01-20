@@ -1,0 +1,16 @@
+{
+  "slug": "t-18",
+  "label": "Forschung Innovation",
+  "description": "Keywords: Forschung, Hightech, Agenda, Hightech Agenda, Wissenschaft, Innovation, KI, Wissenschaftsfreiheit, Technologien, Hochschulen",
+  "mismatch_score": 1.3820335302660742,
+  "norm_delta": 1.3820335302660742,
+  "totals": {
+    "bundestag_minutes": 688,
+    "talkshow_minutes": 29,
+    "bt_share": 89.30876248478154,
+    "ts_share": 10.691237515218456,
+    "bt_normalized_perc": 1.569976978394095,
+    "ts_normalized_perc": 0.1879434481280207
+  },
+  "timeseries": []
+}

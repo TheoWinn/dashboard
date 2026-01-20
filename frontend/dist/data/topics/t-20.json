@@ -1,0 +1,16 @@
+{
+  "slug": "t-20",
+  "label": "Deutsche Wirtschaftslage",
+  "description": "Keywords: Wirtschaft, Wachstum, Unternehmen, Deutschland, deutsche Wirtschaft, deutsche, Rezession, Prozent, Arbeitsplätze, Euro",
+  "mismatch_score": 0.43764599419624156,
+  "norm_delta": 0.4376459941962415,
+  "totals": {
+    "bundestag_minutes": 372,
+    "talkshow_minutes": 63,
+    "bt_share": 67.3415791833111,
+    "ts_share": 32.658420816688896,
+    "bt_normalized_perc": 0.849743038419121,
+    "ts_normalized_perc": 0.4120970442228795
+  },
+  "timeseries": []
+}

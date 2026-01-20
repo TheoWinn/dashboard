@@ -1,0 +1,16 @@
+{
+  "slug": "t-185",
+  "label": "KI in Medizin",
+  "description": "Keywords: KI, Nehmert, Prostatakrebs, Lungenkrebs, Intelligenz, Lunge, Patienten, KI einzusetzen, Mustererkennung, Muster erkennen",
+  "mismatch_score": -0.052347348061865154,
+  "norm_delta": 0.05234734806186515,
+  "totals": {
+    "bundestag_minutes": 1,
+    "talkshow_minutes": 8,
+    "bt_share": 3.8949309548260174,
+    "ts_share": 96.10506904517398,
+    "bt_normalized_perc": 0.002211137631845194,
+    "ts_normalized_perc": 0.05455848569371034
+  },
+  "timeseries": []
+}

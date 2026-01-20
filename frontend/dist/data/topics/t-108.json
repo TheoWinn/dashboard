@@ -1,0 +1,16 @@
+{
+  "slug": "t-108",
+  "label": "Schuldenbremse Reform",
+  "description": "Keywords: Grünen, Investitionen, Schuldenbremse, Antragsverfahren, Steuersenkungen, konsumtive Ausgaben, Reform Schuldenbremse, Zeitgeist, grüne, erben",
+  "mismatch_score": 0.05884739252600524,
+  "norm_delta": 0.05884739252600523,
+  "totals": {
+    "bundestag_minutes": 44,
+    "talkshow_minutes": 6,
+    "bt_share": 70.70841957360507,
+    "ts_share": 29.291580426394933,
+    "bt_normalized_perc": 0.10046653021375479,
+    "ts_normalized_perc": 0.04161913768774956
+  },
+  "timeseries": []
+}

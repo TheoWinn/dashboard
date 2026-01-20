@@ -1,0 +1,16 @@
+{
+  "slug": "t-65",
+  "label": "Kulturpolitik Debatte AfD",
+  "description": "Keywords: Debatte, Rede, Liebe, AfD, Antrag, Haus, Kulturstaatsminister, Urheberrechtsverletzung, Kultur, Stunde",
+  "mismatch_score": 0.3801538826773528,
+  "norm_delta": 0.3801538826773528,
+  "totals": {
+    "bundestag_minutes": 167,
+    "talkshow_minutes": 0,
+    "bt_share": 99.44958483325541,
+    "ts_share": 0.5504151667445862,
+    "bt_normalized_perc": 0.3822695977377322,
+    "ts_normalized_perc": 0.0021157150603794256
+  },
+  "timeseries": []
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "t-54",
+  "label": "EU-Beziehungen Ostpolitik",
+  "description": "Keywords: Polen, Ungarn, Tusk, polnische, EU, Donald Tusk, Slowakei, Italien, polnischen, Nachbarn",
+  "mismatch_score": -0.25401088336521976,
+  "norm_delta": 0.25401088336521976,
+  "totals": {
+    "bundestag_minutes": 8,
+    "talkshow_minutes": 42,
+    "bt_share": 6.044997307532819,
+    "ts_share": 93.95500269246718,
+    "bt_normalized_perc": 0.017466670594584364,
+    "ts_normalized_perc": 0.2714775539598041
+  },
+  "timeseries": []
+}

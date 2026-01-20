@@ -1,0 +1,16 @@
+{
+  "slug": "t-154",
+  "label": "SPD Führung Esken",
+  "description": "Keywords: Saskia, Saskia Esken, Esken, Vorsitzende, intern öffentlich, Vorsitzende SPD, SPD, selber entschieden, Co Vorsitzende, SPD Vorsitzende",
+  "mismatch_score": -0.05203941488440966,
+  "norm_delta": 0.05203941488440966,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 8,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.05203941488440966
+  },
+  "timeseries": []
+}
