@@ -171,3 +171,1353 @@ Traceback (most recent call last):
 pytubefix.exceptions.BotDetection: KUAGzzGUOWY This request was detected as a bot. DO NOT OPEN AN ISSUE! See more details at https://pytubefix.readthedocs.io/en/latest/user/po_token.html
 
 [ERROR] YouTube Download failed with exit code 1
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_youtube.py --cutoff 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/youtube/src
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_youtube.py --cutoff 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/youtube/src
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_youtube.py --cutoff 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/youtube/src
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_youtube.py --cutoff 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/youtube/src
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_youtube.py --cutoff 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/youtube/src
+
+============================================================
+### Running: YouTube Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_youtube.py --cutoff 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/youtube/src
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 2924 videos
+Skipping short video: Etats des Bundespräsidenten, Bundestages und Bundesrates angenommen (146 seconds)
+Skipping short video: 42. Sitzung vom 25.11.2025, TOP I: Haushaltsgesetz 2026 (34 seconds)
+Skipping short video: Gesetzentwurf zum Lebens­zyklus von Batterien soll über­wiesen werden (38 seconds)
+Skipping short video: So setzt sich die neue Bundesregierung zusammen (210 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: hart_aber_fair
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 63 videos
+Skipping short video: Politik nicht nur für Ältere? Reaction von Aladin El-Mafaalani | Hart aber fair (86 seconds)
+Skipping short video: AI-Videos von Papaplatte und Co.? Das sagt Alicia Joe | Hart aber fair (67 seconds)
+Skipping short video: Warum wollen wir zum Mond? Astronaut Alexander Gerst im Interview | Hart aber fair (84 seconds)
+Skipping short video: "Dieses Problem ist völlig offensichtlich": Wirtschaftsweise Ulrike Malmendier | hart aber fair (74 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: caren_miosga
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 62 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maischberger
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 660 videos
+Skipping short video: Stegner bei maischberger: Union muss Vertrauen zurückgewinnen (47 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: markus_lanz
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog6SPKzMAVh1d6cPVtGtDIeT
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 799 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maybrit_illner
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 216 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2025
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup-ULnzO9iPf_Fqvc8DhNTq
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Error downloading https://www.youtube.com/watch?v=XdLRhZfFuIc: XdLRhZfFuIc does not have a live stream recording available
+
+Downloading from talkshow playlist: phoenix_2024
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurPoOBmZqJjnlM0BkPtmynl
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 115 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2023
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuph1fmTPec5GrvDS0Ro4Lke
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2022
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuoJGJ4KZanLHkYJ1X-s-Z9s
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 121 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2021
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuqrX8hE6nFL79YK2ejWibix
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 65 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2020
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 87 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2019
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 86 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2018
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 91 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2017
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 105 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+
+------------------------------------------------------------
+
+
+FINAL SUMMARY: 
+
+All playlists processed successfully!
+
+[SUCCESS] YouTube Download completed.
+
+============================================================
+### Running: Bundestag Protocol Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_cut.py --start 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/bundestag/src
+------------------------------------------------------------
+Downloading new metadata...
+------------------------------------------------------------
+Downloading new XML files...
+[ERROR] Not XML: 21_49 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00\x01\x00\x00\x00'
+[ERROR] Not XML: 21_28 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x00\x00\x00\x01\x00\x00\x00'
+------------------------------------------------------------
+Cutting XML files...
+[WARNING] XML not found: ../data/raw/21_49.xml
+[WARNING] XML not found: ../data/raw/21_28.xml
+Cut 0 new XML files
+------------------------------------------------------------
+Calculating completeness statistics...
+Total protocols: 60
+Incomplete protocols: 13
+Percentage incomplete: 21.67%
+
+List of incomplete protocols:
+
+- 21/50 | 18-12-2025
+- 21/49 | 17-12-2025
+- 21/47 | 04-12-2025
+- 21/40 | 13-11-2025
+- 21/37 | 06-11-2025
+- 21/34 | 16-10-2025
+- 21/31 | 09-10-2025
+- 21/28 | 25-09-2025
+- 21/21 | 11-09-2025
+- 21/14 | 26-06-2025
+- 20/210 | 30-01-2025
+- 20/209 | 29-01-2025
+- 21/53 | 15-01-2026
+
+[SUCCESS] Bundestag Protocol Download completed.
+
+============================================================
+### Running: Transcribe Talkshows ###
+============================================================
+
+Command: bash run_whisperx.sh
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree
+bash: run_whisperx.sh: No such file or directory
+
+[ERROR] Transcribe Talkshows failed with exit code 127
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 2924 videos
+Skipping short video: Etats des Bundespräsidenten, Bundestages und Bundesrates angenommen (146 seconds)
+Skipping short video: 42. Sitzung vom 25.11.2025, TOP I: Haushaltsgesetz 2026 (34 seconds)
+Skipping short video: Gesetzentwurf zum Lebens­zyklus von Batterien soll über­wiesen werden (38 seconds)
+Skipping short video: So setzt sich die neue Bundesregierung zusammen (210 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: hart_aber_fair
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 63 videos
+Skipping short video: Politik nicht nur für Ältere? Reaction von Aladin El-Mafaalani | Hart aber fair (86 seconds)
+Skipping short video: AI-Videos von Papaplatte und Co.? Das sagt Alicia Joe | Hart aber fair (67 seconds)
+Skipping short video: Warum wollen wir zum Mond? Astronaut Alexander Gerst im Interview | Hart aber fair (84 seconds)
+Skipping short video: "Dieses Problem ist völlig offensichtlich": Wirtschaftsweise Ulrike Malmendier | hart aber fair (74 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: caren_miosga
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 62 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maischberger
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 660 videos
+Skipping short video: Stegner bei maischberger: Union muss Vertrauen zurückgewinnen (47 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: markus_lanz
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog6SPKzMAVh1d6cPVtGtDIeT
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 799 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maybrit_illner
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 216 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2025
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup-ULnzO9iPf_Fqvc8DhNTq
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Error downloading https://www.youtube.com/watch?v=XdLRhZfFuIc: XdLRhZfFuIc does not have a live stream recording available
+
+Downloading from talkshow playlist: phoenix_2024
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurPoOBmZqJjnlM0BkPtmynl
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 115 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2023
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuph1fmTPec5GrvDS0Ro4Lke
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2022
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuoJGJ4KZanLHkYJ1X-s-Z9s
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 121 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2021
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuqrX8hE6nFL79YK2ejWibix
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 65 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2020
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 87 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2019
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 86 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2018
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 91 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2017
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 105 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+
+------------------------------------------------------------
+
+
+FINAL SUMMARY: 
+
+All playlists processed successfully!
+
+[SUCCESS] YouTube Download completed.
+
+============================================================
+### Running: Bundestag Protocol Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_cut.py --start 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/bundestag/src
+------------------------------------------------------------
+Downloading new metadata...
+------------------------------------------------------------
+Downloading new XML files...
+[ERROR] Not XML: 21_49 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00\x01\x00\x00\x00'
+[ERROR] Not XML: 21_28 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x00\x00\x00\x01\x00\x00\x00'
+------------------------------------------------------------
+Cutting XML files...
+[WARNING] XML not found: ../data/raw/21_49.xml
+[WARNING] XML not found: ../data/raw/21_28.xml
+Cut 0 new XML files
+------------------------------------------------------------
+Calculating completeness statistics...
+Total protocols: 60
+Incomplete protocols: 13
+Percentage incomplete: 21.67%
+
+List of incomplete protocols:
+
+- 21/50 | 18-12-2025
+- 21/49 | 17-12-2025
+- 21/47 | 04-12-2025
+- 21/40 | 13-11-2025
+- 21/37 | 06-11-2025
+- 21/34 | 16-10-2025
+- 21/31 | 09-10-2025
+- 21/28 | 25-09-2025
+- 21/21 | 11-09-2025
+- 21/14 | 26-06-2025
+- 20/210 | 30-01-2025
+- 20/209 | 29-01-2025
+- 21/53 | 15-01-2026
+
+[SUCCESS] Bundestag Protocol Download completed.
+
+============================================================
+### Running: Transcribe Talkshows ###
+============================================================
+
+Command: bash run_whisperx.sh
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree
+bash: run_whisperx.sh: No such file or directory
+
+[ERROR] Transcribe Talkshows failed with exit code 127
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 2924 videos
+Skipping short video: Etats des Bundespräsidenten, Bundestages und Bundesrates angenommen (146 seconds)
+Skipping short video: 42. Sitzung vom 25.11.2025, TOP I: Haushaltsgesetz 2026 (34 seconds)
+Skipping short video: Gesetzentwurf zum Lebens­zyklus von Batterien soll über­wiesen werden (38 seconds)
+Skipping short video: So setzt sich die neue Bundesregierung zusammen (210 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: hart_aber_fair
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 63 videos
+Skipping short video: Politik nicht nur für Ältere? Reaction von Aladin El-Mafaalani | Hart aber fair (86 seconds)
+Skipping short video: AI-Videos von Papaplatte und Co.? Das sagt Alicia Joe | Hart aber fair (67 seconds)
+Skipping short video: Warum wollen wir zum Mond? Astronaut Alexander Gerst im Interview | Hart aber fair (84 seconds)
+Skipping short video: "Dieses Problem ist völlig offensichtlich": Wirtschaftsweise Ulrike Malmendier | hart aber fair (74 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: caren_miosga
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 62 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maischberger
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 660 videos
+Skipping short video: Stegner bei maischberger: Union muss Vertrauen zurückgewinnen (47 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: markus_lanz
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog6SPKzMAVh1d6cPVtGtDIeT
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 799 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maybrit_illner
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 216 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2025
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup-ULnzO9iPf_Fqvc8DhNTq
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Error downloading https://www.youtube.com/watch?v=XdLRhZfFuIc: XdLRhZfFuIc does not have a live stream recording available
+
+Downloading from talkshow playlist: phoenix_2024
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurPoOBmZqJjnlM0BkPtmynl
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 115 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2023
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuph1fmTPec5GrvDS0Ro4Lke
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2022
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuoJGJ4KZanLHkYJ1X-s-Z9s
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 121 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2021
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuqrX8hE6nFL79YK2ejWibix
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 65 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2020
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 87 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2019
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 86 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2018
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 91 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2017
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 105 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+
+------------------------------------------------------------
+
+
+FINAL SUMMARY: 
+
+All playlists processed successfully!
+
+[SUCCESS] YouTube Download completed.
+
+============================================================
+### Running: Bundestag Protocol Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_cut.py --start 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/bundestag/src
+------------------------------------------------------------
+Downloading new metadata...
+------------------------------------------------------------
+Downloading new XML files...
+[ERROR] Not XML: 21_49 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00\x01\x00\x00\x00'
+[ERROR] Not XML: 21_28 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x00\x00\x00\x01\x00\x00\x00'
+------------------------------------------------------------
+Cutting XML files...
+[WARNING] XML not found: ../data/raw/21_49.xml
+[WARNING] XML not found: ../data/raw/21_28.xml
+Cut 0 new XML files
+------------------------------------------------------------
+Calculating completeness statistics...
+Total protocols: 60
+Incomplete protocols: 13
+Percentage incomplete: 21.67%
+
+List of incomplete protocols:
+
+- 21/50 | 18-12-2025
+- 21/49 | 17-12-2025
+- 21/47 | 04-12-2025
+- 21/40 | 13-11-2025
+- 21/37 | 06-11-2025
+- 21/34 | 16-10-2025
+- 21/31 | 09-10-2025
+- 21/28 | 25-09-2025
+- 21/21 | 11-09-2025
+- 21/14 | 26-06-2025
+- 20/210 | 30-01-2025
+- 20/209 | 29-01-2025
+- 21/53 | 15-01-2026
+
+[SUCCESS] Bundestag Protocol Download completed.
+
+============================================================
+### Running: Transcribe Talkshows ###
+============================================================
+
+Command: bash run_whisperx.sh
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree
+bash: run_whisperx.sh: No such file or directory
+
+[ERROR] Transcribe Talkshows failed with exit code 127
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 2924 videos
+Skipping short video: Etats des Bundespräsidenten, Bundestages und Bundesrates angenommen (146 seconds)
+Skipping short video: 42. Sitzung vom 25.11.2025, TOP I: Haushaltsgesetz 2026 (34 seconds)
+Skipping short video: Gesetzentwurf zum Lebens­zyklus von Batterien soll über­wiesen werden (38 seconds)
+Skipping short video: So setzt sich die neue Bundesregierung zusammen (210 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: hart_aber_fair
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 63 videos
+Skipping short video: Politik nicht nur für Ältere? Reaction von Aladin El-Mafaalani | Hart aber fair (86 seconds)
+Skipping short video: AI-Videos von Papaplatte und Co.? Das sagt Alicia Joe | Hart aber fair (67 seconds)
+Skipping short video: Warum wollen wir zum Mond? Astronaut Alexander Gerst im Interview | Hart aber fair (84 seconds)
+Skipping short video: "Dieses Problem ist völlig offensichtlich": Wirtschaftsweise Ulrike Malmendier | hart aber fair (74 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: caren_miosga
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 62 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maischberger
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 660 videos
+Skipping short video: Stegner bei maischberger: Union muss Vertrauen zurückgewinnen (47 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: markus_lanz
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog6SPKzMAVh1d6cPVtGtDIeT
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 799 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maybrit_illner
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 216 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2025
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup-ULnzO9iPf_Fqvc8DhNTq
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Error downloading https://www.youtube.com/watch?v=XdLRhZfFuIc: XdLRhZfFuIc does not have a live stream recording available
+
+Downloading from talkshow playlist: phoenix_2024
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurPoOBmZqJjnlM0BkPtmynl
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 115 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2023
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuph1fmTPec5GrvDS0Ro4Lke
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2022
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuoJGJ4KZanLHkYJ1X-s-Z9s
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 121 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2021
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuqrX8hE6nFL79YK2ejWibix
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 65 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2020
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 87 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2019
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 86 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2018
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 91 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2017
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 105 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+
+------------------------------------------------------------
+
+
+FINAL SUMMARY: 
+
+All playlists processed successfully!
+
+[SUCCESS] YouTube Download completed.
+
+============================================================
+### Running: Bundestag Protocol Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_cut.py --start 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/bundestag/src
+------------------------------------------------------------
+Downloading new metadata...
+------------------------------------------------------------
+Downloading new XML files...
+[ERROR] Not XML: 21_49 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00\x01\x00\x00\x00'
+[ERROR] Not XML: 21_28 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x00\x00\x00\x01\x00\x00\x00'
+------------------------------------------------------------
+Cutting XML files...
+[WARNING] XML not found: ../data/raw/21_49.xml
+[WARNING] XML not found: ../data/raw/21_28.xml
+Cut 0 new XML files
+------------------------------------------------------------
+Calculating completeness statistics...
+Total protocols: 60
+Incomplete protocols: 13
+Percentage incomplete: 21.67%
+
+List of incomplete protocols:
+
+- 21/50 | 18-12-2025
+- 21/49 | 17-12-2025
+- 21/47 | 04-12-2025
+- 21/40 | 13-11-2025
+- 21/37 | 06-11-2025
+- 21/34 | 16-10-2025
+- 21/31 | 09-10-2025
+- 21/28 | 25-09-2025
+- 21/21 | 11-09-2025
+- 21/14 | 26-06-2025
+- 20/210 | 30-01-2025
+- 20/209 | 29-01-2025
+- 21/53 | 15-01-2026
+
+[SUCCESS] Bundestag Protocol Download completed.
+
+============================================================
+### Running: Transcribe Talkshows ###
+============================================================
+
+Command: bash run_whisperx.sh
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree
+bash: run_whisperx.sh: No such file or directory
+
+[ERROR] Transcribe Talkshows failed with exit code 127
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 2924 videos
+Skipping short video: Etats des Bundespräsidenten, Bundestages und Bundesrates angenommen (146 seconds)
+Skipping short video: 42. Sitzung vom 25.11.2025, TOP I: Haushaltsgesetz 2026 (34 seconds)
+Skipping short video: Gesetzentwurf zum Lebens­zyklus von Batterien soll über­wiesen werden (38 seconds)
+Skipping short video: So setzt sich die neue Bundesregierung zusammen (210 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: hart_aber_fair
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 63 videos
+Skipping short video: Politik nicht nur für Ältere? Reaction von Aladin El-Mafaalani | Hart aber fair (86 seconds)
+Skipping short video: AI-Videos von Papaplatte und Co.? Das sagt Alicia Joe | Hart aber fair (67 seconds)
+Skipping short video: Warum wollen wir zum Mond? Astronaut Alexander Gerst im Interview | Hart aber fair (84 seconds)
+Skipping short video: "Dieses Problem ist völlig offensichtlich": Wirtschaftsweise Ulrike Malmendier | hart aber fair (74 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: caren_miosga
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 62 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maischberger
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 660 videos
+Skipping short video: Stegner bei maischberger: Union muss Vertrauen zurückgewinnen (47 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: markus_lanz
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog6SPKzMAVh1d6cPVtGtDIeT
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 799 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maybrit_illner
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 216 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2025
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup-ULnzO9iPf_Fqvc8DhNTq
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Error downloading https://www.youtube.com/watch?v=XdLRhZfFuIc: XdLRhZfFuIc does not have a live stream recording available
+
+Downloading from talkshow playlist: phoenix_2024
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurPoOBmZqJjnlM0BkPtmynl
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 115 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2023
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuph1fmTPec5GrvDS0Ro4Lke
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2022
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuoJGJ4KZanLHkYJ1X-s-Z9s
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 121 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2021
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuqrX8hE6nFL79YK2ejWibix
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 65 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2020
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 87 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2019
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 86 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2018
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 91 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2017
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 105 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+
+------------------------------------------------------------
+
+
+FINAL SUMMARY: 
+
+All playlists processed successfully!
+
+[SUCCESS] YouTube Download completed.
+
+============================================================
+### Running: Bundestag Protocol Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_cut.py --start 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/bundestag/src
+------------------------------------------------------------
+Downloading new metadata...
+------------------------------------------------------------
+Downloading new XML files...
+[ERROR] Not XML: 21_49 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00\x01\x00\x00\x00'
+[ERROR] Not XML: 21_28 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x00\x00\x00\x01\x00\x00\x00'
+------------------------------------------------------------
+Cutting XML files...
+[WARNING] XML not found: ../data/raw/21_49.xml
+[WARNING] XML not found: ../data/raw/21_28.xml
+Cut 0 new XML files
+------------------------------------------------------------
+Calculating completeness statistics...
+Total protocols: 60
+Incomplete protocols: 13
+Percentage incomplete: 21.67%
+
+List of incomplete protocols:
+
+- 21/50 | 18-12-2025
+- 21/49 | 17-12-2025
+- 21/47 | 04-12-2025
+- 21/40 | 13-11-2025
+- 21/37 | 06-11-2025
+- 21/34 | 16-10-2025
+- 21/31 | 09-10-2025
+- 21/28 | 25-09-2025
+- 21/21 | 11-09-2025
+- 21/14 | 26-06-2025
+- 20/210 | 30-01-2025
+- 20/209 | 29-01-2025
+- 21/53 | 15-01-2026
+
+[SUCCESS] Bundestag Protocol Download completed.
+
+============================================================
+### Running: Transcribe Talkshows ###
+============================================================
+
+Command: bash run_whisperx.sh
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree
+bash: run_whisperx.sh: No such file or directory
+
+[ERROR] Transcribe Talkshows failed with exit code 127
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLfRDp3S7rLduqUTa6oXe_Zlv7bEeD06t6
+Bundestag: True
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 2924 videos
+Skipping short video: Etats des Bundespräsidenten, Bundestages und Bundesrates angenommen (146 seconds)
+Skipping short video: 42. Sitzung vom 25.11.2025, TOP I: Haushaltsgesetz 2026 (34 seconds)
+Skipping short video: Gesetzentwurf zum Lebens­zyklus von Batterien soll über­wiesen werden (38 seconds)
+Skipping short video: So setzt sich die neue Bundesregierung zusammen (210 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: hart_aber_fair
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4b810iSTCbsR3Vw80eV2zB
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 63 videos
+Skipping short video: Politik nicht nur für Ältere? Reaction von Aladin El-Mafaalani | Hart aber fair (86 seconds)
+Skipping short video: AI-Videos von Papaplatte und Co.? Das sagt Alicia Joe | Hart aber fair (67 seconds)
+Skipping short video: Warum wollen wir zum Mond? Astronaut Alexander Gerst im Interview | Hart aber fair (84 seconds)
+Skipping short video: "Dieses Problem ist völlig offensichtlich": Wirtschaftsweise Ulrike Malmendier | hart aber fair (74 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: caren_miosga
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa4grZmSCGexQbwMfd9TylEi
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 62 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maischberger
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLkKDSXRppVa7Ao8LyGQ0JpwHXwjSjMo7-
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 660 videos
+Skipping short video: Stegner bei maischberger: Union muss Vertrauen zurückgewinnen (47 seconds)
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: markus_lanz
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog6SPKzMAVh1d6cPVtGtDIeT
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 799 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: maybrit_illner
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 216 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2025
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup-ULnzO9iPf_Fqvc8DhNTq
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Error downloading https://www.youtube.com/watch?v=XdLRhZfFuIc: XdLRhZfFuIc does not have a live stream recording available
+
+Downloading from talkshow playlist: phoenix_2024
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurPoOBmZqJjnlM0BkPtmynl
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 115 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2023
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuph1fmTPec5GrvDS0Ro4Lke
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 112 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2022
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuoJGJ4KZanLHkYJ1X-s-Z9s
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 121 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2021
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuqrX8hE6nFL79YK2ejWibix
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 65 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2020
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSuryaxF3JuROt8Aoq7ZAS0zZ
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 87 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2019
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSup3G39MiY8d-O4KYJt9RuqC
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 86 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2018
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSurAWTjJcJnqkgbzElGn8CYV
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 91 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+Downloading from talkshow playlist: phoenix_2017
+Starting download…
+Playlist: https://www.youtube.com/playlist?list=PLoeytWjTuSupmIfrZIGG9qihmKYVNck4p
+Bundestag: False
+------------------------------------------------------------
+in try
+Creating Playlist object...
+Found 105 videos
+Reached 20 consecutive videos before cutoff date. Stopping download.
+
+
+------------------------------------------------------------
+
+
+FINAL SUMMARY: 
+
+All playlists processed successfully!
+
+[SUCCESS] YouTube Download completed.
+
+============================================================
+### Running: Bundestag Protocol Download ###
+============================================================
+
+Command: /home/mlci_2025s1_group1/Dashboard/ara-worktree/.venv/bin/python download_cut.py --start 2025-01-16
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree/bundestag/src
+------------------------------------------------------------
+Downloading new metadata...
+------------------------------------------------------------
+Downloading new XML files...
+[ERROR] Not XML: 21_49 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00\x01\x00\x00\x00'
+[ERROR] Not XML: 21_28 --> response starts with: '��\x11ࡱ\x1a�\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00>\x00\x03\x00��\t\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x00\x00\x00\x01\x00\x00\x00'
+------------------------------------------------------------
+Cutting XML files...
+[WARNING] XML not found: ../data/raw/21_49.xml
+[WARNING] XML not found: ../data/raw/21_28.xml
+Cut 0 new XML files
+------------------------------------------------------------
+Calculating completeness statistics...
+Total protocols: 60
+Incomplete protocols: 13
+Percentage incomplete: 21.67%
+
+List of incomplete protocols:
+
+- 21/50 | 18-12-2025
+- 21/49 | 17-12-2025
+- 21/47 | 04-12-2025
+- 21/40 | 13-11-2025
+- 21/37 | 06-11-2025
+- 21/34 | 16-10-2025
+- 21/31 | 09-10-2025
+- 21/28 | 25-09-2025
+- 21/21 | 11-09-2025
+- 21/14 | 26-06-2025
+- 20/210 | 30-01-2025
+- 20/209 | 29-01-2025
+- 21/53 | 15-01-2026
+
+[SUCCESS] Bundestag Protocol Download completed.
+
+============================================================
+### Running: Transcribe Talkshows ###
+============================================================
+
+Command: bash run_whisperx.sh
+Working Directory: /home/mlci_2025s1_group1/Dashboard/ara-worktree
+bash: run_whisperx.sh: No such file or directory
+
+[ERROR] Transcribe Talkshows failed with exit code 127
