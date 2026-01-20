@@ -10,7 +10,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+
 downloads/
 eggs/
 .eggs/
@@ -213,10 +213,12 @@ yarn-debug.log*
 
 #Ordner
 data/
-dist/
 node_modules/
 models/
 !frontend/src/lib/
+!frontend/dist/
+!frontend/dist/data
+!frontend/dist/assets
 data
 models
 
