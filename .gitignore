@@ -226,3 +226,5 @@ token.pkl
 
 data
 models
+
+cron_log.txt
