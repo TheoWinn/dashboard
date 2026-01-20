@@ -115,6 +115,60 @@ async function main() {
     rows?.[0]?.ts_share
   );
 
+  const { data: tsRows, error: tsError } = await supabase
+    .schema("dashboard")
+    .from("topics_view_2025_4w")
+    .select(
+      [
+        "topic_id",
+        "window_start",
+        "window_end",
+        "topic_duration_bt",
+        "topic_duration_ts",
+        "bt_normalized_perc",
+        "ts_normalized_perc",
+      ].join(",")
+    )
+    .order("window_start", { ascending: true });
+
+  if (tsError) throw tsError;
+
+  const timeseriesByTopicId = new Map();
+
+  for (const r of tsRows ?? []) {
+    const bundestag_minutes = intervalToMinutes(r.topic_duration_bt);
+    const talkshow_minutes = intervalToMinutes(r.topic_duration_ts);
+
+    const bt_norm = safeNum(r.bt_normalized_perc);
+    const ts_norm = safeNum(r.ts_normalized_perc);
+    const norm_delta = Math.abs(bt_norm - ts_norm);
+
+    const entry = {
+      window_start: r.window_start,
+      window_end: r.window_end,
+      bundestag_minutes,
+      talkshow_minutes,
+      bt_share: safeNum(r.bt_share),
+      ts_share: safeNum(r.ts_share),
+      bt_normalized_perc: bt_norm,
+      ts_normalized_perc: ts_norm,
+      norm_delta,
+    };
+
+    if (!timeseriesByTopicId.has(r.topic_id)) {
+      timeseriesByTopicId.set(r.topic_id, []);
+    }
+    timeseriesByTopicId.get(r.topic_id).push(entry);
+  }
+
+  // (optional safety if SQL wasn’t ordered)
+  for (const arr of timeseriesByTopicId.values()) {
+    arr.sort(
+      (a, b) =>
+        new Date(a.window_start).getTime() - new Date(b.window_start).getTime()
+    );
+  }
+
   const n = rows?.length ?? 0;
   const nBtNonNull = (rows ?? []).filter((r) => r.bt_share != null).length;
   const nTsNonNull = (rows ?? []).filter((r) => r.ts_share != null).length;
@@ -145,7 +199,8 @@ async function main() {
       ts_share: safeNum(r.ts_share),
       bt_normalized_perc: safeNum(r.bt_normalized_perc),
       ts_normalized_perc: safeNum(r.ts_normalized_perc),
-      norm_delta
+      norm_delta,
+      timeseries: timeseriesByTopicId.get(r.topic_id) ?? [],
     };
   });
 
@@ -203,7 +258,7 @@ async function main() {
         bt_normalized_perc: t.bt_normalized_perc,
         ts_normalized_perc: t.ts_normalized_perc,
       },
-      timeseries: [], // intentionally empty for now
+      timeseries: t.timeseries, // intentionally empty for now
     };
 
     await fs.writeFile(
@@ -229,7 +284,7 @@ async function main() {
           bt_normalized_perc: hero.bt_normalized_perc,
           ts_normalized_perc: hero.ts_normalized_perc,
           norm_delta: hero.norm_delta,
-          timeseries: [], // intentionally empty for now
+          timeseries: hero.timeseries, // intentionally empty for now
         }
       : null,
     featured_topics,
