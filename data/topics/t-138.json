@@ -1,16 +1,16 @@
 {
   "slug": "t-138",
-  "label": "Rechtsextremismus Zivilgesellschaft",
-  "description": "Keywords: Demokratie, Zivilgesellschaft, Rechtsextremismus, Organisationen, Initiativen, Gemeinnützigkeit, demokratische, Antonio Stiftung, schützen, Antonio",
-  "mismatch_score": 0.10991594630980903,
-  "norm_delta": 0.10991594630980904,
+  "label": "Collective Bargaining Strength",
+  "description": "Keywords: Tarifbindung, Tarifverträge, Löhne, Arbeitsbedingungen, Tariftreuegesetz, Sozialpartnerschaft, Tarif, Tarifvertrag, Unternehmen, Aufträge",
+  "mismatch_score": 0.13727498626087442,
+  "norm_delta": 0.13727498626087442,
   "totals": {
-    "bundestag_minutes": 58,
-    "talkshow_minutes": 4,
-    "bt_share": 85.30524363851777,
-    "ts_share": 14.694756361482241,
-    "bt_normalized_perc": 0.1327905661226893,
-    "ts_normalized_perc": 0.022874619812880265
+    "bundestag_minutes": 56,
+    "talkshow_minutes": 2,
+    "bt_share": 92.08410854043198,
+    "ts_share": 7.915891459568018,
+    "bt_normalized_perc": 0.1501854877428148,
+    "ts_normalized_perc": 0.012910501481940366
   },
   "timeseries": []
 }

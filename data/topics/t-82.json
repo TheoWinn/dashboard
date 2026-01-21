@@ -1,16 +1,16 @@
 {
   "slug": "t-82",
-  "label": "SPD Parteiführung",
-  "description": "Keywords: Klingbeil, SPD, Lars, Lars Klingbeil, Landesverband, Brandt, Anke Rehlinger, Anke, Willy Brandt, Rehlinger",
-  "mismatch_score": -0.15273755812689302,
-  "norm_delta": 0.15273755812689302,
+  "label": "Full-day Childcare",
+  "description": "Keywords: Bildung, Ganztag, Kinder, Ganztagsbetreuung, Rechtsanspruch, Schulen, Kommunen, Betreuung, Eltern, Grundschulalter",
+  "mismatch_score": 0.27700257126539785,
+  "norm_delta": 0.27700257126539785,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 23,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.15273755812689302
+    "bundestag_minutes": 107,
+    "talkshow_minutes": 1,
+    "bt_share": 96.70304029489361,
+    "ts_share": 3.2969597051063855,
+    "bt_normalized_perc": 0.28677994667721585,
+    "ts_normalized_perc": 0.009777375411818003
   },
   "timeseries": []
 }

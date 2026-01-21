@@ -1,16 +1,16 @@
 {
   "slug": "t-63",
-  "label": "Bürgergeld Sozialreform",
-  "description": "Keywords: Bürgergeld, Reformen, Herbst Reformen, Herbst, Sozialstaat, Koalitionsvertrag, Fehler, Koalition, anderes System, Debatte",
-  "mismatch_score": -0.132875771783166,
-  "norm_delta": 0.132875771783166,
+  "label": "Political Discourse Critique",
+  "description": "Keywords: Zitate, Wort, Länder Außengrenzen, selbstkritisch, Kulturpolitik, Krupalla, dachte, hab, Nebelkerzen, Kontakt",
+  "mismatch_score": -0.12299980510782559,
+  "norm_delta": 0.12299980510782559,
   "totals": {
-    "bundestag_minutes": 33,
-    "talkshow_minutes": 32,
-    "bt_share": 26.46926689810394,
-    "ts_share": 73.53073310189606,
-    "bt_normalized_perc": 0.0747346938233889,
-    "ts_normalized_perc": 0.2076104656065549
+    "bundestag_minutes": 5,
+    "talkshow_minutes": 21,
+    "bt_share": 8.762417589653259,
+    "ts_share": 91.23758241034675,
+    "bt_normalized_perc": 0.013067881199678591,
+    "ts_normalized_perc": 0.13606768630750418
   },
   "timeseries": []
 }

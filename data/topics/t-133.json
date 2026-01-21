@@ -1,16 +1,16 @@
 {
   "slug": "t-133",
-  "label": "Bürokratieabbau Transparenz",
-  "description": "Keywords: Transparenz, Zahlungen, Bürokratie, Modernisierungsagenda, Organisationen, Zendes, Normenkontrollrat, Antrag, Frohnmaier, System",
-  "mismatch_score": 0.11589930745804593,
-  "norm_delta": 0.11589930745804594,
+  "label": "Judicial Review Cases",
+  "description": "Keywords: Einzelfallentscheidung, Bundesverfassungsgericht, Entscheidung, Gerichtshof, Richter, Europäischen Gerichtshof, Verbraucherschutz, Gericht, rechtlich, Soli",
+  "mismatch_score": 0.010612869779516653,
+  "norm_delta": 0.010612869779516657,
   "totals": {
-    "bundestag_minutes": 56,
-    "talkshow_minutes": 2,
-    "bt_share": 91.56783672925746,
-    "ts_share": 8.432163270742539,
-    "bt_normalized_perc": 0.12765457259028667,
-    "ts_normalized_perc": 0.011755265132240731
+    "bundestag_minutes": 18,
+    "talkshow_minutes": 6,
+    "bt_share": 56.10055147860509,
+    "ts_share": 43.89944852139491,
+    "bt_normalized_perc": 0.04879787093753397,
+    "ts_normalized_perc": 0.03818500115801731
   },
   "timeseries": []
 }

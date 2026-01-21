@@ -1,16 +1,16 @@
 {
   "slug": "t-79",
-  "label": "Sexuelle Identität",
-  "description": "Keywords: queere, CSDs, CSD, queeren, Regenbogen, sexuellen, Diskriminierung, Identität, sexuellen Identität, Community",
-  "mismatch_score": 0.23272486821222096,
-  "norm_delta": 0.23272486821222094,
+  "label": "German-Polish Remembrance",
+  "description": "Keywords: Nazis, polnischen, Opfer, Polen, polnische, Gedenken, Hitler, Denkmal, deutschen, Geschichte",
+  "mismatch_score": -0.022190160851374704,
+  "norm_delta": 0.022190160851374707,
   "totals": {
-    "bundestag_minutes": 104,
-    "talkshow_minutes": 1,
-    "bt_share": 98.03270491614494,
-    "ts_share": 1.967295083855062,
-    "bt_normalized_perc": 0.237490771880607,
-    "ts_normalized_perc": 0.004765903668386048
+    "bundestag_minutes": 62,
+    "talkshow_minutes": 29,
+    "bt_share": 46.85645545831524,
+    "ts_share": 53.14354454168476,
+    "bt_normalized_perc": 0.1653789646937914,
+    "ts_normalized_perc": 0.1875691255451661
   },
   "timeseries": []
 }

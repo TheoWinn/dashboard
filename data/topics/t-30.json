@@ -1,16 +1,16 @@
 {
   "slug": "t-30",
-  "label": "Syrien Konflikt",
-  "description": "Keywords: Syrien, Syrer, Assad, syrischen, Damaskus, Syrerinnen, Syrern, Wiederaufbau, Syrerinnen Syrer, HTS",
-  "mismatch_score": -0.18827787231984736,
-  "norm_delta": 0.18827787231984733,
+  "label": "Wealth & Inheritance Tax",
+  "description": "Keywords: Erbschaftssteuer, Steuern, Vermögen, Einkommen, Unternehmen, zahlen, Vermögensteuer, Abgeltungssteuer, Vermögenssteuer, besteuert",
+  "mismatch_score": -0.26441382215161907,
+  "norm_delta": 0.2644138221516191,
   "totals": {
-    "bundestag_minutes": 123,
-    "talkshow_minutes": 72,
-    "bt_share": 37.40974178289415,
-    "ts_share": 62.59025821710585,
-    "bt_normalized_perc": 0.2797173205450465,
-    "ts_normalized_perc": 0.4679951928648938
+    "bundestag_minutes": 43,
+    "talkshow_minutes": 58,
+    "bt_share": 23.23236026415832,
+    "ts_share": 76.76763973584168,
+    "bt_normalized_perc": 0.11474596258152944,
+    "ts_normalized_perc": 0.37915978473314854
   },
   "timeseries": []
 }

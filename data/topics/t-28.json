@@ -1,16 +1,16 @@
 {
   "slug": "t-28",
-  "label": "Deutsche Wiedervereinigung",
-  "description": "Keywords: Einheit, DDR, 35, deutsche Einheit, 1990, Wiedervereinigung, Demokratie, SED, Europarat, Ost",
-  "mismatch_score": 0.9730367271042125,
-  "norm_delta": 0.9730367271042125,
+  "label": "Defense Spending Debate",
+  "description": "Keywords: Milliarden, Bundeswehr, Verteidigung, Milliarden Euro, Geld, Rüstung, Euro, Prozent, Verteidigungsausgaben, Sondervermögen",
+  "mismatch_score": -0.005466859179542743,
+  "norm_delta": 0.005466859179542705,
   "totals": {
-    "bundestag_minutes": 460,
-    "talkshow_minutes": 12,
-    "bt_share": 93.07985867373385,
-    "ts_share": 6.920141326266152,
-    "bt_normalized_perc": 1.0511886973579372,
-    "ts_normalized_perc": 0.07815197025372467
+    "bundestag_minutes": 130,
+    "talkshow_minutes": 54,
+    "bt_share": 49.60905630935533,
+    "ts_share": 50.39094369064467,
+    "bt_normalized_perc": 0.3468603425035874,
+    "ts_normalized_perc": 0.3523272016831301
   },
   "timeseries": []
 }

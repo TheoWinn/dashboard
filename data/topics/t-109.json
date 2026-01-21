@@ -1,16 +1,16 @@
 {
   "slug": "t-109",
-  "label": "Deutsche Entwicklungspolitik",
-  "description": "Keywords: Entwicklungszusammenarbeit, Deutschland, Staat, Innovationen, Wohlstand, Verantwortung, unseres Landes, Antworten, geben Antworten, geehrte Deutschland",
-  "mismatch_score": 0.2309024519579651,
-  "norm_delta": 0.2309024519579651,
+  "label": "German Steel Industry",
+  "description": "Keywords: Stahlindustrie, Stahl, Wettbewerb, thyssenkrupp, Stahl Deutschland, Industrie, Arbeitsplätze, IG Metall, IG, Metall",
+  "mismatch_score": 0.04346108130533232,
+  "norm_delta": 0.04346108130533232,
   "totals": {
-    "bundestag_minutes": 102,
-    "talkshow_minutes": 0,
-    "bt_share": 99.27688050511674,
-    "ts_share": 0.7231194948832664,
-    "bt_normalized_perc": 0.23259665482466052,
-    "ts_normalized_perc": 0.0016942028666954055
+    "bundestag_minutes": 37,
+    "talkshow_minutes": 9,
+    "bt_share": 63.884020940907185,
+    "ts_share": 36.115979059092815,
+    "bt_normalized_perc": 0.09998791560605728,
+    "ts_normalized_perc": 0.056526834300724964
   },
   "timeseries": []
 }

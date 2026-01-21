@@ -1,16 +1,16 @@
 {
   "slug": "t-46",
-  "label": "Russland-Sanktionen Energie",
-  "description": "Keywords: Sanktionen, Sanktionspaket, Russland, Öl, Trump, Gas, Putin, Sanktionspakete, Ukraine, Öl Gas",
-  "mismatch_score": -0.4158293711735247,
-  "norm_delta": 0.41582937117352475,
+  "label": "Social discourse trends",
+  "description": "Keywords: Achtsamkeit, Gefühl, Konzert, erwachsen, hör, Leute, doof, einfach, Communities, Idee",
+  "mismatch_score": -0.24967872955716774,
+  "norm_delta": 0.24967872955716774,
   "totals": {
-    "bundestag_minutes": 3,
-    "talkshow_minutes": 65,
-    "bt_share": 1.399529684647775,
-    "ts_share": 98.60047031535223,
-    "bt_normalized_perc": 0.005987241943643605,
-    "ts_normalized_perc": 0.42181661311716834
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 38,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.24967872955716774
   },
   "timeseries": []
 }

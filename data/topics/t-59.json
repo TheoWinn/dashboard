@@ -1,16 +1,16 @@
 {
   "slug": "t-59",
-  "label": "UN-Sicherheitsrat Rolle",
-  "description": "Keywords: Sicherheitsrat, Außenpolitik, Nationalen, internationalen, nationalen, Sicherheit, Vereinten Nationen, Vereinten, Nationalen Sicherheitsrat, Nationen",
-  "mismatch_score": 0.36605124589588395,
-  "norm_delta": 0.36605124589588395,
+  "label": "LGBTQ+ Rights Debate",
+  "description": "Keywords: queere, CSD, CSDs, Diskriminierung, Artikel, queeren, Grundgesetz, Identität, sexuellen, Absatz",
+  "mismatch_score": 0.4542278899934392,
+  "norm_delta": 0.4542278899934392,
   "totals": {
-    "bundestag_minutes": 180,
-    "talkshow_minutes": 7,
-    "bt_share": 90.21355465305338,
-    "ts_share": 9.786445346946625,
-    "bt_normalized_perc": 0.4105927014206293,
-    "ts_normalized_perc": 0.04454145552474537
+    "bundestag_minutes": 177,
+    "talkshow_minutes": 3,
+    "bt_share": 96.11684050063856,
+    "ts_share": 3.8831594993614456,
+    "bt_normalized_perc": 0.4733514826632201,
+    "ts_normalized_perc": 0.01912359266978086
   },
   "timeseries": []
 }

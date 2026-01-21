@@ -1,16 +1,16 @@
 {
   "slug": "t-68",
-  "label": "Corona Impfpflicht",
-  "description": "Keywords: Impfung, impfen, Corona, Pandemie, Impfpflicht, Impfungen, impfen lassen, Impfstoffe, Virus, infiziert",
-  "mismatch_score": -0.17441864048491576,
-  "norm_delta": 0.17441864048491576,
+  "label": "Reducing Economic Dependencies",
+  "description": "Keywords: Land, Hand genommen, unserem Land, Geld Hand, unserem, Herausforderungen, Entscheidungen, einseitige Abhängigkeiten, strukturelle Schieflage, Abhängigkeiten abbauen",
+  "mismatch_score": 0.3981589702271915,
+  "norm_delta": 0.39815897022719143,
   "totals": {
-    "bundestag_minutes": 12,
-    "talkshow_minutes": 31,
-    "bt_share": 12.145098549364429,
-    "ts_share": 87.85490145063557,
-    "bt_normalized_perc": 0.027979620820012728,
-    "ts_normalized_perc": 0.2023982613049285
+    "bundestag_minutes": 196,
+    "talkshow_minutes": 19,
+    "bt_share": 80.78254424988633,
+    "ts_share": 19.217455750113672,
+    "bt_normalized_perc": 0.5224437325544662,
+    "ts_normalized_perc": 0.12428476232727474
   },
   "timeseries": []
 }

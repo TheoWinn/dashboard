@@ -1,16 +1,16 @@
 {
   "slug": "t-115",
-  "label": "Politische Debatte Wirtschaft",
-  "description": "Keywords: Zwickau, Ministerpräsident, Herzlich, Kretschmer, Elektromobilität, Merz, Wolfram, Abend, Herzlich willkommen, Regierungssprecher",
-  "mismatch_score": -0.05748622464672608,
-  "norm_delta": 0.057486224646726085,
+  "label": "Eurozone Public Debt",
+  "description": "Keywords: Euro, Schulden, Milliarden Euro, Milliarden, Politik, Euro Schulden, Geld, Millionen Euro, 000, versprochen",
+  "mismatch_score": 0.32034489299166685,
+  "norm_delta": 0.32034489299166685,
   "totals": {
-    "bundestag_minutes": 5,
-    "talkshow_minutes": 11,
-    "bt_share": 14.553044518000968,
-    "ts_share": 85.44695548199903,
-    "bt_normalized_perc": 0.011800725550047,
-    "ts_normalized_perc": 0.06928695019677308
+    "bundestag_minutes": 122,
+    "talkshow_minutes": 1,
+    "bt_share": 98.31500892148449,
+    "ts_share": 1.6849910785155156,
+    "bt_normalized_perc": 0.3259309241110665,
+    "ts_normalized_perc": 0.00558603111939963
   },
   "timeseries": []
 }

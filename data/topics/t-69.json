@@ -1,16 +1,16 @@
 {
   "slug": "t-69",
-  "label": "Habecks Heizungsgesetz",
-  "description": "Keywords: Habeck, Robert Habeck, Robert, Wirtschaftsminister, Reiche, Heizungsgesetz, Juniper, Katharina Reiche, Katharina, Jens Spahn",
-  "mismatch_score": -0.1427111547921242,
-  "norm_delta": 0.1427111547921242,
+  "label": "COVID-19 Vaccination Debate",
+  "description": "Keywords: Impfung, Corona, impfen, Pandemie, impfen lassen, Impfpflicht, Impfungen, Virus, Autismus, Nebenwirkungen",
+  "mismatch_score": -0.2185898356761005,
+  "norm_delta": 0.21858983567610052,
   "totals": {
-    "bundestag_minutes": 16,
-    "talkshow_minutes": 27,
-    "bt_share": 16.901898231468152,
-    "ts_share": 83.09810176853185,
-    "bt_normalized_perc": 0.036438485682056335,
-    "ts_normalized_perc": 0.17914964047418053
+    "bundestag_minutes": 9,
+    "talkshow_minutes": 37,
+    "bt_share": 9.313227305855303,
+    "ts_share": 90.6867726941447,
+    "bt_normalized_perc": 0.025017673946575458,
+    "ts_normalized_perc": 0.24360750962267597
   },
   "timeseries": []
 }

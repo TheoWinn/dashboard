@@ -1,16 +1,16 @@
 {
   "slug": "t-104",
-  "label": "US-Außenpolitik Trump",
-  "description": "Keywords: Grönland, Panama, Trump, Kanada, Donald Trump, Donald, Panama Kanal, Kanadier, Trump Grönland, Taiwan",
-  "mismatch_score": -0.31459769689542616,
-  "norm_delta": 0.31459769689542616,
+  "label": "Right-wing Party Influence",
+  "description": "Keywords: FPÖ, Nordrhein Westfalen, Westfalen, Nordrhein, Mitte, AfD, Österreich, NRW, Partei, radikal",
+  "mismatch_score": -0.15553035475618718,
+  "norm_delta": 0.15553035475618718,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 48,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.31459769689542616
+    "bundestag_minutes": 7,
+    "talkshow_minutes": 27,
+    "bt_share": 9.466198173800045,
+    "ts_share": 90.53380182619996,
+    "bt_normalized_perc": 0.018161153084977205,
+    "ts_normalized_perc": 0.17369150784116438
   },
   "timeseries": []
 }

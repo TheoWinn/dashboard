@@ -1,16 +1,16 @@
 {
   "slug": "t-31",
-  "label": "Agrarpolitik Tierwohl",
-  "description": "Keywords: Landwirtschaft, Landwirte, Bauern, Agrarpolitik, Tierhaltung, Betriebe, Minister, Landwirtinnen, Landwirten, Tierwohl",
-  "mismatch_score": 0.9668173776264993,
-  "norm_delta": 0.9668173776264993,
+  "label": "Primary Education Policy",
+  "description": "Keywords: Schule, Kinder, Grundschule, Sprache, Deutsch, Schulen, Lehrer, Lehrkräfte, Klasse, Schüler",
+  "mismatch_score": -0.22287086433842646,
+  "norm_delta": 0.22287086433842648,
   "totals": {
-    "bundestag_minutes": 440,
-    "talkshow_minutes": 6,
-    "bt_share": 96.40026750895291,
-    "ts_share": 3.5997324910470963,
-    "bt_normalized_perc": 1.0043202209719557,
-    "ts_normalized_perc": 0.03750284334545637
+    "bundestag_minutes": 52,
+    "talkshow_minutes": 55,
+    "bt_share": 27.7523575733137,
+    "ts_share": 72.2476424266863,
+    "bt_normalized_perc": 0.1390078058872047,
+    "ts_normalized_perc": 0.3618786702256312
   },
   "timeseries": []
 }

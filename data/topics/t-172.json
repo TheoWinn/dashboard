@@ -1,16 +1,16 @@
 {
   "slug": "t-172",
-  "label": "Politische Polarisierung Andersdenkende",
-  "description": "Keywords: Kirk, Charlie, Charlie Kirk, Andersdenkenden, politisch Andersdenkenden, Polarisierung, Emotion, ermordet, Tod, Ideologen",
-  "mismatch_score": -0.05628570286531382,
-  "norm_delta": 0.05628570286531383,
+  "label": "Trump's America First",
+  "description": "Keywords: America, America first, USA, first, Donald Trumps, Trump, Donald, Punkt Trump, Doktrin, Welt",
+  "mismatch_score": -0.06698171033669005,
+  "norm_delta": 0.06698171033669005,
   "totals": {
     "bundestag_minutes": 5,
-    "talkshow_minutes": 10,
-    "bt_share": 14.076953885702242,
-    "ts_share": 85.92304611429776,
-    "bt_normalized_perc": 0.01102817451975495,
-    "ts_normalized_perc": 0.06731387738506878
+    "talkshow_minutes": 12,
+    "bt_share": 14.885276585956506,
+    "ts_share": 85.1147234140435,
+    "bt_normalized_perc": 0.014196912115834933,
+    "ts_normalized_perc": 0.08117862245252498
   },
   "timeseries": []
 }

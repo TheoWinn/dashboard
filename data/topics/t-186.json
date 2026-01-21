@@ -1,16 +1,16 @@
 {
   "slug": "t-186",
-  "label": "Mercosur Handelsabkommen",
-  "description": "Keywords: Mercosur, Europäische, Abkommen, Zölle, Freihandelsabkommen, Europäische Union, Handelsabkommen, verhandelt, Union, deutschen Landwirtschaft",
-  "mismatch_score": -0.007606782536712399,
-  "norm_delta": 0.007606782536712403,
+  "label": "Summit Participants",
+  "description": "Keywords: Herzlich willkommen, willkommen, Herzlich, Gabriel, Guttenberg, Gipfel, Mangold, Hallo, Theodor Guttenberg, Karl Theodor",
+  "mismatch_score": -0.05983640255029939,
+  "norm_delta": 0.05983640255029939,
   "totals": {
-    "bundestag_minutes": 29,
-    "talkshow_minutes": 11,
-    "bt_share": 47.3168497062376,
-    "ts_share": 52.6831502937624,
-    "bt_normalized_perc": 0.06707208814847061,
-    "ts_normalized_perc": 0.07467887068518302
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 9,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.05983640255029939
   },
   "timeseries": []
 }

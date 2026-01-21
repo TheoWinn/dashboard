@@ -1,16 +1,16 @@
 {
   "slug": "t-129",
-  "label": "Parlament Kontrolle Beschleunigung",
-  "description": "Keywords: Bundestag, Zweidrittelmehrheit, atemberaubende Geschwindigkeit, atemberaubende, Fragerechte, überprüft, hingeguckt, Kröte, Kröten, Opferrolle",
-  "mismatch_score": -0.09450126079797612,
-  "norm_delta": 0.09450126079797612,
+  "label": "Digital Euro Debate",
+  "description": "Keywords: Bargeld, Bitcoin, digitalen, digitalen Euro, digitale, EZB, digitale Euro, Kryptowährungen, Währungen, Bargelds",
+  "mismatch_score": 0.07682879500858772,
+  "norm_delta": 0.07682879500858772,
   "totals": {
-    "bundestag_minutes": 1,
-    "talkshow_minutes": 15,
-    "bt_share": 2.8551278714074226,
-    "ts_share": 97.14487212859258,
-    "bt_normalized_perc": 0.0028615326694650858,
-    "ts_normalized_perc": 0.0973627934674412
+    "bundestag_minutes": 60,
+    "talkshow_minutes": 13,
+    "bt_share": 65.84358398815458,
+    "ts_share": 34.15641601184543,
+    "bt_normalized_perc": 0.1596445356252339,
+    "ts_normalized_perc": 0.08281574061664618
   },
   "timeseries": []
 }

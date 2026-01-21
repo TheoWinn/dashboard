@@ -1,16 +1,16 @@
 {
   "slug": "t-174",
-  "label": "Sportförderung Fußball Spitzensport",
-  "description": "Keywords: Glückwünsche, Fußball, FC, Fußballer, Sportmilliarde, Finale, FC Bundestag, Sport, Spiele, Spitzensport",
-  "mismatch_score": 0.045945996951576265,
-  "norm_delta": 0.045945996951576265,
+  "label": "German Tourism Strategy",
+  "description": "Keywords: Tourismus, Zentrale Tourismus, Zentrale, Tourismusstrategie, Deutsche Zentrale, Tourismusbranche, Gastronomie, Reisen, Tourismuswirtschaft, Infrastruktur",
+  "mismatch_score": 0.12118662535333392,
+  "norm_delta": 0.12118662535333392,
   "totals": {
-    "bundestag_minutes": 25,
-    "talkshow_minutes": 2,
-    "bt_share": 84.60800779405517,
-    "ts_share": 15.391992205944828,
-    "bt_normalized_perc": 0.05616329161906225,
-    "ts_normalized_perc": 0.010217294667485985
+    "bundestag_minutes": 45,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.12118662535333392,
+    "ts_normalized_perc": 0
   },
   "timeseries": []
 }

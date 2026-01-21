@@ -1,16 +1,16 @@
 {
   "slug": "t-35",
-  "label": "Gewalt gegen Frauen",
-  "description": "Keywords: Frauen, Gewalt, Gewalt Frauen, Opfer, Frauenhäuser, häuslicher, Mädchen, häuslicher Gewalt, Konvention, Täter",
-  "mismatch_score": 0.4570923559455184,
-  "norm_delta": 0.45709235594551834,
+  "label": "German Economic Policy",
+  "description": "Keywords: Wirtschaft, Wachstum, Unternehmen, deutsche Wirtschaft, Deutschland, Rezession, deutsche, CO2, CO2 Steuer, Steuer",
+  "mismatch_score": 0.26521730299358337,
+  "norm_delta": 0.2652173029935833,
   "totals": {
-    "bundestag_minutes": 214,
-    "talkshow_minutes": 5,
-    "bt_share": 93.79824448428397,
-    "ts_share": 6.201755515716025,
-    "bt_normalized_perc": 0.48945409867123363,
-    "ts_normalized_perc": 0.032361742725715265
+    "bundestag_minutes": 210,
+    "talkshow_minutes": 45,
+    "bt_share": 65.45456736608455,
+    "ts_share": 34.54543263391545,
+    "bt_normalized_perc": 0.5616360333561015,
+    "ts_normalized_perc": 0.29641873036251815
   },
   "timeseries": []
 }

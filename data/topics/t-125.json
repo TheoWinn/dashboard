@@ -1,16 +1,16 @@
 {
   "slug": "t-125",
-  "label": "Chatkontrolle Privatsphäre",
-  "description": "Keywords: Chat, Chatkontrolle, Chat Kontrolle, Kontrolle, Privatsphäre, Digitalausschuss, EU, Bundesregierung, US Regierung, Überwachung",
-  "mismatch_score": 0.09278268619130851,
-  "norm_delta": 0.09278268619130851,
+  "label": "AfD Tax Proposals",
+  "description": "Keywords: Antrag, AfD, Einkommen, Steuersystem, Grundsteuer, Kommunen, Tax, Antrag AfD, geltender, Steuern",
+  "mismatch_score": 0.1449403035804643,
+  "norm_delta": 0.14494030358046428,
   "totals": {
-    "bundestag_minutes": 52,
-    "talkshow_minutes": 4,
-    "bt_share": 81.85160201098228,
-    "ts_share": 18.14839798901772,
-    "bt_normalized_perc": 0.1192155342927858,
-    "ts_normalized_perc": 0.02643284810147728
+    "bundestag_minutes": 59,
+    "talkshow_minutes": 2,
+    "bt_share": 92.62729672616318,
+    "ts_share": 7.372703273836812,
+    "bt_normalized_perc": 0.15747454727861931,
+    "ts_normalized_perc": 0.012534243698155026
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-47",
-  "label": "Soziale Medienregulierung",
-  "description": "Keywords: Social Media, Social, Media, Plattformen, Fake, Medien, Inhalte, Plattform, Faktenchecks, News",
-  "mismatch_score": -0.3840141710575796,
-  "norm_delta": 0.38401417105757957,
+  "label": "Bürgergeld work incentives",
+  "description": "Keywords: arbeiten, Bürgergeld, Arbeit, Arbeitsmarkt, Arbeit bringen, Leute, Jobcenter, erwerbsfähig, Millionen, lohnt",
+  "mismatch_score": -0.26343475718798787,
+  "norm_delta": 0.26343475718798787,
   "totals": {
-    "bundestag_minutes": 9,
-    "talkshow_minutes": 62,
-    "bt_share": 4.595440992843651,
-    "ts_share": 95.40455900715635,
-    "bt_normalized_perc": 0.0194332298573006,
-    "ts_normalized_perc": 0.4034474009148802
+    "bundestag_minutes": 23,
+    "talkshow_minutes": 50,
+    "bt_share": 15.781329577407922,
+    "ts_share": 84.21867042259208,
+    "bt_normalized_perc": 0.06074681853482059,
+    "ts_normalized_perc": 0.3241815757228085
   },
   "timeseries": []
 }

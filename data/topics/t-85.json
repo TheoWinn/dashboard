@@ -1,16 +1,16 @@
 {
   "slug": "t-85",
-  "label": "Bürgergeld Reform",
-  "description": "Keywords: SPD, Bürgergeld, Hartz IV, Hartz, IV, Union, Wählerschaft, Batzen, Sanktionen, Gerechtigkeitsempfinden",
-  "mismatch_score": -0.18964689229893666,
-  "norm_delta": 0.18964689229893666,
+  "label": "Humanitarian Aid Cuts",
+  "description": "Keywords: Hilfe, humanitäre, humanitäre Hilfe, humanitären, humanitären Hilfe, Kürzungen, Millionen, Haushalt, gekürzt, Welt",
+  "mismatch_score": 0.2214054562050871,
+  "norm_delta": 0.2214054562050871,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 29,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.18964689229893666
+    "bundestag_minutes": 84,
+    "talkshow_minutes": 0,
+    "bt_share": 98.72043287899942,
+    "ts_share": 1.2795671210005817,
+    "bt_normalized_perc": 0.2243128928331007,
+    "ts_normalized_perc": 0.002907436628013617
   },
   "timeseries": []
 }

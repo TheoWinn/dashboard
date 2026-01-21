@@ -1,16 +1,16 @@
 {
   "slug": "t-192",
-  "label": "Automobilbranche Transformation",
-  "description": "Keywords: löse, Diktatfrieden, Automobilbranche, Kraftanstrengung, Reduktion, verhandelt, Komplexität, aufrufen, Überforderung, bestimmte",
-  "mismatch_score": -0.07024717606590315,
-  "norm_delta": 0.07024717606590315,
+  "label": "Protecting Democracy Values",
+  "description": "Keywords: Demokratie, Radtke, Dennis, Feinde Demokratie, Feinde, Gift, Parlament, Fahren, Kompass, tragen Verantwortung",
+  "mismatch_score": 0.09210519590285934,
+  "norm_delta": 0.09210519590285934,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 11,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.07024717606590315
+    "bundestag_minutes": 37,
+    "talkshow_minutes": 1,
+    "bt_share": 92.71490767322744,
+    "ts_share": 7.285092326772561,
+    "bt_normalized_perc": 0.09995953637177678,
+    "ts_normalized_perc": 0.007854340468917432
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-170",
-  "label": "US Demokraten Wahlen",
-  "description": "Keywords: Demokraten, Virginia, New, Harris, New Jersey, Jersey, Kandidaten, Mamdani, New York, York",
-  "mismatch_score": -0.06109871977244543,
-  "norm_delta": 0.06109871977244543,
+  "label": "Totalitarianism Comparisons Debate",
+  "description": "Keywords: Hitler, Stalin, Weidel, Adolf Hitler, Adolf, Faschismus, Kommunist, überforderte, Angst, Linker",
+  "mismatch_score": -0.03729475417287939,
+  "norm_delta": 0.03729475417287939,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 9,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.06109871977244543
+    "bundestag_minutes": 6,
+    "talkshow_minutes": 8,
+    "bt_share": 22.084056212122412,
+    "ts_share": 77.9159437878776,
+    "bt_normalized_perc": 0.014751775075733055,
+    "ts_normalized_perc": 0.052046529248612444
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-64",
-  "label": "Bundeswehr Verteidigungsausgaben",
-  "description": "Keywords: Verteidigung, Prozent, Milliarden, Geld, Verteidigungsausgaben, ausgeben, Rüstung, Bundeswehr, Infrastruktur, militärische",
-  "mismatch_score": -0.14062500785459361,
-  "norm_delta": 0.14062500785459361,
+  "label": "German Defense Policy",
+  "description": "Keywords: NATO, Verteidigung, Geld, Zeitenwende, Rüstungsindustrie, Milliarden, Bundeswehr, Streitkräfte, Armee, Deutschland",
+  "mismatch_score": -0.06102689437580602,
+  "norm_delta": 0.06102689437580602,
   "totals": {
-    "bundestag_minutes": 20,
-    "talkshow_minutes": 29,
-    "bt_share": 19.77306530817811,
-    "ts_share": 80.22693469182188,
-    "bt_normalized_perc": 0.04599519423026788,
-    "ts_normalized_perc": 0.1866202020848615
+    "bundestag_minutes": 60,
+    "talkshow_minutes": 34,
+    "bt_share": 42.025126843482155,
+    "ts_share": 57.974873156517845,
+    "bt_normalized_perc": 0.16079647454398344,
+    "ts_normalized_perc": 0.22182336891978946
   },
   "timeseries": []
 }

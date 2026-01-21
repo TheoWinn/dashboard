@@ -1,16 +1,16 @@
 {
   "slug": "t-139",
-  "label": "KI Regulierung und Daten",
-  "description": "Keywords: KI, Daten, KI Verordnung, künstliche Intelligenz, künstliche, Daten KI, Verordnung, Digitalministerium, digitaler Gewalt, verarbeitet",
-  "mismatch_score": 0.03279626429293758,
-  "norm_delta": 0.03279626429293759,
+  "label": "NATO defense spending",
+  "description": "Keywords: 430, Russland, Mio, europäischen NATO, Verteidigung Russland, 430 Milliarden, NATO, 300, NATO Staaten, Zahlen",
+  "mismatch_score": -0.06723420998686958,
+  "norm_delta": 0.06723420998686958,
   "totals": {
-    "bundestag_minutes": 30,
-    "talkshow_minutes": 6,
-    "bt_share": 65.5214520535029,
-    "ts_share": 34.4785479464971,
-    "bt_normalized_perc": 0.06922222389363249,
-    "ts_normalized_perc": 0.0364259596006949
+    "bundestag_minutes": 6,
+    "talkshow_minutes": 13,
+    "bt_share": 15.821733793596916,
+    "ts_share": 84.17826620640308,
+    "bt_normalized_perc": 0.015561962181038847,
+    "ts_normalized_perc": 0.08279617216790842
   },
   "timeseries": []
 }
