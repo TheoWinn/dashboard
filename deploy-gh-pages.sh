@@ -9,32 +9,27 @@ BUILD_BRANCH="ara/hostinfra"
 WORKTREE_DIR="/tmp/gh-pages"
 DIST_DIR="frontend/dist"
 FRONTEND_DIR="frontend"
+NPM="/opt/conda/envs/default/bin/npm"
 
 cd "$REPO_DIR"
 
 # Ensure we have latest
 git fetch origin --prune
 
-# Checkout the build branch and update it
-git checkout "$BUILD_BRANCH"
-git pull --ff-only origin "$BUILD_BRANCH"
+# Delete any local changes
+git checkout "$BUILD_BRANCH" 2>/dev/null || git checkout -b "$BUILD_BRANCH" "origin/$BUILD_BRANCH"
+git reset --hard "origin/$BUILD_BRANCH"
+git clean -fd
 
-# Load env vars for the build if you use a local .env
-# If your build tooling reads frontend/.env automatically, you can skip exporting.
-if [[ -f "$FRONTEND_DIR/.env" ]]; then
-  set -a
-  # shellcheck disable=SC1090
-  source "$FRONTEND_DIR/.env"
-  set +a
-fi
+# Build
+"$NPM" --prefix "$FRONTEND_DIR" ci
+"$NPM" --prefix "$FRONTEND_DIR" run build
 
-# Install + build
-/opt/conda/envs/default/bin/npm --prefix "$FRONTEND_DIR" ci
-/opt/conda/envs/default/bin/npm --prefix "$FRONTEND_DIR" run build
-
-# Create or reuse gh-pages worktree
+# Worktree setup
+git worktree prune
+git show-ref --verify --quiet refs/heads/gh-pages || git branch gh-pages origin/gh-pages
 rm -rf "$WORKTREE_DIR"
-git worktree add "$WORKTREE_DIR" gh-pages 2>/dev/null || git worktree add "$WORKTREE_DIR" -b gh-pages
+git worktree add "$WORKTREE_DIR" gh-pages
 
 # Clean gh-pages (keep only .git)
 find "$WORKTREE_DIR" -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
