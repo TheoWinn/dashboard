@@ -228,4 +228,3 @@ data
 models
 
 cron_log.txt
-last_cutoff.json

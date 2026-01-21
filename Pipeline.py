@@ -6,18 +6,6 @@ from pathlib import Path
 import json
 from datetime import date
 
-cutoff_path = Path("last_cutoff.json")
-
-def load_cutoff():
-    if cutoff_path.exists():
-        with open(cutoff_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {}
-
-def write_cutoff(cutoff_dict):
-    with open(cutoff_path, "w", encoding="utf-8") as f:
-        json.dump(cutoff_dict, f, ensure_ascii=False, indent=2)
-
 
 def run_step(description, command, cwd=None, env=None):
     print("\n" + "="*60)
@@ -59,15 +47,6 @@ def main():
     parser.add_argument("--skip-database", action="store_true", help="Skip Database step")
     
     args = parser.parse_args()
-
-    last_download = load_cutoff()
-    if "--cutoff" not in sys.argv:
-        last = last_download.get("last_successful_cutoff")
-        if last:
-            print(f"[INFO] Using last successful cutoff from state: {last}")
-            args.cutoff = last
-        else:
-            print(f"[INFO] No state file found. Using default cutoff: {args.cutoff}")
     
     # 1. Download YouTube Videos
     if not args.skip_download_videos:
@@ -85,9 +64,6 @@ def main():
         if not run_step("Bundestag Protocol Download", cmd, cwd=os.path.join(os.getcwd(), "bundestag", "src")):
             sys.exit(1)
 
-    last_download["last_successful_cutoff"] = date.today().isoformat()
-    write_cutoff(last_download)
-
     # 3. Transcribe Audio
     if not args.skip_transcribe:
         # 3a. Talkshows
@@ -102,7 +78,7 @@ def main():
 
     # 4. Cluster/Clean Transcripts
     if not args.skip_cluster:
-        # 4a. Talkshows
+        # 4a. Talkshows 
         cmd_ts = [sys.executable, "-u", "clean_aligned_transcripts.py"]
         if not run_step("Cluster Talkshow Transcripts", cmd_ts, cwd=os.path.join(os.getcwd(), "youtube", "src")):
             sys.exit(1)
