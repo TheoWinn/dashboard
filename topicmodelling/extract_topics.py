@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--talkshow-path", type=str, default="../youtube/data/clustered/talkshow_clustered/*.csv",
+parser.add_argument("--talkshow-path", type=str, default="../matching/data/matched/*.csv",
                     help="path to talkshow data")
 parser.add_argument("--bundestag-path", type=str, default="../youtube/data/clustered/bundestag_clustered/*.csv",
                     help="path to bundestag data")
