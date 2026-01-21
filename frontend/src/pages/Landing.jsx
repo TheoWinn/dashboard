@@ -212,8 +212,8 @@ return (
                     outerRadius={75}
                     paddingAngle={2}
                     isAnimationActive={false}
-                    label={(entry) =>
-                      `${entry.name}: ${formatPercent(Number(entry.value))}`
+                    label={false //(entry) =>
+                      //`${entry.name}: ${formatPercent(Number(entry.value))}` 
                     }
                   >
                     {heroPie.map((entry) => (
@@ -285,6 +285,27 @@ return (
           </div>
         </div>
       </header>
+          <section className="section">
+        <h3>Overall snapshot</h3>
+        <div className="stats">
+          <div className="stat">
+            <b>{summary.overall_stats?.total_topics ?? "—"} Topics</b>
+            <span>in total </span>
+          </div>
+          <div className="stat">
+            <b>{summary.overall_stats?.avg_abs_mismatch ?? "—"}</b>
+            <span>average mismatch</span>
+          </div>
+          <div className="stat">
+            <b>{summary.overall_stats?.topics_more_parliament ?? "—"} Topics</b>
+            <span> more attention in the Bundestag</span>
+          </div>
+          <div className="stat">
+            <b>{summary.overall_stats?.topics_more_talkshows ?? "—"} Topics</b>
+            <span> more attention in Talkshows</span>
+          </div>
+        </div>
+      </section>
 
       <section className="section">
         <h3>Top other topics</h3>
@@ -324,27 +345,7 @@ return (
         )}
       </section>
 
-      <section className="section">
-        <h3>Overall snapshot</h3>
-        <div className="stats">
-          <div className="stat">
-            <b>{summary.overall_stats?.total_topics ?? "—"}</b>
-            <span>Total topics</span>
-          </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.avg_abs_mismatch ?? "—"}</b>
-            <span>Avg |mismatch|</span>
-          </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.topics_more_parliament ?? "—"}</b>
-            <span>More Bundestag</span>
-          </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.topics_more_talkshows ?? "—"}</b>
-            <span>More talk shows</span>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 }
