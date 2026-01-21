@@ -202,12 +202,15 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
                 # safe_title = _sanitize_filename(yt.title)
                 safe_title = slugify(yt.title)
-                print("SLUGIFY DEBUG:", yt.title, "->", safe_title, flush=True)
-                filename_stem = f"{date_prefix}_{safe_title}.m4a"
 
                 ys = yt.streams.get_audio_only()
                 # ys = yt.streams.filter(only_audio=True, file_extension="m4a").order_by('abr').desc().first()
-                ys.download(output_path=str(output_dir), filename = filename_stem)
+                tmp_name = f"{date_prefix}_{safe_title}.part"
+                final_name = f"{date_prefix}_{safe_title}.m4a"
+
+                ys.download(output_path=str(output_dir), filename=tmp_name)
+                Path(output_dir, tmp_name).rename(Path(output_dir, final_name))
+
                 # append to dataframe
                 # title = yt.title
                 channel = yt.author
