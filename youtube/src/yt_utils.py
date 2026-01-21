@@ -170,7 +170,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
             try:
                 # download audio
                 # yt = YouTube(url, client = "ANDROID_EMBED", on_progress_callback=on_progress)
-                yt = YouTube(url, "WEB", on_progress_callback=on_progress)
+                yt = YouTube(url, "WEB")
 
                 # check whether the video is not a short (short is less than 4 minutes)
                 if yt.length < 240:
@@ -191,7 +191,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
                 else:
                     skipped_cutoff_consecutive = 0  # reset counter
 
-                print(f'Downloading: {yt.title}')
+                print(f'Downloading: {yt.title}', flush=True)
 
                 date_prefix = _date_from_description(yt.description or "")
                 if not date_prefix:
@@ -202,6 +202,7 @@ def download_from_playlist(playlist_url, bundestag: bool = True, talkshow_name: 
 
                 # safe_title = _sanitize_filename(yt.title)
                 safe_title = slugify(yt.title)
+                print("SLUGIFY DEBUG:", yt.title, "->", safe_title, flush=True)
                 filename_stem = f"{date_prefix}_{safe_title}.m4a"
 
                 ys = yt.streams.get_audio_only()
