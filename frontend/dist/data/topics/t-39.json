@@ -1,16 +1,16 @@
 {
   "slug": "t-39",
-  "label": "Digitale Verwaltung",
-  "description": "Keywords: digitale, Digitalisierung, Ministerium, Staatsmodernisierung, Wildberger, Verwaltung, Modernisierungsagenda, digitalen, IT, Digitalministerium",
-  "mismatch_score": 0.6054512907308769,
-  "norm_delta": 0.6054512907308769,
+  "label": "Russia-NATO conflict risk",
+  "description": "Keywords: Russland, NATO, Krieg, Russen, Putin, anzugreifen, Szenario, 2029, Ukraine, Europa",
+  "mismatch_score": -0.33054277469275634,
+  "norm_delta": 0.3305427746927564,
   "totals": {
-    "bundestag_minutes": 307,
-    "talkshow_minutes": 15,
-    "bt_share": 88.06751473301594,
-    "ts_share": 11.932485266984061,
-    "bt_normalized_perc": 0.7003424158436076,
-    "ts_normalized_perc": 0.09489112511273073
+    "bundestag_minutes": 43,
+    "talkshow_minutes": 68,
+    "bt_share": 20.51040006841722,
+    "ts_share": 79.48959993158279,
+    "bt_normalized_perc": 0.11494839815395981,
+    "ts_normalized_perc": 0.4454911728467162
   },
   "timeseries": []
 }

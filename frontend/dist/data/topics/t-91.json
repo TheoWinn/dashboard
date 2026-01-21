@@ -1,16 +1,16 @@
 {
   "slug": "t-91",
-  "label": "Verteidigungsausgaben Bundeswehr",
-  "description": "Keywords: NATO, Verteidigung, Geld, Zeitenwende, Streitkräfte, Bundeswehr, wehrtechnische, wehrtechnische Industrie, Deutschland, Milliarden",
-  "mismatch_score": -0.07345000535632383,
-  "norm_delta": 0.07345000535632382,
+  "label": "Bundeswehr Foreign Missions",
+  "description": "Keywords: Kosovo, KFOR, Einsatz, Mission, Soldaten, Soldatinnen Soldaten, Soldatinnen, UNIFIL, Mandat, Region",
+  "mismatch_score": 0.28777090683599493,
+  "norm_delta": 0.28777090683599493,
   "totals": {
-    "bundestag_minutes": 37,
-    "talkshow_minutes": 24,
-    "bt_share": 34.89372929075921,
-    "ts_share": 65.10627070924079,
-    "bt_normalized_perc": 0.0848304870420658,
-    "ts_normalized_perc": 0.15828049239838962
+    "bundestag_minutes": 108,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.28777090683599493,
+    "ts_normalized_perc": 0
   },
   "timeseries": []
 }

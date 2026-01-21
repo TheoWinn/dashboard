@@ -1,16 +1,16 @@
 {
   "slug": "t-1",
-  "label": "Klimaschutz Energiewende",
-  "description": "Keywords: Klimaschutz, CO2, Klima, Energien, Energiewende, Klimawandel, Strom, Gas, Energie, Industrie",
-  "mismatch_score": 5.50492025672602,
-  "norm_delta": 5.50492025672602,
+  "label": "German Migration Policy",
+  "description": "Keywords: Migration, Grenze, Grenzen, Asyl, Grenzkontrollen, Deutschland, Migrationspolitik, Migrationswende, illegale, Zurückweisungen",
+  "mismatch_score": -1.2515051891265474,
+  "norm_delta": 1.2515051891265472,
   "totals": {
-    "bundestag_minutes": 3046,
-    "talkshow_minutes": 222,
-    "bt_share": 82.75189563447167,
-    "ts_share": 17.248104365528334,
-    "bt_normalized_perc": 6.954446112749851,
-    "ts_normalized_perc": 1.449525856023831
+    "bundestag_minutes": 1023,
+    "talkshow_minutes": 610,
+    "bt_share": 40.67780228184976,
+    "ts_share": 59.32219771815024,
+    "bt_normalized_perc": 2.730497795540225,
+    "ts_normalized_perc": 3.982002984666772
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-9",
-  "label": "Gesundheits Pflegepolitik",
-  "description": "Keywords: Pflege, Versorgung, Patienten, Gesundheit, Gesundheitssystem, Pflegeversicherung, System, Pflegekräfte, Krankenhäuser, Patientinnen",
-  "mismatch_score": 2.120814555329657,
-  "norm_delta": 2.120814555329657,
+  "label": "Conscription Debate Germany",
+  "description": "Keywords: Wehrpflicht, Bundeswehr, Wehrdienst, 000, Soldaten, Freiwilligkeit, Männer, Dienst, junge, Reservisten",
+  "mismatch_score": -0.5678142988954933,
+  "norm_delta": 0.5678142988954933,
   "totals": {
-    "bundestag_minutes": 1146,
-    "talkshow_minutes": 76,
-    "bt_share": 84.05612226074298,
-    "ts_share": 15.94387773925702,
-    "bt_normalized_perc": 2.617259918646765,
-    "ts_normalized_perc": 0.496445363317108
+    "bundestag_minutes": 90,
+    "talkshow_minutes": 124,
+    "bt_share": 22.854829353429363,
+    "ts_share": 77.14517064657063,
+    "bt_normalized_perc": 0.239035132154034,
+    "ts_normalized_perc": 0.8068494310495272
   },
   "timeseries": []
 }

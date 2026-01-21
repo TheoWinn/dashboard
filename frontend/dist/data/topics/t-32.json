@@ -1,16 +1,16 @@
 {
   "slug": "t-32",
-  "label": "Internationale Handelszölle",
-  "description": "Keywords: USA, Zölle, China, Zöllen, Zoll, Produkte, chinesische, Chinesen, Trump, exportieren",
-  "mismatch_score": -0.5571242535781049,
-  "norm_delta": 0.5571242535781049,
+  "label": "Regional Party Politics",
+  "description": "Keywords: Grünen, Söder, Baden, Partei, Grün, Baden Württemberg, Württemberg, Markus Söder, grünen, Aschermittwoch",
+  "mismatch_score": -0.21935449604883375,
+  "norm_delta": 0.21935449604883372,
   "totals": {
-    "bundestag_minutes": 25,
-    "talkshow_minutes": 94,
-    "bt_share": 8.439037205672609,
-    "ts_share": 91.5609627943274,
-    "bt_normalized_perc": 0.05656260091224261,
-    "ts_normalized_perc": 0.6136868544903475
+    "bundestag_minutes": 54,
+    "talkshow_minutes": 56,
+    "bt_share": 28.344105793716384,
+    "ts_share": 71.65589420628362,
+    "bt_normalized_perc": 0.14354999574507205,
+    "ts_normalized_perc": 0.36290449179390577
   },
   "timeseries": []
 }

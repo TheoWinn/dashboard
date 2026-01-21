@@ -1,16 +1,16 @@
 {
   "slug": "t-93",
-  "label": "Deutsche Stahlindustrie",
-  "description": "Keywords: Stahl, Stahlindustrie, Wettbewerb, Kommission, deutsche Stahlindustrie, schulden, IG Metall, IG, Stahlproduktion, Wettbewerbsverzerrung",
-  "mismatch_score": 0.15588392805499715,
-  "norm_delta": 0.15588392805499712,
+  "label": "Official Administrative Affairs",
+  "description": "Keywords: Amt, Bioenergie, Präsidentin, Minister, Mitarbeitern, Zusammenarbeit, Ort, danken, Deiche, Wahleinsprüche",
+  "mismatch_score": 0.39651673082204264,
+  "norm_delta": 0.39651673082204264,
   "totals": {
-    "bundestag_minutes": 92,
-    "talkshow_minutes": 8,
-    "bt_share": 79.56142865101597,
-    "ts_share": 20.43857134898403,
-    "bt_normalized_perc": 0.20977247355332937,
-    "ts_normalized_perc": 0.05388854549833224
+    "bundestag_minutes": 150,
+    "talkshow_minutes": 0,
+    "bt_share": 99.3298442016069,
+    "ts_share": 0.6701557983930932,
+    "bt_normalized_perc": 0.39921011036358606,
+    "ts_normalized_perc": 0.002693379541543425
   },
   "timeseries": []
 }

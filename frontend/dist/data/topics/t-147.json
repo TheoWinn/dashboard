@@ -1,16 +1,16 @@
 {
   "slug": "t-147",
-  "label": "Arbeitsmoral Work-Life-Balance",
-  "description": "Keywords: faul, arbeiten, Work Life, Stunden, Life Balance, Life, Work, Bürger anpacken, 15 Euro, Balance",
-  "mismatch_score": -0.012165594587639845,
-  "norm_delta": 0.012165594587639848,
+  "label": "Ukraine leadership legitimacy",
+  "description": "Keywords: Selenskyj, Marionette, Selensky, Ukraine, Klitschko, Gebietsabtretungen, Amt halten, Demokratiebewegung, korrupte, Poroschenko",
+  "mismatch_score": -0.06877972719147275,
+  "norm_delta": 0.06877972719147275,
   "totals": {
-    "bundestag_minutes": 17,
-    "talkshow_minutes": 8,
-    "bt_share": 43.35799690119845,
-    "ts_share": 56.64200309880155,
-    "bt_normalized_perc": 0.03970758554202572,
-    "ts_normalized_perc": 0.05187318012966557
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 11,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.06877972719147275
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-11",
-  "label": "Bildungs Familienpolitik",
-  "description": "Keywords: Kinder, Bildung, Schule, Eltern, Schulen, Familien, Kindern, Familie, Kind, Ganztag",
-  "mismatch_score": 0.9714384227105447,
-  "norm_delta": 0.9714384227105448,
+  "label": "Media, Free Speech",
+  "description": "Keywords: Medien, Meinungsfreiheit, Social Media, Raum Raum, Social, Media, Journalismus, Plattformen, Journalisten, News",
+  "mismatch_score": -0.7117255025887075,
+  "norm_delta": 0.7117255025887075,
   "totals": {
-    "bundestag_minutes": 689,
-    "talkshow_minutes": 92,
-    "bt_share": 72.31461949586908,
-    "ts_share": 27.685380504130915,
-    "bt_normalized_perc": 1.5740622401153852,
-    "ts_normalized_perc": 0.6026238174048404
+    "bundestag_minutes": 106,
+    "talkshow_minutes": 152,
+    "bt_share": 22.105539668123804,
+    "ts_share": 77.89446033187619,
+    "bt_normalized_perc": 0.2820107674266629,
+    "ts_normalized_perc": 0.9937362700153703
   },
   "timeseries": []
 }

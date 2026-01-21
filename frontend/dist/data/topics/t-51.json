@@ -1,16 +1,16 @@
 {
   "slug": "t-51",
-  "label": "Feministische Außenpolitik",
-  "description": "Keywords: Frauen, Gleichstellung, Resolution, Außenpolitik, feministische, Männer, feministische Außenpolitik, Gleichberechtigung, Baerbock, Männern",
-  "mismatch_score": 0.12921878864985123,
-  "norm_delta": 0.12921878864985126,
+  "label": "Trump Greenland proposal",
+  "description": "Keywords: Grönland, Trump, Dänemark, NATO, Grönlands, USA, Donald Trump, Grönländer, Panama, Donald",
+  "mismatch_score": -0.3337821828143621,
+  "norm_delta": 0.3337821828143621,
   "totals": {
-    "bundestag_minutes": 118,
-    "talkshow_minutes": 21,
-    "bt_share": 65.84475516949583,
-    "ts_share": 34.15524483050417,
-    "bt_normalized_perc": 0.2684919839698291,
-    "ts_normalized_perc": 0.13927319531997784
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 51,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.3337821828143621
   },
   "timeseries": []
 }

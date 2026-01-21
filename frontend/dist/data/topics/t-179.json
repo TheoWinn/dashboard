@@ -1,16 +1,16 @@
 {
   "slug": "t-179",
-  "label": "Demokratische Prinzipien",
-  "description": "Keywords: Logik, Ehre, demokratischen Parteien, Hohen Haus, demokratischen, Akkreditierung, Minderheiten, Parteien, Demokratie, Freiheitsbewegung",
-  "mismatch_score": 0.10190985422037707,
-  "norm_delta": 0.10190985422037706,
+  "label": "Development Aid Budget",
+  "description": "Keywords: BMZ, Euro, Milliarden, Entwicklungspolitik, Einzelplan 23, Milliarden Euro, wirtschaftliche Zusammenarbeit, Millionen, Einzelplan, 23",
+  "mismatch_score": 0.13859368257818985,
+  "norm_delta": 0.13859368257818985,
   "totals": {
-    "bundestag_minutes": 45,
+    "bundestag_minutes": 52,
     "talkshow_minutes": 0,
-    "bt_share": 98.64700770244947,
-    "ts_share": 1.3529922975505226,
-    "bt_normalized_perc": 0.10332703540290768,
-    "ts_normalized_perc": 0.0014171811825306174
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.13859368257818985,
+    "ts_normalized_perc": 0
   },
   "timeseries": []
 }

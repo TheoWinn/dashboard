@@ -1,16 +1,16 @@
 {
   "slug": "t-106",
-  "label": "Medien & Journalismus",
-  "description": "Keywords: Journalismus, Journalisten, Influencer, FAZ, Medien, Kostüm, Anzug, News, Verbreitung, Weißen Haus",
-  "mismatch_score": -0.1335141171517834,
-  "norm_delta": 0.1335141171517834,
+  "label": "Threats to Democracy",
+  "description": "Keywords: Demokratie, fußen, unveräußerlichen, Demokratie Gefahr, bezogen, externe, Wahlen, Mehrheit, to, Gesetze",
+  "mismatch_score": -0.01894028911684741,
+  "norm_delta": 0.018940289116847406,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 21,
-    "bt_share": 0.645767833592345,
-    "ts_share": 99.35423216640766,
-    "bt_normalized_perc": 0.0008734724298454966,
-    "ts_normalized_perc": 0.1343875895816289
+    "bundestag_minutes": 28,
+    "talkshow_minutes": 14,
+    "bt_share": 44.32486514861078,
+    "ts_share": 55.67513485138922,
+    "bt_normalized_perc": 0.07396526980979622,
+    "ts_normalized_perc": 0.09290555892664362
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-4",
-  "label": "Rentenpolitik",
-  "description": "Keywords: Rente, Rentenversicherung, Renten, Rentenniveau, Rentner, gesetzliche, Generation, Rentenpaket, Mütterrente, Aktivrente",
-  "mismatch_score": -0.9385206402034982,
-  "norm_delta": 0.9385206402034985,
+  "label": "Climate Change Mitigation",
+  "description": "Keywords: CO2, Klimaschutz, Klimawandel, Klima, Emissionen, Klimapolitik, Klimakrise, Bepreisung, CO2 Bepreisung, Klimaziele",
+  "mismatch_score": 2.7550662360829343,
+  "norm_delta": 2.7550662360829343,
   "totals": {
-    "bundestag_minutes": 674,
-    "talkshow_minutes": 380,
-    "bt_share": 38.32298488608825,
-    "ts_share": 61.67701511391175,
-    "bt_normalized_perc": 1.540073039168645,
-    "ts_normalized_perc": 2.4785936793721435
+    "bundestag_minutes": 1217,
+    "talkshow_minutes": 76,
+    "bt_share": 86.82008990788869,
+    "ts_share": 13.179910092111314,
+    "bt_normalized_perc": 3.2481601608971276,
+    "ts_normalized_perc": 0.49309392481419323
   },
   "timeseries": []
 }

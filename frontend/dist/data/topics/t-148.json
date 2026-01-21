@@ -1,16 +1,16 @@
 {
   "slug": "t-148",
-  "label": "Hochschulsystem Vergleich",
-  "description": "Keywords: Universität, Universitäten, Harvard, Michigan, Uni, Studenten, Professoren, Stanley, studiert, Amerika",
-  "mismatch_score": -0.05301549712115958,
-  "norm_delta": 0.05301549712115958,
+  "label": "Wealth distribution debate",
+  "description": "Keywords: Milliardäre, Milliardär, Leistungsträger, Millionäre, leistungsloses Einkommen, leistungsloses, Vermögen, 000 Million, Superreichen, Deutschland durchschnittlich",
+  "mismatch_score": -0.062346817096144834,
+  "norm_delta": 0.062346817096144834,
   "totals": {
-    "bundestag_minutes": 6,
+    "bundestag_minutes": 0,
     "talkshow_minutes": 10,
-    "bt_share": 16.77669562827334,
-    "ts_share": 83.22330437172666,
-    "bt_normalized_perc": 0.013385556849369335,
-    "ts_normalized_perc": 0.06640105397052891
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.062346817096144834
   },
   "timeseries": []
 }

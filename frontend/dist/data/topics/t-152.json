@@ -1,16 +1,16 @@
 {
   "slug": "t-152",
-  "label": "Wirtschaft stärken Investitionen",
-  "description": "Keywords: Wirtschaft, stärken, Investitionen, Land, Rahmenbedingungen, kommende Generationen, Deutschland, zurückgewinnen, investieren, Standort",
-  "mismatch_score": 0.2927700879377435,
-  "norm_delta": 0.2927700879377435,
+  "label": "CDU party alignment",
+  "description": "Keywords: CDU, Linken, Umgang finden, CDU pur, Mehrheit, Linkspartei, AfD, schockiert, pur, veränderten",
+  "mismatch_score": -0.035852546351275764,
+  "norm_delta": 0.03585254635127576,
   "totals": {
-    "bundestag_minutes": 128,
-    "talkshow_minutes": 0,
-    "bt_share": 100,
-    "ts_share": 0,
-    "bt_normalized_perc": 0.2927700879377435,
-    "ts_normalized_perc": 0
+    "bundestag_minutes": 7,
+    "talkshow_minutes": 8,
+    "bt_share": 25.628345718325324,
+    "ts_share": 74.37165428167468,
+    "bt_normalized_perc": 0.018850617240694773,
+    "ts_normalized_perc": 0.054703163591970534
   },
   "timeseries": []
 }

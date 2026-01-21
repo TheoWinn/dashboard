@@ -1,16 +1,16 @@
 {
   "slug": "t-67",
-  "label": "Vermögensbesteuerung Erbschaftssteuer",
-  "description": "Keywords: Vermögen, besteuert, Steuern, Erbschaftssteuer, Deutschland, Stellen Deutschland, Vermögenssteuer, Vermögensverteilung, besteuern, zahlen",
-  "mismatch_score": -0.15271832381490288,
-  "norm_delta": 0.15271832381490288,
+  "label": "Digital Government Modernization",
+  "description": "Keywords: digitale, Ministerium, Digitalisierung, Wildberger, Verwaltung, Staatsmodernisierung, digital, digitalen, Modernisierungsagenda, KI",
+  "mismatch_score": 0.38307744708993746,
+  "norm_delta": 0.3830774470899375,
   "totals": {
-    "bundestag_minutes": 24,
-    "talkshow_minutes": 32,
-    "bt_share": 20.9336204372591,
-    "ts_share": 79.06637956274089,
-    "bt_normalized_perc": 0.05499390485930439,
-    "ts_normalized_perc": 0.20771222867420727
+    "bundestag_minutes": 165,
+    "talkshow_minutes": 9,
+    "bt_share": 88.38158185549989,
+    "ts_share": 11.618418144500115,
+    "bt_normalized_perc": 0.44105778227746106,
+    "ts_normalized_perc": 0.057980335187523574
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-198",
-  "label": "Gesellschaftliche Probleme Migration",
-  "description": "Keywords: Kriegen, Alternativen, Vieles unserem, Land ändern, suchen, echten Probleme, Begrenzung Migration, Vieles, gelingt, Probleme",
-  "mismatch_score": 0.018221732773645413,
-  "norm_delta": 0.018221732773645416,
+  "label": "Cologne Local Socials",
+  "description": "Keywords: Chorweiler, Stillhalteprämie, Köln Chorweiler, Falschen, Köln, Wählern versprochen, Sozialabbau, Stadtteil, Merz, Markus Söder",
+  "mismatch_score": 0.05848149501588333,
+  "norm_delta": 0.05848149501588333,
   "totals": {
-    "bundestag_minutes": 25,
-    "talkshow_minutes": 6,
-    "bt_share": 59.60522456134773,
-    "ts_share": 40.39477543865227,
-    "bt_normalized_perc": 0.056537484726833384,
-    "ts_normalized_perc": 0.03831575195318797
+    "bundestag_minutes": 31,
+    "talkshow_minutes": 4,
+    "bt_share": 76.81122515945187,
+    "ts_share": 23.18877484054813,
+    "bt_normalized_perc": 0.08377154073734638,
+    "ts_normalized_perc": 0.02529004572146305
   },
   "timeseries": []
 }

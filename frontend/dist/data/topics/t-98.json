@@ -1,16 +1,16 @@
 {
   "slug": "t-98",
-  "label": "Entwicklungspolitik Afrika",
-  "description": "Keywords: Afrika, Entwicklungszusammenarbeit, Entwicklungspolitik, Zusammenarbeit, afrikanischen, wirtschaftliche Zusammenarbeit, Abkommen, wirtschaftliche, Vietnam, Partnerländer",
-  "mismatch_score": 0.24092870956753829,
-  "norm_delta": 0.24092870956753829,
+  "label": "AfD's Political Status",
+  "description": "Keywords: Partei, AfD, Parteien, Unvereinbarkeitsbeschluss, demokratischen Parteien, Linkspartei, normale Partei, CDU, AfD normale, Brandmauer",
+  "mismatch_score": -0.1607894860203437,
+  "norm_delta": 0.1607894860203437,
   "totals": {
-    "bundestag_minutes": 114,
-    "talkshow_minutes": 3,
-    "bt_share": 93.222453382267,
-    "ts_share": 6.777546617732998,
-    "bt_normalized_perc": 0.25981826155805743,
-    "ts_normalized_perc": 0.018889551990519143
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 25,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.1607894860203437
   },
   "timeseries": []
 }

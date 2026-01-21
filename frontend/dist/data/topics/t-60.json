@@ -1,16 +1,16 @@
 {
   "slug": "t-60",
-  "label": "Jugendschutz Sozial Medien",
-  "description": "Keywords: Social Media, Social, Media, Jugendliche, Kinder, Kinder Jugendliche, Verbot, Eltern, Australien, 16",
-  "mismatch_score": -0.1915292250955461,
-  "norm_delta": 0.1915292250955461,
+  "label": "Welcoming Guests Policy",
+  "description": "Keywords: willkommen, Gäste, Herzlich, Berlin Gäste, begrüße, Herzlich willkommen, Berlin, willkommen Berlin, herzlich willkommen, Korrespondentin",
+  "mismatch_score": -0.2869045190309382,
+  "norm_delta": 0.2869045190309382,
   "totals": {
-    "bundestag_minutes": 28,
-    "talkshow_minutes": 39,
-    "bt_share": 19.990402179500112,
-    "ts_share": 80.00959782049989,
-    "bt_normalized_perc": 0.06379202849850446,
-    "ts_normalized_perc": 0.25532125359405056
+    "bundestag_minutes": 4,
+    "talkshow_minutes": 46,
+    "bt_share": 3.488751661386724,
+    "ts_share": 96.51124833861327,
+    "bt_normalized_perc": 0.010760177948154245,
+    "ts_normalized_perc": 0.2976646969790925
   },
   "timeseries": []
 }

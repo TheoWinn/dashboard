@@ -1,16 +1,16 @@
 {
   "slug": "t-177",
-  "label": "Produktsicherheit Verbraucherschutz EU",
-  "description": "Keywords: Produktsicherheitsgesetz, Produktsicherheit, Produkte, Verbraucher, Verordnung, Vertrauen, Arbeitsschutz, EU Verordnung, Barrierefreiheit, Sprache",
-  "mismatch_score": 0.08505752213623469,
-  "norm_delta": 0.08505752213623469,
+  "label": "Historical War Crimes",
+  "description": "Keywords: Stalin, Kriegsverbrechen, Bilder, Stalin Pakt, Hitler Stalin, Krieg, Hitler, völkerrechtswidrig, Völkerrecht, Kriegsverbrecher",
+  "mismatch_score": -0.08148845622420607,
+  "norm_delta": 0.08148845622420607,
   "totals": {
-    "bundestag_minutes": 37,
-    "talkshow_minutes": 0,
-    "bt_share": 100,
-    "ts_share": 0,
-    "bt_normalized_perc": 0.08505752213623469,
-    "ts_normalized_perc": 0
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 12,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.08148845622420607
   },
   "timeseries": []
 }

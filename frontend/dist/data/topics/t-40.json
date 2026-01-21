@@ -1,16 +1,16 @@
 {
   "slug": "t-40",
-  "label": "Bürgergeld Arbeitsanreize",
-  "description": "Keywords: Bürgergeld, arbeiten, Arbeit, Arbeitsmarkt, Leute, Arbeit bringen, bringen, Leute Bürgergeld, Bürgergeld beziehen, Jobs",
-  "mismatch_score": -0.3065456607241822,
-  "norm_delta": 0.3065456607241822,
+  "label": "Energy transition strategy",
+  "description": "Keywords: Wasserstoff, Energien, Strom, Gaskraftwerke, Energiewende, Gas, Energie, Erneuerbaren, erneuerbaren, Energiepolitik",
+  "mismatch_score": 0.42294196372380394,
+  "norm_delta": 0.422941963723804,
   "totals": {
-    "bundestag_minutes": 46,
-    "talkshow_minutes": 63,
-    "bt_share": 20.261663538999525,
-    "ts_share": 79.73833646100047,
-    "bt_normalized_perc": 0.10442959788754645,
-    "ts_normalized_perc": 0.4109752586117287
+    "bundestag_minutes": 222,
+    "talkshow_minutes": 26,
+    "bt_share": 77.70092942265761,
+    "ts_share": 22.299070577342388,
+    "bt_normalized_perc": 0.5931747482505706,
+    "ts_normalized_perc": 0.17023278452676663
   },
   "timeseries": []
 }

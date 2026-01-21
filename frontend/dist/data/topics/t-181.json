@@ -1,16 +1,16 @@
 {
   "slug": "t-181",
-  "label": "AfD Aufstieg Parteiendemokratie",
-  "description": "Keywords: AfD, Partei, Staatsfreiheit, Aufregung Berlin, AfD hinaus, Aufregung, Positionen, AfD wächst, Parteiendemokratie, Parteien",
-  "mismatch_score": -0.04867357383111038,
-  "norm_delta": 0.04867357383111038,
+  "label": "Volunteer Work Support",
+  "description": "Keywords: Übungsleiterpauschale, Ehrenamtspauschale, Freiwilligkeit, engagieren, Ehrenamts Übungsleiterpauschale, Engagement, Freiwilligendienst, Ehrenamts, Ehrenamt, liegt Verantwortung",
+  "mismatch_score": 0.04072840476004475,
+  "norm_delta": 0.040728404760044745,
   "totals": {
-    "bundestag_minutes": 4,
-    "talkshow_minutes": 9,
-    "bt_share": 13.383115341853664,
-    "ts_share": 86.61688465814633,
-    "bt_normalized_perc": 0.008894859007851988,
-    "ts_normalized_perc": 0.05756843283896237
+    "bundestag_minutes": 21,
+    "talkshow_minutes": 2,
+    "bt_share": 79.50932558537339,
+    "ts_share": 20.490674414626614,
+    "bt_normalized_perc": 0.05486889195875695,
+    "ts_normalized_perc": 0.014140487198712205
   },
   "timeseries": []
 }

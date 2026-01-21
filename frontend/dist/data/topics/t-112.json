@@ -1,15 +1,15 @@
 {
   "slug": "t-112",
-  "label": "Diskriminierung sexuelle Identität",
-  "description": "Keywords: Artikel, Grundgesetz, Diskriminierung, Identität, queere, queerer, sexuelle, Artikel Absatz, sexuellen, Ergänzung",
-  "mismatch_score": 0.13478886311060448,
-  "norm_delta": 0.13478886311060448,
+  "label": "Coastal Environmental Protection",
+  "description": "Keywords: Küstenschutz, GAK, Naturschutz, Klimaschutz, Schutz, Küsten, Minister, Millionen Euro, Umwelt, Umweltschutz",
+  "mismatch_score": 0.19224244538911886,
+  "norm_delta": 0.19224244538911886,
   "totals": {
-    "bundestag_minutes": 59,
+    "bundestag_minutes": 72,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.13478886311060448,
+    "bt_normalized_perc": 0.19224244538911886,
     "ts_normalized_perc": 0
   },
   "timeseries": []

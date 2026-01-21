@@ -1,16 +1,16 @@
 {
   "slug": "t-53",
-  "label": "Sportförderung Großveranstaltungen",
-  "description": "Keywords: Sport, Spiele, Sportstätten, olympische, Olympia, Athleten, Bewerbung, Sportmilliarde, Ehrenamt, paralympische",
-  "mismatch_score": 0.6029190103334491,
-  "norm_delta": 0.6029190103334491,
+  "label": "Working hours reform",
+  "description": "Keywords: Arbeitszeit, Stunden, arbeiten, Arbeitszeitgesetz, Beschäftigten, Wochenarbeitszeit, Höchstarbeitszeit, Arbeitszeiten, 40 Stunden, Flexibilität",
+  "mismatch_score": 0.15419470402423052,
+  "norm_delta": 0.15419470402423052,
   "totals": {
-    "bundestag_minutes": 265,
-    "talkshow_minutes": 1,
-    "bt_share": 99.4623807576588,
-    "ts_share": 0.5376192423411928,
-    "bt_normalized_perc": 0.606195650646384,
-    "ts_normalized_perc": 0.0032766403129350016
+    "bundestag_minutes": 98,
+    "talkshow_minutes": 17,
+    "bt_share": 70.76336996141708,
+    "ts_share": 29.236630038582923,
+    "bt_normalized_perc": 0.2627544783730556,
+    "ts_normalized_perc": 0.10855977434882508
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-42",
-  "label": "Vermögens- Erbschaftssteuer",
-  "description": "Keywords: Erbschaftssteuer, Vermögen, Steuern, Einkommen, zahlen, Vermögensteuer, Vermögenssteuer, Unternehmen, Abgeltungssteuer, Betriebsvermögen",
-  "mismatch_score": -0.23259941194272626,
-  "norm_delta": 0.2325994119427263,
+  "label": "Nuclear power phase-out",
+  "description": "Keywords: Kernkraftwerke, Jülich, Kernenergie, Atomkraft, Ahaus, Abfälle, Kernkraft, Strom, Zwischenlager, Atomenergie",
+  "mismatch_score": 0.5422606677740511,
+  "norm_delta": 0.5422606677740511,
   "totals": {
-    "bundestag_minutes": 65,
-    "talkshow_minutes": 58,
-    "bt_share": 28.029905532882868,
-    "ts_share": 71.97009446711714,
-    "bt_normalized_perc": 0.1483775946780039,
-    "ts_normalized_perc": 0.3809770066207302
+    "bundestag_minutes": 220,
+    "talkshow_minutes": 7,
+    "bt_share": 93.02456732472801,
+    "ts_share": 6.975432675271986,
+    "bt_normalized_perc": 0.5862181438824972,
+    "ts_normalized_perc": 0.04395747610844608
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-166",
-  "label": "Arbeitsplatzabbau Strukturwandel",
-  "description": "Keywords: Arbeitsplätze, 000 Jobs, Strukturwandel, Jobs, 000, Niedergang, Stellenabbau, abgebaut, runter, Lufthansa",
-  "mismatch_score": -0.015039562112734549,
-  "norm_delta": 0.015039562112734543,
+  "label": "US Democratic Politics",
+  "description": "Keywords: Demokraten, New, Virginia, New York, York, Harris, New Jersey, Jersey, Kandidaten, Mamdani",
+  "mismatch_score": -0.06392751289973883,
+  "norm_delta": 0.06392751289973883,
   "totals": {
-    "bundestag_minutes": 21,
+    "bundestag_minutes": 0,
     "talkshow_minutes": 10,
-    "bt_share": 43.12385072220978,
-    "ts_share": 56.87614927779022,
-    "bt_normalized_perc": 0.047160394959124205,
-    "ts_normalized_perc": 0.06219995707185875
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.06392751289973883
   },
   "timeseries": []
 }

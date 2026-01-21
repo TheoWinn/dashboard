@@ -1,16 +1,16 @@
 {
   "slug": "t-107",
-  "label": "Srebrenica Völkermord Gedenken",
-  "description": "Keywords: Srebrenica, Bosnien, Herzegowina, Bosnien Herzegowina, Völkermord, Dayton, Debatte erinnere, erinnere Thema, Thema Debatte, 1995",
-  "mismatch_score": 0.20773654034212674,
-  "norm_delta": 0.20773654034212674,
+  "label": "German View on Trump",
+  "description": "Keywords: Trump, Donald Trump, Donald, Röttgen, Wurzeln, erstaunliche, 20 Januar, Herrn Trump, Deutschland, Lancer",
+  "mismatch_score": -0.1305397082526932,
+  "norm_delta": 0.1305397082526932,
   "totals": {
-    "bundestag_minutes": 91,
-    "talkshow_minutes": 0,
-    "bt_share": 100,
-    "ts_share": 0,
-    "bt_normalized_perc": 0.20773654034212674,
-    "ts_normalized_perc": 0
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 20,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.1305397082526932
   },
   "timeseries": []
 }

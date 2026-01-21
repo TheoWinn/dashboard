@@ -1,16 +1,16 @@
 {
   "slug": "t-3",
-  "label": "Migrationspolitik Deutschland",
-  "description": "Keywords: Migration, Grenze, Grenzkontrollen, Asyl, Grenzen, Deutschland, Migrationspolitik, illegale, Zahlen, Integration",
-  "mismatch_score": -1.3288252532379725,
-  "norm_delta": 1.3288252532379725,
+  "label": "German Pension Reform",
+  "description": "Keywords: Rente, Rentenversicherung, Renten, Rentenniveau, Rentner, gesetzliche, Mütterrente, Generation, Rentenpaket, Aktivrente",
+  "mismatch_score": -0.8887950778628158,
+  "norm_delta": 0.8887950778628158,
   "totals": {
-    "bundestag_minutes": 1054,
-    "talkshow_minutes": 573,
-    "bt_share": 39.18149270509227,
-    "ts_share": 60.81850729490773,
-    "bt_normalized_perc": 2.4063096482170483,
-    "ts_normalized_perc": 3.735134901455021
+    "bundestag_minutes": 748,
+    "talkshow_minutes": 442,
+    "bt_share": 40.89621661708679,
+    "ts_share": 59.10378338291321,
+    "bt_normalized_perc": 1.9963324314537227,
+    "ts_normalized_perc": 2.8851275093165385
   },
   "timeseries": []
 }

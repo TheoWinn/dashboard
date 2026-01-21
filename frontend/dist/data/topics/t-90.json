@@ -1,16 +1,16 @@
 {
   "slug": "t-90",
-  "label": "Küstenschutz Politik",
-  "description": "Keywords: Küstenschutz, Naturschutz, Millionen Euro, Millionen, Euro, Umwelt, Umweltschutz, Umweltpolitik, Einzelplan, GAK",
-  "mismatch_score": 0.24531587166415772,
-  "norm_delta": 0.24531587166415772,
+  "label": "Bundeswehr Modernization",
+  "description": "Keywords: Bundeswehr, Gesamtverteidigung, Soldatinnen Soldaten, Soldatinnen, Kasernen, Soldaten, Ausrüstung, Verteidigung, moderne, Infrastruktur",
+  "mismatch_score": -0.0356384190665316,
+  "norm_delta": 0.035638419066531604,
   "totals": {
-    "bundestag_minutes": 107,
-    "talkshow_minutes": 0,
-    "bt_share": 100,
-    "ts_share": 0,
-    "bt_normalized_perc": 0.24531587166415772,
-    "ts_normalized_perc": 0
+    "bundestag_minutes": 36,
+    "talkshow_minutes": 20,
+    "bt_share": 42.221258147796455,
+    "ts_share": 57.778741852203545,
+    "bt_normalized_perc": 0.09671865450587831,
+    "ts_normalized_perc": 0.13235707357240992
   },
   "timeseries": []
 }

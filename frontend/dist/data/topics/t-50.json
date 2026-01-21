@@ -1,16 +1,16 @@
 {
   "slug": "t-50",
-  "label": "Arbeitszeitflexibilisierung",
-  "description": "Keywords: Stunden, Arbeitszeit, Arbeitszeitgesetz, arbeiten, Arbeitszeiten, Höchstarbeitszeit, Flexibilität, Beschäftigten, Beschäftigte, Wochenarbeitszeit",
-  "mismatch_score": 0.0992707219428158,
-  "norm_delta": 0.09927072194281582,
+  "label": "European integration strength",
+  "description": "Keywords: Europa, Europäische, Europäische Union, europäische, stärker, EU, Europäer, 27, Union, europäischen",
+  "mismatch_score": -0.24137364890861543,
+  "norm_delta": 0.2413736489086154,
   "totals": {
-    "bundestag_minutes": 93,
-    "talkshow_minutes": 17,
-    "bt_share": 65.34582326527071,
-    "ts_share": 34.65417673472929,
-    "bt_normalized_perc": 0.21135806594917927,
-    "ts_normalized_perc": 0.11208734400636346
+    "bundestag_minutes": 33,
+    "talkshow_minutes": 50,
+    "bt_share": 21.078301251892576,
+    "ts_share": 78.92169874810743,
+    "bt_normalized_perc": 0.08795725538592851,
+    "ts_normalized_perc": 0.3293309042945439
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-55",
-  "label": "Wahlprozesse Wahlergebnisse",
-  "description": "Keywords: Wahl, wählen, Wähler, Wahlkampf, Suthoff, Wahlen, Parteien, Wahlergebnis, gewählt, gerupft",
-  "mismatch_score": -0.22510352610023912,
-  "norm_delta": 0.22510352610023912,
+  "label": "Sudan humanitarian crisis",
+  "description": "Keywords: Sudan, humanitäre, Südsudan, Al, Faschir, Al Faschir, Hilfe, humanitäre Hilfe, RSF, Millionen",
+  "mismatch_score": 0.5122535256778946,
+  "norm_delta": 0.5122535256778945,
   "totals": {
-    "bundestag_minutes": 9,
-    "talkshow_minutes": 38,
-    "bt_share": 7.933902546997669,
-    "ts_share": 92.06609745300233,
-    "bt_normalized_perc": 0.021227895469269127,
-    "ts_normalized_perc": 0.24633142156950824
+    "bundestag_minutes": 212,
+    "talkshow_minutes": 8,
+    "bt_share": 91.23837130186045,
+    "ts_share": 8.761628698139546,
+    "bt_normalized_perc": 0.5666709899182939,
+    "ts_normalized_perc": 0.05441746424039935
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-19",
-  "label": "Parteien & Wahlen",
-  "description": "Keywords: SPD, Partei, Union, Koalition, Klingbeil, Wähler, Ergebnis, Wählerschaft, CDU, Lars",
-  "mismatch_score": -1.0107021980565911,
-  "norm_delta": 1.0107021980565911,
+  "label": "Drone Defense Policy",
+  "description": "Keywords: Drohnen, Luftraum, Drohne, Bundeswehr, Drohnenabwehr, NATO, Flugzeuge, Flughäfen, Bundespolizei, Bedrohung",
+  "mismatch_score": -0.1023880445441748,
+  "norm_delta": 0.10238804454417477,
   "totals": {
-    "bundestag_minutes": 17,
-    "talkshow_minutes": 161,
-    "bt_share": 3.5838914858776523,
-    "ts_share": 96.41610851412234,
-    "bt_normalized_perc": 0.03901928789733372,
-    "ts_normalized_perc": 1.0497214859539248
+    "bundestag_minutes": 184,
+    "talkshow_minutes": 91,
+    "bt_share": 45.269200803654705,
+    "ts_share": 54.730799196345295,
+    "bt_normalized_perc": 0.48987758262330267,
+    "ts_normalized_perc": 0.5922656271674774
   },
   "timeseries": []
 }

@@ -1,16 +1,16 @@
 {
   "slug": "t-144",
-  "label": "CDU Wahlstrategie",
-  "description": "Keywords: CDU, Startstreich, Bundestagswahl, Mehrheit, SPD, Wähler, CDU Partei, möglicherweise, CDU pur, Idee",
-  "mismatch_score": -0.10145788717064015,
-  "norm_delta": 0.10145788717064015,
+  "label": "German parliamentary affairs",
+  "description": "Keywords: Helferich, Herrn Helferich, Fraktion, Fraktion Bundestag, Buster, Seehofer, wissen Wahl, Projekt, Spitzenkandidatin, Herrn",
+  "mismatch_score": -0.04219149127449863,
+  "norm_delta": 0.04219149127449863,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 16,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.10145788717064015
+    "bundestag_minutes": 1,
+    "talkshow_minutes": 7,
+    "bt_share": 6.6150692666741255,
+    "ts_share": 93.38493073332587,
+    "bt_normalized_perc": 0.0032165504534353985,
+    "ts_normalized_perc": 0.04540804172793403
   },
   "timeseries": []
 }

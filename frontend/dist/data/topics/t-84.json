@@ -1,16 +1,16 @@
 {
   "slug": "t-84",
-  "label": "FDP Politikkultur",
-  "description": "Keywords: Lindner, FDP, unmoralisch, Wahl, Gesichter, Partei, Christian Lindner, Bundestag, getätigt, Kubicki",
-  "mismatch_score": -0.12969056576028556,
-  "norm_delta": 0.12969056576028556,
+  "label": "Defense Policy Consensus",
+  "description": "Keywords: Minderheitsregierung, Mehrheiten, Mehrheit, Regierung, fremde Kriege, notwendigen Mehrheiten, Freiheit, Deutschland verteidigen, Wehrpflicht, einig einig",
+  "mismatch_score": -0.09846347971841361,
+  "norm_delta": 0.0984634797184136,
   "totals": {
-    "bundestag_minutes": 7,
+    "bundestag_minutes": 16,
     "talkshow_minutes": 22,
-    "bt_share": 9.622974974033001,
-    "ts_share": 90.377025025967,
-    "bt_normalized_perc": 0.015454445540214988,
-    "ts_normalized_perc": 0.14514501130050056
+    "bt_share": 23.010244481551883,
+    "ts_share": 76.98975551844812,
+    "bt_normalized_perc": 0.041972754056189686,
+    "ts_normalized_perc": 0.1404362337746033
   },
   "timeseries": []
 }

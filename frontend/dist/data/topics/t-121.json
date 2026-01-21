@@ -1,16 +1,16 @@
 {
   "slug": "t-121",
-  "label": "Ahrtal Flutfolgen",
-  "description": "Keywords: zugemauert, Fenster zugemauert, zugemauert Fenster, Fenster, Ahrtal, Geschichte, gesehen, erzählt, beschreibst, erzählen",
-  "mismatch_score": -0.05729002151567279,
-  "norm_delta": 0.05729002151567279,
+  "label": "Progressive Taxation Debate",
+  "description": "Keywords: Vermögensteuer, Erbschaftssteuer, Reichensteuer, SPD, Spitzensteuersatz, mittlere Einkommen, Vermögenssteuer, mittlere, Unternehmenssteuer, Steuern",
+  "mismatch_score": -0.0884580853829689,
+  "norm_delta": 0.0884580853829689,
   "totals": {
-    "bundestag_minutes": 3,
-    "talkshow_minutes": 10,
-    "bt_share": 9.378072351289019,
-    "ts_share": 90.62192764871098,
-    "bt_normalized_perc": 0.006613053563423555,
-    "ts_normalized_perc": 0.06390307507909634
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 14,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.0884580853829689
   },
   "timeseries": []
 }

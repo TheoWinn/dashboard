@@ -1,15 +1,15 @@
 {
   "slug": "t-184",
-  "label": "Deutsche Tourismusstrategie",
-  "description": "Keywords: Tourismus, Zentrale Tourismus, Zentrale, Deutsche Zentrale, Tourismusstrategie, Tourismusbranche, Branche, Millionen, Schnittstelle, Gastronomie",
-  "mismatch_score": 0.08813303709442112,
-  "norm_delta": 0.08813303709442112,
+  "label": "Yazidi Democracy Promotion",
+  "description": "Keywords: Vormittag, Gatekeeper, Jesidinnen Jesiden, Jesidinnen, Demokratiefördergesetz, Grünen, Jesiden, Demokratie, Fragebogen, Abstimmung steht",
+  "mismatch_score": 0.11795859865782271,
+  "norm_delta": 0.11795859865782271,
   "totals": {
-    "bundestag_minutes": 39,
+    "bundestag_minutes": 44,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.08813303709442112,
+    "bt_normalized_perc": 0.11795859865782271,
     "ts_normalized_perc": 0
   },
   "timeseries": []

@@ -1,0 +1,16 @@
+{
+  "slug": "t-201",
+  "label": "German Economic Investment",
+  "description": "Keywords: Investitionen, Stärkung Standorts, ADAC, Standorts Deutschland, Kultur, Land, Standorts, glorreichen, Finanzkontrolle, Arbeitsplätze sichern",
+  "mismatch_score": 0.10099840316898863,
+  "norm_delta": 0.10099840316898863,
+  "totals": {
+    "bundestag_minutes": 38,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.10099840316898863,
+    "ts_normalized_perc": 0
+  },
+  "timeseries": []
+}

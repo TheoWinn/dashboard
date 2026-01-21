@@ -1,16 +1,16 @@
 {
   "slug": "t-25",
-  "label": "Afghanistan-Einsatz Nachwirkungen",
-  "description": "Keywords: Afghanistan, Taliban, Ortskräfte, Pakistan, Afghanen, afghanischen, Aufnahmezusage, Einsatz, Kabul, Bundeswehr",
-  "mismatch_score": 0.5870389742395057,
-  "norm_delta": 0.5870389742395057,
+  "label": "German Reunification Legacy",
+  "description": "Keywords: Einheit, DDR, 35, 17 Juni, SED, 1990, deutsche Einheit, Wiedervereinigung, Demokratie, Juni",
+  "mismatch_score": 1.1195403753317552,
+  "norm_delta": 1.1195403753317552,
   "totals": {
-    "bundestag_minutes": 330,
-    "talkshow_minutes": 26,
-    "bt_share": 81.87768424604367,
-    "ts_share": 18.122315753956325,
-    "bt_normalized_perc": 0.7539034423253155,
-    "ts_normalized_perc": 0.16686446808580982
+    "bundestag_minutes": 439,
+    "talkshow_minutes": 8,
+    "bt_share": 95.69524300461345,
+    "ts_share": 4.304756995386557,
+    "bt_normalized_perc": 1.1722739745582709,
+    "ts_normalized_perc": 0.05273359922651575
   },
   "timeseries": []
 }

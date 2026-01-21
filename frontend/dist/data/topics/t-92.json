@@ -1,16 +1,16 @@
 {
   "slug": "t-92",
-  "label": "Familienunternehmen",
-  "description": "Keywords: Firma, Vater, Familie, Mutter, Familienunternehmen, Bruder, Kind, Inhaber, Kinder, vietnamesischen",
-  "mismatch_score": -0.0937641674329506,
-  "norm_delta": 0.0937641674329506,
+  "label": "Political Report Controversy",
+  "description": "Keywords: Bericht, Sudhoff, Prozessrisiken, Berichtes, Informationsfreiheitsgesetz, gelaufen, Spahn, Warken, wissen, weiß",
+  "mismatch_score": -0.09413832122679099,
+  "norm_delta": 0.09413832122679099,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 14,
-    "bt_share": 0.4050248453175406,
-    "ts_share": 99.59497515468246,
-    "bt_normalized_perc": 0.00038286960818522813,
-    "ts_normalized_perc": 0.09414703704113583
+    "bundestag_minutes": 4,
+    "talkshow_minutes": 16,
+    "bt_share": 9.553861823260837,
+    "ts_share": 90.44613817673917,
+    "bt_normalized_perc": 0.01111829897510148,
+    "ts_normalized_perc": 0.10525662020189247
   },
   "timeseries": []
 }

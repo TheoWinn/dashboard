@@ -1,16 +1,16 @@
 {
   "slug": "t-23",
-  "label": "Tech-Milliardäre & Einfluss",
-  "description": "Keywords: Musk, Elon, Elon Musk, Trump, Zuckerberg, Plattform, Milliardäre, Tesla, Tech, Donald",
-  "mismatch_score": -0.5764261751684034,
-  "norm_delta": 0.5764261751684034,
+  "label": "Innovation & AI",
+  "description": "Keywords: Hightech, Forschung, Agenda, Hightech Agenda, Innovation, Wissenschaft, Bär, Technologien, KI, Ministerin",
+  "mismatch_score": 1.0017989092551192,
+  "norm_delta": 1.0017989092551192,
   "totals": {
-    "bundestag_minutes": 34,
-    "talkshow_minutes": 100,
-    "bt_share": 10.597733042467592,
-    "ts_share": 89.4022669575324,
-    "bt_normalized_perc": 0.07751851853739089,
-    "ts_normalized_perc": 0.6539446937057943
+    "bundestag_minutes": 421,
+    "talkshow_minutes": 19,
+    "bt_share": 90.20684627931138,
+    "ts_share": 9.793153720688625,
+    "bt_normalized_perc": 1.1238026427411965,
+    "ts_normalized_perc": 0.1220037334860774
   },
   "timeseries": []
 }
