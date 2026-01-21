@@ -23,7 +23,8 @@ run_at = datetime.now() + timedelta(minutes=1)
 schedule = f"{run_at.minute} {run_at.hour} {run_at.day} {run_at.month} *"  # runs yearly on that date unless removed
 
 weekly_job = cron.new(
-    command=build_cmd(""),   
+    # command=build_cmd("--skip-download-videos --skip-download-protocols --skip-cluster --skip-match --skip-bert --skip-database"), 
+    command=build_cmd(""),  
     comment="pipeline_weekly",
 )
 weekly_job.setall(schedule)
