@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run export:data && vite",
     "export:data": "node src/scripts/export_data.mjs",
     "build": "npm run export:data && vite build",
     "lint": "eslint .",
