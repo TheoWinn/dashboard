@@ -20,6 +20,7 @@ git fetch origin --prune
 git checkout "$BUILD_BRANCH" 2>/dev/null || git checkout -b "$BUILD_BRANCH" "origin/$BUILD_BRANCH"
 git reset --hard "origin/$BUILD_BRANCH"
 git clean -fd
+rm -rf "$DIST_DIR"
 
 # Build
 "$NPM" --prefix "$FRONTEND_DIR" ci
