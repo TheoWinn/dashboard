@@ -12,5 +12,17 @@
     "bt_normalized_perc": 0.1541699472266052,
     "ts_normalized_perc": 0.08279534167394936
   },
-  "timeseries": []
+  "timeseries": [
+    {
+      "window_start": "2025-05-21",
+      "window_end": "2025-06-18",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 3,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.20915910320951095,
+      "norm_delta": 0.20915910320951095
+    }
+  ]
 }

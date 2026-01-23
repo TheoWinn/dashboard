@@ -12,5 +12,72 @@
     "bt_normalized_perc": 0.5629958605370995,
     "ts_normalized_perc": 0.13652108147433487
   },
-  "timeseries": []
+  "timeseries": [
+    {
+      "window_start": "2025-01-29",
+      "window_end": "2025-02-26",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.028924599047356565,
+      "norm_delta": 0.028924599047356565
+    },
+    {
+      "window_start": "2025-02-26",
+      "window_end": "2025-03-26",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 1,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.08122813836814312,
+      "norm_delta": 0.08122813836814312
+    },
+    {
+      "window_start": "2025-03-26",
+      "window_end": "2025-04-23",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 3,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.2601365164973615,
+      "norm_delta": 0.2601365164973615
+    },
+    {
+      "window_start": "2025-04-23",
+      "window_end": "2025-05-21",
+      "bundestag_minutes": 57,
+      "talkshow_minutes": 3,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 1.7823341576612004,
+      "ts_normalized_perc": 0.21907555204481513,
+      "norm_delta": 1.5632586056163853
+    },
+    {
+      "window_start": "2025-05-21",
+      "window_end": "2025-06-18",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 1,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.053168042692389915,
+      "norm_delta": 0.053168042692389915
+    },
+    {
+      "window_start": "2025-06-18",
+      "window_end": "2025-07-16",
+      "bundestag_minutes": 14,
+      "talkshow_minutes": 1,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.26060470463192964,
+      "ts_normalized_perc": 0.09266753776060734,
+      "norm_delta": 0.16793716687132232
+    }
+  ]
 }

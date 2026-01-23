@@ -12,5 +12,83 @@
     "bt_normalized_perc": 0.053772546970055596,
     "ts_normalized_perc": 0.6455911649408508
   },
-  "timeseries": []
+  "timeseries": [
+    {
+      "window_start": "2025-01-01",
+      "window_end": "2025-01-29",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 38,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 3.8552661290040056,
+      "norm_delta": 3.8552661290040056
+    },
+    {
+      "window_start": "2025-01-29",
+      "window_end": "2025-02-26",
+      "bundestag_minutes": 11,
+      "talkshow_minutes": 4,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.39939273192562524,
+      "ts_normalized_perc": 0.24769802252285084,
+      "norm_delta": 0.1516947094027744
+    },
+    {
+      "window_start": "2025-02-26",
+      "window_end": "2025-03-26",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 11,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.7189052255084594,
+      "norm_delta": 0.7189052255084594
+    },
+    {
+      "window_start": "2025-03-26",
+      "window_end": "2025-04-23",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 4,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.40454996263225507,
+      "norm_delta": 0.40454996263225507
+    },
+    {
+      "window_start": "2025-04-23",
+      "window_end": "2025-05-21",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 1,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.0938451802085239,
+      "norm_delta": 0.0938451802085239
+    },
+    {
+      "window_start": "2025-05-21",
+      "window_end": "2025-06-18",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 4,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.36681270937336136,
+      "norm_delta": 0.36681270937336136
+    },
+    {
+      "window_start": "2025-06-18",
+      "window_end": "2025-07-16",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 16,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 1.355369754447668,
+      "norm_delta": 1.355369754447668
+    }
+  ]
 }

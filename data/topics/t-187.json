@@ -12,5 +12,50 @@
     "bt_normalized_perc": 0.1647227773523431,
     "ts_normalized_perc": 0.002456299040662273
   },
-  "timeseries": []
+  "timeseries": [
+    {
+      "window_start": "2025-01-29",
+      "window_end": "2025-02-26",
+      "bundestag_minutes": 4,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.13551791154294365,
+      "ts_normalized_perc": 0,
+      "norm_delta": 0.13551791154294365
+    },
+    {
+      "window_start": "2025-02-26",
+      "window_end": "2025-03-26",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.02443935715520065,
+      "norm_delta": 0.02443935715520065
+    },
+    {
+      "window_start": "2025-05-21",
+      "window_end": "2025-06-18",
+      "bundestag_minutes": 19,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.6335898391117497,
+      "ts_normalized_perc": 0,
+      "norm_delta": 0.6335898391117497
+    },
+    {
+      "window_start": "2025-06-18",
+      "window_end": "2025-07-16",
+      "bundestag_minutes": 8,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.14736644337005103,
+      "ts_normalized_perc": 0,
+      "norm_delta": 0.14736644337005103
+    }
+  ]
 }

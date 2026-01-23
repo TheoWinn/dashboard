@@ -12,5 +12,28 @@
     "bt_normalized_perc": 0.0866708386339363,
     "ts_normalized_perc": 0
   },
-  "timeseries": []
+  "timeseries": [
+    {
+      "window_start": "2025-05-21",
+      "window_end": "2025-06-18",
+      "bundestag_minutes": 5,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.1741426687874594,
+      "ts_normalized_perc": 0,
+      "norm_delta": 0.1741426687874594
+    },
+    {
+      "window_start": "2025-06-18",
+      "window_end": "2025-07-16",
+      "bundestag_minutes": 2,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.03234773506358966,
+      "ts_normalized_perc": 0,
+      "norm_delta": 0.03234773506358966
+    }
+  ]
 }

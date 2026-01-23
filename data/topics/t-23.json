@@ -12,5 +12,72 @@
     "bt_normalized_perc": 1.1862857465259233,
     "ts_normalized_perc": 0.11974193745207397
   },
-  "timeseries": []
+  "timeseries": [
+    {
+      "window_start": "2025-01-29",
+      "window_end": "2025-02-26",
+      "bundestag_minutes": 1,
+      "talkshow_minutes": 3,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.04438620491189822,
+      "ts_normalized_perc": 0.17948169185950033,
+      "norm_delta": 0.1350954869476021
+    },
+    {
+      "window_start": "2025-02-26",
+      "window_end": "2025-03-26",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 2,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.10952220669273403,
+      "norm_delta": 0.10952220669273403
+    },
+    {
+      "window_start": "2025-03-26",
+      "window_end": "2025-04-23",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 1,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.12911677192312895,
+      "norm_delta": 0.12911677192312895
+    },
+    {
+      "window_start": "2025-04-23",
+      "window_end": "2025-05-21",
+      "bundestag_minutes": 56,
+      "talkshow_minutes": 2,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 1.73601542753339,
+      "ts_normalized_perc": 0.1434679516299613,
+      "norm_delta": 1.5925474759034288
+    },
+    {
+      "window_start": "2025-05-21",
+      "window_end": "2025-06-18",
+      "bundestag_minutes": 20,
+      "talkshow_minutes": 3,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.6644150740045758,
+      "ts_normalized_perc": 0.2806917309393493,
+      "norm_delta": 0.3837233430652265
+    },
+    {
+      "window_start": "2025-06-18",
+      "window_end": "2025-07-16",
+      "bundestag_minutes": 43,
+      "talkshow_minutes": 2,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.7803553058292942,
+      "ts_normalized_perc": 0.15204922361092865,
+      "norm_delta": 0.6283060822183656
+    }
+  ]
 }

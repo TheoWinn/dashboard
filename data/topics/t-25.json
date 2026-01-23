@@ -12,5 +12,72 @@
     "bt_normalized_perc": 1.1854466834487816,
     "ts_normalized_perc": 0.05175598450784102
   },
-  "timeseries": []
+  "timeseries": [
+    {
+      "window_start": "2025-01-29",
+      "window_end": "2025-02-26",
+      "bundestag_minutes": 33,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 1.1925750933567802,
+      "ts_normalized_perc": 0,
+      "norm_delta": 1.1925750933567802
+    },
+    {
+      "window_start": "2025-02-26",
+      "window_end": "2025-03-26",
+      "bundestag_minutes": 27,
+      "talkshow_minutes": 3,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 2.350692157519336,
+      "ts_normalized_perc": 0.213582422483096,
+      "norm_delta": 2.1371097350362396
+    },
+    {
+      "window_start": "2025-03-26",
+      "window_end": "2025-04-23",
+      "bundestag_minutes": 0,
+      "talkshow_minutes": 1,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0,
+      "ts_normalized_perc": 0.06803863912299606,
+      "norm_delta": 0.06803863912299606
+    },
+    {
+      "window_start": "2025-04-23",
+      "window_end": "2025-05-21",
+      "bundestag_minutes": 18,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.5656625010021552,
+      "ts_normalized_perc": 0,
+      "norm_delta": 0.5656625010021552
+    },
+    {
+      "window_start": "2025-05-21",
+      "window_end": "2025-06-18",
+      "bundestag_minutes": 72,
+      "talkshow_minutes": 0,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 2.3849124777052744,
+      "ts_normalized_perc": 0,
+      "norm_delta": 2.3849124777052744
+    },
+    {
+      "window_start": "2025-06-18",
+      "window_end": "2025-07-16",
+      "bundestag_minutes": 42,
+      "talkshow_minutes": 1,
+      "bt_share": 0,
+      "ts_share": 0,
+      "bt_normalized_perc": 0.7593963344296487,
+      "ts_normalized_perc": 0.0488932180282201,
+      "norm_delta": 0.7105031164014286
+    }
+  ]
 }
