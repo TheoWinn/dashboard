@@ -117,7 +117,7 @@ async function main() {
 
   const { data: tsRows, error: tsError } = await supabase
     .schema("dashboard")
-    .from("topics_view_2025_4w")
+    .from("topics_view_4w")
     .select(
       [
         "topic_id",
