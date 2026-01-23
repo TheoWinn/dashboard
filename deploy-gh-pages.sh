@@ -5,7 +5,7 @@ export PATH="/opt/conda/envs/default/bin:$PATH"
 
 # --- config (adjust) ---
 REPO_DIR="/home/mlci_2025s1_group1/Dashboard/deploy-worktree"
-BUILD_BRANCH="ara/hostinfra"
+BUILD_BRANCH="main"
 WORKTREE_DIR="/tmp/gh-pages"
 DIST_DIR="frontend/dist"
 FRONTEND_DIR="frontend"
