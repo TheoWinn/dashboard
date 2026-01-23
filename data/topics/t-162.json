@@ -2,15 +2,15 @@
   "slug": "t-162",
   "label": "Green Policy Critique",
   "description": "Keywords: Grünen, Antragsverfahren, Zeitgeist, Investitionen, BAföG, nix bringt, Freiheit Eigentum, Studenten, Familie gründen, Womöglich",
-  "mismatch_score": 0.010784808306083919,
-  "norm_delta": 0.010784808306083915,
+  "mismatch_score": 0.0521482821880035,
+  "norm_delta": 0.0521482821880035,
   "totals": {
-    "bundestag_minutes": 16,
+    "bundestag_minutes": 33,
     "talkshow_minutes": 5,
-    "bt_share": 57.02397921968762,
-    "ts_share": 42.97602078031238,
-    "bt_normalized_perc": 0.04377808258676731,
-    "ts_normalized_perc": 0.032993274280683396
+    "bt_share": 72.30245610281723,
+    "ts_share": 27.69754389718276,
+    "bt_normalized_perc": 0.08452990258905088,
+    "ts_normalized_perc": 0.03238162040104738
   },
   "timeseries": []
 }

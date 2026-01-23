@@ -2,15 +2,15 @@
   "slug": "t-61",
   "label": "Wealth Inheritance Tax",
   "description": "Keywords: Vermögen, Erbschaftssteuer, besteuert, Steuern, Erbschaftsteuer, Vermögenssteuer, Deutschland, zahlen, Erbschaften, besteuern",
-  "mismatch_score": -0.07670359336552926,
-  "norm_delta": 0.07670359336552926,
+  "mismatch_score": -0.07263710524517163,
+  "norm_delta": 0.07263710524517163,
   "totals": {
-    "bundestag_minutes": 44,
+    "bundestag_minutes": 46,
     "talkshow_minutes": 30,
-    "bt_share": 37.74851481657353,
-    "ts_share": 62.25148518342647,
-    "bt_normalized_perc": 0.11816717268531687,
-    "ts_normalized_perc": 0.19487076605084613
+    "bt_share": 38.27976728298111,
+    "ts_share": 61.72023271701889,
+    "bt_normalized_perc": 0.11862100147793918,
+    "ts_normalized_perc": 0.1912581067231108
   },
   "timeseries": []
 }

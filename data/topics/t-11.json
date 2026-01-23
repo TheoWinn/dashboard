@@ -2,15 +2,15 @@
   "slug": "t-11",
   "label": "Media, Free Speech",
   "description": "Keywords: Medien, Meinungsfreiheit, Social Media, Raum Raum, Social, Media, Journalismus, Plattformen, Journalisten, News",
-  "mismatch_score": -0.7117255025887075,
-  "norm_delta": 0.7117255025887075,
+  "mismatch_score": -0.6788036670507589,
+  "norm_delta": 0.6788036670507589,
   "totals": {
-    "bundestag_minutes": 106,
-    "talkshow_minutes": 152,
-    "bt_share": 22.105539668123804,
-    "ts_share": 77.89446033187619,
-    "bt_normalized_perc": 0.2820107674266629,
-    "ts_normalized_perc": 0.9937362700153703
+    "bundestag_minutes": 125,
+    "talkshow_minutes": 156,
+    "bt_share": 24.309344993508326,
+    "ts_share": 75.69065500649168,
+    "bt_normalized_perc": 0.32115320767465466,
+    "ts_normalized_perc": 0.9999568747254135
   },
   "timeseries": []
 }

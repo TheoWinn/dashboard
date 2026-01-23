@@ -2,15 +2,15 @@
   "slug": "t-195",
   "label": "China's Geopolitical Influence",
   "description": "Keywords: China, Xi Jinping, Jinping, Militärparade, Putin, Xi, Gewinner, Chinesen, wichtig China, China Boot",
-  "mismatch_score": -0.058110247944421434,
-  "norm_delta": 0.058110247944421434,
+  "mismatch_score": -0.05703295690930203,
+  "norm_delta": 0.05703295690930203,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 9,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.058110247944421434
+    "ts_normalized_perc": 0.05703295690930203
   },
   "timeseries": []
 }

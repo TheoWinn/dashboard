@@ -2,15 +2,15 @@
   "slug": "t-65",
   "label": "Infrastructure Funding Debate",
   "description": "Keywords: Infrastruktur, Investitionen, Geld, Schulden, Sondervermögen, Kernhaushalt, Infrastrukturinvestitionen, 500 Milliarden, Milliarden, ausgegeben",
-  "mismatch_score": -0.1358155677036957,
-  "norm_delta": 0.1358155677036957,
+  "mismatch_score": -0.13434097140932735,
+  "norm_delta": 0.13434097140932738,
   "totals": {
     "bundestag_minutes": 25,
     "talkshow_minutes": 31,
-    "bt_share": 24.68600399504966,
-    "ts_share": 75.31399600495034,
-    "bt_normalized_perc": 0.06622312111978915,
-    "ts_normalized_perc": 0.20203868882348486
+    "bt_share": 24.386392878472165,
+    "ts_share": 75.61360712152783,
+    "bt_normalized_perc": 0.06395217379808153,
+    "ts_normalized_perc": 0.1982931452074089
   },
   "timeseries": []
 }

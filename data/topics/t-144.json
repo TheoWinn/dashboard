@@ -2,15 +2,15 @@
   "slug": "t-144",
   "label": "German parliamentary affairs",
   "description": "Keywords: Helferich, Herrn Helferich, Fraktion, Fraktion Bundestag, Buster, Seehofer, wissen Wahl, Projekt, Spitzenkandidatin, Herrn",
-  "mismatch_score": -0.04219149127449863,
-  "norm_delta": 0.04219149127449863,
+  "mismatch_score": -0.019286177670301073,
+  "norm_delta": 0.01928617767030107,
   "totals": {
-    "bundestag_minutes": 1,
+    "bundestag_minutes": 10,
     "talkshow_minutes": 7,
-    "bt_share": 6.6150692666741255,
-    "ts_share": 93.38493073332587,
-    "bt_normalized_perc": 0.0032165504534353985,
-    "ts_normalized_perc": 0.04540804172793403
+    "bt_share": 36.19384238308705,
+    "ts_share": 63.80615761691295,
+    "bt_normalized_perc": 0.025280055977195622,
+    "ts_normalized_perc": 0.04456623364749669
   },
   "timeseries": []
 }

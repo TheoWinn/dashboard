@@ -2,15 +2,15 @@
   "slug": "t-137",
   "label": "Taurus Missile Delivery",
   "description": "Keywords: Taurus, Waffe, liefern, Marschflugkörper, moderne Waffe, Marschflugkörper geliefert, Taurus Lieferung, geliefert, liefern Taurus, Kriegssituation",
-  "mismatch_score": -0.05774790550196072,
-  "norm_delta": 0.05774790550196072,
+  "mismatch_score": -0.05667733184077645,
+  "norm_delta": 0.05667733184077645,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 9,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.05774790550196072
+    "ts_normalized_perc": 0.05667733184077645
   },
   "timeseries": []
 }

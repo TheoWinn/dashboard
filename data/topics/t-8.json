@@ -2,15 +2,15 @@
   "slug": "t-8",
   "label": "Trump US Politics",
   "description": "Keywords: Trump, Donald Trump, Donald, Amtszeit, USA, Epstein, Demokraten, Republikaner, Amerika, Amerikaner",
-  "mismatch_score": -1.4892328809022106,
-  "norm_delta": 1.4892328809022106,
+  "mismatch_score": -1.5993992831989259,
+  "norm_delta": 1.5993992831989257,
   "totals": {
     "bundestag_minutes": 2,
-    "talkshow_minutes": 229,
-    "bt_share": 0.41903885720079986,
-    "ts_share": 99.5809611427992,
-    "bt_normalized_perc": 0.006293206405597781,
-    "ts_normalized_perc": 1.4955260873078084
+    "talkshow_minutes": 251,
+    "bt_share": 0.37711408932305124,
+    "ts_share": 99.62288591067694,
+    "bt_normalized_perc": 0.006077397485841585,
+    "ts_normalized_perc": 1.6054766806847673
   },
   "timeseries": []
 }

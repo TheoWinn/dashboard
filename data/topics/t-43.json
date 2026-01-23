@@ -2,15 +2,15 @@
   "slug": "t-43",
   "label": "Coalition government challenges",
   "description": "Keywords: Koalition, Kompromisse, Koalitionsvertrag, Kompromiss, Parteien, Schmerzen, Regierung, Bündnis Arbeit, Legislaturperiode, regieren",
-  "mismatch_score": -0.329908321305653,
-  "norm_delta": 0.32990832130565295,
+  "mismatch_score": -0.3238317313726727,
+  "norm_delta": 0.3238317313726727,
   "totals": {
     "bundestag_minutes": 1,
     "talkshow_minutes": 51,
-    "bt_share": 0.7485653271215686,
-    "ts_share": 99.25143467287843,
-    "bt_normalized_perc": 0.0025071140779812395,
-    "ts_normalized_perc": 0.3324154353836342
+    "bt_share": 0.7366384743777745,
+    "ts_share": 99.26336152562223,
+    "bt_normalized_perc": 0.00242113921143413,
+    "ts_normalized_perc": 0.3262528705841068
   },
   "timeseries": []
 }

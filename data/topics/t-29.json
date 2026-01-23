@@ -2,15 +2,15 @@
   "slug": "t-29",
   "label": "Municipal Governance Issues",
   "description": "Keywords: Kommunen, Stadtbild, kommunalen, Stadt, Städte, Ort, Gemeinden, Bund, Städten, kommunale",
-  "mismatch_score": 0.08676651035437134,
-  "norm_delta": 0.08676651035437133,
+  "mismatch_score": 0.10517974649926402,
+  "norm_delta": 0.10517974649926404,
   "totals": {
-    "bundestag_minutes": 159,
+    "bundestag_minutes": 169,
     "talkshow_minutes": 52,
-    "bt_share": 55.69948976893147,
-    "ts_share": 44.30051023106853,
-    "bt_normalized_perc": 0.42397219327540325,
-    "ts_normalized_perc": 0.3372056829210319
+    "bt_share": 56.8557776577423,
+    "ts_share": 43.1442223422577,
+    "bt_normalized_perc": 0.43613405944593986,
+    "ts_normalized_perc": 0.3309543129466758
   },
   "timeseries": []
 }

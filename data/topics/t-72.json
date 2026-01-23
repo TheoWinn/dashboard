@@ -2,15 +2,15 @@
   "slug": "t-72",
   "label": "Chat Control Debate",
   "description": "Keywords: Chatkontrolle, IP, Kinder, Kindern, Kommunikation, Kinderschutz, Gewalt, IP Adressen, Adressen, Schutz",
-  "mismatch_score": 0.4119620826094914,
-  "norm_delta": 0.4119620826094914,
+  "mismatch_score": 0.3976182383986681,
+  "norm_delta": 0.3976182383986681,
   "totals": {
     "bundestag_minutes": 160,
     "talkshow_minutes": 2,
-    "bt_share": 96.87011075183835,
-    "ts_share": 3.129889248161653,
-    "bt_normalized_perc": 0.4257170713680699,
-    "ts_normalized_perc": 0.013754988758578482
+    "bt_share": 96.8206760695936,
+    "ts_share": 3.1793239304063934,
+    "bt_normalized_perc": 0.4111182269360815,
+    "ts_normalized_perc": 0.013499988537413408
   },
   "timeseries": []
 }

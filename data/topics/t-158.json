@@ -2,15 +2,15 @@
   "slug": "t-158",
   "label": "Green economic policy",
   "description": "Keywords: Grünen, Wirtschaft 2045, Antrag, Wirtschaft, grüne, CO2, Wirtschaftspolitik, Verkaufszahlen, ETS, 2045",
-  "mismatch_score": 0.13912117946456393,
-  "norm_delta": 0.13912117946456395,
+  "mismatch_score": 0.17719372177107473,
+  "norm_delta": 0.1771937217710747,
   "totals": {
-    "bundestag_minutes": 53,
+    "bundestag_minutes": 70,
     "talkshow_minutes": 0,
-    "bt_share": 98.58501328798347,
-    "ts_share": 1.4149867120165285,
-    "bt_normalized_perc": 0.1411470574769418,
-    "ts_normalized_perc": 0.00202587801237787
+    "bt_share": 98.90251322503137,
+    "ts_share": 1.0974867749686288,
+    "bt_normalized_perc": 0.17918204254874473,
+    "ts_normalized_perc": 0.0019883207776700165
   },
   "timeseries": []
 }

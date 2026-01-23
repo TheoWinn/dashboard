@@ -2,15 +2,15 @@
   "slug": "t-185",
   "label": "Germany Investment Location",
   "description": "Keywords: Investitionen, Standortfördergesetz, Unternehmen, investiert, investieren, Kapital, privaten Investitionen, Finanzplatz Deutschland, Start, Finanzplatz",
-  "mismatch_score": -0.003466358512150493,
-  "norm_delta": 0.0034663585121504914,
+  "mismatch_score": 0.001167203829438183,
+  "norm_delta": 0.0011672038294381834,
   "totals": {
-    "bundestag_minutes": 14,
+    "bundestag_minutes": 16,
     "talkshow_minutes": 6,
-    "bt_share": 47.83808639311871,
-    "ts_share": 52.16191360688129,
-    "bt_normalized_perc": 0.03835119901321826,
-    "ts_normalized_perc": 0.041817557525368754
+    "bt_share": 50.701007921062626,
+    "ts_share": 49.298992078937374,
+    "bt_normalized_perc": 0.04220951634336323,
+    "ts_normalized_perc": 0.041042312513925046
   },
   "timeseries": []
 }

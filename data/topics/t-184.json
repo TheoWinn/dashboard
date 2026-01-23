@@ -2,14 +2,14 @@
   "slug": "t-184",
   "label": "Yazidi Democracy Promotion",
   "description": "Keywords: Vormittag, Gatekeeper, Jesidinnen Jesiden, Jesidinnen, Demokratiefördergesetz, Grünen, Jesiden, Demokratie, Fragebogen, Abstimmung steht",
-  "mismatch_score": 0.11795859865782271,
-  "norm_delta": 0.11795859865782271,
+  "mismatch_score": 0.1529141232845461,
+  "norm_delta": 0.1529141232845461,
   "totals": {
-    "bundestag_minutes": 44,
+    "bundestag_minutes": 59,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.11795859865782271,
+    "bt_normalized_perc": 0.1529141232845461,
     "ts_normalized_perc": 0
   },
   "timeseries": []

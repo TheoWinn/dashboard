@@ -2,15 +2,15 @@
   "slug": "t-104",
   "label": "Right-wing Party Influence",
   "description": "Keywords: FPÖ, Nordrhein Westfalen, Westfalen, Nordrhein, Mitte, AfD, Österreich, NRW, Partei, radikal",
-  "mismatch_score": -0.15553035475618718,
-  "norm_delta": 0.15553035475618718,
+  "mismatch_score": -0.14631158776074996,
+  "norm_delta": 0.14631158776074996,
   "totals": {
-    "bundestag_minutes": 7,
+    "bundestag_minutes": 10,
     "talkshow_minutes": 27,
-    "bt_share": 9.466198173800045,
-    "ts_share": 90.53380182619996,
-    "bt_normalized_perc": 0.018161153084977205,
-    "ts_normalized_perc": 0.17369150784116438
+    "bt_share": 13.448234775433104,
+    "ts_share": 86.55176522456689,
+    "bt_normalized_perc": 0.026915698468790772,
+    "ts_normalized_perc": 0.17322728622954073
   },
   "timeseries": []
 }

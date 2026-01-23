@@ -2,15 +2,15 @@
   "slug": "t-63",
   "label": "Political Discourse Critique",
   "description": "Keywords: Zitate, Wort, Länder Außengrenzen, selbstkritisch, Kulturpolitik, Krupalla, dachte, hab, Nebelkerzen, Kontakt",
-  "mismatch_score": -0.12299980510782559,
-  "norm_delta": 0.12299980510782559,
+  "mismatch_score": -0.12390698380710602,
+  "norm_delta": 0.123906983807106,
   "totals": {
     "bundestag_minutes": 5,
     "talkshow_minutes": 21,
-    "bt_share": 8.762417589653259,
-    "ts_share": 91.23758241034675,
-    "bt_normalized_perc": 0.013067881199678591,
-    "ts_normalized_perc": 0.13606768630750418
+    "bt_share": 8.461313935890587,
+    "ts_share": 91.53868606410941,
+    "bt_normalized_perc": 0.0126197526713188,
+    "ts_normalized_perc": 0.1365267364784248
   },
   "timeseries": []
 }

@@ -2,15 +2,15 @@
   "slug": "t-35",
   "label": "German Economic Policy",
   "description": "Keywords: Wirtschaft, Wachstum, Unternehmen, deutsche Wirtschaft, Deutschland, Rezession, deutsche, CO2, CO2 Steuer, Steuer",
-  "mismatch_score": 0.26521730299358337,
-  "norm_delta": 0.2652173029935833,
+  "mismatch_score": 0.2570517046943114,
+  "norm_delta": 0.2570517046943114,
   "totals": {
-    "bundestag_minutes": 210,
-    "talkshow_minutes": 45,
-    "bt_share": 65.45456736608455,
-    "ts_share": 34.54543263391545,
-    "bt_normalized_perc": 0.5616360333561015,
-    "ts_normalized_perc": 0.29641873036251815
+    "bundestag_minutes": 217,
+    "talkshow_minutes": 47,
+    "bt_share": 64.94083705283359,
+    "ts_share": 35.05916294716642,
+    "bt_normalized_perc": 0.5586418220637932,
+    "ts_normalized_perc": 0.3015901173694818
   },
   "timeseries": []
 }

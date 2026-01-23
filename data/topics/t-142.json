@@ -2,15 +2,15 @@
   "slug": "t-142",
   "label": "US political dynamics",
   "description": "Keywords: Joe Biden, Biden, Joe, begnadigt, Oligarchie, Faszination, Trump, Donald Trump, Donald, Biden gewarnt",
-  "mismatch_score": -0.0724827299742801,
-  "norm_delta": 0.0724827299742801,
+  "mismatch_score": -0.08046302593050483,
+  "norm_delta": 0.08046302593050483,
   "totals": {
     "bundestag_minutes": 0,
-    "talkshow_minutes": 11,
+    "talkshow_minutes": 13,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.0724827299742801
+    "ts_normalized_perc": 0.08046302593050483
   },
   "timeseries": []
 }

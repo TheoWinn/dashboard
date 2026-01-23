@@ -2,14 +2,14 @@
   "slug": "t-114",
   "label": "Federal Budget Investments",
   "description": "Keywords: Haushalt, Sackkarre, Forschungsministerium, Haushaltsausschuss, Parlament, Arbeitsmarkt, Milliarden Euro, Liebe, Investitionen, Milliarden",
-  "mismatch_score": 0.3142831166643739,
-  "norm_delta": 0.3142831166643739,
+  "mismatch_score": 0.3139079175485975,
+  "norm_delta": 0.3139079175485975,
   "totals": {
-    "bundestag_minutes": 118,
+    "bundestag_minutes": 122,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.3142831166643739,
+    "bt_normalized_perc": 0.3139079175485975,
     "ts_normalized_perc": 0
   },
   "timeseries": []

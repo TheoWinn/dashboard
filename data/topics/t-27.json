@@ -2,15 +2,15 @@
   "slug": "t-27",
   "label": "Public TV Content",
   "description": "Keywords: ARD Mediathek, Mediathek, Maischberger ARD, Folgen hoffe, Gespräch Maischberger, Mediathek Folgen, hoffe sehen, ARD, Maischberger, Gespräch",
-  "mismatch_score": -0.19640884612163348,
-  "norm_delta": 0.19640884612163348,
+  "mismatch_score": -0.19576290432081556,
+  "norm_delta": 0.19576290432081556,
   "totals": {
     "bundestag_minutes": 0,
-    "talkshow_minutes": 30,
+    "talkshow_minutes": 31,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.19640884612163348
+    "ts_normalized_perc": 0.19576290432081556
   },
   "timeseries": []
 }

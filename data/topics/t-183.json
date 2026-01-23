@@ -2,15 +2,15 @@
   "slug": "t-183",
   "label": "AfD Russia Stance",
   "description": "Keywords: russischen, Russland, Anfragen, AfD, Machtwort, autoritären, Mark Rutte, Rutte, gleiche Horn, Vaterland",
-  "mismatch_score": 0.05712012456268594,
-  "norm_delta": 0.057120124562685934,
+  "mismatch_score": 0.02984664708870276,
+  "norm_delta": 0.029846647088702764,
   "totals": {
     "bundestag_minutes": 26,
-    "talkshow_minutes": 2,
-    "bt_share": 84.70653792693267,
-    "ts_share": 15.293462073067325,
-    "bt_normalized_perc": 0.06970513751395502,
-    "ts_normalized_perc": 0.012585012951269082
+    "talkshow_minutes": 6,
+    "bt_share": 64.24213366301288,
+    "ts_share": 35.75786633698712,
+    "bt_normalized_perc": 0.06731478362138874,
+    "ts_normalized_perc": 0.03746813653268597
   },
   "timeseries": []
 }

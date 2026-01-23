@@ -2,15 +2,15 @@
   "slug": "t-75",
   "label": "China Trade Geopolitics",
   "description": "Keywords: China, Chinesen, Erden, seltene, Zölle, USA, chinesische, seltene Erden, Zoll, Europa",
-  "mismatch_score": -0.20557657563789564,
-  "norm_delta": 0.20557657563789564,
+  "mismatch_score": -0.1930789550676521,
+  "norm_delta": 0.19307895506765213,
   "totals": {
-    "bundestag_minutes": 9,
-    "talkshow_minutes": 35,
-    "bt_share": 9.742137187441989,
-    "ts_share": 90.25786281255802,
-    "bt_normalized_perc": 0.024874087475952468,
-    "ts_normalized_perc": 0.2304506631138481
+    "bundestag_minutes": 20,
+    "talkshow_minutes": 38,
+    "bt_share": 17.640038886815542,
+    "ts_share": 82.35996111318445,
+    "bt_normalized_perc": 0.05262553103364848,
+    "ts_normalized_perc": 0.2457044861013006
   },
   "timeseries": []
 }

@@ -2,15 +2,15 @@
   "slug": "t-190",
   "label": "Citizen's Income Policy",
   "description": "Keywords: Bürgergeld, Symbolik, arbeiten, Steuerpolitik, Bürgergeldempfänger, trauen, Sozialleistungen, Kipping, zig, 100 Euro",
-  "mismatch_score": -0.014970714709882049,
-  "norm_delta": 0.014970714709882049,
+  "mismatch_score": -0.015182890356303201,
+  "norm_delta": 0.015182890356303203,
   "totals": {
     "bundestag_minutes": 12,
     "talkshow_minutes": 7,
-    "bt_share": 40.29669167752042,
-    "ts_share": 59.70330832247958,
-    "bt_normalized_perc": 0.031085803666500277,
-    "ts_normalized_perc": 0.046056518376382326
+    "bt_share": 39.90801082692041,
+    "ts_share": 60.09198917307959,
+    "bt_normalized_perc": 0.030019797996790578,
+    "ts_normalized_perc": 0.04520268835309378
   },
   "timeseries": []
 }

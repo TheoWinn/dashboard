@@ -2,15 +2,15 @@
   "slug": "t-73",
   "label": "Digital Sovereignty Policy",
   "description": "Keywords: Souveränität, digitale Souveränität, digitale, Act, digitalen, Digital, Microsoft, Plattformen, Meinungsfreiheit, Digitalabgabe",
-  "mismatch_score": 0.16532578578240315,
-  "norm_delta": 0.16532578578240317,
+  "mismatch_score": 0.23987820215550482,
+  "norm_delta": 0.23987820215550484,
   "totals": {
-    "bundestag_minutes": 100,
+    "bundestag_minutes": 132,
     "talkshow_minutes": 16,
-    "bt_share": 72.45578287204404,
-    "ts_share": 27.54421712795596,
-    "bt_normalized_perc": 0.2667199203442756,
-    "ts_normalized_perc": 0.10139413456187243
+    "bt_share": 77.3267668324026,
+    "ts_share": 22.673233167597395,
+    "bt_normalized_perc": 0.339392616770533,
+    "ts_normalized_perc": 0.09951441461502816
   },
   "timeseries": []
 }

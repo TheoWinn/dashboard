@@ -2,15 +2,15 @@
   "slug": "t-176",
   "label": "Food Product Taxation",
   "description": "Keywords: Wurst, Fleisch, Schnitzel, Döner, Produkten, Produkte, pflanzliche, Begriffe, Mehrwertsteuer, vegane",
-  "mismatch_score": 0.1069068650422437,
-  "norm_delta": 0.1069068650422437,
+  "mismatch_score": 0.13363921197013512,
+  "norm_delta": 0.13363921197013512,
   "totals": {
-    "bundestag_minutes": 46,
+    "bundestag_minutes": 58,
     "talkshow_minutes": 2,
-    "bt_share": 88.51825016874615,
-    "ts_share": 11.481749831253854,
-    "bt_normalized_perc": 0.12284058314056272,
-    "ts_normalized_perc": 0.01593371809831902
+    "bt_share": 90.51739086211887,
+    "ts_share": 9.482609137881125,
+    "bt_normalized_perc": 0.1492775389408882,
+    "ts_normalized_perc": 0.01563832697075308
   },
   "timeseries": []
 }

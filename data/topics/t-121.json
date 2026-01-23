@@ -2,15 +2,15 @@
   "slug": "t-121",
   "label": "Progressive Taxation Debate",
   "description": "Keywords: Vermögensteuer, Erbschaftssteuer, Reichensteuer, SPD, Spitzensteuersatz, mittlere Einkommen, Vermögenssteuer, mittlere, Unternehmenssteuer, Steuern",
-  "mismatch_score": -0.0884580853829689,
-  "norm_delta": 0.0884580853829689,
+  "mismatch_score": -0.08681818354572252,
+  "norm_delta": 0.08681818354572252,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 14,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.0884580853829689
+    "ts_normalized_perc": 0.08681818354572252
   },
   "timeseries": []
 }

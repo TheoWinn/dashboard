@@ -2,15 +2,15 @@
   "slug": "t-180",
   "label": "Minimum Wage Debate",
   "description": "Keywords: Mindestlohn, 15 Euro, Rentenpunkte, 15, Mindestlohn 15, inflationstreibend, 18 Euro, Mindestlohnes, Löhne, ausbaufähig",
-  "mismatch_score": -0.018262000645510656,
-  "norm_delta": 0.018262000645510656,
+  "mismatch_score": -0.018244585839288723,
+  "norm_delta": 0.018244585839288723,
   "totals": {
     "bundestag_minutes": 8,
     "talkshow_minutes": 6,
-    "bt_share": 34.532192233248615,
-    "ts_share": 65.46780776675138,
-    "bt_normalized_perc": 0.020385142043529907,
-    "ts_normalized_perc": 0.03864714268904056
+    "bt_share": 34.167292928866104,
+    "ts_share": 65.8327070711339,
+    "bt_normalized_perc": 0.01968608734868029,
+    "ts_normalized_perc": 0.03793067318796901
   },
   "timeseries": []
 }

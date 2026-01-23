@@ -2,15 +2,15 @@
   "slug": "t-21",
   "label": "Afghanistan Withdrawal Aftermath",
   "description": "Keywords: Afghanistan, Taliban, Ortskräfte, Afghanen, afghanischen, Einsatz, Kabul, Pakistan, Aufnahmezusage, Frauen",
-  "mismatch_score": 0.7650714338160721,
-  "norm_delta": 0.7650714338160721,
+  "mismatch_score": 0.7363084053271929,
+  "norm_delta": 0.7363084053271928,
   "totals": {
     "bundestag_minutes": 347,
     "talkshow_minutes": 25,
-    "bt_share": 85.22828681455955,
-    "ts_share": 14.771713185440445,
-    "bt_normalized_perc": 0.9254740081194288,
-    "ts_normalized_perc": 0.1604025743033567
+    "bt_share": 85.0234047109745,
+    "ts_share": 14.976595289025493,
+    "bt_normalized_perc": 0.8937373173004154,
+    "ts_normalized_perc": 0.1574289119732226
   },
   "timeseries": []
 }

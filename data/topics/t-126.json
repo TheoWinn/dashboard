@@ -2,14 +2,14 @@
   "slug": "t-126",
   "label": "Mediterranean Naval Missions",
   "description": "Keywords: Guardian, Sea Guardian, Sea, Schiffe, Mittelmeer, Mission, Mandat, Aspides, EUNAVFOR Aspides, Soldaten",
-  "mismatch_score": 0.20014606213623914,
-  "norm_delta": 0.20014606213623914,
+  "mismatch_score": 0.19328258068032217,
+  "norm_delta": 0.19328258068032217,
   "totals": {
     "bundestag_minutes": 75,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.20014606213623914,
+    "bt_normalized_perc": 0.19328258068032217,
     "ts_normalized_perc": 0
   },
   "timeseries": []

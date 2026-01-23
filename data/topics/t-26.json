@@ -2,15 +2,15 @@
   "slug": "t-26",
   "label": "NATO Future, US",
   "description": "Keywords: NATO, Gipfel, Artikel, Trump, USA, NATO Gipfel, Europa, Europäer, Donald, Donald Trump",
-  "mismatch_score": -0.45833537550277925,
-  "norm_delta": 0.4583353755027792,
+  "mismatch_score": -0.5554465340942638,
+  "norm_delta": 0.5554465340942638,
   "totals": {
     "bundestag_minutes": 30,
-    "talkshow_minutes": 83,
-    "bt_share": 12.940313325407898,
-    "ts_share": 87.0596866745921,
-    "bt_normalized_perc": 0.08001961024660668,
-    "ts_normalized_perc": 0.5383549857493859
+    "talkshow_minutes": 99,
+    "bt_share": 10.883916407482323,
+    "ts_share": 89.11608359251768,
+    "bt_normalized_perc": 0.0772755487088711,
+    "ts_normalized_perc": 0.6327220828031349
   },
   "timeseries": []
 }

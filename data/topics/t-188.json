@@ -2,14 +2,14 @@
   "slug": "t-188",
   "label": "Product Safety Regulation",
   "description": "Keywords: Produktsicherheitsgesetz, Produkte, Produktsicherheit, Verordnung, Verbraucher, Vertrauen, Arbeitsschutz, deutscher Sprache, Gesetz, Sprache",
-  "mismatch_score": 0.10066149984541413,
-  "norm_delta": 0.10066149984541413,
+  "mismatch_score": 0.1146295561257179,
+  "norm_delta": 0.1146295561257179,
   "totals": {
-    "bundestag_minutes": 38,
+    "bundestag_minutes": 44,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.10066149984541413,
+    "bt_normalized_perc": 0.1146295561257179,
     "ts_normalized_perc": 0
   },
   "timeseries": []

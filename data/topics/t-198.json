@@ -2,15 +2,15 @@
   "slug": "t-198",
   "label": "Cologne Local Socials",
   "description": "Keywords: Chorweiler, Stillhalteprämie, Köln Chorweiler, Falschen, Köln, Wählern versprochen, Sozialabbau, Stadtteil, Merz, Markus Söder",
-  "mismatch_score": 0.05848149501588333,
-  "norm_delta": 0.05848149501588333,
+  "mismatch_score": 0.08483574862334468,
+  "norm_delta": 0.08483574862334468,
   "totals": {
-    "bundestag_minutes": 31,
+    "bundestag_minutes": 43,
     "talkshow_minutes": 4,
-    "bt_share": 76.81122515945187,
-    "ts_share": 23.18877484054813,
-    "bt_normalized_perc": 0.08377154073734638,
-    "ts_normalized_perc": 0.02529004572146305
+    "bt_share": 81.54257753297541,
+    "ts_share": 18.457422467024582,
+    "bt_normalized_perc": 0.10965694865067906,
+    "ts_normalized_perc": 0.02482120002733437
   },
   "timeseries": []
 }

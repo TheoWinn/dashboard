@@ -2,15 +2,15 @@
   "slug": "t-170",
   "label": "Totalitarianism Comparisons Debate",
   "description": "Keywords: Hitler, Stalin, Weidel, Adolf Hitler, Adolf, Faschismus, Kommunist, überforderte, Angst, Linker",
-  "mismatch_score": -0.03729475417287939,
-  "norm_delta": 0.03729475417287939,
+  "mismatch_score": -0.03269700800191678,
+  "norm_delta": 0.03269700800191677,
   "totals": {
-    "bundestag_minutes": 6,
+    "bundestag_minutes": 7,
     "talkshow_minutes": 8,
-    "bt_share": 22.084056212122412,
-    "ts_share": 77.9159437878776,
-    "bt_normalized_perc": 0.014751775075733055,
-    "ts_normalized_perc": 0.052046529248612444
+    "bt_share": 26.46555960395914,
+    "ts_share": 73.53444039604086,
+    "bt_normalized_perc": 0.01838464394274342,
+    "ts_normalized_perc": 0.051081651944660196
   },
   "timeseries": []
 }

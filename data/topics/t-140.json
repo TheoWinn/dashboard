@@ -2,14 +2,14 @@
   "slug": "t-140",
   "label": "Justice system budget",
   "description": "Keywords: Justiz, Rechtsstaat, Verbraucherschutz, Justiz Verbraucherschutz, Haushalt, Gewalt, Einzelplan 07, unseren Rechtsstaat, 07, Justizhaushalt",
-  "mismatch_score": 0.22087126569399235,
-  "norm_delta": 0.22087126569399235,
+  "mismatch_score": 0.2288222478939622,
+  "norm_delta": 0.2288222478939622,
   "totals": {
-    "bundestag_minutes": 83,
+    "bundestag_minutes": 89,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.22087126569399235,
+    "bt_normalized_perc": 0.2288222478939622,
     "ts_normalized_perc": 0
   },
   "timeseries": []

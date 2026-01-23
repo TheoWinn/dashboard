@@ -2,15 +2,15 @@
   "slug": "t-5",
   "label": "Healthcare System Reform",
   "description": "Keywords: Pflege, Versorgung, Gesundheitssystem, Patienten, Gesundheit, Pflegeversicherung, Pflegekräfte, System, Krankenversicherung, Patientinnen",
-  "mismatch_score": 2.528198610250948,
-  "norm_delta": 2.528198610250948,
+  "mismatch_score": 2.434354990336757,
+  "norm_delta": 2.4343549903367565,
   "totals": {
     "bundestag_minutes": 1117,
     "talkshow_minutes": 70,
-    "bt_share": 86.79646411429836,
-    "ts_share": 13.203535885701646,
-    "bt_normalized_perc": 2.9817905773070734,
-    "ts_normalized_perc": 0.4535919670561252
+    "bt_share": 86.60991528418718,
+    "ts_share": 13.390084715812819,
+    "bt_normalized_perc": 2.879537931842361,
+    "ts_normalized_perc": 0.4451829415056044
   },
   "timeseries": []
 }

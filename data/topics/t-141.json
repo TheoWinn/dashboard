@@ -2,15 +2,15 @@
   "slug": "t-141",
   "label": "Welfare state reform",
   "description": "Keywords: Sozialstaat, Sozialstaates, Reformen, Gerechtigkeit, sozialen Versprechen, kleinmachen, Grundsicherung, sage, Status quo, quo",
-  "mismatch_score": 0.1956315195738354,
-  "norm_delta": 0.1956315195738354,
+  "mismatch_score": 0.20916230922670873,
+  "norm_delta": 0.20916230922670875,
   "totals": {
-    "bundestag_minutes": 94,
+    "bundestag_minutes": 102,
     "talkshow_minutes": 8,
-    "bt_share": 82.08503480533052,
-    "ts_share": 17.91496519466948,
-    "bt_normalized_perc": 0.25024782099613113,
-    "ts_normalized_perc": 0.05461630142229573
+    "bt_share": 83.05660946072811,
+    "ts_share": 16.94339053927189,
+    "bt_normalized_perc": 0.26276609299549364,
+    "ts_normalized_perc": 0.0536037837687849
   },
   "timeseries": []
 }

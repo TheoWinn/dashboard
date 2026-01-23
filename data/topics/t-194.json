@@ -2,15 +2,15 @@
   "slug": "t-194",
   "label": "Forward-Looking Policy Direction",
   "description": "Keywords: zeigen zeigen, zeigen, Rückspiegel, Aufbruch, vorne, Entscheidungsträgerinnen Entscheidungsträger, Ausblick Zukunft, Larmoyanz, Herausforderung einfach, Hockey",
-  "mismatch_score": -0.048736417431017524,
-  "norm_delta": 0.048736417431017524,
+  "mismatch_score": -0.0657018647828387,
+  "norm_delta": 0.0657018647828387,
   "totals": {
     "bundestag_minutes": 0,
-    "talkshow_minutes": 7,
+    "talkshow_minutes": 10,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.048736417431017524
+    "ts_normalized_perc": 0.0657018647828387
   },
   "timeseries": []
 }

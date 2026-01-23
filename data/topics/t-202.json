@@ -2,15 +2,15 @@
   "slug": "t-202",
   "label": "AfD Economic Stance",
   "description": "Keywords: Fahrzeuge, Haushalt liefert, Einkommen, AfD, Deutschland, Automobilbranche, austreten, liefert, AfD inszeniert, Entlastungsprogramm",
-  "mismatch_score": 0.08220102583995934,
-  "norm_delta": 0.08220102583995934,
+  "mismatch_score": 0.09797190184930964,
+  "norm_delta": 0.09797190184930964,
   "totals": {
-    "bundestag_minutes": 33,
+    "bundestag_minutes": 40,
     "talkshow_minutes": 1,
-    "bt_share": 93.68639186797567,
-    "ts_share": 6.313608132024331,
-    "bt_normalized_perc": 0.08814091974069999,
-    "ts_normalized_perc": 0.005939893900740653
+    "bt_share": 94.68238762665925,
+    "ts_share": 5.317612373340756,
+    "bt_normalized_perc": 0.1038016775751124,
+    "ts_normalized_perc": 0.005829775725802757
   },
   "timeseries": []
 }

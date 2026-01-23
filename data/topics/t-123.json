@@ -2,15 +2,15 @@
   "slug": "t-123",
   "label": "Franco-German Leadership",
   "description": "Keywords: Macron, Europa, Frankreich, Scholz, Bundeskanzler, Olaf Scholz, Olaf, Kanzler, Herrn Macron, Merz",
-  "mismatch_score": -0.09467512101634891,
-  "norm_delta": 0.09467512101634891,
+  "mismatch_score": -0.10791282482331106,
+  "norm_delta": 0.10791282482331106,
   "totals": {
-    "bundestag_minutes": 7,
-    "talkshow_minutes": 17,
-    "bt_share": 14.344452870183126,
-    "ts_share": 85.65554712981687,
-    "bt_normalized_perc": 0.019044200982996893,
-    "ts_normalized_perc": 0.1137193219993458
+    "bundestag_minutes": 12,
+    "talkshow_minutes": 22,
+    "bt_share": 18.482232445612393,
+    "ts_share": 81.5177675543876,
+    "bt_normalized_perc": 0.03164040582514917,
+    "ts_normalized_perc": 0.13955323064846023
   },
   "timeseries": []
 }

@@ -2,15 +2,15 @@
   "slug": "t-178",
   "label": "National Identity Defense",
   "description": "Keywords: Politik letzten, Heimat, anderer Staaten, vertrauenswürdig, verteidigen, respektiert, Sprache, aufgrund, Orten, Türen",
-  "mismatch_score": -0.006121249044510259,
-  "norm_delta": 0.006121249044510259,
+  "mismatch_score": 0.003882808539564826,
+  "norm_delta": 0.003882808539564825,
   "totals": {
-    "bundestag_minutes": 7,
+    "bundestag_minutes": 12,
     "talkshow_minutes": 4,
-    "bt_share": 42.905462943174676,
-    "ts_share": 57.094537056825324,
-    "bt_normalized_perc": 0.01850966609530283,
-    "ts_normalized_perc": 0.024630915139813088
+    "bt_share": 53.25430394593899,
+    "ts_share": 46.74569605406101,
+    "bt_normalized_perc": 0.031769660972802864,
+    "ts_normalized_perc": 0.02788685243323804
   },
   "timeseries": []
 }

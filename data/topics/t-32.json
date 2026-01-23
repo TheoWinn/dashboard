@@ -2,15 +2,15 @@
   "slug": "t-32",
   "label": "Regional Party Politics",
   "description": "Keywords: Grünen, Söder, Baden, Partei, Grün, Baden Württemberg, Württemberg, Markus Söder, grünen, Aschermittwoch",
-  "mismatch_score": -0.21935449604883375,
-  "norm_delta": 0.21935449604883372,
+  "mismatch_score": -0.21605359384895403,
+  "norm_delta": 0.21605359384895406,
   "totals": {
     "bundestag_minutes": 54,
     "talkshow_minutes": 56,
-    "bt_share": 28.344105793716384,
-    "ts_share": 71.65589420628362,
-    "bt_normalized_perc": 0.14354999574507205,
-    "ts_normalized_perc": 0.36290449179390577
+    "bt_share": 28.23356036364704,
+    "ts_share": 71.76643963635296,
+    "bt_normalized_perc": 0.1401231043208726,
+    "ts_normalized_perc": 0.35617669816982667
   },
   "timeseries": []
 }

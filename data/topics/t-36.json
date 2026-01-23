@@ -2,15 +2,15 @@
   "slug": "t-36",
   "label": "US-Europe Relations",
   "description": "Keywords: Trump, Europäer, Europa, Donald, Donald Trump, Europäische Union, Europäische, USA, EU, Europäern",
-  "mismatch_score": -0.4022142438999275,
-  "norm_delta": 0.4022142438999275,
+  "mismatch_score": -0.5772742012072654,
+  "norm_delta": 0.5772742012072654,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 62,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.4022142438999275
+    "bundestag_minutes": 4,
+    "talkshow_minutes": 92,
+    "bt_share": 1.7538416354823176,
+    "ts_share": 98.24615836451768,
+    "bt_normalized_perc": 0.010492519648068981,
+    "ts_normalized_perc": 0.5877667208553343
   },
   "timeseries": []
 }

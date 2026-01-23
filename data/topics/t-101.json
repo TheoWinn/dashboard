@@ -2,15 +2,15 @@
   "slug": "t-101",
   "label": "South African Politics",
   "description": "Keywords: Politik, Südafrika, Notstand, Härten zumutet, bewirken Sinne, nehmen politische, zumutet, Weißer, Politiker, altern",
-  "mismatch_score": -0.109197923204884,
-  "norm_delta": 0.109197923204884,
+  "mismatch_score": -0.10253213302017787,
+  "norm_delta": 0.10253213302017788,
   "totals": {
-    "bundestag_minutes": 0,
-    "talkshow_minutes": 17,
-    "bt_share": 0,
-    "ts_share": 100,
-    "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.109197923204884
+    "bundestag_minutes": 9,
+    "talkshow_minutes": 20,
+    "bt_share": 15.672273642041304,
+    "ts_share": 84.3277263579587,
+    "bt_normalized_perc": 0.023405448252500603,
+    "ts_normalized_perc": 0.12593758127267848
   },
   "timeseries": []
 }

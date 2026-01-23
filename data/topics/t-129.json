@@ -2,15 +2,15 @@
   "slug": "t-129",
   "label": "Digital Euro Debate",
   "description": "Keywords: Bargeld, Bitcoin, digitalen, digitalen Euro, digitale, EZB, digitale Euro, Kryptowährungen, Währungen, Bargelds",
-  "mismatch_score": 0.07682879500858772,
-  "norm_delta": 0.07682879500858772,
+  "mismatch_score": 0.07137460555265583,
+  "norm_delta": 0.07137460555265585,
   "totals": {
     "bundestag_minutes": 60,
     "talkshow_minutes": 13,
-    "bt_share": 65.84358398815458,
-    "ts_share": 34.15641601184543,
-    "bt_normalized_perc": 0.1596445356252339,
-    "ts_normalized_perc": 0.08281574061664618
+    "bt_share": 65.06013937395892,
+    "ts_share": 34.93986062604108,
+    "bt_normalized_perc": 0.1541699472266052,
+    "ts_normalized_perc": 0.08279534167394936
   },
   "timeseries": []
 }

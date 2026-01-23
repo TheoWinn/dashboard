@@ -2,15 +2,15 @@
   "slug": "t-62",
   "label": "Youth Policy Issues",
   "description": "Keywords: jungen, junge, jungen Leute, Jugend, Eltern, Leute, Generation, Jugendliche, jungen Leuten, 18",
-  "mismatch_score": -0.19882428636013755,
-  "norm_delta": 0.19882428636013752,
+  "mismatch_score": -0.2086397500927485,
+  "norm_delta": 0.2086397500927485,
   "totals": {
     "bundestag_minutes": 26,
-    "talkshow_minutes": 41,
-    "bt_share": 20.723026324930828,
-    "ts_share": 79.27697367506917,
-    "bt_normalized_perc": 0.07036657828785955,
-    "ts_normalized_perc": 0.2691908646479971
+    "talkshow_minutes": 43,
+    "bt_share": 19.722584941438335,
+    "ts_share": 80.27741505856167,
+    "bt_normalized_perc": 0.06795354202803894,
+    "ts_normalized_perc": 0.2765932921207874
   },
   "timeseries": []
 }

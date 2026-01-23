@@ -2,15 +2,15 @@
   "slug": "t-124",
   "label": "Jobcenter Knife Attacks",
   "description": "Keywords: Täter, Aschaffenburg, Bielefeld, Magdeburg, Taten, Jobcenter, Jobcenters, verletzt, schrecklichen, Messer",
-  "mismatch_score": 0.23138622317464425,
-  "norm_delta": 0.23138622317464425,
+  "mismatch_score": 0.2218009520227391,
+  "norm_delta": 0.2218009520227391,
   "totals": {
     "bundestag_minutes": 89,
     "talkshow_minutes": 1,
-    "bt_share": 97.3479475993154,
-    "ts_share": 2.6520524006845902,
-    "bt_normalized_perc": 0.23786642368775507,
-    "ts_normalized_perc": 0.006480200513110817
+    "bt_share": 96.67177003717785,
+    "ts_share": 3.328229962822154,
+    "bt_normalized_perc": 0.22970942189346097,
+    "ts_normalized_perc": 0.007908469870721848
   },
   "timeseries": []
 }

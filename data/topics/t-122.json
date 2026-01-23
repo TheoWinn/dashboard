@@ -2,15 +2,15 @@
   "slug": "t-122",
   "label": "Transatlantic Relations",
   "description": "Keywords: Realität, Amerikanern Europäern, Amerikanern, Außenpolitik, Staaten, Marines, Willy, Anknüpfungspunkte, Tunnels, Kultur",
-  "mismatch_score": -0.07295098467570543,
-  "norm_delta": 0.07295098467570542,
+  "mismatch_score": -0.10327967732085272,
+  "norm_delta": 0.10327967732085273,
   "totals": {
-    "bundestag_minutes": 4,
-    "talkshow_minutes": 13,
-    "bt_share": 12.012508092299418,
-    "ts_share": 87.98749190770059,
-    "bt_normalized_perc": 0.011534379472687423,
-    "ts_normalized_perc": 0.08448536414839285
+    "bundestag_minutes": 9,
+    "talkshow_minutes": 20,
+    "bt_share": 16.06753650684617,
+    "ts_share": 83.93246349315383,
+    "bt_normalized_perc": 0.024452247419390907,
+    "ts_normalized_perc": 0.12773192474024364
   },
   "timeseries": []
 }

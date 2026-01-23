@@ -2,15 +2,15 @@
   "slug": "t-16",
   "label": "German Fiscal Policy",
   "description": "Keywords: Schulden, Schuldenbremse, Milliarden, Geld, Euro, einsparen, Sondervermögen, Milliarden Euro, Haushalt, Bürgergeld",
-  "mismatch_score": -0.30665662925418385,
-  "norm_delta": 0.3066566292541838,
+  "mismatch_score": -0.30817808616526177,
+  "norm_delta": 0.3081780861652617,
   "totals": {
     "bundestag_minutes": 171,
     "talkshow_minutes": 117,
-    "bt_share": 37.44811133258044,
-    "ts_share": 62.55188866741956,
-    "bt_normalized_perc": 0.45744954793107484,
-    "ts_normalized_perc": 0.7641061771852586
+    "bt_share": 37.06984657409222,
+    "ts_share": 62.93015342590778,
+    "bt_normalized_perc": 0.4417625218875379,
+    "ts_normalized_perc": 0.7499406080527996
   },
   "timeseries": []
 }

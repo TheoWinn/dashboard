@@ -2,15 +2,15 @@
   "slug": "t-148",
   "label": "Wealth distribution debate",
   "description": "Keywords: Milliardäre, Milliardär, Leistungsträger, Millionäre, leistungsloses Einkommen, leistungsloses, Vermögen, 000 Million, Superreichen, Deutschland durchschnittlich",
-  "mismatch_score": -0.062346817096144834,
-  "norm_delta": 0.062346817096144834,
+  "mismatch_score": -0.06389365055052457,
+  "norm_delta": 0.06389365055052457,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 10,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.062346817096144834
+    "ts_normalized_perc": 0.06389365055052457
   },
   "timeseries": []
 }

@@ -2,15 +2,15 @@
   "slug": "t-46",
   "label": "Social discourse trends",
   "description": "Keywords: Achtsamkeit, Gefühl, Konzert, erwachsen, hör, Leute, doof, einfach, Communities, Idee",
-  "mismatch_score": -0.24967872955716774,
-  "norm_delta": 0.24967872955716774,
+  "mismatch_score": -0.24885539036131527,
+  "norm_delta": 0.24885539036131527,
   "totals": {
     "bundestag_minutes": 0,
-    "talkshow_minutes": 38,
+    "talkshow_minutes": 39,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.24967872955716774
+    "ts_normalized_perc": 0.24885539036131527
   },
   "timeseries": []
 }
