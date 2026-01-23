@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import MismatchScoreLabel from "../scripts/MismatchScoreLabel.jsx";
 import { fetchSummary } from "../lib/api.js";
 
+
 import {
   ResponsiveContainer,
   PieChart,
@@ -83,14 +84,30 @@ export default function Landing({ onSelectTopic }) {
       .catch((e) => setErr(String(e)));
   }, []);
 
-  const hero = summary?.hero_topic;
+  // 1. Calculate the Hero
+  const rawHero = summary?.hero_topic;
+  // Safety check: is the API-provided hero the "bad" topic?
+  const isBadHero = rawHero?.label?.toLowerCase() === "miscellaneous speech fragments";
 
+  // If bad, try to grab the first valid topic from the list. Otherwise use rawHero.
+  const hero = isBadHero && summary?.featured_topics?.length 
+    ? summary.featured_topics.find(t => t.label?.toLowerCase() !== "miscellaneous speech fragments")
+    : rawHero;
+
+  // 2. Calculate the Grid (Top Others)
   const topOthers = useMemo(() => {
     if (!summary?.featured_topics?.length) return [];
+    
     const heroSlug = hero?.slug;
+    const IGNORED_LABEL = "miscellaneous speech fragments";
+
     return summary.featured_topics
+      // Remove the Hero (whichever one we decided on above)
       .filter((t) => t?.slug && t.slug !== heroSlug)
-      .slice(0, 20);
+      // Remove the "Bad Topic" if it's lurking in the list
+      .filter((t) => t.label?.toLowerCase() !== IGNORED_LABEL)
+      // Limit to 16 cards
+      .slice(0, 16);
   }, [summary, hero?.slug]);
 
   if (err) {
@@ -123,7 +140,7 @@ export default function Landing({ onSelectTopic }) {
 
   const heroPie = [
     { name: "Bundestag", value: Number(hero.bt_share) || 0 },
-    { name: "Talk shows", value: Number(hero.ts_share) || 0 },
+    { name: "Talkshows", value: Number(hero.ts_share) || 0 },
   ].filter((d) => d.value > 0);
 
   const heroSeries = normalizeTimeseries(hero.timeseries);
@@ -131,33 +148,137 @@ export default function Landing({ onSelectTopic }) {
 return (
   <div className="container">
     {showIntro && (
-      <div className="modalBackdrop modalFadeIn" onClick={closeIntro}>
-        <div
-          className="modalCard"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="introTitle"
-          aria-describedby="introText"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h2 id="introTitle">Welcome to the Mismatch Barometer</h2>
+    <div className="modalBackdrop modalFadeIn" onClick={closeIntro} style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      zIndex: 100 
+    }}>
+      <div
+        className="modalCard"
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth: "850px",
+          width: "90%",
+          padding: 0,
+          borderRadius: "16px",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "row", // Side-by-side layout
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+          flexWrap: "wrap" // Wraps on mobile
+        }}
+      >
+        
+        {/* 1. Visual Side (Illustration) */}
+        <div style={{
+          flex: "1 1 300px",
+          background: "linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "3rem",
+          borderRight: "1px solid #e5e7eb"
+        }}>
+          {/* Custom SVG Illustration: TV vs Podium */}
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Connecting "Tension" Line */}
+            <path d="M100 60 L100 120" stroke="#d1d5db" strokeWidth="2" strokeDasharray="6 4" />
+            <circle cx="100" cy="90" r="16" fill="white" stroke="#d1d5db" strokeWidth="2" />
+            <text x="100" y="96" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#9ca3af">vs</text>
 
-          <p id="introText">
+            {/* Talkshow Side (Left/Top) */}
+            <g transform="translate(10, 20)">
+              <rect x="0" y="0" width="80" height="60" rx="8" fill={COLORS.talkshow} opacity="0.9" />
+              <rect x="5" y="5" width="70" height="50" rx="4" fill="white" opacity="0.2" />
+              <path d="M25 75 L35 60 H45 L55 75" stroke={COLORS.talkshow} strokeWidth="4" strokeLinecap="round" />
+              {/* Screen "Noise" Lines */}
+              <path d="M20 30 H60 M20 40 H50" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.8"/>
+            </g>
+
+            {/* Bundestag Side (Right/Bottom) */}
+            <g transform="translate(110, 100)">
+              <path d="M10 60 L10 10 L70 10 L70 60" stroke={COLORS.bundestag} strokeWidth="4" fill="white" />
+              <path d="M0 10 H80 M5 60 H75" stroke={COLORS.bundestag} strokeWidth="4" strokeLinecap="round" />
+              <path d="M40 25 V45" stroke={COLORS.bundestag} strokeWidth="4" strokeLinecap="round" />
+              <circle cx="40" cy="20" r="4" fill={COLORS.bundestag} /> {/* Mic Head */}
+            </g>
+          </svg>
+        </div>
+
+        {/* 2. Content Side */}
+        <div style={{
+          flex: "1 1 300px",
+          padding: "3rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          background: "white"
+        }}>
+          <h2 id="introTitle" style={{ 
+            fontSize: "1.75rem", 
+            marginBottom: "1rem", 
+            color: "#111827",
+            lineHeight: 1.2
+          }}>
+            Welcome to the <br/>
+            <span style={{ color: COLORS.talkshow }}>Mismatch</span> Barometer
+          </h2>
+
+          <p id="introText" style={{ 
+            fontSize: "1.05rem", 
+            lineHeight: 1.6, 
+            color: "#4b5563",
+            marginBottom: "2rem" 
+          }}>
             Remember when the European Parliament started talking about banning
-            conventional names for vegan substitues? Yeah, that was pretty wild,
-            and somewhat weird? How come that politicians seem to talk about
+
+            conventional names for vegan substitutes?<br/><br/> Yeah, that was pretty wild,
+
+            right?<br/><br/> How come that politicians seem to talk about
+
             arbitrary stuff, whilst the public is interested in vastly different
-            things? With this dashboard, we are trying to seek out which other
-            topic mismatches are present between the Bundestag and German
-            talkshows.
+
+            things?
+            <br/><br/>
+            We analyzed thousands of minutes of{' '}
+            <span style={{ color: COLORS.bundestag, fontWeight: 600 }}>Bundestag protocols</span>
+            {' '}and{' '}
+            <span style={{ color: COLORS.talkshow, fontWeight: 600 }}>Talkshows</span>
+            {' '}to find out:
+            <br />
+            <i style={{ display: 'block', marginTop: '8px', color: '#111827' }}>
+              <b>Who</b> is giving <b>what</b> more attention?
+            </i>
           </p>
 
-          <button className="btn" type="button" onClick={closeIntro}>
-            Check out dashboard
+          <button 
+            className="btn" 
+            type="button" 
+            onClick={closeIntro}
+            style={{
+              alignSelf: "flex-start",
+              padding: "12px 24px",
+              fontSize: "1rem",
+              background: "#111827",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              transition: "transform 0.2s"
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.02)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+          >
+            Find out for yourself &rarr;
           </button>
         </div>
+
       </div>
-    )}
+    </div>
+  )}
 
     <header className="hero">
       <h1 className="heroTitle">Mismatch Barometer</h1>
@@ -178,14 +299,80 @@ return (
 
           <div className="metric">
             <div className="metricValue">{hero.talkshow_minutes}</div>
-            <div className="metricLabel">minutes in talk shows</div>
+            <div className="metricLabel">minutes in Talkshows</div>
           </div>
 
           <div className="metric">
             <div className="metricValue">
-              <MismatchScoreLabel score={hero.mismatch_score ?? 0} decimals={3} />
+              {/* The Score/Gauge */}
+              <MismatchScoreLabel score={hero.mismatch_score ?? 0} decimals={1} />
             </div>
-            <div className="metricLabel">mismatch score</div>
+            
+            {/* The Label with the Info Tooltip */}
+            <div 
+              className="metricLabel" 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', // Centers it in the hero metric column
+                gap: '4px', 
+                cursor: 'help' 
+              }}
+            >
+              Mismatch score
+              
+              <span className="infoWrap" style={{ position: 'relative' }}>
+                {/* Transparent 'i' Icon */}
+                <span 
+                  className="infoIcon" 
+                  style={{ 
+                    width: '12px', 
+                    height: '12px', 
+                    fontSize: '9px', 
+                    lineHeight: '11px',
+                    backgroundColor: 'transparent',
+                    border: '1px solid #9ca3af',
+                    color: '#9ca3af',
+                    borderRadius: '50%',
+                    textAlign: 'center',
+                    display: 'inline-block',
+                    verticalAlign: 'middle'
+                  }}
+                >
+                  i
+                </span>
+                
+                {/* The Tooltip Dropdown */}
+                <span 
+                  className="infoTooltip" 
+                  style={{ 
+                    position: 'absolute',
+                    top: '24px', // Drops down
+                    left: '50%', 
+                    transform: 'translateX(-50%)',
+                    zIndex: 50,
+                    width: '220px', 
+                    fontSize: '0.75rem',
+                    lineHeight: '1.4',
+                    fontWeight: 'normal',
+                    textAlign: 'left',
+                    color: '#fff',
+                    backgroundColor: '#1f2937', 
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    whiteSpace: 'normal',
+                    textTransform: 'none' // Resets any uppercase from metricLabel
+                  }}
+                >
+                  <strong>Calculation:</strong><br/>
+                  We compare normalized attention shares. 
+                  A score of <b>X</b> means one side gave this topic <b>2^X times more</b> relative attention than the other.
+                  <br/><br/>
+                  <em style={{ opacity: 0.7 }}>Formula: Log₂(Share A / Share B)</em>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -271,7 +458,7 @@ return (
                       dot={false}
                       strokeWidth={2}
                       isAnimationActive={false}
-                      name="Talk shows (normalized %)"
+                      name="Talkshows (normalized %)"
                       stroke={COLORS.talkshow}
                     />
                   </LineChart>
@@ -297,13 +484,18 @@ return (
             <span>average mismatch</span>
           </div>
           <div className="stat">
-            <b>{summary.overall_stats?.topics_more_parliament ?? "—"} Topics</b>
-            <span> more attention in the Bundestag</span>
-          </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.topics_more_talkshows ?? "—"} Topics</b>
-            <span> more attention in Talkshows</span>
-          </div>
+          <b style={{ color: COLORS.bundestag }}>
+            {summary.overall_stats?.topics_more_parliament ?? "—"} Topics
+          </b>
+          <span> more attention in the Bundestag</span>
+        </div>
+
+        <div className="stat">
+          <b style={{ color: COLORS.talkshow }}>
+            {summary.overall_stats?.topics_more_talkshows ?? "—"} Topics
+          </b>
+          <span> more attention in Talkshows</span>
+        </div>
         </div>
       </section>
 
@@ -324,9 +516,9 @@ return (
               <div className="cardTitle">{t.label}</div>
               <div className="cardMeta">
                 <span>
-                  Mismatch: <b>{Number(t.mismatch_score ?? 0).toFixed(3)}</b>
+                  <MismatchScoreLabel score={t.mismatch_score} decimals={1} />
                 </span>
-                <span>
+                {/*<span>
                   Δ norm: <b>{Number(t.norm_delta ?? 0).toFixed(1)}</b>
                 </span>
                 <span>
@@ -334,10 +526,10 @@ return (
                 </span>
                 <span>
                   TV: <b>{t.talkshow_minutes}</b> min
-                </span>
+                </span>*/}
               </div>
             </button>
-          ))}
+                ))}
         </div>
 
         {topOthers.length === 0 && (
