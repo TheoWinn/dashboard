@@ -1,7 +1,3 @@
----
-format: pdf
----
-
 # Mismatch Barometer Dashboard
 
 This dashboard compares which issues are discussed in the German Bundestag with those debated in the public sphere, specifically in German talk shows.The final product is a dashboard that is able to quantify which topics exist in both spheres, how much time each topic receives per sphere (in minutes), and which sphere contributes how much to the overall time talked about. in the Bundestag and the Talkshows.The dashboard thus illustrates communication gaps and differences in issue salience.
@@ -36,12 +32,12 @@ As these labels are numeric and don't bear substantive meaning, we pass the repr
 
 After the BERTopic model has clustered the embedded text sequences and labels have been generated, we are able to compute how much time each topic was talked about per sphere and can derive numerous ways to quantify the amount of time allocated per topic. 
 
-- `topic_duration` quantifies how much time a single topic was talked about across both spheres (format: hh:mm:ss.sss)
-- `topic_duration_bt` & `topic_duration_bt` quantify how much time each topic has been talked about per sphere
-- `bt_normalized_perc` & `ts_normalized_perc` quantify the normalized speechtime per sphere, and is constructed as follows: $\frac{\text{topic speechtime Bundestag | Talkshows}}{\text{overall speech time in Bundestag | Talkshows}}$
-- `bt_share` & `ts_share` depict the normalized share of the topic salience in each sphere, and is computed as follows: $\frac{\text{bt\_normalized\_perc | ts\_normalized\_perc}}{\text{bt\_normalized\_perc + ts\_normalized\_perc}}$
-- `mismatch_ppoints` is the difference between the normalized sphere percenages ranging from $-100$ to $100$; values $> 0$ indicate more salience in the Bundestag, a value $<0$ show more salience in the Talkshows, and a value of $0$ signifies equal salience
-- `mismatch_log_ratio` is the log ration of the normalized speech times, and is constructed as follows: 
+- `$topic\_duration$` quantifies how much time a single topic was talked about across both spheres (format: hh:mm:ss.sss)
+- `$topic\_duration\_bt$` & `$topic\_duration\_bt$` quantify how much time each topic has been talked about per sphere
+- `$bt\_normalized\_perc$` & `$ts\_normalized\_perc$` quantify the normalized speechtime per sphere, and is constructed as follows: $\frac{\text{topic speechtime Bundestag | Talkshows}}{\text{overall speech time in Bundestag | Talkshows}}$
+- `$bt\_share$` & `$ts\_share$` depict the normalized share of the topic salience in each sphere, and is computed as follows: $\frac{\text{bt\_normalized\_perc | ts\_normalized\_perc}}{\text{bt\_normalized\_perc + ts\_normalized\_perc}}$
+- `$mismatch\_ppoints$` is the difference between the normalized sphere percenages ranging from $-100$ to $100$; values $> 0$ indicate more salience in the Bundestag, a value $<0$ show more salience in the Talkshows, and a value of $0$ signifies equal salience
+- `$mismatch\_log\_ratio$` is the log ration of the normalized speech times, and is constructed as follows: 
 $\log\!\left(
 \frac{\text{bt\_normalized\_perc} + 0.0000001}
      {\text{ts\_normalized\_perc} + 0.0000001}
