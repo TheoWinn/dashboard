@@ -1,111 +1,65 @@
-# Setting up the Frontend
+---
+format: pdf
+---
 
-⚙️ Prerequisites
+# Mismatch Barometer Dashboard
 
-Before you begin, you'll need to install a few essential tools.
+This dashboard compares which issues are discussed in the German Bundestag with those debated in the public sphere, specifically in German talk shows.The final product is a dashboard that is able to quantify which topics exist in both spheres, how much time each topic receives per sphere (in minutes), and which sphere contributes how much to the overall time talked about. in the Bundestag and the Talkshows.The dashboard thus illustrates communication gaps and differences in issue salience.
 
-### 1. Node.js
+The final product is a dashboard that is able to quantify which topics exist in both spheres, how much time each topic receives per sphere (in minutes), and which sphere contributes how much to the overall time talked about.
 
-Our project uses the Node.js runtime environment. Installing it will also give you npm, which we'll use to install pnpm.
+## How To Access The Dashboard
 
-Download: Go to the official Node.js website and download the LTS (Long-Term Support) version. (https://nodejs.org/en/download)
+You can view the dashboard directly and conveniently [here](https://theowinn.github.io/dashboard/).
 
-Install: Run the installer and follow the on-screen prompts. The default settings are fine.
+## How It Works
 
-Verify: Open a new Command Prompt or PowerShell and type node -v. You should see a version number, which confirms it's installed correctly.
+### Data Generation Process
 
-### 2. pnpm (Performant npm)
+The project utilizes multiple data sources.
 
-We use pnpm as our package manager because it's fast and efficient at managing project dependencies.
+First of all, we call the German Bundestag API to gain access to the official stenographic transcripts of Bundestag plenary meetings. This unlocks access to who says what, and what party affiliations each speaker has.
 
-Install: Once Node.js is installed, open a Command Prompt or PowerShell and run the following command to install pnpm globally on your system:
+We also download official plenary meeting recordings from the Bundestag. These are then transcribed using WhisperX, and allow us to estima te the time that a single speaker allocates to a specific topic. These automated, and subsequently also timestamped, transcripts are matched to their official counterparts of the Bundestag API, so we have the official transcript of who says what, in addition to how long they speak.
 
-    npm install -g pnpm
+We also download a set of German talkshows and transcribe them in a similar manner to the Bundestag recordings. This enables us to gain access to timestamped transcripts of various talkshows.
 
-Verify: Close and reopen your terminal, then type pnpm -v. You should see the pnpm version number.
+### Data Analyzation
 
-### Getting Started
+We pass the data from the matched Bundestag transcripts and the transcripts of the talkshows to a BERTopic model. This model discovers the topics that are present across both spheres. Topics live in the same embedding space which enables comparability.
 
-**(Assuming you have already cloned and navigated into the frontend/ directory)** <- THIS IS IMPORTANT
+Employing the BERTopic model allows us to genereate coherent topic clusters, that are associated with a unique topic ID, words representing each topic as well as an exemplary text exzerpt that demonstrates which kind of text passage would be assigned to each topic.
 
-3. Install Project Dependencies
-This command reads the package.json file and downloads all the required libraries into a node_modules folder.
+As these labels are numeric and don't bear substantive meaning, we pass the representative words to an LLM that generates human-interpretable topic labels. 
 
-    pnpm install
+### Metric Computation & Data Storage
 
-4. Run the Development Server
-This will start a local web server.
+After the BERTopic model has clustered the embedded text sequences and labels have been generated, we are able to compute how much time each topic was talked about per sphere and can derive numerous ways to quantify the amount of time allocated per topic. 
 
-    pnpm dev
+- `topic_duration` quantifies how much time a single topic was talked about across both spheres (format: hh:mm:ss.sss)
+- `topic_duration_bt` & `topic_duration_bt` quantify how much time each topic has been talked about per sphere
+- `bt_normalized_perc` & `ts_normalized_perc` quantify the normalized speechtime per sphere, and is constructed as follows: $\frac{\text{topic speechtime Bundestag | Talkshows}}{\text{overall speech time in Bundestag | Talkshows}}$
+- `bt_share` & `ts_share` depict the normalized share of the topic salience in each sphere, and is computed as follows: $\frac{\text{bt\_normalized\_perc | ts\_normalized\_perc}}{\text{bt\_normalized\_perc + ts\_normalized\_perc}}$
+- `mismatch_ppoints` is the difference between the normalized sphere percenages ranging from $-100$ to $100$; values $> 0$ indicate more salience in the Bundestag, a value $<0$ show more salience in the Talkshows, and a value of $0$ signifies equal salience
+- `mismatch_log_ratio` is the log ration of the normalized speech times, and is constructed as follows: 
+$\log\!\left(
+\frac{\text{bt\_normalized\_perc} + 0.0000001}
+     {\text{ts\_normalized\_perc} + 0.0000001}
+\right)$; positive values indicate more salience in the Bundestag, negative ones more salience in the Talkshows, $0$ indicates an equilibrium.
 
-**Once it's running, your terminal will show a local URL, usually http://localhost:5173/. Open this URL in your web browser to see the application. The server will automatically reload the page whenever you make changes to the code.**
+These values are computed using the database in which we store all of our generated data. For more details, please view the `database` folder.
 
-### Frontend information
-We are using Vite+React+Javascript
+## Use For Your Own Project
 
-# These files are important:
-- Index.html: The main HTML file we specify some website wide 
-- src/App.jsx: Main application component
-- src/assets: Folder for static assets like images and styles
+Should you wish to apply this kind of structure to your own project, analyzing two different spheres to the ones in this project, you can clone this project's repository using `git clone https://github.com/TheoWinn/dashboard`.
 
-# Best practive
+If you want to use the exact process, you may also need to enter your own environment variables, especially: 
+- API keys that you may need for accessing the data of your choice 
 
- If we create something like a new component, we should create a new folder in src/components and put the component file there. For example, if we create a Button component, we should create a folder src/components/Button and put Button.jsx and Button.css (if needed) there.
- .css is for styling/visuals, .jsx is for the logic/structure of the component (e.g what happens on click)
- We then import these components into the main App.jsx or other components as needed.
- 
+- a Hugging Face Token
 
- # Important to know
-**"States"**
-They are information that can change over time. For example, if we have a button that when clicked changes the text on the screen, we would use a state to keep track of the text. When the button is clicked, we update the state and React automatically updates the screen for us.
-This is important because usually JS re-renders the whole page when something changes, but with states, React only updates the parts of the page that need to change, making it more efficient!! **We should definitely use states for api refreshs since they take long!**
+- API key to the LLM of your choice
 
-**Props** Basically function arguments that are used in your component:
+- URL of your database 
 
-Example:
-*function Greeting({ name }) return <hello,{name}>*)
-Greeting name = "Leonie"
-Greeting name = "Tim"
-Greeting name = "Ara"
-Greeting name = "Theo"
-
-
-**Side Effects** is an action that happens outside of the component. For example, fetching data from an API or updating the document title. In React, we use the useEffect hook to handle side effects. It takes a function as an argument and runs it after the component renders. We can also specify dependencies so that the effect only runs when certain values change.
-
-E.g change in state or prop -> refresh api
--> click button -> change state -> refresh api
-
-**Conditional rendering**
-Show only certain parts of the UI based on certain conditions. For example, we can show a loading spinner while data is being fetched and then show the data once it is available. We can use JavaScript's conditional operators (like if statements or ternary operators) to achieve this. Side Effects is an action that happens outside of the component. For example, fetching data from an API or updating the document title. In React, we use the useEffect hook to handle side effects. It takes a function as an argument and runs it after the component renders. We can also specify dependencies so that the effect only runs when certain values change.
-
-**Props aka properties**
-are a way to pass data from a parent component to a child component. They are read-only and cannot be modified by the child component. We use props to make components reusable and configurable. For example, we can create a Button component that takes a label prop to set the text on the button.
-
-Example:
-
-
-
-**Conditional rendering**
-Show only certain parts of the UI based on certain conditions. For example, we can show a loading spinner while data is being fetched and then show the data once it is available. We can use JavaScript's conditional operators (like if statements or ternary operators) to achieve this.
-
-Example:
-
-is logged in? show profile : show login button
-
- # Connecting Python backend to frontend
- We use an API to connect the Python backend to the React frontend. The backend will have endpoints that the frontend can call to get or send data. For this we use Flask and CORS (Cross-Origin Resource Sharing) to allow the frontend to communicate with the backend (Usually this would be blocked).
-
- # General Workflow
- - Use Python to handle data scraping/api calling as well as data processing (e.g cleaning, transforming, etc) and then send this data to the frontend via an backend-frontend API.
-
-
- # Possible visualizations:
- https://recharts.org (simple+easy to use)
- www.chartjs.org/ (also simple+easy to use)
- https://d3js.org/ (apparently harder to use)
-
- # Use for "scrolly-telling" 
- - https://www.npmjs.com/package/react-intersection-observer
-
- # The Matching Algorithm (matching.py)
- We need to match transcribed speeches from video to the actual speeches from the BT api. For this we strip stopwords and capitalization and then create a tf-idf vectorizer which indexes the speeches. This means that we get a unqiue fingerprint for each speech. We then do the same for the transcribed speech and then calculate the cosine similarity between the transcribed speech and all the indexed speeches. The speech with the highest cosine similarity is then returned as the best match.
+- Access key to your database
