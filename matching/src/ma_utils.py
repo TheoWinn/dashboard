@@ -84,9 +84,23 @@ def matching_pipeline():
     already_matched_csv = []
     global_meta_rows = []
     if meta_path.exists():
-        old_meta = pd.read_csv(meta_path)
-        already_matched_csv = old_meta[old_meta["flag"] == "matched"]["video_data"].tolist()
-        global_meta_rows = old_meta.values.tolist()
+        old_meta = pd.read_csv(meta_path, dtype=str)
+
+        # Safety: if old meta contains repeated header lines as rows, drop them
+        for col in ["flag", "xml_data", "video_data"]:
+            if col in old_meta.columns:
+                old_meta = old_meta[old_meta[col].astype(str).ne(col)]
+
+        # Keep only the expected columns
+        if {"flag", "xml_data", "video_data"}.issubset(old_meta.columns):
+            old_meta = old_meta[["flag", "xml_data", "video_data"]].copy()
+            global_meta_rows = old_meta.to_dict("records")
+
+            already_matched_csv = old_meta[old_meta["flag"] == "matched"]["video_data"].tolist()
+        else:
+            # If file exists but is malformed, start fresh
+            global_meta_rows = []
+            already_matched_csv = []
 
     # # read in meta data from downloading protocols
     # download_meta_path = xml_dir / "../raw/metadata.csv"
@@ -119,13 +133,13 @@ def matching_pipeline():
                 already_done = set(tuple(x) for x in matched_pairs.values)
 
         # Filter out CSV files that are already matched
-        unmatched_csv = []
+        filtered_csv_files = []
         for csv_file in csv_files:
             video_data = csv_file.stem  # EXACT string written to meta
             if (date_str, video_data) in already_done:
                 print(f"  Skipping {video_data}: already matched in meta file.")
             else:
-                unmatched_csv.append(csv_file)
+                filtered_csv_files.append(csv_file)
 
         if len(filtered_csv_files) == 0:
             print(f"Skipping {date_str}: all videos already matched.")

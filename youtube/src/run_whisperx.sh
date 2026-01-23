@@ -5,6 +5,14 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
+export PATH="$HOME/.nix-profile/bin:$PATH"
+
+echo "=== DEBUG ffmpeg ==="
+echo "PATH: $PATH"
+command -v ffmpeg || { echo "ERROR: ffmpeg not found on PATH"; exit 1; }
+ffmpeg -version | head -n 2
+echo "===================="
+
 # --- ensure venv exists (.venv created by uv) ---
 VENV_PY="../../.venv/bin/python"
 if [[ ! -x "$VENV_PY" ]]; then

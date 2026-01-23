@@ -468,7 +468,8 @@ def views_db(db_url):
     STABLE
     AS $$
     SELECT *
-    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(p_year, p_window_weeks);
+    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(p_year, p_window_weeks)
+    WHERE topic_id <> -1;
     $$;
 
     REVOKE ALL ON FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int)
@@ -522,12 +523,14 @@ def views_db(db_url):
     (ts_normalized / NULLIF(bt_normalized + ts_normalized, 0))*100 AS ts_share,
     (bt_normalized - ts_normalized)*100 AS mismatch_ppoints,
     log(2, (bt_normalized+0.0000001)/(ts_normalized+0.0000001)) AS mismatch_log_ratio
-    FROM norm;
+    FROM norm
+    WHERE topic_id <> -1;
 
     -- 4-week windowed metrics view
     CREATE OR REPLACE VIEW dashboard.topics_view_4w AS
     SELECT *
-    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(2025, 4);
+    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(2025, 4)
+    WHERE topic_id <> -1;
 
     -- files view
     CREATE OR REPLACE VIEW dashboard.files_view AS
