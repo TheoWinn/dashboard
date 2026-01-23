@@ -103,7 +103,7 @@ export default function Landing({ onSelectTopic }) {
     // Add any topics you want to remove here (make sure to use lowercase)
     const IGNORED_LABELS = [
         "miscellaneous speech fragments", 
-        "name of the other topic" 
+        "Parliamentary Debate Discourse" 
     ];
 
     return summary.featured_topics
