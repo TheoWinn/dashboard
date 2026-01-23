@@ -35,10 +35,10 @@ After the BERTopic model has clustered the embedded text sequences and labels ha
 - `topic_duration` quantifies how much time a single topic was talked about across both spheres (format: hh:mm:ss.sss)
 - `topic_duration_bt` & `topic_duration_bt` quantify how much time each topic has been talked about per sphere
 - `bt_normalized_perc` & `ts_normalized_perc` quantify the normalized speechtime per sphere, and is constructed as follows: $\frac{\text{topic speechtime Bundestag} \mid \text{Talk shows}}{\text{overall speech time in Bundestag} \mid \text{Talk shows}}$
-- `bt_share` & `ts_share` depict the normalized share of the topic salience in each sphere, and is computed as follows: $\frac{\text{bt\_normalized\_perc} \mid \text{ts\_normalized\_perc}}{\text{bt\_normalized\_perc + ts\_normalized\_perc}}$
+- `bt_share` & `ts_share` depict the normalized share of the topic salience in each sphere, and is computed as follows: $\frac{\text{bt-normalized-perc} \mid \text{ts-normalized-perc}}{\text{bt-normalized-perc + ts-normalized-perc}}$
 - `mismatch_ppoints` is the difference between the normalized sphere percenages ranging from $-100$ to $100$; values $> 0$ indicate more salience in the Bundestag, a value $<0$ show more salience in the Talk shows, and a value of $0$ signifies equal salience
 - `mismatch_log_ratio` is the log ration of the normalized speech times, and is constructed as follows: 
-$\log\!\left(\frac{\text{bt\_normalized\_perc} + 0.0000001}{\text{ts\_normalized\_perc} + 0.0000001}\right)$; positive values indicate more salience in the Bundestag, negative ones more salience in the Talk shows, $0$ indicates an equilibrium.
+$\log\!\left(\frac{\text{bt-normalized-perc} + 0.0000001}{\text{ts-normalized-perc} + 0.0000001}\right)$; positive values indicate more salience in the Bundestag, negative ones more salience in the Talk shows, $0$ indicates an equilibrium.
 
 These values are computed using the database in which we store all of our generated data. For more details, please view the `database` folder.
 
