@@ -99,15 +99,21 @@ export default function Landing({ onSelectTopic }) {
     if (!summary?.featured_topics?.length) return [];
     
     const heroSlug = hero?.slug;
-    const IGNORED_LABEL = "miscellaneous speech fragments";
+    
+    // Add any topics you want to remove here (make sure to use lowercase)
+    const IGNORED_LABELS = [
+        "miscellaneous speech fragments", 
+        "name of the other topic" 
+    ];
 
     return summary.featured_topics
-      // Remove the Hero (whichever one we decided on above)
+      // 1. Remove the Hero
       .filter((t) => t?.slug && t.slug !== heroSlug)
-      // Remove the "Bad Topic" if it's lurking in the list
-      .filter((t) => t.label?.toLowerCase() !== IGNORED_LABEL)
-      // Limit to 16 cards
-      .slice(0, 16);
+      // 2. Remove ANY topic that is in our ignored list
+      .filter((t) => !IGNORED_LABELS.includes(t.label?.toLowerCase()))
+      // 3. Take the top 16 of what remains
+      .slice(0, 19);
+      
   }, [summary, hero?.slug]);
 
   if (err) {
@@ -366,10 +372,58 @@ return (
                   }}
                 >
                   <strong>Calculation:</strong><br/>
-                  We compare normalized attention shares. 
-                  A score of <b>X</b> means one side gave this topic <b>2^X times more</b> relative attention than the other.
-                  <br/><br/>
-                  <em style={{ opacity: 0.7 }}>Formula: Log₂(Share A / Share B)</em>
+                  We compare normalized attention shares. The attention shares are calculated with the normalized speech time for a given topic in percentages.
+                  A score of <b>X</b> means one side gave this topic <b>X</b> times more relative attention than the other. <br/><br/>
+                  {/* Styled Formula Block */}
+                  {/* 1. Definition Formula */}
+                  <div style={{ 
+                    fontFamily: '"Times New Roman", Times, serif', 
+                    fontSize: '1rem', 
+                    textAlign: 'center',
+                    marginBottom: '8px'
+                  }}>
+                    <span style={{ fontStyle: 'italic' }}>share</span>
+                    {' = '}
+                    
+                    {/* Visual Fraction */}
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', verticalAlign: 'middle', margin: '0 4px' }}>
+                      <span style={{ borderBottom: '1px solid rgba(255,255,255,0.5)', paddingBottom: '1px', fontStyle: 'italic' }}>
+                        topic_time
+                      </span>
+                      <span style={{ paddingTop: '1px', fontStyle: 'italic' }}>
+                        total_time
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 2. Ratio Formula */}
+                  <div style={{ 
+                    fontFamily: '"Times New Roman", Times, serif', 
+                    fontSize: '1rem', 
+                    textAlign: 'center' 
+                  }}>
+                    <span style={{ fontStyle: 'normal' }}>Ratio</span>
+                    {' = '}
+                    
+                    {/* Visual Fraction */}
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', verticalAlign: 'middle', margin: '0 4px' }}>
+                      <span style={{ 
+                        borderBottom: '1px solid rgba(255,255,255,0.5)', 
+                        paddingBottom: '1px', 
+                        color: COLORS.bundestag, // Blue
+                        fontStyle: 'italic'
+                      }}>
+                        share_BT
+                      </span>
+                      <span style={{ 
+                        paddingTop: '1px', 
+                        color: COLORS.talkshow, // Orange
+                        fontStyle: 'italic'
+                      }}>
+                        share_TV
+                      </span>
+                    </div>
+                  </div>
                 </span>
               </span>
             </div>
@@ -479,8 +533,12 @@ return (
             <b>{summary.overall_stats?.total_topics ?? "—"} Topics</b>
             <span>in total </span>
           </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.avg_abs_mismatch ?? "—"}</b>
+         <div className="stat">
+            <b>
+              {summary.overall_stats?.avg_abs_mismatch
+                ? `${Math.pow(2, Number(summary.overall_stats.avg_abs_mismatch)).toFixed(1)}x`
+                : "—"}
+            </b>
             <span>average mismatch</span>
           </div>
           <div className="stat">
