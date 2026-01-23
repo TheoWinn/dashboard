@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { fetchTopic, fetchSummary } from "../lib/api.js";
 import MismatchScoreLabel from "../scripts/MismatchScoreLabel.jsx";
 
-
 import {
   PieChart,
   Pie,
@@ -19,20 +18,12 @@ import {
 } from "recharts";
 import { COLORS } from "../lib/colors.js";
 
+// ... (Your helper functions: normalizeTimeseries, formatPercent) ...
 function normalizeTimeseries(ts) {
   if (!Array.isArray(ts)) return [];
-
   return ts
     .map((row) => {
-      const rawDate =
-        row.window_start ??
-        row.date ??
-        row.day ??
-        row.dt ??
-        row.timestamp ??
-        row.week ??
-        null;
-
+      const rawDate = row.window_start ?? row.date ?? row.day ?? row.dt ?? row.timestamp ?? row.week ?? null;
       return {
         date: rawDate ? String(rawDate) : "",
         bt_normalized_perc: Number(row.bt_normalized_perc) || 0,
@@ -53,38 +44,23 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
   const [summary, setSummary] = useState(null);
   const [err, setErr] = useState(null);
 
+  // ... (Your useEffects for fetching data) ...
   useEffect(() => {
     let cancelled = false;
-
     setTopic(null);
     setErr(null);
-
     fetchTopic(slug)
-      .then((data) => {
-        if (!cancelled) setTopic(data);
-      })
-      .catch((e) => {
-        if (!cancelled) setErr(String(e));
-      });
-
-    return () => {
-      cancelled = true;
-    };
+      .then((data) => { if (!cancelled) setTopic(data); })
+      .catch((e) => { if (!cancelled) setErr(String(e)); });
+    return () => { cancelled = true; };
   }, [slug]);
 
-  // fetch summary once (for "top other topics")
   useEffect(() => {
     let cancelled = false;
-
     fetchSummary()
-      .then((data) => {
-        if (!cancelled) setSummary(data);
-      })
+      .then((data) => { if (!cancelled) setSummary(data); })
       .catch(() => {});
-
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
   const mismatchScore = useMemo(() => {
@@ -96,7 +72,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
     if (!topic) return [];
     return [
       { name: "Bundestag", value: Number(topic?.totals?.bt_share) || 0 },
-      { name: "Talk shows", value: Number(topic?.totals?.ts_share) || 0 },
+      { name: "Talkshows", value: Number(topic?.totals?.ts_share) || 0 },
     ].filter((d) => d.value > 0);
   }, [topic]);
 
@@ -134,15 +110,82 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
 
             <div className="stat">
               <b>{Number(topic?.totals?.talkshow_minutes ?? 0)}</b>
-              <span>Talk show min</span>
+              <span>Talkshow min</span>
             </div>
 
-            <div className="stat">
+            {/* === MAIN SCORE WITH TOOLTIP === */}
+           <div className="stat">
               <b>
                 <MismatchScoreLabel score={mismatchScore} decimals={3} />
               </b>
-              <span>Mismatch score</span>
+              
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: 'help' }}>
+                Mismatch score
+                
+                {/* The Wrapper */}
+                <span className="infoWrap" style={{ position: 'relative' }}>
+                  
+                  {/* The Transparent 'i' Icon */}
+                  <span 
+                    className="infoIcon" 
+                    style={{ 
+                      width: '12px', 
+                      height: '12px', 
+                      fontSize: '9px', 
+                      lineHeight: '11px', // Adjusted for alignment inside border
+                      backgroundColor: 'transparent',
+                      border: '1px solid #9ca3af',
+                      color: '#9ca3af',
+                      borderRadius: '50%',
+                      textAlign: 'center',
+                      display: 'inline-block',
+                      verticalAlign: 'middle'
+                    }}
+                  >
+                    i
+                  </span>
+                  
+                  {/* The Tooltip Box (Now with background) */}
+                  <span 
+                    className="infoTooltip" 
+                    style={{ 
+                      // Positioning: Drop DOWN instead of UP
+                      position: 'absolute',
+                      top: '24px', // Push it down below the icon
+                      left: '50%', 
+                      transform: 'translateX(-50%)',
+                      zIndex: 50, // Ensure it floats on top of the next row
+
+                      // Sizing
+                      width: '220px', 
+                      
+                      // Typography
+                      fontSize: '0.75rem',
+                      lineHeight: '1.4',
+                      fontWeight: 'normal',
+                      textAlign: 'left',
+                      color: '#fff',
+
+                      // Visuals
+                      backgroundColor: '#1f2937', 
+                      padding: '8px 12px',
+                      borderRadius: '6px',
+                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                      
+                      // Safety: ensure text wraps
+                      whiteSpace: 'normal',
+                    }}
+                  >
+                    <strong>Calculation:</strong><br/>
+                    We compare normalized attention shares. 
+                    A score of <b>X</b> means one side gave this topic <b>2^X times more</b> relative attention than the other.
+                    <br/><br/>
+                    <em style={{ opacity: 0.7 }}>Formula: Log₂(Share A / Share B)</em>
+                  </span>
+                </span>
+              </span>
             </div>
+            {/* ============================== */}
 
             <div className="stat">
               <b>{Number(topic?.norm_delta ?? 0).toFixed(1)}</b>
@@ -150,86 +193,16 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
             </div>
           </div>
 
-          {/* Top 4 other topics */}
-          {onSelectTopic && (
-            <section className="section" style={{ marginTop: "2rem" }}>
-              <h3>Top other topics</h3>
-              <div className="grid">
-                {topOthers.map((t) => {
-                  const otherMismatch = Number(
-                    t?.mismatch_score ?? t?.mismatch ?? t?.totals?.mismatch_score ?? 0
-                  );
-
-                  return (
-                    <button
-                      key={t.slug}
-                      className="card"
-                      type="button"
-                      onClick={() => onSelectTopic(t.slug)}
-                    >
-                      <div className="cardTitle">{t.label}</div>
-                      <div className="cardMeta">
-                        <span>
-                          Mismatch:{" "}
-                          <b>
-                            <MismatchScoreLabel score={otherMismatch} />
-                          </b>
-                        </span>
-                        <span>
-                          Δ norm: <b>{Number(t?.norm_delta ?? 0).toFixed(1)}</b>
-                        </span>
-                        <span>
-                          BT: <b>{Number(t?.bundestag_minutes ?? t?.totals?.bundestag_minutes ?? 0)}</b>{" "}
-                          min
-                        </span>
-                        <span>
-                          TV: <b>{Number(t?.talkshow_minutes ?? t?.totals?.talkshow_minutes ?? 0)}</b>{" "}
-                          min
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {/* Charts */}
+          {/* Charts Section 1: Pie Chart */}
           <section className="section" style={{ marginTop: "2rem" }}>
+             {/* ... (Same Chart Code as before) ... */}
             <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              Time Allocation Share (Bundestag vs Talk shows)
+              Time Allocation Share (Bundestag vs Talkshows)
               <span className="infoWrap">
                 <span className="infoIcon">?</span>
                 <span className="infoTooltip">
-                  <strong>Definitions</strong>
-                  <br />
-                  <br />
-                  <strong>bt_normalized_perc</strong>
-                  <br />
-                  Topic speech time in Bundestag
-                  <br />
-                  ÷ overall speech time in Bundestag
-                  <br />
-                  <br />
-                  <strong>ts_normalized_perc</strong>
-                  <br />
-                  Topic speech time in Talkshows
-                  <br />
-                  ÷ overall speech time in Talkshows
-                  <br />
-                  <br />
-                  <strong>bt_share</strong>
-                  <br />
-                  bt_normalized_perc
-                  <br />
-                  ÷ (bt_normalized_perc + ts_normalized_perc)
-                  <br />
-                  <br />
-                  <strong>ts_share</strong>
-                  <br />
-                  ts_normalized_perc
-                  <br />
-                  ÷ (bt_normalized_perc + ts_normalized_perc)
+                  <strong>Intuition: </strong>
+                  Read these graphs as 'Out of the entire time that this topic was talked about in general, X % came from the Bundestag and Y % came from Talkshows'
                 </span>
               </span>
             </h3>
@@ -245,79 +218,65 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                     outerRadius={95}
                     paddingAngle={2}
                     isAnimationActive={false}
-                    label={(entry) =>
-                      `${entry.name}: ${formatPercent(Number(entry.value))}`
-                    }
+                    label={(entry) => `${entry.name}: ${formatPercent(Number(entry.value))}`}
                   >
                     {pieData.map((entry) => (
-                      <Cell
-                        key={entry.name}
-                        fill={
-                          entry.name === "Bundestag"
-                            ? COLORS.bundestag
-                            : COLORS.talkshow
-                        }
-                      />
+                      <Cell key={entry.name} fill={entry.name === "Bundestag" ? COLORS.bundestag : COLORS.talkshow} />
                     ))}
                   </Pie>
                   <ReTooltip formatter={(v) => formatPercent(Number(v))} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
-
-              {pieData.length === 0 && (
-                <p className="muted" style={{ marginTop: 8 }}>
-                  No share data available to plot.
-                </p>
-              )}
+              {pieData.length === 0 && <p className="muted" style={{ marginTop: 8 }}>No share data available to plot.</p>}
             </div>
           </section>
 
+          {/* Charts Section 2: Line Chart */}
           <section className="section" style={{ marginTop: "2rem" }}>
             <h3>Monthly Normalized Attention Share</h3>
             <div className="chartCard" style={{ height: 360 }}>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={series}
-                  margin={{ top: 10, right: 20, bottom: 0, left: 0 }}
-                >
+                <LineChart data={series} margin={{ top: 10, right: 20, bottom: 0, left: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" tickMargin={8} />
                   <YAxis tickFormatter={(v) => `${v.toFixed(1)} %`} />
                   <Tooltip formatter={(v) => `${Number(v).toFixed(1)} %`} />
                   <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="bt_normalized_perc"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Bundestag (normalized %)"
-                    stroke={COLORS.bundestag}
-                  />
-
-                  <Line
-                    type="monotone"
-                    dataKey="ts_normalized_perc"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Talk shows (normalized %)"
-                    stroke={COLORS.talkshow}
-                  />
+                  <Line type="monotone" dataKey="bt_normalized_perc" dot={false} strokeWidth={2} isAnimationActive={false} name="Bundestag (normalized %)" stroke={COLORS.bundestag} />
+                  <Line type="monotone" dataKey="ts_normalized_perc" dot={false} strokeWidth={2} isAnimationActive={false} name="Talkshows (normalized %)" stroke={COLORS.talkshow} />
                 </LineChart>
               </ResponsiveContainer>
-
-              {series.length === 0 && (
-                <p className="muted" style={{ marginTop: 8 }}>
-                  No timeseries data available to plot.
-                </p>
-              )}
+              {series.length === 0 && <p className="muted" style={{ marginTop: 8 }}>No timeseries data available to plot.</p>}
             </div>
           </section>
 
-          {/*<h3 style={{ marginTop: "2rem" }}>Timeseries (raw)</h3>
-          <pre className="pre">{JSON.stringify(topic?.timeseries ?? [], null, 2)}</pre>*/}
+          {/* Top 4 other topics (Standard Cards - NO Tooltip) */}
+          {onSelectTopic && (
+            <section className="section" style={{ marginTop: "2rem" }}>
+              <h3>Top other topics</h3>
+              <div className="grid">
+                {topOthers.map((t) => {
+                  const otherMismatch = Number(t?.mismatch_score ?? t?.mismatch ?? t?.totals?.mismatch_score ?? 0);
+                  return (
+                    <button key={t.slug} className="card" type="button" onClick={() => onSelectTopic(t.slug)}>
+                      <div className="cardTitle">{t.label}</div>
+                      <div className="cardMeta">
+                        <span>
+                          Mismatch:{" "}
+                          <b><MismatchScoreLabel score={otherMismatch} /></b>
+                        </span>
+                        <span>Δ norm: <b>{Number(t?.norm_delta ?? 0).toFixed(1)}</b></span>
+                        <span>BT: <b>{Number(t?.bundestag_minutes ?? t?.totals?.bundestag_minutes ?? 0)}</b> min</span>
+                        <span>TV: <b>{Number(t?.talkshow_minutes ?? t?.totals?.talkshow_minutes ?? 0)}</b> min</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
         </>
       )}
     </div>
