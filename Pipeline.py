@@ -136,7 +136,7 @@ def main():
                     speech_path = "none"
                 
                 # insert into database
-                cmd = [sys.executable, "-u", "insert.py", "--input-path", speech_path, "--label-path", info_path, "--youtube"]
+                cmd = [sys.executable, "-u", "insert.py", "--input-path", speech_path, "--label-path", info_path]
                 if not run_step("Insert into DB", cmd, cwd=os.path.join(os.getcwd(), "database")):
                     sys.exit(1)
 
@@ -150,7 +150,6 @@ def main():
                 # write to file
                 with open(log_path, "w", encoding="utf-8") as f:
                     json.dump(log_file, f, ensure_ascii=False, indent=4)
-
             print("Everything inserted successfully")
     
     print("DONE!!")

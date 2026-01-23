@@ -658,7 +658,7 @@ requires-dist = [
     { name = "python-crontab", specifier = ">=3.3.0" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
     { name = "python-slugify", specifier = ">=8.0.4" },
-    { name = "pytubefix", specifier = ">=10.1.1" },
+    { name = "pytubefix", specifier = ">=10.3.5" },
     { name = "requests", specifier = ">=2.32.5" },
     { name = "scikit-learn", specifier = ">=1.7.2" },
     { name = "sentence-transformers", specifier = ">=5.1.2" },
