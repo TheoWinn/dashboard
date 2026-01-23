@@ -229,3 +229,4 @@ models
 frontend/dist/
 
 cron_log.txt
+gh-pages-deploy.log
