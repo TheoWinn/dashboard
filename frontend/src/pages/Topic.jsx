@@ -81,10 +81,22 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
     return normalizeTimeseries(topic?.timeseries);
   }, [topic]);
 
+  // Updated to include the Ignore List
   const topOthers = useMemo(() => {
     if (!summary?.featured_topics?.length) return [];
+    
+    // Add any topics you want to remove here (must be lowercase)
+    const IGNORED_LABELS = [
+        "miscellaneous speech fragments", 
+        // "other topic name"
+    ];
+
     return summary.featured_topics
+      // 1. Remove current topic
       .filter((t) => t?.slug && t.slug !== slug)
+      // 2. Remove ignored topics
+      .filter((t) => !IGNORED_LABELS.includes(t.label?.toLowerCase()))
+      // 3. Take top 4
       .slice(0, 4);
   }, [summary, slug]);
 
@@ -113,8 +125,8 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
               <span>Talkshow min</span>
             </div>
 
-            {/* === MAIN SCORE WITH TOOLTIP === */}
-           <div className="stat">
+            {/* === 1. MISMATCH SCORE WITH TOOLTIP === */}
+            <div className="stat">
               <b>
                 <MismatchScoreLabel score={mismatchScore} decimals={3} />
               </b>
@@ -132,7 +144,7 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                       width: '12px', 
                       height: '12px', 
                       fontSize: '9px', 
-                      lineHeight: '11px', // Adjusted for alignment inside border
+                      lineHeight: '11px',
                       backgroundColor: 'transparent',
                       border: '1px solid #9ca3af',
                       color: '#9ca3af',
@@ -145,57 +157,169 @@ export default function Topic({ slug, onBack, onSelectTopic }) {
                     i
                   </span>
                   
-                  {/* The Tooltip Box (Now with background) */}
+                  {/* The Tooltip Box */}
                   <span 
                     className="infoTooltip" 
                     style={{ 
-                      // Positioning: Drop DOWN instead of UP
                       position: 'absolute',
-                      top: '24px', // Push it down below the icon
+                      top: '24px', 
                       left: '50%', 
                       transform: 'translateX(-50%)',
-                      zIndex: 50, // Ensure it floats on top of the next row
-
-                      // Sizing
-                      width: '220px', 
-                      
-                      // Typography
+                      zIndex: 50,
+                      width: '240px', 
                       fontSize: '0.75rem',
                       lineHeight: '1.4',
                       fontWeight: 'normal',
                       textAlign: 'left',
                       color: '#fff',
-
-                      // Visuals
                       backgroundColor: '#1f2937', 
-                      padding: '8px 12px',
+                      padding: '12px',
                       borderRadius: '6px',
                       boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-                      
-                      // Safety: ensure text wraps
                       whiteSpace: 'normal',
+                      textTransform: 'none' 
                     }}
                   >
-                    <strong>Calculation:</strong><br/>
-                    We compare normalized attention shares. 
-                    A score of <b>X</b> means one side gave this topic <b>2^X times more</b> relative attention than the other.
-                    <br/><br/>
-                    <em style={{ opacity: 0.7 }}>Formula: Log₂(Share A / Share B)</em>
+                    <div style={{ marginBottom: '12px' }}>
+                      We compare normalized attention shares.
+                      A score of <span style={{ fontFamily: '"Times New Roman", serif', fontStyle: 'italic' }}>x</span> means 
+                      one side gave this topic <b style={{ fontFamily: '"Times New Roman", serif' }}>2<sup style={{ fontSize: '0.6em' }}>x</sup></b> times more attention.
+                    </div>
+
+                    {/* 1. Definition Formula */}
+                    <div style={{ 
+                      fontFamily: '"Times New Roman", Times, serif', 
+                      fontSize: '1rem', 
+                      textAlign: 'center',
+                      marginBottom: '8px'
+                    }}>
+                      <span style={{ fontStyle: 'italic' }}>share</span>
+                      {' = '}
+                      
+                      {/* Visual Fraction */}
+                      <div style={{ display: 'inline-flex', flexDirection: 'column', verticalAlign: 'middle', margin: '0 4px' }}>
+                        <span style={{ borderBottom: '1px solid rgba(255,255,255,0.5)', paddingBottom: '1px', fontStyle: 'italic' }}>
+                          topic_time
+                        </span>
+                        <span style={{ paddingTop: '1px', fontStyle: 'italic' }}>
+                          total_time
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* 2. Ratio Formula */}
+                    <div style={{ 
+                      fontFamily: '"Times New Roman", Times, serif', 
+                      fontSize: '1rem', 
+                      textAlign: 'center' 
+                    }}>
+                      <span style={{ fontStyle: 'normal' }}>Ratio</span>
+                      {' = '}
+                      
+                      {/* Visual Fraction */}
+                      <div style={{ display: 'inline-flex', flexDirection: 'column', verticalAlign: 'middle', margin: '0 4px' }}>
+                        <span style={{ 
+                          borderBottom: '1px solid rgba(255,255,255,0.5)', 
+                          paddingBottom: '1px', 
+                          color: COLORS.bundestag, 
+                          fontStyle: 'italic'
+                        }}>
+                          share_BT
+                        </span>
+                        <span style={{ 
+                          paddingTop: '1px', 
+                          color: COLORS.talkshow, 
+                          fontStyle: 'italic'
+                        }}>
+                          share_TV
+                        </span>
+                      </div>
+                    </div>
                   </span>
                 </span>
               </span>
             </div>
-            {/* ============================== */}
 
+            {/* === 2. DELTA STAT WITH TOOLTIP === */}
             <div className="stat">
               <b>{Number(topic?.norm_delta ?? 0).toFixed(1)}</b>
-              <span>Δ normalized speech time</span>
+              
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: 'help' }}>
+                Δ normalized speech time
+                
+                {/* The Wrapper */}
+                <span className="infoWrap" style={{ position: 'relative' }}>
+                  
+                  {/* The Transparent 'i' Icon */}
+                  <span 
+                    className="infoIcon" 
+                    style={{ 
+                      width: '12px', 
+                      height: '12px', 
+                      fontSize: '9px', 
+                      lineHeight: '11px',
+                      backgroundColor: 'transparent',
+                      border: '1px solid #9ca3af',
+                      color: '#9ca3af',
+                      borderRadius: '50%',
+                      textAlign: 'center',
+                      display: 'inline-block',
+                      verticalAlign: 'middle'
+                    }}
+                  >
+                    i
+                  </span>
+                  
+                  {/* The Tooltip Box */}
+                  <span 
+                    className="infoTooltip" 
+                    style={{ 
+                      position: 'absolute',
+                      top: '24px', 
+                      left: '50%', 
+                      transform: 'translateX(-50%)',
+                      zIndex: 50,
+                      width: '240px', 
+                      fontSize: '0.75rem',
+                      lineHeight: '1.4',
+                      fontWeight: 'normal',
+                      textAlign: 'left',
+                      color: '#fff',
+                      backgroundColor: '#1f2937', 
+                      padding: '12px',
+                      borderRadius: '6px',
+                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                      whiteSpace: 'normal',
+                      textTransform: 'none'
+                    }}
+                  >
+                    <div style={{ marginBottom: '12px' }}>
+                      <strong>The "Volume" Gap:</strong><br/>
+                      While the Mismatch Score shows the <i>ratio</i> (multiplier), this Delta shows the simple arithmetic difference in percentage points.
+                      A Delta of 8 means this topic consumed 8 percentage points more of the total available time in one institution compared to the other.
+                      High Deltas indicate 'Mainstream' disagreements, while High Mismatch Scores often highlight 'Niche' obsessions.
+                    </div>
+
+                    {/* Formula Block */}
+                    <div style={{ 
+                      fontFamily: '"Times New Roman", Times, serif', 
+                      fontSize: '1rem', 
+                      textAlign: 'center' 
+                    }}>
+                      <span style={{ fontStyle: 'italic' }}>Δ</span>
+                      {' = '}
+                      <span style={{ color: COLORS.bundestag, fontStyle: 'italic' }}>share_BT</span>
+                      {' - '}
+                      <span style={{ color: COLORS.talkshow, fontStyle: 'italic' }}>share_TV</span>
+                    </div>
+                  </span>
+                </span>
+              </span>
             </div>
           </div>
 
           {/* Charts Section 1: Pie Chart */}
           <section className="section" style={{ marginTop: "2rem" }}>
-             {/* ... (Same Chart Code as before) ... */}
             <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
               Time Allocation Share (Bundestag vs Talkshows)
               <span className="infoWrap">
