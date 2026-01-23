@@ -226,5 +226,6 @@ token.pkl
 
 data
 models
+frontend/dist/
 
 cron_log.txt
