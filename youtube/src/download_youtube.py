@@ -4,6 +4,7 @@ import pytubefix.request as req
 import traceback
 from datetime import date
 import argparse
+from pytubefix.helpers import reset_cache
 
 ##### HOW TO USE:
 # The script must be run from the command line. (You have to be in the youtube/src/ directory)
@@ -79,6 +80,7 @@ if __name__ == "__main__":
             traceback.print_exc()
             return traceback.format_exc()
         
+    reset_cache()
 
     error_summary = {}
     source = args.source

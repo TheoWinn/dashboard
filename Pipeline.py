@@ -4,6 +4,7 @@ import sys
 import os
 from pathlib import Path
 import json
+from datetime import date
 
 
 def run_step(description, command, cwd=None, env=None):
@@ -49,7 +50,7 @@ def main():
     
     # 1. Download YouTube Videos
     if not args.skip_download_videos:
-        cmd = [sys.executable, "download_youtube.py", "--cutoff", args.cutoff]
+        cmd = [sys.executable, "-u", "download_youtube.py", "--cutoff", args.cutoff]
         if args.test_mode:
             cmd.append("--test-mode")
         if args.many_videos:
@@ -59,7 +60,7 @@ def main():
 
     # 2. Download Bundestag Protocols
     if not args.skip_download_protocols:
-        cmd = [sys.executable, "download_cut.py", "--start", args.cutoff]
+        cmd = [sys.executable, "-u", "download_cut.py", "--start", args.cutoff]
         if not run_step("Bundestag Protocol Download", cmd, cwd=os.path.join(os.getcwd(), "bundestag", "src")):
             sys.exit(1)
 
@@ -77,25 +78,25 @@ def main():
 
     # 4. Cluster/Clean Transcripts
     if not args.skip_cluster:
-        # 4a. Talkshows
-        cmd_ts = [sys.executable, "clean_aligned_transcripts.py"]
+        # 4a. Talkshows 
+        cmd_ts = [sys.executable, "-u", "clean_aligned_transcripts.py"]
         if not run_step("Cluster Talkshow Transcripts", cmd_ts, cwd=os.path.join(os.getcwd(), "youtube", "src")):
             sys.exit(1)
             
         # 4b. Bundestag
-        cmd_bt = [sys.executable, "clean_aligned_transcripts.py", "--bundestag"]
+        cmd_bt = [sys.executable, "-u", "clean_aligned_transcripts.py", "--bundestag"]
         if not run_step("Cluster Bundestag Transcripts", cmd_bt, cwd=os.path.join(os.getcwd(), "youtube", "src")):
             sys.exit(1)
 
     # 5. Match Transcripts to Protocols
     if not args.skip_match:
-        cmd = [sys.executable, "ma_utils.py"]
+        cmd = [sys.executable, "-u", "ma_utils.py"]
         if not run_step("Matching Pipeline", cmd, cwd=os.path.join(os.getcwd(), "matching", "src")):
             sys.exit(1)
 
     # 6. Bert
     if not args.skip_bert:
-        cmd = [sys.executable, "extract_topics.py"]
+        cmd = [sys.executable, "-u", "extract_topics.py"]
         if not run_step("Bert with Gemini Labels", cmd, cwd=os.path.join(os.getcwd(), "topicmodelling")):
             sys.exit(1)
     
@@ -135,7 +136,7 @@ def main():
                     speech_path = "none"
                 
                 # insert into database
-                cmd = [sys.executable, "insert.py", "--input-path", speech_path, "--label-path", info_path, "--youtube"]
+                cmd = [sys.executable, "-u", "insert.py", "--input-path", speech_path, "--label-path", info_path]
                 if not run_step("Insert into DB", cmd, cwd=os.path.join(os.getcwd(), "database")):
                     sys.exit(1)
 
@@ -149,7 +150,6 @@ def main():
                 # write to file
                 with open(log_path, "w", encoding="utf-8") as f:
                     json.dump(log_file, f, ensure_ascii=False, indent=4)
-
             print("Everything inserted successfully")
     
     print("DONE!!")

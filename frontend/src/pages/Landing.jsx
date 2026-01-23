@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import MismatchScoreLabel from "../scripts/MismatchScoreLabel.jsx";
 import { fetchSummary } from "../lib/api.js";
 
+
 import {
   ResponsiveContainer,
   PieChart,
@@ -19,32 +20,28 @@ import {
 
 import { COLORS } from "../lib/colors.js";
 
-
 function normalizeTimeseries(ts) {
   if (!Array.isArray(ts)) return [];
+
   return ts
     .map((row) => {
-      const date = row.date ?? row.day ?? row.dt ?? row.timestamp ?? null;
-
-      const bundestag =
-        row.bundestag_minutes ?? row.bt_minutes ?? row.bundestag ?? row.bt ?? 0;
-
-      const talkshow =
-        row.talkshow_minutes ?? row.tv_minutes ?? row.talkshow ?? row.tv ?? 0;
-
-      const mismatch =
-        row.mismatch_score ??
-        row.mismatch ??
-        Math.abs(Number(talkshow) - Number(bundestag));
+      // use the start of the window as the x-axis "date"
+      const rawDate =
+        row.window_start ??
+        row.date ??
+        row.day ??
+        row.dt ??
+        row.timestamp ??
+        null;
 
       return {
-        date: String(date ?? ""),
-        bundestag_minutes: Number(bundestag) || 0,
-        talkshow_minutes: Number(talkshow) || 0,
-        mismatch_score: Number(mismatch) || 0,
+        date: rawDate ? String(rawDate) : "",
+        bt_normalized_perc: Number(row.bt_normalized_perc) || 0,
+        ts_normalized_perc: Number(row.ts_normalized_perc) || 0,
       };
     })
-    .filter((d) => d.date);
+    .filter((d) => d.date)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
 function formatPercent(v) {
@@ -87,14 +84,36 @@ export default function Landing({ onSelectTopic }) {
       .catch((e) => setErr(String(e)));
   }, []);
 
-  const hero = summary?.hero_topic;
+  // 1. Calculate the Hero
+  const rawHero = summary?.hero_topic;
+  // Safety check: is the API-provided hero the "bad" topic?
+  const isBadHero = rawHero?.label?.toLowerCase() === "miscellaneous speech fragments";
 
+  // If bad, try to grab the first valid topic from the list. Otherwise use rawHero.
+  const hero = isBadHero && summary?.featured_topics?.length 
+    ? summary.featured_topics.find(t => t.label?.toLowerCase() !== "miscellaneous speech fragments")
+    : rawHero;
+
+  // 2. Calculate the Grid (Top Others)
   const topOthers = useMemo(() => {
     if (!summary?.featured_topics?.length) return [];
+    
     const heroSlug = hero?.slug;
+    
+    // Add any topics you want to remove here (make sure to use lowercase)
+    const IGNORED_LABELS = [
+        "miscellaneous speech fragments", 
+        "name of the other topic" 
+    ];
+
     return summary.featured_topics
+      // 1. Remove the Hero
       .filter((t) => t?.slug && t.slug !== heroSlug)
-      .slice(0, 20);
+      // 2. Remove ANY topic that is in our ignored list
+      .filter((t) => !IGNORED_LABELS.includes(t.label?.toLowerCase()))
+      // 3. Take the top 16 of what remains
+      .slice(0, 19);
+      
   }, [summary, hero?.slug]);
 
   if (err) {
@@ -127,7 +146,7 @@ export default function Landing({ onSelectTopic }) {
 
   const heroPie = [
     { name: "Bundestag", value: Number(hero.bt_share) || 0 },
-    { name: "Talk shows", value: Number(hero.ts_share) || 0 },
+    { name: "Talkshows", value: Number(hero.ts_share) || 0 },
   ].filter((d) => d.value > 0);
 
   const heroSeries = normalizeTimeseries(hero.timeseries);
@@ -135,33 +154,137 @@ export default function Landing({ onSelectTopic }) {
 return (
   <div className="container">
     {showIntro && (
-      <div className="modalBackdrop modalFadeIn" onClick={closeIntro}>
-        <div
-          className="modalCard"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="introTitle"
-          aria-describedby="introText"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h2 id="introTitle">Welcome to the Mismatch Barometer</h2>
+    <div className="modalBackdrop modalFadeIn" onClick={closeIntro} style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      zIndex: 100 
+    }}>
+      <div
+        className="modalCard"
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth: "850px",
+          width: "90%",
+          padding: 0,
+          borderRadius: "16px",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "row", // Side-by-side layout
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+          flexWrap: "wrap" // Wraps on mobile
+        }}
+      >
+        
+        {/* 1. Visual Side (Illustration) */}
+        <div style={{
+          flex: "1 1 300px",
+          background: "linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "3rem",
+          borderRight: "1px solid #e5e7eb"
+        }}>
+          {/* Custom SVG Illustration: TV vs Podium */}
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Connecting "Tension" Line */}
+            <path d="M100 60 L100 120" stroke="#d1d5db" strokeWidth="2" strokeDasharray="6 4" />
+            <circle cx="100" cy="90" r="16" fill="white" stroke="#d1d5db" strokeWidth="2" />
+            <text x="100" y="96" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#9ca3af">vs</text>
 
-          <p id="introText">
+            {/* Talkshow Side (Left/Top) */}
+            <g transform="translate(10, 20)">
+              <rect x="0" y="0" width="80" height="60" rx="8" fill={COLORS.talkshow} opacity="0.9" />
+              <rect x="5" y="5" width="70" height="50" rx="4" fill="white" opacity="0.2" />
+              <path d="M25 75 L35 60 H45 L55 75" stroke={COLORS.talkshow} strokeWidth="4" strokeLinecap="round" />
+              {/* Screen "Noise" Lines */}
+              <path d="M20 30 H60 M20 40 H50" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.8"/>
+            </g>
+
+            {/* Bundestag Side (Right/Bottom) */}
+            <g transform="translate(110, 100)">
+              <path d="M10 60 L10 10 L70 10 L70 60" stroke={COLORS.bundestag} strokeWidth="4" fill="white" />
+              <path d="M0 10 H80 M5 60 H75" stroke={COLORS.bundestag} strokeWidth="4" strokeLinecap="round" />
+              <path d="M40 25 V45" stroke={COLORS.bundestag} strokeWidth="4" strokeLinecap="round" />
+              <circle cx="40" cy="20" r="4" fill={COLORS.bundestag} /> {/* Mic Head */}
+            </g>
+          </svg>
+        </div>
+
+        {/* 2. Content Side */}
+        <div style={{
+          flex: "1 1 300px",
+          padding: "3rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          background: "white"
+        }}>
+          <h2 id="introTitle" style={{ 
+            fontSize: "1.75rem", 
+            marginBottom: "1rem", 
+            color: "#111827",
+            lineHeight: 1.2
+          }}>
+            Welcome to the <br/>
+            <span style={{ color: COLORS.talkshow }}>Mismatch</span> Barometer
+          </h2>
+
+          <p id="introText" style={{ 
+            fontSize: "1.05rem", 
+            lineHeight: 1.6, 
+            color: "#4b5563",
+            marginBottom: "2rem" 
+          }}>
             Remember when the European Parliament started talking about banning
-            conventional names for vegan substitues? Yeah, that was pretty wild,
-            and somewhat weird? How come that politicians seem to talk about
+
+            conventional names for vegan substitutes?<br/><br/> Yeah, that was pretty wild,
+
+            right?<br/><br/> How come that politicians seem to talk about
+
             arbitrary stuff, whilst the public is interested in vastly different
-            things? With this dashboard, we are trying to seek out which other
-            topic mismatches are present between the Bundestag and German
-            talkshows.
+
+            things?
+            <br/><br/>
+            We analyzed thousands of minutes of{' '}
+            <span style={{ color: COLORS.bundestag, fontWeight: 600 }}>Bundestag protocols</span>
+            {' '}and{' '}
+            <span style={{ color: COLORS.talkshow, fontWeight: 600 }}>Talkshows</span>
+            {' '}to find out:
+            <br />
+            <i style={{ display: 'block', marginTop: '8px', color: '#111827' }}>
+              <b>Who</b> is giving <b>what</b> more attention?
+            </i>
           </p>
 
-          <button className="btn" type="button" onClick={closeIntro}>
-            Check out dashboard
+          <button 
+            className="btn" 
+            type="button" 
+            onClick={closeIntro}
+            style={{
+              alignSelf: "flex-start",
+              padding: "12px 24px",
+              fontSize: "1rem",
+              background: "#111827",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              transition: "transform 0.2s"
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.02)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+          >
+            Find out for yourself &rarr;
           </button>
         </div>
+
       </div>
-    )}
+    </div>
+  )}
 
     <header className="hero">
       <h1 className="heroTitle">Mismatch Barometer</h1>
@@ -182,14 +305,128 @@ return (
 
           <div className="metric">
             <div className="metricValue">{hero.talkshow_minutes}</div>
-            <div className="metricLabel">minutes in talk shows</div>
+            <div className="metricLabel">minutes in Talkshows</div>
           </div>
 
           <div className="metric">
             <div className="metricValue">
-              <MismatchScoreLabel score={hero.mismatch_score ?? 0} decimals={3} />
+              {/* The Score/Gauge */}
+              <MismatchScoreLabel score={hero.mismatch_score ?? 0} decimals={1} />
             </div>
-            <div className="metricLabel">mismatch score</div>
+            
+            {/* The Label with the Info Tooltip */}
+            <div 
+              className="metricLabel" 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', // Centers it in the hero metric column
+                gap: '4px', 
+                cursor: 'help' 
+              }}
+            >
+              Mismatch score
+              
+              <span className="infoWrap" style={{ position: 'relative' }}>
+                {/* Transparent 'i' Icon */}
+                <span 
+                  className="infoIcon" 
+                  style={{ 
+                    width: '12px', 
+                    height: '12px', 
+                    fontSize: '9px', 
+                    lineHeight: '11px',
+                    backgroundColor: 'transparent',
+                    border: '1px solid #9ca3af',
+                    color: '#9ca3af',
+                    borderRadius: '50%',
+                    textAlign: 'center',
+                    display: 'inline-block',
+                    verticalAlign: 'middle'
+                  }}
+                >
+                  i
+                </span>
+                
+                {/* The Tooltip Dropdown */}
+                <span 
+                  className="infoTooltip" 
+                  style={{ 
+                    position: 'absolute',
+                    top: '24px', // Drops down
+                    left: '50%', 
+                    transform: 'translateX(-50%)',
+                    zIndex: 50,
+                    width: '220px', 
+                    fontSize: '0.75rem',
+                    lineHeight: '1.4',
+                    fontWeight: 'normal',
+                    textAlign: 'left',
+                    color: '#fff',
+                    backgroundColor: '#1f2937', 
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    whiteSpace: 'normal',
+                    textTransform: 'none' // Resets any uppercase from metricLabel
+                  }}
+                >
+                  <strong>Calculation:</strong><br/>
+                  We compare normalized attention shares. The attention shares are calculated with the normalized speech time for a given topic in percentages.
+                  A score of <b>X</b> means one side gave this topic <b>X</b> times more relative attention than the other. <br/><br/>
+                  {/* Styled Formula Block */}
+                  {/* 1. Definition Formula */}
+                  <div style={{ 
+                    fontFamily: '"Times New Roman", Times, serif', 
+                    fontSize: '1rem', 
+                    textAlign: 'center',
+                    marginBottom: '8px'
+                  }}>
+                    <span style={{ fontStyle: 'italic' }}>share</span>
+                    {' = '}
+                    
+                    {/* Visual Fraction */}
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', verticalAlign: 'middle', margin: '0 4px' }}>
+                      <span style={{ borderBottom: '1px solid rgba(255,255,255,0.5)', paddingBottom: '1px', fontStyle: 'italic' }}>
+                        topic_time
+                      </span>
+                      <span style={{ paddingTop: '1px', fontStyle: 'italic' }}>
+                        total_time
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 2. Ratio Formula */}
+                  <div style={{ 
+                    fontFamily: '"Times New Roman", Times, serif', 
+                    fontSize: '1rem', 
+                    textAlign: 'center' 
+                  }}>
+                    <span style={{ fontStyle: 'normal' }}>Ratio</span>
+                    {' = '}
+                    
+                    {/* Visual Fraction */}
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', verticalAlign: 'middle', margin: '0 4px' }}>
+                      <span style={{ 
+                        borderBottom: '1px solid rgba(255,255,255,0.5)', 
+                        paddingBottom: '1px', 
+                        color: COLORS.bundestag, // Blue
+                        fontStyle: 'italic'
+                      }}>
+                        share_BT
+                      </span>
+                      <span style={{ 
+                        paddingTop: '1px', 
+                        color: COLORS.talkshow, // Orange
+                        fontStyle: 'italic'
+                      }}>
+                        share_TV
+                      </span>
+                    </div>
+                  </div>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -216,8 +453,8 @@ return (
                     outerRadius={75}
                     paddingAngle={2}
                     isAnimationActive={false}
-                    label={(entry) =>
-                      `${entry.name}: ${formatPercent(Number(entry.value))}`
+                    label={false //(entry) =>
+                      //`${entry.name}: ${formatPercent(Number(entry.value))}` 
                     }
                   >
                     {heroPie.map((entry) => (
@@ -245,38 +482,41 @@ return (
             </div>
 
             <div className="chartCard" style={{ height: 220 }}>
-              <h4 style={{ margin: "0 0 8px" }}>Daily attention</h4>
+              <h4 style={{ margin: "0 0 8px" }}>Monthly Normalized Attention Share</h4>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={heroSeries}
+                    margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
 
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={heroSeries}
-                  margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" hide />
-                  <YAxis hide />
-                  <Tooltip />
-                  <Line
-                    type="monotone"
-                    dataKey="bundestag_minutes"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Bundestag"
-                    stroke={COLORS.bundestag}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="talkshow_minutes"
-                    dot={false}
-                    strokeWidth={2}
-                    isAnimationActive={false}
-                    name="Talk shows"
-                    stroke={COLORS.talkshow}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+                    {/* Y axis as percentages */}
+                    <YAxis tickFormatter={(v) => `${v.toFixed(1)} %`} />
 
+                    {/* Tooltip as percentages */}
+                    <Tooltip formatter={(v) => `${Number(v).toFixed(1)} %`} />
+
+                    <Line
+                      type="monotone"
+                      dataKey="bt_normalized_perc"
+                      dot={false}
+                      strokeWidth={2}
+                      isAnimationActive={false}
+                      name="Bundestag (normalized %)"
+                      stroke={COLORS.bundestag}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="ts_normalized_perc"
+                      dot={false}
+                      strokeWidth={2}
+                      isAnimationActive={false}
+                      name="Talkshows (normalized %)"
+                      stroke={COLORS.talkshow}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
               {heroSeries.length === 0 && (
                 <p className="muted" style={{ marginTop: 8 }}>
                   No timeseries available.
@@ -286,6 +526,36 @@ return (
           </div>
         </div>
       </header>
+          <section className="section">
+        <h3>Overall snapshot</h3>
+        <div className="stats">
+          <div className="stat">
+            <b>{summary.overall_stats?.total_topics ?? "—"} Topics</b>
+            <span>in total </span>
+          </div>
+         <div className="stat">
+            <b>
+              {summary.overall_stats?.avg_abs_mismatch
+                ? `${Math.pow(2, Number(summary.overall_stats.avg_abs_mismatch)).toFixed(1)}x`
+                : "—"}
+            </b>
+            <span>average mismatch</span>
+          </div>
+          <div className="stat">
+          <b style={{ color: COLORS.bundestag }}>
+            {summary.overall_stats?.topics_more_parliament ?? "—"} Topics
+          </b>
+          <span> more attention in the Bundestag</span>
+        </div>
+
+        <div className="stat">
+          <b style={{ color: COLORS.talkshow }}>
+            {summary.overall_stats?.topics_more_talkshows ?? "—"} Topics
+          </b>
+          <span> more attention in Talkshows</span>
+        </div>
+        </div>
+      </section>
 
       <section className="section">
         <h3>Top other topics</h3>
@@ -304,9 +574,9 @@ return (
               <div className="cardTitle">{t.label}</div>
               <div className="cardMeta">
                 <span>
-                  Mismatch: <b>{Number(t.mismatch_score ?? 0).toFixed(3)}</b>
+                  <MismatchScoreLabel score={t.mismatch_score} decimals={1} />
                 </span>
-                <span>
+                {/*<span>
                   Δ norm: <b>{Number(t.norm_delta ?? 0).toFixed(1)}</b>
                 </span>
                 <span>
@@ -314,10 +584,10 @@ return (
                 </span>
                 <span>
                   TV: <b>{t.talkshow_minutes}</b> min
-                </span>
+                </span>*/}
               </div>
             </button>
-          ))}
+                ))}
         </div>
 
         {topOthers.length === 0 && (
@@ -325,27 +595,7 @@ return (
         )}
       </section>
 
-      <section className="section">
-        <h3>Overall snapshot</h3>
-        <div className="stats">
-          <div className="stat">
-            <b>{summary.overall_stats?.total_topics ?? "—"}</b>
-            <span>Total topics</span>
-          </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.avg_abs_mismatch ?? "—"}</b>
-            <span>Avg |mismatch|</span>
-          </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.topics_more_parliament ?? "—"}</b>
-            <span>More Bundestag</span>
-          </div>
-          <div className="stat">
-            <b>{summary.overall_stats?.topics_more_talkshows ?? "—"}</b>
-            <span>More talk shows</span>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 }

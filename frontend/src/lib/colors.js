@@ -1,4 +1,4 @@
 export const COLORS = {
-  bundestag: "#1f3a5f",
+  bundestag: "#3a5ec4ff",
   talkshow: "#9ecae1",
 };

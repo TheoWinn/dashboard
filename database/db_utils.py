@@ -253,6 +253,7 @@ def views_db(db_url):
     GRANT SELECT ON private.speeches TO dashboard_owner;
     GRANT SELECT ON private.topics TO dashboard_owner;
     GRANT SELECT ON private.files TO dashboard_owner;
+    GRANT SELECT on private.speakers TO dashboard_owner;
     GRANT USAGE ON SCHEMA private TO dashboard_owner
     """
 
@@ -347,7 +348,13 @@ def views_db(db_url):
     WITH params AS (
     SELECT
         make_date(p_year, 1, 1)::date         AS start_date,
-        make_date(p_year + 1, 1, 1)::date     AS end_date,       -- exclusive end
+        COALESCE(
+            (SELECT (max(f.file_date) + 1)::date
+             FROM private.files f
+             WHERE f.file_date >= make_date(p_year, 1, 1)::date),
+            /* fallback if no data exists at/after start_date */
+            make_date(p_year + 1, 1, 1)::date
+        ) AS end_date,
         (p_window_weeks || ' weeks')::interval AS step
     ),
     windows AS (
@@ -462,12 +469,59 @@ def views_db(db_url):
     STABLE
     AS $$
     SELECT *
-    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(p_year, p_window_weeks);
+    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(p_year, p_window_weeks)
+    WHERE topic_id <> -1;
     $$;
 
     REVOKE ALL ON FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int)
     FROM PUBLIC, anon, authenticated;
     GRANT EXECUTE ON FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int)
+    TO dashboard_reader;
+
+    -- topic durations by party read function
+    CREATE OR REPLACE FUNCTION dashboard_internal._fn_topics_duration_by_party_read()
+    RETURNS TABLE (
+        topic_id integer,
+        topic_label text,
+        topic_keywords text,
+        topic_repdoc text[],
+        speaker_party text,
+        topic_duration_per_party interval
+    )
+    LANGUAGE sql
+    SECURITY DEFINER SET search_path = pg_catalog, private
+    STABLE
+    AS $$
+        SELECT
+            t.topic_id,
+            t.topic_label,
+            t.topic_keywords,
+            t.topic_repdoc,
+            sp.speaker_party,
+            SUM(s.speech_duration) AS topic_duration_per_party
+        FROM private.speeches s
+        JOIN private.speakers sp
+            ON sp.speaker_id = s.speaker
+        JOIN private.topics t
+            ON t.topic_id = s.topic
+        WHERE s.topic IS NOT NULL
+          AND t.topic_id <> -1
+          AND sp.speaker_party IN (
+              'AfD',
+              'BSW',
+              'BÜNDNIS 90/DIE GRÜNEN',
+              'CDU/CSU',
+              'Die Linke',
+              'FDP',
+              'SPD'
+          )
+        GROUP BY 1,2,3,4,5
+        ORDER BY 1,5;
+    $$;
+
+    REVOKE ALL ON FUNCTION dashboard_internal._fn_topics_duration_by_party_read()
+    FROM PUBLIC, anon, authenticated;
+    GRANT EXECUTE ON FUNCTION dashboard_internal._fn_topics_duration_by_party_read()
     TO dashboard_reader;
     """
 
@@ -475,6 +529,7 @@ def views_db(db_url):
     ALTER FUNCTION dashboard_internal._fn_topics_read() OWNER TO dashboard_owner;
     ALTER FUNCTION dashboard_internal._fn_topics_metrics_all_xweek_windows(int,int) OWNER TO dashboard_owner;
     ALTER FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int) OWNER TO dashboard_owner;
+    ALTER FUNCTION dashboard_internal._fn_topics_duration_by_party_read() OWNER TO dashboard_owner;
     """
 
     create_views = """
@@ -516,12 +571,14 @@ def views_db(db_url):
     (ts_normalized / NULLIF(bt_normalized + ts_normalized, 0))*100 AS ts_share,
     (bt_normalized - ts_normalized)*100 AS mismatch_ppoints,
     log(2, (bt_normalized+0.0000001)/(ts_normalized+0.0000001)) AS mismatch_log_ratio
-    FROM norm;
+    FROM norm
+    WHERE topic_id <> -1;
 
     -- 4-week windowed metrics view
-    CREATE OR REPLACE VIEW dashboard.topics_view_2025_4w AS
+    CREATE OR REPLACE VIEW dashboard.topics_view_4w AS
     SELECT *
-    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(2025, 4);
+    FROM dashboard_internal._fn_topics_metrics_all_xweek_windows(2025, 4)
+    WHERE topic_id <> -1;
 
     -- files view
     CREATE OR REPLACE VIEW dashboard.files_view AS
@@ -532,25 +589,33 @@ def views_db(db_url):
     CREATE OR REPLACE VIEW dashboard.speakers_view AS
     SELECT *
     FROM dashboard_internal._fn_speakers_read();
+    
+    -- topic durations by party view
+    CREATE OR REPLACE VIEW dashboard.topics_duration_by_party_view AS
+    SELECT *
+    FROM dashboard_internal._fn_topics_duration_by_party_read();
     """
 
     ownership_views = """
     ALTER VIEW dashboard.topics_view OWNER TO dashboard_owner;
-    ALTER VIEW dashboard.topics_view_2025_4w OWNER TO dashboard_owner;
+    ALTER VIEW dashboard.topics_view_4w OWNER TO dashboard_owner;
     ALTER VIEW dashboard.files_view OWNER TO dashboard_owner;
     ALTER VIEW dashboard.speakers_view OWNER TO dashboard_owner;
+    ALTER VIEW dashboard.topics_duration_by_party_view OWNER TO dashboard_owner;
     """
 
     minimal_rights = """
     GRANT USAGE ON SCHEMA dashboard TO dashboard_reader;
     REVOKE ALL ON dashboard.topics_view FROM PUBLIC, anon, authenticated;
     GRANT SELECT ON dashboard.topics_view TO dashboard_reader;
-    REVOKE ALL ON dashboard.topics_view_2025_4w FROM PUBLIC, anon, authenticated;
-    GRANT SELECT ON dashboard.topics_view_2025_4w TO dashboard_reader;
+    REVOKE ALL ON dashboard.topics_view_4w FROM PUBLIC, anon, authenticated;
+    GRANT SELECT ON dashboard.topics_view_4w TO dashboard_reader;
     REVOKE ALL ON dashboard.files_view FROM PUBLIC, anon, authenticated;
     GRANT SELECT ON dashboard.files_view TO dashboard_reader;
     REVOKE ALL ON dashboard.speakers_view FROM PUBLIC, anon, authenticated;
     GRANT SELECT ON dashboard.speakers_view TO dashboard_reader;
+    REVOKE ALL ON dashboard.topics_duration_by_party_view FROM PUBLIC, anon, authenticated;
+    GRANT SELECT ON dashboard.topics_duration_by_party_view TO dashboard_reader;
     """
 
     grant_anon_role = """
@@ -576,12 +641,14 @@ def comment_db(db_url):
     views = """
     COMMENT ON VIEW dashboard.topics_view IS 
     'This view contains general information on all the topics identified in Bundestag and Talkshow speeches.';
-    COMMENT ON VIEW dashboard.topics_view_2025_4w IS 
+    COMMENT ON VIEW dashboard.topics_view_4w IS 
     'This view contains the same measurements as topics_view, but for a 4-week window. That means, one row in this view represents one specific topic that was talked about in a specific 4-week window.';
     COMMENT ON VIEW dashboard.files_view IS 
     'This view contains general information about the protocols from the Bundestag and Talkshows.';
     COMMENT ON VIEW dashboard.speakers_view IS
     'This view contains all speakers identified in Bundestag protocols.';
+    COMMENT ON VIEW dashboard.topics_duration_by_party_view IS
+    'This view contains the summed observed speech time per topic and speaker party (AfD, BSW, BÜNDNIS 90/DIE GRÜNEN, CDU/CSU, Die Linke, FDP, SPD).';
     """
 
     functions = """
@@ -589,10 +656,10 @@ def comment_db(db_url):
     'This function returns the topic measurements for a user defined timewindow and year.
     
     Paraneters:
-    - p_year: Calender year to analyze (e.g. 2025)
+    - p_year: Time windows start at this calender year and go up to the latest date
     - p_window_weeks: window size in weeks (e.g. 4)
     
-    The output of the function is a table with the same columns as in topics_view_2025_4w';
+    The output of the function is a table with the same columns as in topics_view_4w';
     """
 
     columns = """
@@ -624,32 +691,32 @@ def comment_db(db_url):
     COMMENT ON COLUMN dashboard.topics_view.mismatch_log_ratio IS
     'Log (base 2) of ratio of normalized topic speech times in Bundestag and Talkshows; generally, positive means higher salience of topic in Bundestag (max: 23.25), negative means higher salience in Talkshows (min: -23.25), 0 indicates equal salience.';
     
-    -- topics_view_2025_4w
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.window_start IS
+    -- topics_view_4w
+    COMMENT ON COLUMN dashboard.topics_view_4w.window_start IS
     'Start date of window (inclusive)';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.window_end IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.window_end IS
     'End date of window (exclusive)';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_id IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.topic_id IS
     'Unique topic identifier';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_label IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.topic_label IS
     'Labels of topics';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_keywords IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.topic_keywords IS
     'Descriptive keywords of topic';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_repdoc IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.topic_repdoc IS
     'Representative Speeches';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.topic_duration IS
     'Overall observed speech time spent on topic without differentiating between Bundestag and Talkshows';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration_bt IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.topic_duration_bt IS
     'Observed speech time spent on topic in Bundestag';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.topic_duration_ts IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.topic_duration_ts IS
     'Observed speech time spent on topic in Talkshows';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.bt_normalized_perc IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.bt_normalized_perc IS
     'Normalized topic speech time in Bundestag in percentages; constructed by dividing the observed time spent on specific topic in Bundestag by the total observed speech time in Bundestag.';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.ts_normalized_perc IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.ts_normalized_perc IS
     'Normalized topic speech time in Talkshows in percentages; constructed by dividing the observed time spent on specific topic in Talkshows by the total observed speech time in Talkshows.';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.mismatch_ppoints IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.mismatch_ppoints IS
     'Difference of normalized topic speech time in Bundestag and Talkshows in percentage points (ranges from -100 to 100); positive means higher salience of topic in Bundestag, negative means higher salience in Talkshows, 0 indicates equal salience.';
-    COMMENT ON COLUMN dashboard.topics_view_2025_4w.mismatch_log_ratio IS
+    COMMENT ON COLUMN dashboard.topics_view_4w.mismatch_log_ratio IS
     'Log (base 2) of ratio of normalized topic speech times in Bundestag and Talkshows; generally, positive means higher salience of topic in Bundestag (max: 23.25), negative means higher salience in Talkshows (min: -23.25), 0 indicates equal salience.';
 
     COMMENT ON COLUMN dashboard.files_view.file_id IS
@@ -669,6 +736,20 @@ def comment_db(db_url):
     'Name of speaker';
     COMMENT ON COLUMN dashboard.speakers_view.speaker_party IS
     'Party or role of speaker';
+    
+    -- topics_duration_by_party_view
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_id IS
+    'Unique topic identifier';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_label IS
+    'Labels of topics';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_keywords IS
+    'Descriptive keywords of topic';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_repdoc IS
+    'Representative Speeches';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.speaker_party IS
+    'Speaker party (filtered to AfD, BSW, BÜNDNIS 90/DIE GRÜNEN, CDU/CSU, Die Linke, FDP, SPD)';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_duration_per_party IS
+    'Summed observed speech time spent on the topic by the given speaker party';
     """
 
     with psycopg2.connect(db_url) as conn:
