@@ -253,6 +253,7 @@ def views_db(db_url):
     GRANT SELECT ON private.speeches TO dashboard_owner;
     GRANT SELECT ON private.topics TO dashboard_owner;
     GRANT SELECT ON private.files TO dashboard_owner;
+    GRANT SELECT on private.speakers TO dashboard_owner;
     GRANT USAGE ON SCHEMA private TO dashboard_owner
     """
 
@@ -476,12 +477,59 @@ def views_db(db_url):
     FROM PUBLIC, anon, authenticated;
     GRANT EXECUTE ON FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int)
     TO dashboard_reader;
+
+    -- topic durations by party read function
+    CREATE OR REPLACE FUNCTION dashboard_internal._fn_topics_duration_by_party_read()
+    RETURNS TABLE (
+        topic_id integer,
+        topic_label text,
+        topic_keywords text,
+        topic_repdoc text[],
+        speaker_party text,
+        topic_duration_per_party interval
+    )
+    LANGUAGE sql
+    SECURITY DEFINER SET search_path = pg_catalog, private
+    STABLE
+    AS $$
+        SELECT
+            t.topic_id,
+            t.topic_label,
+            t.topic_keywords,
+            t.topic_repdoc,
+            sp.speaker_party,
+            SUM(s.speech_duration) AS topic_duration_per_party
+        FROM private.speeches s
+        JOIN private.speakers sp
+            ON sp.speaker_id = s.speaker
+        JOIN private.topics t
+            ON t.topic_id = s.topic
+        WHERE s.topic IS NOT NULL
+          AND t.topic_id <> -1
+          AND sp.speaker_party IN (
+              'AfD',
+              'BSW',
+              'BÜNDNIS 90/DIE GRÜNEN',
+              'CDU/CSU',
+              'Die Linke',
+              'FDP',
+              'SPD'
+          )
+        GROUP BY 1,2,3,4,5
+        ORDER BY 1,5;
+    $$;
+
+    REVOKE ALL ON FUNCTION dashboard_internal._fn_topics_duration_by_party_read()
+    FROM PUBLIC, anon, authenticated;
+    GRANT EXECUTE ON FUNCTION dashboard_internal._fn_topics_duration_by_party_read()
+    TO dashboard_reader;
     """
 
     ownership_functions = """
     ALTER FUNCTION dashboard_internal._fn_topics_read() OWNER TO dashboard_owner;
     ALTER FUNCTION dashboard_internal._fn_topics_metrics_all_xweek_windows(int,int) OWNER TO dashboard_owner;
     ALTER FUNCTION dashboard.topics_metrics_all_xweek_windows(int,int) OWNER TO dashboard_owner;
+    ALTER FUNCTION dashboard_internal._fn_topics_duration_by_party_read() OWNER TO dashboard_owner;
     """
 
     create_views = """
@@ -541,6 +589,11 @@ def views_db(db_url):
     CREATE OR REPLACE VIEW dashboard.speakers_view AS
     SELECT *
     FROM dashboard_internal._fn_speakers_read();
+    
+    -- topic durations by party view
+    CREATE OR REPLACE VIEW dashboard.topics_duration_by_party_view AS
+    SELECT *
+    FROM dashboard_internal._fn_topics_duration_by_party_read();
     """
 
     ownership_views = """
@@ -548,6 +601,7 @@ def views_db(db_url):
     ALTER VIEW dashboard.topics_view_4w OWNER TO dashboard_owner;
     ALTER VIEW dashboard.files_view OWNER TO dashboard_owner;
     ALTER VIEW dashboard.speakers_view OWNER TO dashboard_owner;
+    ALTER VIEW dashboard.topics_duration_by_party_view OWNER TO dashboard_owner;
     """
 
     minimal_rights = """
@@ -560,6 +614,8 @@ def views_db(db_url):
     GRANT SELECT ON dashboard.files_view TO dashboard_reader;
     REVOKE ALL ON dashboard.speakers_view FROM PUBLIC, anon, authenticated;
     GRANT SELECT ON dashboard.speakers_view TO dashboard_reader;
+    REVOKE ALL ON dashboard.topics_duration_by_party_view FROM PUBLIC, anon, authenticated;
+    GRANT SELECT ON dashboard.topics_duration_by_party_view TO dashboard_reader;
     """
 
     grant_anon_role = """
@@ -591,6 +647,8 @@ def comment_db(db_url):
     'This view contains general information about the protocols from the Bundestag and Talkshows.';
     COMMENT ON VIEW dashboard.speakers_view IS
     'This view contains all speakers identified in Bundestag protocols.';
+    COMMENT ON VIEW dashboard.topics_duration_by_party_view IS
+    'This view contains the summed observed speech time per topic and speaker party (AfD, BSW, BÜNDNIS 90/DIE GRÜNEN, CDU/CSU, Die Linke, FDP, SPD).';
     """
 
     functions = """
@@ -678,6 +736,20 @@ def comment_db(db_url):
     'Name of speaker';
     COMMENT ON COLUMN dashboard.speakers_view.speaker_party IS
     'Party or role of speaker';
+    
+    -- topics_duration_by_party_view
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_id IS
+    'Unique topic identifier';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_label IS
+    'Labels of topics';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_keywords IS
+    'Descriptive keywords of topic';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_repdoc IS
+    'Representative Speeches';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.speaker_party IS
+    'Speaker party (filtered to AfD, BSW, BÜNDNIS 90/DIE GRÜNEN, CDU/CSU, Die Linke, FDP, SPD)';
+    COMMENT ON COLUMN dashboard.topics_duration_by_party_view.topic_duration_per_party IS
+    'Summed observed speech time spent on the topic by the given speaker party';
     """
 
     with psycopg2.connect(db_url) as conn:
