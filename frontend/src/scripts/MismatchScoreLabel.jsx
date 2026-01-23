@@ -46,7 +46,7 @@ export default function MismatchGauge({
         boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.1)' // Adds depth like a thermometer tube
       }}>
         
-        {/* Center Tick (Optional: helps read the middle) */}
+        {/* Center Tick (Optional: helps read the middle) 
         <div style={{
           position: 'absolute',
           left: '50%',
@@ -54,7 +54,7 @@ export default function MismatchGauge({
           bottom: 0,
           width: '1px',
           background: 'rgba(255,255,255,0.6)',
-        }} />
+        }} /> */ }
 
         {/* The Sliding Needle / Marker */}
         <div style={{
