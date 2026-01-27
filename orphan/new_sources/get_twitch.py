@@ -1,34 +1,22 @@
-# get access token 
+# get access token via twitch api
 
-# # in terminal: 
-# curl -X POST 'https://id.twitch.tv/oauth2/token' \
-# -H 'Content-Type: application/x-www-form-urlencoded' \
-# -d 'client_id=h6lh0oiuluh4be4b0tj4ewx3qwlomj&client_secret=lh75vkxbdqgnfo20befnvva3fzu04h&grant_type=client_credentials'
-
-
-# # # in terminal to run the script
-# # :
-# TWITCH_CLIENT_ID="h6lh0oiuluh4be4b0tj4ewx3qwlomj" \
-# TWITCH_ACCESS_TOKEN="77gy1pvcib8mnsazbkh9zz5ls7cy31" \
-# /home/aranka/semester3/lab/dashboard/.venv/bin/python orphan/new_sources/get_twitch.py
 
 import os
 import json
 from pathlib import Path
 import requests
+from dotenv import load_dotenv, find_dotenv
 #uv add requests
 
 
 OUT_DIR = Path("orphan/new_sources/out/twitch")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# --- PASTE CREDENTIALS HERE ---
-# 1. Get Client ID from dev.twitch.tv/console
-CLIENT_ID = "h6lh0oiuluh4be4b0tj4ewx3qwlomj" 
-
-# 2. Get Access Token by running the curl command supplied by website
-# (curl -X POST "https://id.twitch.tv/oauth2/token" ...)
-TOKEN = "77gy1pvcib8mnsazbkh9zz5ls7cy31" 
+# .env imports
+env_path = find_dotenv()
+load_dotenv(env_path)
+CLIENT_ID = os.getenv("TWITCH_CLIENT_ID")
+TOKEN = os.getenv("TWITCH_ACCESS_TOKEN") 
 # -----------------------------------
 
 HEADERS = {
