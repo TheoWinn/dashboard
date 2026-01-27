@@ -33,7 +33,6 @@ dependencies = [
     "python-slugify>=8.0.4",
     "tweepy>=4.16.0",
     "snscrape>=0.7.0.20230622",
-
     "pydantic>=2.12.5",
     "openai>=2.15.0",
 ]
