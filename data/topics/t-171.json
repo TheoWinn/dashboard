@@ -2,15 +2,15 @@
   "slug": "t-171",
   "label": "UN Foreign Policy",
   "description": "Keywords: Vereinten Nationen, Vereinten, Nationen, UNIFIL, Bonn, Beteiligung, UN, Außenpolitik, Rahmen Vereinten, Mission",
-  "mismatch_score": 0.07721565682166978,
-  "norm_delta": 0.0772156568216698,
+  "mismatch_score": 0.0747515802828992,
+  "norm_delta": 0.0747515802828992,
   "totals": {
-    "bundestag_minutes": 38,
-    "talkshow_minutes": 3,
-    "bt_share": 82.17956270203062,
-    "ts_share": 17.82043729796938,
-    "bt_normalized_perc": 0.0985959469075456,
-    "ts_normalized_perc": 0.021380290085875803
+    "bundestag_minutes": 39,
+    "talkshow_minutes": 4,
+    "bt_share": 80.65130018189451,
+    "ts_share": 19.34869981810548,
+    "bt_normalized_perc": 0.0983451289943691,
+    "ts_normalized_perc": 0.023593548711469903
   },
   "timeseries": [
     {

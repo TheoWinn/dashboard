@@ -2,15 +2,15 @@
   "slug": "t-74",
   "label": "Germany's National Responsibility",
   "description": "Keywords: Verantwortung, Verantwortung Deutschland, unseres Landes, unseres, Deutschland, Antworten, Landes, gemeinsam, Land, Wechsel",
-  "mismatch_score": 0.8697282098055872,
-  "norm_delta": 0.8697282098055872,
+  "mismatch_score": 0.9236937845834039,
+  "norm_delta": 0.9236937845834039,
   "totals": {
-    "bundestag_minutes": 365,
-    "talkshow_minutes": 11,
-    "bt_share": 92.99391564699873,
-    "ts_share": 7.006084353001264,
-    "bt_normalized_perc": 0.9405915995478993,
-    "ts_normalized_perc": 0.07086338974231211
+    "bundestag_minutes": 402,
+    "talkshow_minutes": 13,
+    "bt_share": 92.72731631360536,
+    "ts_share": 7.2726836863946405,
+    "bt_normalized_perc": 1.0023054702443726,
+    "ts_normalized_perc": 0.07861168566096867
   },
   "timeseries": [
     {

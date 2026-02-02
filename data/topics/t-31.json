@@ -2,15 +2,15 @@
   "slug": "t-31",
   "label": "Primary Education Policy",
   "description": "Keywords: Schule, Kinder, Grundschule, Sprache, Deutsch, Schulen, Lehrer, Lehrkräfte, Klasse, Schüler",
-  "mismatch_score": -0.23378089805447508,
-  "norm_delta": 0.23378089805447505,
+  "mismatch_score": -0.23095987170467366,
+  "norm_delta": 0.23095987170467364,
   "totals": {
     "bundestag_minutes": 52,
     "talkshow_minutes": 57,
-    "bt_share": 26.727228677277388,
-    "ts_share": 73.2727713227226,
-    "bt_normalized_perc": 0.13424089972002218,
-    "ts_normalized_perc": 0.36802179777449723
+    "bt_share": 26.466821850169588,
+    "ts_share": 73.5331781498304,
+    "bt_normalized_perc": 0.12987565342910712,
+    "ts_normalized_perc": 0.36083552513378075
   },
   "timeseries": [
     {

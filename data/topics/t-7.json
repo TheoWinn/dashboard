@@ -2,15 +2,15 @@
   "slug": "t-7",
   "label": "German Election Politics",
   "description": "Keywords: Merz, Friedrich Merz, Friedrich, Kanzler, CDU, AfD, Wahlkampf, Scholz, SPD, Wahl",
-  "mismatch_score": -1.1658757734135643,
-  "norm_delta": 1.1658757734135643,
+  "mismatch_score": -1.1494549783481431,
+  "norm_delta": 1.1494549783481431,
   "totals": {
     "bundestag_minutes": 32,
-    "talkshow_minutes": 195,
-    "bt_share": 6.125613831927918,
-    "ts_share": 93.87438616807208,
-    "bt_normalized_perc": 0.08138808753441766,
-    "ts_normalized_perc": 1.247263860947982
+    "talkshow_minutes": 196,
+    "bt_share": 6.024884842168332,
+    "ts_share": 93.97511515783167,
+    "bt_normalized_perc": 0.07874150927119632,
+    "ts_normalized_perc": 1.2281964876193394
   },
   "timeseries": [
     {

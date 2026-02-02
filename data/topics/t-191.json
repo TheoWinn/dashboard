@@ -2,15 +2,15 @@
   "slug": "t-191",
   "label": "Startup Investment Capital",
   "description": "Keywords: Kapital, Unternehmen, Investmentfonds, ups, Wachstumsunternehmen, Start ups, Start, Ideen, Kapitalmarkt, Venturecapital",
-  "mismatch_score": 0.1430846829694346,
-  "norm_delta": 0.14308468296943463,
+  "mismatch_score": 0.1440632743105858,
+  "norm_delta": 0.1440632743105858,
   "totals": {
-    "bundestag_minutes": 61,
-    "talkshow_minutes": 2,
-    "bt_share": 91.38880454629016,
-    "ts_share": 8.61119545370984,
-    "bt_normalized_perc": 0.15796950731974738,
-    "ts_normalized_perc": 0.014884824350312745
+    "bundestag_minutes": 66,
+    "talkshow_minutes": 3,
+    "bt_share": 88.50522811496958,
+    "ts_share": 11.494771885030422,
+    "bt_normalized_perc": 0.16556651628939334,
+    "ts_normalized_perc": 0.021503241978807527
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-24",
   "label": "Police Powers Debate",
   "description": "Keywords: Polizei, Polizisten, Bundespolizei, Polizistinnen, Polizistinnen Polizisten, Gewalt, Taser, Sicherheit, Einsatz, Befugnisse",
-  "mismatch_score": 0.6278151731971912,
-  "norm_delta": 0.6278151731971912,
+  "mismatch_score": 0.7130828639042935,
+  "norm_delta": 0.7130828639042935,
   "totals": {
-    "bundestag_minutes": 331,
-    "talkshow_minutes": 35,
-    "bt_share": 79.08942875829862,
-    "ts_share": 20.910571241701383,
-    "bt_normalized_perc": 0.8534637071515717,
-    "ts_normalized_perc": 0.22564853395438053
+    "bundestag_minutes": 388,
+    "talkshow_minutes": 40,
+    "bt_share": 79.22688843877728,
+    "ts_share": 20.773111561222724,
+    "bt_normalized_perc": 0.9664959139337101,
+    "ts_normalized_perc": 0.2534130500294166
   },
   "timeseries": [
     {

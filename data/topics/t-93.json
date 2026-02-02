@@ -2,15 +2,15 @@
   "slug": "t-93",
   "label": "Official Administrative Affairs",
   "description": "Keywords: Amt, Bioenergie, Präsidentin, Minister, Mitarbeitern, Zusammenarbeit, Ort, danken, Deiche, Wahleinsprüche",
-  "mismatch_score": 0.38287680459912077,
-  "norm_delta": 0.38287680459912077,
+  "mismatch_score": 0.424156895948394,
+  "norm_delta": 0.424156895948394,
   "totals": {
-    "bundestag_minutes": 150,
-    "talkshow_minutes": 0,
-    "bt_share": 99.31898637944657,
-    "ts_share": 0.6810136205534316,
-    "bt_normalized_perc": 0.3855202522657038,
-    "ts_normalized_perc": 0.0026434476665830246
+    "bundestag_minutes": 173,
+    "talkshow_minutes": 1,
+    "bt_share": 98.41944356497768,
+    "ts_share": 1.5805564350223096,
+    "bt_normalized_perc": 0.4310797750852707,
+    "ts_normalized_perc": 0.006922879136876666
   },
   "timeseries": [
     {

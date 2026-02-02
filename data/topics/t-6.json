@@ -2,15 +2,15 @@
   "slug": "t-6",
   "label": "Housing Policy, Rents",
   "description": "Keywords: Wohnungen, Wohnraum, Mietpreisbremse, Mieten, bauen, Wohnungsbau, Bauen, Wohnen, Bauturbo, Wohnung",
-  "mismatch_score": 1.9734244955612,
-  "norm_delta": 1.9734244955612001,
+  "mismatch_score": 1.904115962587305,
+  "norm_delta": 1.904115962587305,
   "totals": {
     "bundestag_minutes": 919,
     "talkshow_minutes": 62,
-    "bt_share": 85.69587562357377,
-    "ts_share": 14.304124376426238,
-    "bt_normalized_perc": 2.36882184804065,
-    "ts_normalized_perc": 0.39539735247945007
+    "bt_share": 85.53159142837332,
+    "ts_share": 14.468408571626679,
+    "bt_normalized_perc": 2.2917924865899706,
+    "ts_normalized_perc": 0.3876765240026655
   },
   "timeseries": [
     {

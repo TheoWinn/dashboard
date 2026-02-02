@@ -2,15 +2,15 @@
   "slug": "t-152",
   "label": "CDU party alignment",
   "description": "Keywords: CDU, Linken, Umgang finden, CDU pur, Mehrheit, Linkspartei, AfD, schockiert, pur, veränderten",
-  "mismatch_score": -0.02502205662413053,
-  "norm_delta": 0.025022056624130526,
+  "mismatch_score": -0.030225207087439417,
+  "norm_delta": 0.03022520708743942,
   "totals": {
-    "bundestag_minutes": 11,
-    "talkshow_minutes": 8,
-    "bt_share": 34.80860399869979,
-    "ts_share": 65.1913960013002,
-    "bt_normalized_perc": 0.028666978998765365,
-    "ts_normalized_perc": 0.05368903562289589
+    "bundestag_minutes": 14,
+    "talkshow_minutes": 11,
+    "bt_share": 35.183396161098244,
+    "ts_share": 64.81660383890176,
+    "bt_normalized_perc": 0.03588627483636085,
+    "ts_normalized_perc": 0.06611148192380027
   },
   "timeseries": [
     {

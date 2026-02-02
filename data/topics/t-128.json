@@ -2,15 +2,15 @@
   "slug": "t-128",
   "label": "Road Safety Measures",
   "description": "Keywords: Tempolimit, Straßenverkehr, Verkehrstoten, Unfälle, Zahl Verkehrstoten, Radfahrer, Verkehr, Abbiegeassistenten, kmh, Radwege",
-  "mismatch_score": 0.017201572569102333,
-  "norm_delta": 0.017201572569102333,
+  "mismatch_score": 0.026791452974155933,
+  "norm_delta": 0.02679145297415593,
   "totals": {
-    "bundestag_minutes": 21,
+    "bundestag_minutes": 25,
     "talkshow_minutes": 6,
-    "bt_share": 59.49708926447282,
-    "ts_share": 40.50291073552718,
-    "bt_normalized_perc": 0.05388195636223704,
-    "ts_normalized_perc": 0.03668038379313471
+    "bt_share": 63.56945312964966,
+    "ts_share": 36.43054687035034,
+    "bt_normalized_perc": 0.0627555877839489,
+    "ts_normalized_perc": 0.035964134809792964
   },
   "timeseries": [
     {

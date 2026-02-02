@@ -2,15 +2,15 @@
   "slug": "t-17",
   "label": "German Budget Planning",
   "description": "Keywords: Haushalt, Euro, Milliarden Euro, Milliarden, 2025, 2026, Millionen Euro, Einzelplan, Millionen, Arbeit",
-  "mismatch_score": 2.110552943307842,
-  "norm_delta": 2.110552943307842,
+  "mismatch_score": 2.048451321791896,
+  "norm_delta": 2.048451321791896,
   "totals": {
-    "bundestag_minutes": 822,
+    "bundestag_minutes": 824,
     "talkshow_minutes": 1,
-    "bt_share": 99.65575875696014,
-    "ts_share": 0.34424124303985926,
-    "bt_normalized_perc": 2.117868704731021,
-    "ts_normalized_perc": 0.007315761423179216
+    "bt_share": 99.6522727230167,
+    "ts_share": 0.3477272769833101,
+    "bt_normalized_perc": 2.055624230111049,
+    "ts_normalized_perc": 0.007172908319152982
   },
   "timeseries": [
     {

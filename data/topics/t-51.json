@@ -2,15 +2,15 @@
   "slug": "t-51",
   "label": "Trump Greenland proposal",
   "description": "Keywords: Grönland, Trump, Dänemark, NATO, Grönlands, USA, Donald Trump, Grönländer, Panama, Donald",
-  "mismatch_score": -0.5222561442168968,
-  "norm_delta": 0.5222561442168968,
+  "mismatch_score": -0.6417055015923088,
+  "norm_delta": 0.6417055015923088,
   "totals": {
-    "bundestag_minutes": 33,
-    "talkshow_minutes": 95,
-    "bt_share": 12.24275782529858,
-    "ts_share": 87.75724217470142,
-    "bt_normalized_perc": 0.08467058408076436,
-    "ts_normalized_perc": 0.6069267282976611
+    "bundestag_minutes": 44,
+    "talkshow_minutes": 120,
+    "bt_share": 12.770771129236735,
+    "ts_share": 87.22922887076327,
+    "bt_normalized_perc": 0.11006236687920176,
+    "ts_normalized_perc": 0.7517678684715106
   },
   "timeseries": [
     {

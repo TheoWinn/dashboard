@@ -2,15 +2,15 @@
   "slug": "t-136",
   "label": "Industry Energy Costs",
   "description": "Keywords: Energiepreise, Industrie, Energien, Energiepolitik, Unternehmen, Mittelstand, Wasserstoff, Deutschland, Atomstrom, Cent",
-  "mismatch_score": 0.04630661060268546,
-  "norm_delta": 0.04630661060268546,
+  "mismatch_score": 0.026219147674337664,
+  "norm_delta": 0.026219147674337667,
   "totals": {
     "bundestag_minutes": 41,
-    "talkshow_minutes": 9,
-    "bt_share": 64.16895264211216,
-    "ts_share": 35.83104735788785,
-    "bt_normalized_perc": 0.10485766936466734,
-    "ts_normalized_perc": 0.058551058761981876
+    "talkshow_minutes": 12,
+    "bt_share": 57.42009349213321,
+    "ts_share": 42.57990650786679,
+    "bt_normalized_perc": 0.1014479071146916,
+    "ts_normalized_perc": 0.07522875944035393
   },
   "timeseries": [
     {

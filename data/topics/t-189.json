@@ -2,15 +2,15 @@
   "slug": "t-189",
   "label": "AfD Fascism Accusations",
   "description": "Keywords: AfD, Demokratie, Teile AfD, Faschistinnen Faschisten, Faschistinnen, Gießen, neutral, demokratischen, politische Bildung, Kriegsstrategie",
-  "mismatch_score": 0.10279834689550552,
-  "norm_delta": 0.10279834689550552,
+  "mismatch_score": 0.16209783136581213,
+  "norm_delta": 0.16209783136581213,
   "totals": {
-    "bundestag_minutes": 46,
+    "bundestag_minutes": 71,
     "talkshow_minutes": 2,
-    "bt_share": 88.94212374186648,
-    "ts_share": 11.057876258133513,
-    "bt_normalized_perc": 0.11739348565894549,
-    "ts_normalized_perc": 0.014595138763439973
+    "bt_share": 92.49670497305726,
+    "ts_share": 7.503295026942742,
+    "bt_normalized_perc": 0.17640797438438746,
+    "ts_normalized_perc": 0.014310143018575326
   },
   "timeseries": [
     {

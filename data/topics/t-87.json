@@ -2,15 +2,15 @@
   "slug": "t-87",
   "label": "European Defense Autonomy",
   "description": "Keywords: Europäer, Europa, USA, Amerikaner, NATO, Bush, Armeen, europäische, konventionelle, Staaten",
-  "mismatch_score": -0.2090673802948968,
-  "norm_delta": 0.20906738029489683,
+  "mismatch_score": -0.20144744191589486,
+  "norm_delta": 0.20144744191589486,
   "totals": {
-    "bundestag_minutes": 19,
-    "talkshow_minutes": 40,
-    "bt_share": 15.829345378309384,
-    "ts_share": 84.17065462169062,
-    "bt_normalized_perc": 0.04842458838827098,
-    "ts_normalized_perc": 0.2574919686831678
+    "bundestag_minutes": 36,
+    "talkshow_minutes": 47,
+    "bt_share": 23.730371253315006,
+    "ts_share": 76.26962874668499,
+    "bt_normalized_perc": 0.09098763120697025,
+    "ts_normalized_perc": 0.2924350731228651
   },
   "timeseries": [
     {

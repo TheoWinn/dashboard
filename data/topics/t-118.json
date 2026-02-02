@@ -2,14 +2,14 @@
   "slug": "t-118",
   "label": "Srebrenica Genocide Legacy",
   "description": "Keywords: Srebrenica, Bosnien, Dayton, Bosnien Herzegowina, Herzegowina, Völkermord, Jugoslawien, Bosniaken, Serben, bosnische",
-  "mismatch_score": 0.24073176307398614,
-  "norm_delta": 0.24073176307398614,
+  "mismatch_score": 0.23290364632226696,
+  "norm_delta": 0.23290364632226696,
   "totals": {
     "bundestag_minutes": 93,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.24073176307398614,
+    "bt_normalized_perc": 0.23290364632226696,
     "ts_normalized_perc": 0
   },
   "timeseries": [

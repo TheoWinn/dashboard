@@ -2,15 +2,15 @@
   "slug": "t-90",
   "label": "Bundeswehr Modernization",
   "description": "Keywords: Bundeswehr, Gesamtverteidigung, Soldatinnen Soldaten, Soldatinnen, Kasernen, Soldaten, Ausrüstung, Verteidigung, moderne, Infrastruktur",
-  "mismatch_score": 0.00688412946528981,
-  "norm_delta": 0.0068841294652897955,
+  "mismatch_score": 0.002174858853528609,
+  "norm_delta": 0.0021748588535286106,
   "totals": {
     "bundestag_minutes": 55,
     "talkshow_minutes": 21,
-    "bt_share": 51.24459114520117,
-    "ts_share": 48.75540885479883,
-    "bt_normalized_perc": 0.14172300727014542,
-    "ts_normalized_perc": 0.13483887780485562
+    "bt_share": 50.399710792788674,
+    "ts_share": 49.600289207211326,
+    "bt_normalized_perc": 0.13711445776612974,
+    "ts_normalized_perc": 0.13493959891260113
   },
   "timeseries": [
     {

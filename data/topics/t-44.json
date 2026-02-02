@@ -2,15 +2,15 @@
   "slug": "t-44",
   "label": "Olympic bid Germany",
   "description": "Keywords: Sport, Spiele, Sportstätten, Olympische, Olympischen, Paralympische, Bewerbung, Paralympische Spiele, Athleten, Sportmilliarde",
-  "mismatch_score": 0.7034740268208557,
-  "norm_delta": 0.7034740268208556,
+  "mismatch_score": 0.6763767777566851,
+  "norm_delta": 0.6763767777566851,
   "totals": {
     "bundestag_minutes": 278,
-    "talkshow_minutes": 2,
-    "bt_share": 98.18581141385768,
-    "ts_share": 1.814188586142316,
-    "bt_normalized_perc": 0.7167168727194612,
-    "ts_normalized_perc": 0.013242845898605533
+    "talkshow_minutes": 3,
+    "bt_share": 97.60236156245692,
+    "ts_share": 2.397638437543073,
+    "bt_normalized_perc": 0.6934106696412631,
+    "ts_normalized_perc": 0.01703389188457791
   },
   "timeseries": [
     {

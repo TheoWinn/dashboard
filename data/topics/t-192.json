@@ -2,15 +2,15 @@
   "slug": "t-192",
   "label": "Protecting Democracy Values",
   "description": "Keywords: Demokratie, Radtke, Dennis, Feinde Demokratie, Feinde, Gift, Parlament, Fahren, Kompass, tragen Verantwortung",
-  "mismatch_score": 0.10361276979353241,
-  "norm_delta": 0.10361276979353241,
+  "mismatch_score": 0.16829777104800125,
+  "norm_delta": 0.16829777104800128,
   "totals": {
-    "bundestag_minutes": 43,
-    "talkshow_minutes": 1,
-    "bt_share": 93.52372018391337,
-    "ts_share": 6.476279816086634,
-    "bt_normalized_perc": 0.11132150065186906,
-    "ts_normalized_perc": 0.007708730858336644
+    "bundestag_minutes": 73,
+    "talkshow_minutes": 2,
+    "bt_share": 92.83024136095055,
+    "ts_share": 7.169758639049444,
+    "bt_normalized_perc": 0.18238424779389595,
+    "ts_normalized_perc": 0.014086476745894673
   },
   "timeseries": [
     {

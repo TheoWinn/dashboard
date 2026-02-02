@@ -2,15 +2,15 @@
   "slug": "t-59",
   "label": "LGBTQ+ Rights Debate",
   "description": "Keywords: queere, CSD, CSDs, Diskriminierung, Artikel, queeren, Grundgesetz, Identität, sexuellen, Absatz",
-  "mismatch_score": 0.4363856780641255,
-  "norm_delta": 0.4363856780641255,
+  "mismatch_score": 0.4219024068160925,
+  "norm_delta": 0.4219024068160925,
   "totals": {
     "bundestag_minutes": 178,
     "talkshow_minutes": 4,
-    "bt_share": 95.31763957836812,
-    "ts_share": 4.682360421631887,
-    "bt_normalized_perc": 0.4589300454070112,
-    "ts_normalized_perc": 0.022544367342885726
+    "bt_share": 95.25774698759314,
+    "ts_share": 4.7422530124068665,
+    "bt_normalized_perc": 0.4440065557501281,
+    "ts_normalized_perc": 0.022104148934035627
   },
   "timeseries": [
     {

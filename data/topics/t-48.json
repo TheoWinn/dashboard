@@ -2,15 +2,15 @@
   "slug": "t-48",
   "label": "EU Eastern relations",
   "description": "Keywords: Polen, Tusk, Ungarn, polnische, Donald Tusk, polnischen, EU, Nachbarn, Souveränität, Slowakei",
-  "mismatch_score": -0.23569504478509923,
-  "norm_delta": 0.23569504478509923,
+  "mismatch_score": -0.2318881291940008,
+  "norm_delta": 0.2318881291940008,
   "totals": {
     "bundestag_minutes": 24,
     "talkshow_minutes": 46,
-    "bt_share": 17.095813333034652,
-    "ts_share": 82.90418666696534,
-    "bt_normalized_perc": 0.06122926741739941,
-    "ts_normalized_perc": 0.29692431220249865
+    "bt_share": 16.907593143783554,
+    "ts_share": 83.09240685621644,
+    "bt_normalized_perc": 0.0592382137739368,
+    "ts_normalized_perc": 0.2911263429679376
   },
   "timeseries": [
     {

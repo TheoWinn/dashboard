@@ -2,14 +2,14 @@
   "slug": "t-112",
   "label": "Coastal Environmental Protection",
   "description": "Keywords: Küstenschutz, GAK, Naturschutz, Klimaschutz, Schutz, Küsten, Minister, Millionen Euro, Umwelt, Umweltschutz",
-  "mismatch_score": 0.20304059259501442,
-  "norm_delta": 0.20304059259501442,
+  "mismatch_score": 0.20584345136572296,
+  "norm_delta": 0.20584345136572296,
   "totals": {
-    "bundestag_minutes": 79,
+    "bundestag_minutes": 83,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.20304059259501442,
+    "bt_normalized_perc": 0.20584345136572296,
     "ts_normalized_perc": 0
   },
   "timeseries": [

@@ -2,15 +2,15 @@
   "slug": "t-56",
   "label": "Russia sanctions policy",
   "description": "Keywords: Sanktionen, Sanktionspaket, Russland, Öl, Trump, Gas, Putin, Öl Gas, Ölpreis, Ukraine",
-  "mismatch_score": -0.2845375887425306,
-  "norm_delta": 0.2845375887425306,
+  "mismatch_score": -0.27165530288627926,
+  "norm_delta": 0.27165530288627926,
   "totals": {
-    "bundestag_minutes": 13,
+    "bundestag_minutes": 16,
     "talkshow_minutes": 50,
-    "bt_share": 9.722657087758314,
-    "ts_share": 90.27734291224169,
-    "bt_normalized_perc": 0.0343426502829262,
-    "ts_normalized_perc": 0.3188802390254568
+    "bt_share": 11.59282692365164,
+    "ts_share": 88.40717307634836,
+    "bt_normalized_perc": 0.040998238831487316,
+    "ts_normalized_perc": 0.3126535417177666
   },
   "timeseries": [
     {
