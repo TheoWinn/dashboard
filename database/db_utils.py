@@ -838,7 +838,10 @@ def fill_db(db_url, input_path, label_path, youtube):
                         topic_id = row["topic"]
                         topic_keywords = row["Representation"]
                         topic_label = row["Gemini_Label"]
-                        topic_repdoc = ast.literal_eval(row["Representative_Docs"])
+                        if row["Representative_Docs"] != "":
+                            topic_repdoc = ast.literal_eval(row["Representative_Docs"])
+                        else:
+                            topic_repdoc = ["Unknown"]
                         cur.execute(upsert_topic, (topic_id, topic_keywords, topic_label, topic_repdoc))
                 conn.commit()
                 print("Successfully inserted info on topics.")
