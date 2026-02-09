@@ -2,15 +2,15 @@
   "slug": "t-55",
   "label": "Sudan humanitarian crisis",
   "description": "Keywords: Sudan, humanitäre, Südsudan, Al, Faschir, Al Faschir, Hilfe, humanitäre Hilfe, RSF, Millionen",
-  "mismatch_score": 0.4847901602550516,
-  "norm_delta": 0.48479016025505156,
+  "mismatch_score": 0.47840348611503336,
+  "norm_delta": 0.47840348611503336,
   "totals": {
     "bundestag_minutes": 215,
     "talkshow_minutes": 8,
-    "bt_share": 91.1172495497872,
-    "ts_share": 8.882750450212804,
-    "bt_normalized_perc": 0.537155895578009,
-    "ts_normalized_perc": 0.05236573532295746
+    "bt_share": 91.1129194456184,
+    "ts_share": 8.8870805543816,
+    "bt_normalized_perc": 0.5301099858714547,
+    "ts_normalized_perc": 0.051706499756421394
   },
   "timeseries": [
     {

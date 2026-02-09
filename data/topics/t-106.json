@@ -2,15 +2,15 @@
   "slug": "t-106",
   "label": "Threats to Democracy",
   "description": "Keywords: Demokratie, fußen, unveräußerlichen, Demokratie Gefahr, bezogen, externe, Wahlen, Mehrheit, to, Gesetze",
-  "mismatch_score": -0.014558952336930792,
-  "norm_delta": 0.014558952336930789,
+  "mismatch_score": 0.002089173011159796,
+  "norm_delta": 0.002089173011159795,
   "totals": {
-    "bundestag_minutes": 40,
+    "bundestag_minutes": 47,
     "talkshow_minutes": 18,
-    "bt_share": 46.591409547472516,
-    "ts_share": 53.408590452527484,
-    "bt_normalized_perc": 0.09950184986422989,
-    "ts_normalized_perc": 0.11406080220116067
+    "bt_share": 50.45298259359077,
+    "ts_share": 49.54701740640923,
+    "bt_normalized_perc": 0.11634554070996918,
+    "ts_normalized_perc": 0.11425636769880938
   },
   "timeseries": [
     {

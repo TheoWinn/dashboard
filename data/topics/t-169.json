@@ -2,15 +2,15 @@
   "slug": "t-169",
   "label": "AI in Healthcare",
   "description": "Keywords: KI, Intelligenz, künstliche Intelligenz, künstliche, KI Verordnung, Patienten, Prostatakrebs, Tumor, Lungenkrebs, Röntgenbild",
-  "mismatch_score": -0.06838604665765544,
-  "norm_delta": 0.06838604665765544,
+  "mismatch_score": -0.06752889315141754,
+  "norm_delta": 0.06752889315141754,
   "totals": {
     "bundestag_minutes": 3,
     "talkshow_minutes": 12,
-    "bt_share": 8.623575207573216,
-    "ts_share": 91.37642479242679,
-    "bt_normalized_perc": 0.007126427905013709,
-    "ts_normalized_perc": 0.07551247456266914
+    "bt_share": 8.619361346919167,
+    "ts_share": 91.38063865308084,
+    "bt_normalized_perc": 0.007032950074904511,
+    "ts_normalized_perc": 0.07456184322632205
   },
   "timeseries": [
     {

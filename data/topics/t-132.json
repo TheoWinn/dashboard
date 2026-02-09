@@ -2,15 +2,15 @@
   "slug": "t-132",
   "label": "Terrorist Attack Aftermath",
   "description": "Keywords: Bunker, Terroristen, Bilder, Moschee, entführt, Licht, kamen, schießen, hab gefühlt, kamen Bilder",
-  "mismatch_score": -0.12240338081083664,
-  "norm_delta": 0.12240338081083664,
+  "mismatch_score": -0.12720637668810905,
+  "norm_delta": 0.12720637668810908,
   "totals": {
     "bundestag_minutes": 5,
-    "talkshow_minutes": 22,
-    "bt_share": 8.725444917900942,
-    "ts_share": 91.27455508209906,
-    "bt_normalized_perc": 0.012938043243657089,
-    "ts_normalized_perc": 0.13534142405449373
+    "talkshow_minutes": 23,
+    "bt_share": 8.359355466782013,
+    "ts_share": 91.64064453321798,
+    "bt_normalized_perc": 0.012768334067559879,
+    "ts_normalized_perc": 0.13997471075566895
   },
   "timeseries": [
     {

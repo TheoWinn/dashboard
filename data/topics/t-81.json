@@ -2,15 +2,15 @@
   "slug": "t-81",
   "label": "Minimum Wage Debate",
   "description": "Keywords: Mindestlohn, Mindestlohnkommission, 15 Euro, 15, Kommission, Mindestlohns, 12 Euro, 12, Euro, Mindestlohn 15",
-  "mismatch_score": -0.021190073128153773,
-  "norm_delta": 0.02119007312815377,
+  "mismatch_score": -0.0209649083452333,
+  "norm_delta": 0.020964908345233305,
   "totals": {
     "bundestag_minutes": 32,
     "talkshow_minutes": 16,
-    "bt_share": 44.07299817749583,
-    "ts_share": 55.92700182250417,
-    "bt_normalized_perc": 0.07878435694183285,
-    "ts_normalized_perc": 0.09997443006998662
+    "bt_share": 44.059814543940185,
+    "ts_share": 55.940185456059815,
+    "bt_normalized_perc": 0.07775093727750286,
+    "ts_normalized_perc": 0.09871584562273616
   },
   "timeseries": [
     {

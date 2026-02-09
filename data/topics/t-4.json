@@ -2,15 +2,15 @@
   "slug": "t-4",
   "label": "Climate Change Mitigation",
   "description": "Keywords: CO2, Klimaschutz, Klimawandel, Klima, Emissionen, Klimapolitik, Klimakrise, Bepreisung, CO2 Bepreisung, Klimaziele",
-  "mismatch_score": 2.688389403447417,
-  "norm_delta": 2.688389403447417,
+  "mismatch_score": 2.7141004881995734,
+  "norm_delta": 2.714100488199574,
   "totals": {
-    "bundestag_minutes": 1272,
+    "bundestag_minutes": 1297,
     "talkshow_minutes": 77,
-    "bt_share": 86.78484805389121,
-    "ts_share": 13.215151946108783,
-    "bt_normalized_perc": 3.1712984860786304,
-    "ts_normalized_perc": 0.4829090826312134
+    "bt_share": 86.99942958132954,
+    "ts_share": 13.000570418670469,
+    "bt_normalized_perc": 3.190930197730984,
+    "ts_normalized_perc": 0.4768297095314102
   },
   "timeseries": [
     {

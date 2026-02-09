@@ -2,15 +2,15 @@
   "slug": "t-78",
   "label": "German Energy Politics",
   "description": "Keywords: Habeck, Robert Habeck, Robert, Wirtschaftsminister, Katharina Reiche, Heizungsgesetz, Reiche, Gasumlage, Jens Spahn, Jens",
-  "mismatch_score": -0.15265978738304845,
-  "norm_delta": 0.15265978738304845,
+  "mismatch_score": -0.1405687476265661,
+  "norm_delta": 0.1405687476265661,
   "totals": {
-    "bundestag_minutes": 5,
+    "bundestag_minutes": 10,
     "talkshow_minutes": 26,
-    "bt_share": 7.472889017462657,
-    "ts_share": 92.52711098253734,
-    "bt_normalized_perc": 0.01341273392649939,
-    "ts_normalized_perc": 0.16607252130954783
+    "bt_share": 12.493977249768253,
+    "ts_share": 87.50602275023175,
+    "bt_normalized_perc": 0.023413076168731863,
+    "ts_normalized_perc": 0.16398182379529797
   },
   "timeseries": [
     {

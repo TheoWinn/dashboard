@@ -2,15 +2,15 @@
   "slug": "t-10",
   "label": "Agricultural Policy Germany",
   "description": "Keywords: Landwirtschaft, Landwirte, Bauern, Rainer, Tierhaltung, Betriebe, Minister, Tierwohl, Millionen Euro, Landwirten",
-  "mismatch_score": 2.022924595636103,
-  "norm_delta": 2.022924595636103,
+  "mismatch_score": 1.9853107378734705,
+  "norm_delta": 1.9853107378734705,
   "totals": {
-    "bundestag_minutes": 834,
-    "talkshow_minutes": 9,
-    "bt_share": 97.30561859039744,
-    "ts_share": 2.6943814096025567,
-    "bt_normalized_perc": 2.080534353059464,
-    "ts_normalized_perc": 0.05760975742336119
+    "bundestag_minutes": 838,
+    "talkshow_minutes": 12,
+    "bt_share": 96.43694973365243,
+    "ts_share": 3.5630502663475796,
+    "bt_normalized_perc": 2.0614759682981174,
+    "ts_normalized_perc": 0.07616523042464705
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-199",
   "label": "Weimer Media Discourse",
   "description": "Keywords: Wolfram, Weimer, Weimar, Wolfram Weimar, FAZ, Wolfram Weimer, Stefan Cornelius, Cornelius, Kulturstaatsminister, Weimer Media",
-  "mismatch_score": -0.00900835128553062,
-  "norm_delta": 0.009008351285530621,
+  "mismatch_score": -0.008902200842690302,
+  "norm_delta": 0.0089022008426903,
   "totals": {
     "bundestag_minutes": 6,
     "talkshow_minutes": 4,
-    "bt_share": 37.65777427360016,
-    "ts_share": 62.34222572639984,
-    "bt_normalized_perc": 0.013742839695525515,
-    "ts_normalized_perc": 0.022751190981056137
+    "bt_share": 37.64521793439922,
+    "ts_share": 62.35478206560078,
+    "bt_normalized_perc": 0.013562573950695279,
+    "ts_normalized_perc": 0.02246477479338558
   },
   "timeseries": [
     {

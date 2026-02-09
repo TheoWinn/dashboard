@@ -2,15 +2,15 @@
   "slug": "t-173",
   "label": "Child Poverty Support",
   "description": "Keywords: Eltern, Kinder, Kind, Unterhaltsvorschuss, Teilhabepaket, Familie, Familien, Kindergrundsicherung, Kindern, zuzuhören",
-  "mismatch_score": 0.019659099319322432,
-  "norm_delta": 0.01965909931932243,
+  "mismatch_score": 0.001433160487055916,
+  "norm_delta": 0.0014331604870559123,
   "totals": {
     "bundestag_minutes": 35,
-    "talkshow_minutes": 11,
-    "bt_share": 56.36422169674585,
-    "ts_share": 43.63577830325415,
-    "bt_normalized_perc": 0.08705462232398442,
-    "ts_normalized_perc": 0.06739552300466199
+    "talkshow_minutes": 14,
+    "bt_share": 50.42054736097991,
+    "ts_share": 49.57945263902009,
+    "bt_normalized_perc": 0.08591272103707226,
+    "ts_normalized_perc": 0.08447956055001635
   },
   "timeseries": [
     {

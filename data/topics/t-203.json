@@ -2,15 +2,15 @@
   "slug": "t-203",
   "label": "Russian Disinformation Combat",
   "description": "Keywords: Desinformation, Bots, Anti, zehntausendfach, Belege, Media nutzen, russische Desinformation, kommunizieren, Doppelgänger, unseren Regeln",
-  "mismatch_score": -0.05262769495835232,
-  "norm_delta": 0.05262769495835232,
+  "mismatch_score": -0.05196566819594354,
+  "norm_delta": 0.05196566819594354,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 9,
-    "bt_share": 1.7590819660362909,
-    "ts_share": 98.24091803396371,
-    "bt_normalized_perc": 0.0009595218425374777,
-    "ts_normalized_perc": 0.05358721680088979
+    "bt_share": 1.7581578612929705,
+    "ts_share": 98.24184213870703,
+    "bt_normalized_perc": 0.0009469357305360246,
+    "ts_normalized_perc": 0.05291260392647956
   },
   "timeseries": [
     {

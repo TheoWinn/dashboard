@@ -1,0 +1,16 @@
+{
+  "slug": "t-206",
+  "label": "Assisted Suicide Law",
+  "description": "Keywords: Gesetzentwurf, Leben, Person, Liebe, Gesetz, innen, Bereitschaft, Angehörigen, Deutschland, helfen",
+  "mismatch_score": 0.09697396228687528,
+  "norm_delta": 0.09697396228687528,
+  "totals": {
+    "bundestag_minutes": 39,
+    "talkshow_minutes": 0,
+    "bt_share": 100,
+    "ts_share": 0,
+    "bt_normalized_perc": 0.09697396228687528,
+    "ts_normalized_perc": 0
+  },
+  "timeseries": []
+}

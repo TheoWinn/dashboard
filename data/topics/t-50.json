@@ -2,15 +2,15 @@
   "slug": "t-50",
   "label": "European integration strength",
   "description": "Keywords: Europa, Europäische, Europäische Union, europäische, stärker, EU, Europäer, 27, Union, europäischen",
-  "mismatch_score": -0.06713950237513897,
-  "norm_delta": 0.06713950237513894,
+  "mismatch_score": -0.09604833777029259,
+  "norm_delta": 0.09604833777029259,
   "totals": {
-    "bundestag_minutes": 149,
-    "talkshow_minutes": 70,
-    "bt_share": 45.85745836535615,
-    "ts_share": 54.14254163464385,
-    "bt_normalized_perc": 0.37161327590415016,
-    "ts_normalized_perc": 0.4387527782792891
+    "bundestag_minutes": 153,
+    "talkshow_minutes": 76,
+    "bt_share": 44.32757876940915,
+    "ts_share": 55.67242123059085,
+    "bt_normalized_perc": 0.3752886188372847,
+    "ts_normalized_perc": 0.4713369566075773
   },
   "timeseries": [
     {

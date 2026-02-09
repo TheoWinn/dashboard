@@ -2,15 +2,15 @@
   "slug": "t-175",
   "label": "Controversial Vote Analysis",
   "description": "Keywords: hab versucht, 24 Februar, hab, Kaffeesatzleserei, merkte, geheime Wahl, widersprüchlich, Februar, geheime, schockiert",
-  "mismatch_score": -0.06371002418188992,
-  "norm_delta": 0.06371002418188992,
+  "mismatch_score": -0.06291317493554277,
+  "norm_delta": 0.06291317493554277,
   "totals": {
     "bundestag_minutes": 4,
     "talkshow_minutes": 12,
-    "bt_share": 11.808197823630424,
-    "ts_share": 88.19180217636958,
-    "bt_normalized_perc": 0.009848979702684802,
-    "ts_normalized_perc": 0.07355900388457473
+    "bt_share": 11.802628815052541,
+    "ts_share": 88.19737118494746,
+    "bt_normalized_perc": 0.009719789979071827,
+    "ts_normalized_perc": 0.0726329649146146
   },
   "timeseries": [
     {

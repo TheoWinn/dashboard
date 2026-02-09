@@ -2,15 +2,15 @@
   "slug": "t-177",
   "label": "Historical War Crimes",
   "description": "Keywords: Stalin, Kriegsverbrechen, Bilder, Stalin Pakt, Hitler Stalin, Krieg, Hitler, völkerrechtswidrig, Völkerrecht, Kriegsverbrecher",
-  "mismatch_score": -0.07679051312182933,
-  "norm_delta": 0.07679051312182933,
+  "mismatch_score": -0.08285518960787648,
+  "norm_delta": 0.08285518960787647,
   "totals": {
     "bundestag_minutes": 8,
-    "talkshow_minutes": 15,
-    "bt_share": 17.015222066388098,
-    "ts_share": 82.98477793361191,
-    "bt_normalized_perc": 0.019806221463573435,
-    "ts_normalized_perc": 0.09659673458540276
+    "talkshow_minutes": 17,
+    "bt_share": 16.028484738975557,
+    "ts_share": 83.97151526102445,
+    "bt_normalized_perc": 0.01954642193570976,
+    "ts_normalized_perc": 0.10240161154358624
   },
   "timeseries": [
     {

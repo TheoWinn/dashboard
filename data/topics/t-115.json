@@ -2,15 +2,15 @@
   "slug": "t-115",
   "label": "Eurozone Public Debt",
   "description": "Keywords: Euro, Schulden, Milliarden Euro, Milliarden, Politik, Euro Schulden, Geld, Millionen Euro, 000, versprochen",
-  "mismatch_score": 0.32219821334775267,
-  "norm_delta": 0.32219821334775267,
+  "mismatch_score": 0.31796820243970664,
+  "norm_delta": 0.3179682024397067,
   "totals": {
     "bundestag_minutes": 132,
     "talkshow_minutes": 1,
-    "bt_share": 97.90740582554018,
-    "ts_share": 2.092594174459815,
-    "bt_normalized_perc": 0.329235017915382,
-    "ts_normalized_perc": 0.007036804567629347
+    "bt_share": 97.90630968405743,
+    "ts_share": 2.093690315942566,
+    "bt_normalized_perc": 0.3249164202278869,
+    "ts_normalized_perc": 0.006948217788180248
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-9",
   "label": "Conscription Debate Germany",
   "description": "Keywords: Wehrpflicht, Bundeswehr, Wehrdienst, 000, Soldaten, Freiwilligkeit, Männer, Dienst, junge, Reservisten",
-  "mismatch_score": -0.5647424338545985,
-  "norm_delta": 0.5647424338545985,
+  "mismatch_score": -0.5577507753329547,
+  "norm_delta": 0.5577507753329547,
   "totals": {
     "bundestag_minutes": 90,
     "talkshow_minutes": 126,
-    "bt_share": 22.0813119665292,
-    "ts_share": 77.9186880334708,
-    "bt_normalized_perc": 0.22333165956312478,
-    "ts_normalized_perc": 0.7880740934177234
+    "bt_share": 22.072110513494387,
+    "ts_share": 77.92788948650562,
+    "bt_normalized_perc": 0.22040220329009358,
+    "ts_normalized_perc": 0.7781529786230483
   },
   "timeseries": [
     {

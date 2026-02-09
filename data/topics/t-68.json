@@ -2,15 +2,15 @@
   "slug": "t-68",
   "label": "Reducing Economic Dependencies",
   "description": "Keywords: Land, Hand genommen, unserem Land, Geld Hand, unserem, Herausforderungen, Entscheidungen, einseitige Abhängigkeiten, strukturelle Schieflage, Abhängigkeiten abbauen",
-  "mismatch_score": 0.38272050001905983,
-  "norm_delta": 0.38272050001905983,
+  "mismatch_score": 0.4108111061928008,
+  "norm_delta": 0.4108111061928008,
   "totals": {
-    "bundestag_minutes": 218,
-    "talkshow_minutes": 26,
-    "bt_share": 77.07968112364382,
-    "ts_share": 22.920318876356173,
-    "bt_normalized_perc": 0.5446883581504514,
-    "ts_normalized_perc": 0.16196785813139153
+    "bundestag_minutes": 236,
+    "talkshow_minutes": 27,
+    "bt_share": 77.4144299634091,
+    "ts_share": 22.585570036590887,
+    "bt_normalized_perc": 0.5800359090267655,
+    "ts_normalized_perc": 0.16922480283396465
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-77",
   "label": "National Security KRITIS",
   "description": "Keywords: Sicherheit, KRITIS, Sicherheitsrat, Sicherheitsbehörden, KRITIS Dachgesetz, Dachgesetz, Nationalen, Befugnisse, Bedrohungen, Schutz",
-  "mismatch_score": 0.515272728664363,
-  "norm_delta": 0.5152727286643631,
+  "mismatch_score": 0.5085087623358555,
+  "norm_delta": 0.5085087623358555,
   "totals": {
     "bundestag_minutes": 211,
     "talkshow_minutes": 2,
-    "bt_share": 98.19333423275799,
-    "ts_share": 1.806665767242008,
-    "bt_normalized_perc": 0.5249309689012309,
-    "ts_normalized_perc": 0.009658240236867814
+    "bt_share": 98.19238510091249,
+    "ts_share": 1.8076148990875078,
+    "bt_normalized_perc": 0.5180454143732065,
+    "ts_normalized_perc": 0.009536652037350988
   },
   "timeseries": [
     {

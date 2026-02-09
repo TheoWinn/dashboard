@@ -2,14 +2,14 @@
   "slug": "t-163",
   "label": "Wolf Management Debate",
   "description": "Keywords: Wolf, Herdenschutz, Weidetierhalter, Erhaltungszustand, Wolfes, Wölfe, Rechtssicherheit, Artenschutz, Weidetiere, Wolfsmanagement",
-  "mismatch_score": 0.08876524596226773,
-  "norm_delta": 0.08876524596226773,
+  "mismatch_score": 0.08760090631100649,
+  "norm_delta": 0.08760090631100649,
   "totals": {
     "bundestag_minutes": 36,
     "talkshow_minutes": 0,
     "bt_share": 100,
     "ts_share": 0,
-    "bt_normalized_perc": 0.08876524596226773,
+    "bt_normalized_perc": 0.08760090631100649,
     "ts_normalized_perc": 0
   },
   "timeseries": [

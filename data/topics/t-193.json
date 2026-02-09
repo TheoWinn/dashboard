@@ -2,15 +2,15 @@
   "slug": "t-193",
   "label": "Digital Infrastructure Security",
   "description": "Keywords: digitalen, digitale, digitalen Infrastruktur, Umsetzungsgesetz, Digital, IT Sicherheit, Daten, gestalten Welt, Digital Omnibus, verwundbarer",
-  "mismatch_score": 0.09200811417922737,
-  "norm_delta": 0.09200811417922738,
+  "mismatch_score": 0.09079079236526082,
+  "norm_delta": 0.0907907923652608,
   "totals": {
     "bundestag_minutes": 45,
     "talkshow_minutes": 3,
-    "bt_share": 84.9646126918655,
-    "ts_share": 15.035387308134505,
-    "bt_normalized_perc": 0.11179065323331489,
-    "ts_normalized_perc": 0.019782539054087504
+    "bt_share": 84.95777847606777,
+    "ts_share": 15.04222152393223,
+    "bt_normalized_perc": 0.11032428777925785,
+    "ts_normalized_perc": 0.01953349541399704
   },
   "timeseries": [
     {

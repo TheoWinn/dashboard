@@ -2,15 +2,15 @@
   "slug": "t-94",
   "label": "Trust in Democracy",
   "description": "Keywords: Wahlbeteiligung, Misstrauen, durchhaltbar, Vertrauen, Demokraten, Million Dollar, Digitalität, Demokratie, Misstrauen vertrauen, Millionen AfD",
-  "mismatch_score": -0.15220154551050055,
-  "norm_delta": 0.15220154551050055,
+  "mismatch_score": -0.1596080565726118,
+  "norm_delta": 0.1596080565726118,
   "totals": {
     "bundestag_minutes": 4,
-    "talkshow_minutes": 26,
-    "bt_share": 6.260746978478163,
-    "ts_share": 93.73925302152183,
-    "bt_normalized_perc": 0.010892908547223043,
-    "ts_normalized_perc": 0.1630944540577236
+    "talkshow_minutes": 27,
+    "bt_share": 5.935695358284579,
+    "ts_share": 94.06430464171542,
+    "bt_normalized_perc": 0.010750025539334058,
+    "ts_normalized_perc": 0.17035808211194584
   },
   "timeseries": [
     {

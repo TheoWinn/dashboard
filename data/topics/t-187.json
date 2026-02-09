@@ -2,15 +2,15 @@
   "slug": "t-187",
   "label": "Bundeswehr Conditions Report",
   "description": "Keywords: Soldatinnen, Soldatinnen Soldaten, Soldaten, Wehrbeauftragte, Truppe, Dienst, Högl, Wehrbeauftragten, JUPITER, Bericht",
-  "mismatch_score": 0.15695798571915415,
-  "norm_delta": 0.15695798571915415,
+  "mismatch_score": 0.15489788574370453,
+  "norm_delta": 0.15489788574370456,
   "totals": {
     "bundestag_minutes": 64,
     "talkshow_minutes": 0,
-    "bt_share": 98.51130236794928,
-    "ts_share": 1.4886976320507195,
-    "bt_normalized_perc": 0.15936632120249436,
-    "ts_normalized_perc": 0.0024083354833402
+    "bt_share": 98.51051774678317,
+    "ts_share": 1.489482253216828,
+    "bt_normalized_perc": 0.15727590253874643,
+    "ts_normalized_perc": 0.002378016795041887
   },
   "timeseries": [
     {

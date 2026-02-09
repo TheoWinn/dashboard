@@ -2,15 +2,15 @@
   "slug": "t-105",
   "label": "EU Consumer Protection",
   "description": "Keywords: Verbraucher, Verbraucherschutz, Schuldnerberatung, Verbraucherinnen, Verbraucherinnen Verbraucher, Richtlinie, Verbraucherkreditrichtlinie, EU Verbraucherkreditrichtlinie, EU, Produkte",
-  "mismatch_score": 0.26221964073743037,
-  "norm_delta": 0.2622196407374303,
+  "mismatch_score": 0.25877561811979916,
+  "norm_delta": 0.25877561811979916,
   "totals": {
     "bundestag_minutes": 109,
     "talkshow_minutes": 1,
-    "bt_share": 96.96722262776368,
-    "ts_share": 3.032777372236321,
-    "bt_normalized_perc": 0.27068569161813877,
-    "ts_normalized_perc": 0.008466050880708441
+    "bt_share": 96.96564926321167,
+    "ts_share": 3.0343507367883276,
+    "bt_normalized_perc": 0.26713508934848423,
+    "ts_normalized_perc": 0.008359471228685102
   },
   "timeseries": [
     {
