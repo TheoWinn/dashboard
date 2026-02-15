@@ -287,8 +287,38 @@ def extract_topics(talkshow_path = "../youtube/data/clustered/talkshow_clustered
         print("WARNING: no new files found. Stopping further proceedings.")
         return None, None
 
+    full_cols = [
+    "protokoll_docid",
+    "protokoll_name",
+    "protokoll_party",
+    "similarity",
+    "transcript_start",
+    "transcript_end",
+    "transcript_text",
+    "transcript_speaker",
+    "protokoll_text",
+    "date",
+    "source",
+    "filename",
+    "text",
+    "cluster_idx",
+    "speaker",
+    "start",
+    "end",
+    "words",
+    "speaker_block"
+    ]
+
     # combine dfs
-    raw_combined_df= pd.concat([bundestag_fixed, talkshow_df_ready], ignore_index=True)
+    if talkshow_dfs and bundestag_dfs:
+        raw_combined_df = pd.concat([bundestag_fixed, talkshow_df_ready], ignore_index=True)
+    elif talkshow_dfs:
+        raw_combined_df = talkshow_df_ready
+    elif bundestag_dfs:
+        raw_combined_df = bundestag_fixed
+    for col in full_cols:
+        if col not in raw_combined_df.columns:
+            raw_combined_df[col] = np.nan
     # shuffle
     combined_df = raw_combined_df.sample(frac=1, random_state=42).reset_index(drop=True)
     # clean encoding artifacts
