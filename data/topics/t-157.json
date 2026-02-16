@@ -2,15 +2,15 @@
   "slug": "t-157",
   "label": "Environmental agriculture policy",
   "description": "Keywords: Wälder, Brasilien, Wolf, Klimaschutz, Milliarde, Minister, Milliarde Euro, Agritechnica, Waldbesitzer, Klima",
-  "mismatch_score": 0.10890280924585695,
-  "norm_delta": 0.10890280924585695,
+  "mismatch_score": 0.10892685458981566,
+  "norm_delta": 0.10892685458981564,
   "totals": {
     "bundestag_minutes": 46,
     "talkshow_minutes": 1,
-    "bt_share": 96.69131896427496,
-    "ts_share": 3.308681035725046,
+    "bt_share": 96.71125942037892,
+    "ts_share": 3.2887405796210762,
     "bt_normalized_perc": 0.11276139225102591,
-    "ts_normalized_perc": 0.0038585830051689612
+    "ts_normalized_perc": 0.00383453766121026
   },
   "timeseries": [
     {

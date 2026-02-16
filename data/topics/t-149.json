@@ -2,15 +2,15 @@
   "slug": "t-149",
   "label": "Merz-Trump political comparison",
   "description": "Keywords: Friedrich Merz, Friedrich, Merz, Trump, Donald Trump, Donald, Auslandsreisen, Oval Office, Oval, Office",
-  "mismatch_score": -0.05736994675431865,
-  "norm_delta": 0.05736994675431864,
+  "mismatch_score": -0.056933980220037615,
+  "norm_delta": 0.05693398022003761,
   "totals": {
     "bundestag_minutes": 5,
     "talkshow_minutes": 11,
-    "bt_share": 15.251445366560448,
-    "ts_share": 84.74855463343955,
+    "bt_share": 15.332419468325524,
+    "ts_share": 84.66758053167447,
     "bt_normalized_perc": 0.012590086376772043,
-    "ts_normalized_perc": 0.06996003313109068
+    "ts_normalized_perc": 0.06952406659680965
   },
   "timeseries": [
     {

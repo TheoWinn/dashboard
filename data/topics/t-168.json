@@ -2,15 +2,15 @@
   "slug": "t-168",
   "label": "Ukraine War Drones",
   "description": "Keywords: Drohnen, Ukraine, Kriegsführung, Raketen, Russland, Drohnenwahl, Drohnenkrieg, Luftverteidigungssysteme, ukrainischen, Krieg",
-  "mismatch_score": -0.08768478001304401,
-  "norm_delta": 0.08768478001304401,
+  "mismatch_score": -0.08706063809558005,
+  "norm_delta": 0.08706063809558005,
   "totals": {
     "bundestag_minutes": 5,
     "talkshow_minutes": 16,
-    "bt_share": 11.073522358920364,
-    "ts_share": 88.92647764107963,
+    "bt_share": 11.13522921190436,
+    "ts_share": 88.86477078809564,
     "bt_normalized_perc": 0.012471965495624099,
-    "ts_normalized_perc": 0.10015674550866811
+    "ts_normalized_perc": 0.09953260359120415
   },
   "timeseries": [
     {

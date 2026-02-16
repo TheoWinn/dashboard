@@ -2,15 +2,15 @@
   "slug": "t-14",
   "label": "Miscellaneous Speech Fragments",
   "description": "Keywords: hab, weiß, Boris Becker, fand, Leute, selber, gesehen, Wahl, Schleyer, Herrn",
-  "mismatch_score": -0.8096026791773657,
-  "norm_delta": 0.8096026791773657,
+  "mismatch_score": -0.8113302363409326,
+  "norm_delta": 0.8113302363409326,
   "totals": {
     "bundestag_minutes": 3,
-    "talkshow_minutes": 132,
-    "bt_share": 1.004533064439157,
-    "ts_share": 98.99546693556084,
+    "talkshow_minutes": 133,
+    "bt_share": 1.0024370055638803,
+    "ts_share": 98.99756299443612,
     "bt_normalized_perc": 0.008299468411657476,
-    "ts_normalized_perc": 0.8179021475890232
+    "ts_normalized_perc": 0.8196297047525901
   },
   "timeseries": [
     {

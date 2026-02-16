@@ -2,15 +2,15 @@
   "slug": "t-92",
   "label": "Political Report Controversy",
   "description": "Keywords: Bericht, Sudhoff, Prozessrisiken, Berichtes, Informationsfreiheitsgesetz, gelaufen, Spahn, Warken, wissen, weiß",
-  "mismatch_score": -0.08006105018849619,
-  "norm_delta": 0.08006105018849619,
+  "mismatch_score": -0.0840223102336483,
+  "norm_delta": 0.08402231023364828,
   "totals": {
     "bundestag_minutes": 18,
-    "talkshow_minutes": 20,
-    "bt_share": 25.994438811951508,
-    "ts_share": 74.00556118804849,
+    "talkshow_minutes": 21,
+    "bt_share": 25.39127071099484,
+    "ts_share": 74.60872928900517,
     "bt_normalized_perc": 0.04334708224570832,
-    "ts_normalized_perc": 0.12340813243420451
+    "ts_normalized_perc": 0.1273693924793566
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-120",
   "label": "Inflation & Economy",
   "description": "Keywords: Inflation, Angebotsseite, Preise, Kaufkraft, Zölle, Grundnahrungsmittel, Protest, Wachstum Volkswirtschaft, höheren Preise, Erwerbsbevölkerung",
-  "mismatch_score": -0.06486080932493303,
-  "norm_delta": 0.06486080932493303,
+  "mismatch_score": -0.06436034057935754,
+  "norm_delta": 0.06436034057935754,
   "totals": {
     "bundestag_minutes": 6,
     "talkshow_minutes": 13,
-    "bt_share": 16.133924219225985,
-    "ts_share": 83.86607578077401,
+    "bt_share": 16.21868699322874,
+    "ts_share": 83.78131300677126,
     "bt_normalized_perc": 0.015449965168982128,
-    "ts_normalized_perc": 0.08031077449391516
+    "ts_normalized_perc": 0.07981030574833967
   },
   "timeseries": [
     {

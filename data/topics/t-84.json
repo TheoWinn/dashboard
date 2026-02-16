@@ -2,15 +2,15 @@
   "slug": "t-84",
   "label": "Defense Policy Consensus",
   "description": "Keywords: Minderheitsregierung, Mehrheiten, Mehrheit, Regierung, fremde Kriege, notwendigen Mehrheiten, Freiheit, Deutschland verteidigen, Wehrpflicht, einig einig",
-  "mismatch_score": -0.0752142972017724,
-  "norm_delta": 0.07521429720177242,
+  "mismatch_score": -0.074311217964997,
+  "norm_delta": 0.07431121796499698,
   "totals": {
     "bundestag_minutes": 28,
     "talkshow_minutes": 23,
-    "bt_share": 32.47749234551169,
-    "ts_share": 67.52250765448831,
+    "bt_share": 32.61472752799426,
+    "ts_share": 67.38527247200574,
     "bt_normalized_perc": 0.06970382920671458,
-    "ts_normalized_perc": 0.144918126408487
+    "ts_normalized_perc": 0.14401504717171157
   },
   "timeseries": [
     {

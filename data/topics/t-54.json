@@ -2,15 +2,15 @@
   "slug": "t-54",
   "label": "Germany defense readiness",
   "description": "Keywords: Krieg, Frieden, kriegstüchtig, Krieg Frieden, Kriege, Spannungsfall, reagieren, Eskalation, Angst Krieg, Verteidigungsfall",
-  "mismatch_score": -0.24548572058629572,
-  "norm_delta": 0.24548572058629575,
+  "mismatch_score": -0.24380037332609503,
+  "norm_delta": 0.24380037332609505,
   "totals": {
     "bundestag_minutes": 10,
     "talkshow_minutes": 44,
-    "bt_share": 8.450471684887214,
-    "ts_share": 91.54952831511278,
+    "bt_share": 8.498958646894629,
+    "ts_share": 91.50104135310536,
     "bt_normalized_perc": 0.02496382287574707,
-    "ts_normalized_perc": 0.2704495434620428
+    "ts_normalized_perc": 0.2687641962018421
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-19",
   "label": "Drone Defense Policy",
   "description": "Keywords: Drohnen, Luftraum, Drohne, Bundeswehr, Drohnenabwehr, NATO, Flugzeuge, Flughäfen, Bundespolizei, Bedrohung",
-  "mismatch_score": -0.11617127781374721,
-  "norm_delta": 0.11617127781374714,
+  "mismatch_score": -0.1124735082948949,
+  "norm_delta": 0.11247350829489489,
   "totals": {
     "bundestag_minutes": 194,
     "talkshow_minutes": 96,
-    "bt_share": 44.574473258681074,
-    "ts_share": 55.425526741318926,
+    "bt_share": 44.72896377083652,
+    "ts_share": 55.27103622916348,
     "bt_normalized_perc": 0.47721389675400105,
-    "ts_normalized_perc": 0.5933851745677482
+    "ts_normalized_perc": 0.5896874050488959
   },
   "timeseries": [
     {

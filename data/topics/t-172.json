@@ -2,15 +2,15 @@
   "slug": "t-172",
   "label": "Trump's America First",
   "description": "Keywords: America, America first, USA, first, Donald Trumps, Trump, Donald, Punkt Trump, Doktrin, Welt",
-  "mismatch_score": -0.07142405986811234,
-  "norm_delta": 0.07142405986811234,
+  "mismatch_score": -0.0724964200841827,
+  "norm_delta": 0.0724964200841827,
   "totals": {
     "bundestag_minutes": 21,
     "talkshow_minutes": 20,
-    "bt_share": 29.81734352489771,
-    "ts_share": 70.18265647510229,
+    "bt_share": 29.637725730357356,
+    "ts_share": 70.36227426964264,
     "bt_normalized_perc": 0.05276004503315939,
-    "ts_normalized_perc": 0.12418410490127173
+    "ts_normalized_perc": 0.1252564651173421
   },
   "timeseries": [
     {

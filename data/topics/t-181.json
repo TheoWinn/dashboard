@@ -2,15 +2,15 @@
   "slug": "t-181",
   "label": "Volunteer Work Support",
   "description": "Keywords: Übungsleiterpauschale, Ehrenamtspauschale, Freiwilligkeit, engagieren, Ehrenamts Übungsleiterpauschale, Engagement, Freiwilligendienst, Ehrenamts, Ehrenamt, liegt Verantwortung",
-  "mismatch_score": 0.03414115134232548,
-  "norm_delta": 0.03414115134232548,
+  "mismatch_score": 0.034243666233693015,
+  "norm_delta": 0.034243666233693015,
   "totals": {
     "bundestag_minutes": 21,
     "talkshow_minutes": 3,
-    "bt_share": 75.46231667795053,
-    "ts_share": 24.53768332204947,
+    "bt_share": 75.57788303594538,
+    "ts_share": 24.42211696405462,
     "bt_normalized_perc": 0.05059182962278227,
-    "ts_normalized_perc": 0.01645067828045679
+    "ts_normalized_perc": 0.016348163389089253
   },
   "timeseries": [
     {

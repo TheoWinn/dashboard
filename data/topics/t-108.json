@@ -2,15 +2,15 @@
   "slug": "t-108",
   "label": "German Debt Brake",
   "description": "Keywords: Schuldenbremse, behaupten, Schuldenbremse bleibt, gewusst, Schulden, Zinsversäumnisse, Anton Hofreiter, Wortbruch, Anton, grundsätzliche Reform",
-  "mismatch_score": -0.06495484176369282,
-  "norm_delta": 0.06495484176369282,
+  "mismatch_score": -0.06952044939473244,
+  "norm_delta": 0.06952044939473243,
   "totals": {
     "bundestag_minutes": 14,
-    "talkshow_minutes": 16,
-    "bt_share": 25.45226059355981,
-    "ts_share": 74.54773940644019,
+    "talkshow_minutes": 17,
+    "bt_share": 24.603235020827864,
+    "ts_share": 75.39676497917213,
     "bt_normalized_perc": 0.03367413047714724,
-    "ts_normalized_perc": 0.09862897224084005
+    "ts_normalized_perc": 0.10319457987187967
   },
   "timeseries": [
     {

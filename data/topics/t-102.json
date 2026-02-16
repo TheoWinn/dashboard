@@ -2,15 +2,15 @@
   "slug": "t-102",
   "label": "Bureaucracy Reduction, Digitalization",
   "description": "Keywords: Bürokratie, Bürokratieabbau, Staatsmodernisierung, Staat, Behörden, Ministerium, rot, Thema Bürokratieabbau, Zuständigkeiten, Digitalisierung",
-  "mismatch_score": 0.10456316992964952,
-  "norm_delta": 0.10456316992964954,
+  "mismatch_score": 0.09785432155887668,
+  "norm_delta": 0.09785432155887669,
   "totals": {
     "bundestag_minutes": 94,
-    "talkshow_minutes": 20,
-    "bt_share": 64.60712465759201,
-    "ts_share": 35.39287534240798,
+    "talkshow_minutes": 22,
+    "bt_share": 63.418405437175394,
+    "ts_share": 36.581594562824606,
     "bt_normalized_perc": 0.23124077847609376,
-    "ts_normalized_perc": 0.12667760854644422
+    "ts_normalized_perc": 0.13338645691721707
   },
   "timeseries": [
     {

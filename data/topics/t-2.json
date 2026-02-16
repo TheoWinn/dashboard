@@ -2,15 +2,15 @@
   "slug": "t-2",
   "label": "Ukraine War",
   "description": "Keywords: Ukraine, Putin, Russland, Trump, Krieg, Donald, Donald Trump, Europäer, Wladimir, Russen",
-  "mismatch_score": -3.903367173932377,
-  "norm_delta": 3.903367173932377,
+  "mismatch_score": -3.8852200273740127,
+  "norm_delta": 3.8852200273740127,
   "totals": {
     "bundestag_minutes": 262,
-    "talkshow_minutes": 734,
-    "bt_share": 12.414996018676758,
-    "ts_share": 87.58500398132324,
+    "talkshow_minutes": 735,
+    "bt_share": 12.458535226389333,
+    "ts_share": 87.54146477361067,
     "bt_normalized_perc": 0.644675838638795,
-    "ts_normalized_perc": 4.548043012571172
+    "ts_normalized_perc": 4.529895866012808
   },
   "timeseries": [
     {

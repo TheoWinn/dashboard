@@ -2,15 +2,15 @@
   "slug": "t-1",
   "label": "German Migration Policy",
   "description": "Keywords: Migration, Grenze, Grenzen, Asyl, Grenzkontrollen, Deutschland, Migrationspolitik, Migrationswende, illegale, Zurückweisungen",
-  "mismatch_score": -1.2836276310880261,
-  "norm_delta": 1.283627631088026,
+  "mismatch_score": -1.2799998263391263,
+  "norm_delta": 1.2799998263391261,
   "totals": {
     "bundestag_minutes": 1053,
-    "talkshow_minutes": 625,
-    "bt_share": 40.074326031780785,
-    "ts_share": 59.925673968219215,
+    "talkshow_minutes": 629,
+    "bt_share": 40.09682200580871,
+    "ts_share": 59.90317799419129,
     "bt_normalized_perc": 2.591285607220737,
-    "ts_normalized_perc": 3.8749132383087628
+    "ts_normalized_perc": 3.871285433559863
   },
   "timeseries": [
     {

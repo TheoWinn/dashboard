@@ -2,15 +2,15 @@
   "slug": "t-139",
   "label": "NATO defense spending",
   "description": "Keywords: 430, Russland, Mio, europäischen NATO, Verteidigung Russland, 430 Milliarden, NATO, 300, NATO Staaten, Zahlen",
-  "mismatch_score": -0.06437468632657428,
-  "norm_delta": 0.06437468632657427,
+  "mismatch_score": -0.06385580989625703,
+  "norm_delta": 0.06385580989625703,
   "totals": {
     "bundestag_minutes": 8,
     "talkshow_minutes": 13,
-    "bt_share": 18.49155845738289,
-    "ts_share": 81.5084415426171,
+    "bt_share": 18.585962543786753,
+    "ts_share": 81.41403745621325,
     "bt_normalized_perc": 0.018889989747246965,
-    "ts_normalized_perc": 0.08326467607382124
+    "ts_normalized_perc": 0.082745799643504
   },
   "timeseries": [
     {

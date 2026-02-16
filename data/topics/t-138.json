@@ -2,15 +2,15 @@
   "slug": "t-138",
   "label": "Collective Bargaining Strength",
   "description": "Keywords: Tarifbindung, Tarifverträge, Löhne, Arbeitsbedingungen, Tariftreuegesetz, Sozialpartnerschaft, Tarif, Tarifvertrag, Unternehmen, Aufträge",
-  "mismatch_score": 0.19021752427121388,
-  "norm_delta": 0.19021752427121388,
+  "mismatch_score": 0.19030731677199408,
+  "norm_delta": 0.19030731677199406,
   "totals": {
     "bundestag_minutes": 83,
     "talkshow_minutes": 2,
-    "bt_share": 93.42157453028132,
-    "ts_share": 6.578425469718688,
+    "bt_share": 93.45988790094218,
+    "ts_share": 6.540112099057819,
     "bt_normalized_perc": 0.20462662642825258,
-    "ts_normalized_perc": 0.0144091021570387
+    "ts_normalized_perc": 0.01431930965625851
   },
   "timeseries": [
     {

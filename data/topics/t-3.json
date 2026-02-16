@@ -2,15 +2,15 @@
   "slug": "t-3",
   "label": "German Pension Reform",
   "description": "Keywords: Rente, Rentenversicherung, Renten, Rentenniveau, Rentner, gesetzliche, Mütterrente, Generation, Rentenpaket, Aktivrente",
-  "mismatch_score": -0.9102960888180344,
-  "norm_delta": 0.9102960888180345,
+  "mismatch_score": -0.9018110424783331,
+  "norm_delta": 0.9018110424783332,
   "totals": {
     "bundestag_minutes": 762,
-    "talkshow_minutes": 450,
-    "bt_share": 40.237378348708624,
-    "ts_share": 59.762621651291376,
+    "talkshow_minutes": 451,
+    "bt_share": 40.31074332856594,
+    "ts_share": 59.68925667143406,
     "bt_normalized_perc": 1.8759268485159342,
-    "ts_normalized_perc": 2.7862229373339686
+    "ts_normalized_perc": 2.7777378909942674
   },
   "timeseries": [
     {

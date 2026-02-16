@@ -2,15 +2,15 @@
   "slug": "t-0",
   "label": "Middle East Conflict",
   "description": "Keywords: Israel, Gaza, Hamas, Iran, israelischen, israelische, Geiseln, Palästinenser, Oktober, Israels",
-  "mismatch_score": -2.5982779161773992,
-  "norm_delta": 2.598277916177399,
+  "mismatch_score": -2.567536515545449,
+  "norm_delta": 2.567536515545449,
   "totals": {
     "bundestag_minutes": 949,
     "talkshow_minutes": 796,
-    "bt_share": 32.12506177173021,
-    "ts_share": 67.87493822826978,
+    "bt_share": 32.26151927145383,
+    "ts_share": 67.73848072854616,
     "bt_normalized_perc": 2.3348287275564164,
-    "ts_normalized_perc": 4.933106643733815
+    "ts_normalized_perc": 4.902365243101865
   },
   "timeseries": [
     {

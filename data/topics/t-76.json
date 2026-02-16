@@ -2,15 +2,15 @@
   "slug": "t-76",
   "label": "Violence Against Women",
   "description": "Keywords: Frauen, Gewalt, Gewalt Frauen, Opfer, Täter, häuslicher Gewalt, häuslicher, Gewalthilfegesetz, Fußfessel, Frauenhäusern",
-  "mismatch_score": 0.28143995017400214,
-  "norm_delta": 0.28143995017400214,
+  "mismatch_score": 0.2815576194126277,
+  "norm_delta": 0.2815576194126277,
   "totals": {
     "bundestag_minutes": 122,
     "talkshow_minutes": 3,
-    "bt_share": 94.08451791967437,
-    "ts_share": 5.915482080325632,
+    "bt_share": 94.1192132940639,
+    "ts_share": 5.880786705936109,
     "bt_normalized_perc": 0.3003224633612343,
-    "ts_normalized_perc": 0.018882513187232174
+    "ts_normalized_perc": 0.018764843948606627
   },
   "timeseries": [
     {

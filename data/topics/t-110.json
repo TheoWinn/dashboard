@@ -2,15 +2,15 @@
   "slug": "t-110",
   "label": "Venezuela Geopolitical Tensions",
   "description": "Keywords: Venezuela, Maduro, Regime, Iran, Vereinigten Staaten, Vereinigten, Kolumbien, Staaten, Amerikaner, Venezuela Iran",
-  "mismatch_score": -0.1332968777478,
-  "norm_delta": 0.13329687774780002,
+  "mismatch_score": -0.13229231163310412,
+  "norm_delta": 0.13229231163310415,
   "totals": {
     "bundestag_minutes": 11,
     "talkshow_minutes": 26,
-    "bt_share": 14.756936501325178,
-    "ts_share": 85.24306349867483,
+    "bt_share": 14.835744726661693,
+    "ts_share": 85.16425527333831,
     "bt_normalized_perc": 0.027906960483488518,
-    "ts_normalized_perc": 0.16120383823128853
+    "ts_normalized_perc": 0.16019927211659266
   },
   "timeseries": []
 }

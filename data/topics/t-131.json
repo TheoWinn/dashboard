@@ -2,15 +2,15 @@
   "slug": "t-131",
   "label": "German Defense History",
   "description": "Keywords: verteidigt, Durchhaltefähigkeit, Zeitenwende, 1980, wert, längerfristigen, Geschichte, Land wert, 1961, deutschen Fernsehen",
-  "mismatch_score": -0.09407503609887416,
-  "norm_delta": 0.09407503609887416,
+  "mismatch_score": -0.10163086912363069,
+  "norm_delta": 0.10163086912363069,
   "totals": {
     "bundestag_minutes": 12,
-    "talkshow_minutes": 20,
-    "bt_share": 19.491399190115786,
-    "ts_share": 80.50860080988421,
+    "talkshow_minutes": 21,
+    "bt_share": 18.580805210057413,
+    "ts_share": 81.4191947899426,
     "bt_normalized_perc": 0.03005142867505152,
-    "ts_normalized_perc": 0.12412646477392568
+    "ts_normalized_perc": 0.1316822977986822
   },
   "timeseries": [
     {

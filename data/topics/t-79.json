@@ -2,15 +2,15 @@
   "slug": "t-79",
   "label": "German-Polish Remembrance",
   "description": "Keywords: Nazis, polnischen, Opfer, Polen, polnische, Gedenken, Hitler, Denkmal, deutschen, Geschichte",
-  "mismatch_score": -0.03613550421424117,
-  "norm_delta": 0.036135504214241165,
+  "mismatch_score": -0.03496007093525088,
+  "norm_delta": 0.034960070935250886,
   "totals": {
     "bundestag_minutes": 62,
     "talkshow_minutes": 30,
-    "bt_share": 44.70325783196222,
-    "ts_share": 55.29674216803778,
+    "bt_share": 44.857833448085245,
+    "ts_share": 55.142166551914755,
     "bt_normalized_perc": 0.15248757731921161,
-    "ts_normalized_perc": 0.18862308153345278
+    "ts_normalized_perc": 0.1874476482544625
   },
   "timeseries": [
     {

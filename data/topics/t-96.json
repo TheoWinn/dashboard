@@ -2,15 +2,15 @@
   "slug": "t-96",
   "label": "Cum-Ex Tax Scandal",
   "description": "Keywords: Cum, Cum Cum, Cum Ex, Ex, Steuerhinterziehung, Belege, Ex Geschäfte, Euro, 000 Euro, Geschäfte",
-  "mismatch_score": 0.16444412128481856,
-  "norm_delta": 0.16444412128481856,
+  "mismatch_score": 0.16311103881683425,
+  "norm_delta": 0.16311103881683425,
   "totals": {
     "bundestag_minutes": 98,
-    "talkshow_minutes": 12,
-    "bt_share": 75.89894151489854,
-    "ts_share": 24.10105848510146,
+    "talkshow_minutes": 13,
+    "bt_share": 75.58157099041712,
+    "ts_share": 24.418429009582887,
     "bt_normalized_perc": 0.2409583947028389,
-    "ts_normalized_perc": 0.07651427341802035
+    "ts_normalized_perc": 0.07784735588600464
   },
   "timeseries": [
     {

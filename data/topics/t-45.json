@@ -2,15 +2,15 @@
   "slug": "t-45",
   "label": "Feminist foreign policy",
   "description": "Keywords: Frauen, Außenpolitik, Resolution, feministische, Frauenrechte, Männer, Gleichberechtigung, feministische Außenpolitik, Baerbock, Männern",
-  "mismatch_score": 0.005559619764168128,
-  "norm_delta": 0.005559619764168133,
+  "mismatch_score": 0.006602071747009032,
+  "norm_delta": 0.006602071747009025,
   "totals": {
     "bundestag_minutes": 70,
     "talkshow_minutes": 27,
-    "bt_share": 50.81728713318537,
-    "ts_share": 49.18271286681463,
+    "bt_share": 50.97351561580608,
+    "ts_share": 49.02648438419392,
     "bt_normalized_perc": 0.1728430452623951,
-    "ts_normalized_perc": 0.16728342549822697
+    "ts_normalized_perc": 0.16624097351538608
   },
   "timeseries": [
     {

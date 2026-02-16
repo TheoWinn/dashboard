@@ -2,15 +2,15 @@
   "slug": "t-116",
   "label": "Russian Gas Dependency",
   "description": "Keywords: Gas, Nord Stream, Stream, Nord, russisches, Pipeline, russisches Gas, Russland, Ausstieg, russischem Gas",
-  "mismatch_score": -0.0726720899670805,
-  "norm_delta": 0.0726720899670805,
+  "mismatch_score": -0.08334704304918106,
+  "norm_delta": 0.08334704304918107,
   "totals": {
     "bundestag_minutes": 16,
-    "talkshow_minutes": 18,
-    "bt_share": 25.66189593986449,
-    "ts_share": 74.3381040601355,
+    "talkshow_minutes": 20,
+    "bt_share": 23.94947304300107,
+    "ts_share": 76.05052695699894,
     "bt_normalized_perc": 0.038312425771946226,
-    "ts_normalized_perc": 0.11098451573902672
+    "ts_normalized_perc": 0.1216594688211273
   },
   "timeseries": [
     {

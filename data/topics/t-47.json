@@ -2,15 +2,15 @@
   "slug": "t-47",
   "label": "Bürgergeld work incentives",
   "description": "Keywords: arbeiten, Bürgergeld, Arbeit, Arbeitsmarkt, Arbeit bringen, Leute, Jobcenter, erwerbsfähig, Millionen, lohnt",
-  "mismatch_score": -0.34050664312524065,
-  "norm_delta": 0.34050664312524065,
+  "mismatch_score": -0.3419992715347212,
+  "norm_delta": 0.3419992715347212,
   "totals": {
     "bundestag_minutes": 47,
     "talkshow_minutes": 74,
-    "bt_share": 20.22957304967405,
-    "ts_share": 79.77042695032596,
+    "bt_share": 20.176911230655282,
+    "ts_share": 79.82308876934472,
     "bt_normalized_perc": 0.11569037996154652,
-    "ts_normalized_perc": 0.45619702308678717
+    "ts_normalized_perc": 0.4576896514962677
   },
   "timeseries": [
     {
