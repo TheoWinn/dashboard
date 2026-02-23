@@ -2,15 +2,15 @@
   "slug": "t-13",
   "label": "German Transport Policy",
   "description": "Keywords: Bahn, Deutschlandticket, Schiene, Infrastruktur, Züge, Ticket, Euro, Verkehrspolitik, Milliarden Euro, Milliarden",
-  "mismatch_score": 1.7175536812536882,
-  "norm_delta": 1.7175536812536882,
+  "mismatch_score": 1.719152285161594,
+  "norm_delta": 1.719152285161594,
   "totals": {
     "bundestag_minutes": 741,
     "talkshow_minutes": 17,
-    "bt_share": 94.53281803806375,
-    "ts_share": 5.467181961936247,
+    "bt_share": 94.61124826958057,
+    "ts_share": 5.3887517304194255,
     "bt_normalized_perc": 1.8229835520602162,
-    "ts_normalized_perc": 0.10542987080652799
+    "ts_normalized_perc": 0.10383126689862232
   },
   "timeseries": [
     {

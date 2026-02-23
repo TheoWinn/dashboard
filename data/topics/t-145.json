@@ -2,15 +2,15 @@
   "slug": "t-145",
   "label": "Women's health research",
   "description": "Keywords: Endometriose, Menopause, Frauengesundheit, Gender Data, Frauen, Gap, Data, Gender, Endometriose Menopause, Gesundheitsforschung",
-  "mismatch_score": 0.03317513327073268,
-  "norm_delta": 0.03317513327073268,
+  "mismatch_score": 0.0332082341018636,
+  "norm_delta": 0.03320823410186359,
   "totals": {
     "bundestag_minutes": 14,
     "talkshow_minutes": 0,
-    "bt_share": 94.18495074866476,
-    "ts_share": 5.81504925133524,
+    "bt_share": 94.26806877138762,
+    "ts_share": 5.7319312286123765,
     "bt_normalized_perc": 0.03535817331740231,
-    "ts_normalized_perc": 0.0021830400466696306
+    "ts_normalized_perc": 0.0021499392155387197
   },
   "timeseries": [
     {

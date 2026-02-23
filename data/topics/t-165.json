@@ -2,15 +2,15 @@
   "slug": "t-165",
   "label": "Working Hours Reform",
   "description": "Keywords: Arbeitszeit, Überstunden, Stunden, arbeiten, faul, Feierabend, Life, Reform Arbeitszeitgesetzes, pro Kopf, Life Balance",
-  "mismatch_score": -0.02536043675185915,
-  "norm_delta": 0.025360436751859144,
+  "mismatch_score": -0.02964004069287867,
+  "norm_delta": 0.029640040692878677,
   "totals": {
     "bundestag_minutes": 31,
-    "talkshow_minutes": 17,
-    "bt_share": 42.95618649600228,
-    "ts_share": 57.04381350399772,
+    "talkshow_minutes": 18,
+    "bt_share": 41.9587006869259,
+    "ts_share": 58.0412993130741,
     "bt_normalized_perc": 0.07732939338290613,
-    "ts_normalized_perc": 0.10268983013476528
+    "ts_normalized_perc": 0.10696943407578481
   },
   "timeseries": [
     {

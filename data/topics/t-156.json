@@ -2,15 +2,15 @@
   "slug": "t-156",
   "label": "US-Europe auto tariffs",
   "description": "Keywords: USA, BMW, Autos, Mercedes, Zölle, Zoll, Amerika, Europa, you, exportieren",
-  "mismatch_score": -0.16012859597440726,
-  "norm_delta": 0.16012859597440726,
+  "mismatch_score": -0.15979105509445518,
+  "norm_delta": 0.15979105509445518,
   "totals": {
     "bundestag_minutes": 6,
     "talkshow_minutes": 29,
-    "bt_share": 8.155788202722547,
-    "ts_share": 91.84421179727745,
+    "bt_share": 8.170201243780108,
+    "ts_share": 91.82979875621989,
     "bt_normalized_perc": 0.015605203896463022,
-    "ts_normalized_perc": 0.1757337998708703
+    "ts_normalized_perc": 0.1753962589909182
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-205",
   "label": "SPD Internal Planning",
   "description": "Keywords: 16 Arbeitsgruppen, gleichermaßen, Abweichler, Besonderes, Arbeitsgruppen, früh, entscheiden, SPD, Wahlkampf, 23 Februar",
-  "mismatch_score": -0.05604087380221409,
-  "norm_delta": 0.05604087380221409,
+  "mismatch_score": -0.05519114156620417,
+  "norm_delta": 0.05519114156620417,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 9,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.05604087380221409
+    "ts_normalized_perc": 0.05519114156620417
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-109",
   "label": "German Steel Industry",
   "description": "Keywords: Stahlindustrie, Stahl, Wettbewerb, thyssenkrupp, Stahl Deutschland, Industrie, Arbeitsplätze, IG Metall, IG, Metall",
-  "mismatch_score": 0.03732061438411941,
-  "norm_delta": 0.03732061438411942,
+  "mismatch_score": 0.038152641271022115,
+  "norm_delta": 0.03815264127102212,
   "totals": {
     "bundestag_minutes": 37,
     "talkshow_minutes": 9,
-    "bt_share": 62.688304853097215,
-    "ts_share": 37.311695146902785,
+    "bt_share": 63.04497986689543,
+    "ts_share": 36.95502013310457,
     "bt_normalized_perc": 0.09219379889211424,
-    "ts_normalized_perc": 0.05487318450799482
+    "ts_normalized_perc": 0.054041157621092115
   },
   "timeseries": [
     {

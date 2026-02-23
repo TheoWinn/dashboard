@@ -2,15 +2,15 @@
   "slug": "t-95",
   "label": "VAT Rate Debate",
   "description": "Keywords: Mehrwertsteuer, Gastronomie, Grundnahrungsmittel, Bus Bahn, Bus, Preise, Einkommen, Mehrwertsteuer Grundnahrungsmittel, Lebensmittel, Umsatzsteuer",
-  "mismatch_score": 0.1979677815571125,
-  "norm_delta": 0.1979677815571125,
+  "mismatch_score": 0.19841951622336262,
+  "norm_delta": 0.19841951622336265,
   "totals": {
     "bundestag_minutes": 93,
     "talkshow_minutes": 5,
-    "bt_share": 88.43248299224197,
-    "ts_share": 11.567517007758026,
+    "bt_share": 88.587861720228,
+    "ts_share": 11.412138279771996,
     "bt_normalized_perc": 0.227760231873324,
-    "ts_normalized_perc": 0.029792450316211493
+    "ts_normalized_perc": 0.029340715649961362
   },
   "timeseries": [
     {

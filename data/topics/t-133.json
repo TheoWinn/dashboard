@@ -2,15 +2,15 @@
   "slug": "t-133",
   "label": "Judicial Review Cases",
   "description": "Keywords: Einzelfallentscheidung, Bundesverfassungsgericht, Entscheidung, Gerichtshof, Richter, Europäischen Gerichtshof, Verbraucherschutz, Gericht, rechtlich, Soli",
-  "mismatch_score": 0.005210181085248432,
-  "norm_delta": 0.0052101810852484345,
+  "mismatch_score": -0.003303356588577049,
+  "norm_delta": 0.0033033565885770486,
   "totals": {
     "bundestag_minutes": 18,
-    "talkshow_minutes": 6,
-    "bt_share": 53.07284099832423,
-    "ts_share": 46.92715900167577,
+    "talkshow_minutes": 8,
+    "bt_share": 48.22955025410006,
+    "ts_share": 51.77044974589994,
     "bt_normalized_perc": 0.04499404825382529,
-    "ts_normalized_perc": 0.039783867168576854
+    "ts_normalized_perc": 0.04829740484240234
   },
   "timeseries": [
     {

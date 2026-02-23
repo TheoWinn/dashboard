@@ -2,15 +2,15 @@
   "slug": "t-107",
   "label": "German View on Trump",
   "description": "Keywords: Trump, Donald Trump, Donald, Röttgen, Wurzeln, erstaunliche, 20 Januar, Herrn Trump, Deutschland, Lancer",
-  "mismatch_score": -0.13114274835425,
-  "norm_delta": 0.13114274835425,
+  "mismatch_score": -0.1549436302436796,
+  "norm_delta": 0.1549436302436796,
   "totals": {
     "bundestag_minutes": 0,
-    "talkshow_minutes": 21,
+    "talkshow_minutes": 26,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.13114274835425
+    "ts_normalized_perc": 0.1549436302436796
   },
   "timeseries": [
     {

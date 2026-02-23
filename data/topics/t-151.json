@@ -2,15 +2,15 @@
   "slug": "t-151",
   "label": "Pandemic inquiry results",
   "description": "Keywords: Kommission, Pandemie, Enquete Kommission, Enquete, Ergebnisse vorlegen, Ergebnisse, vorlegen, Grippe, Jahres Ergebnisse, Bilde",
-  "mismatch_score": 0.028970644479466047,
-  "norm_delta": 0.028970644479466047,
+  "mismatch_score": 0.02971773549910873,
+  "norm_delta": 0.029717735499108736,
   "totals": {
     "bundestag_minutes": 32,
     "talkshow_minutes": 8,
-    "bt_share": 61.35981053628626,
-    "ts_share": 38.64018946371374,
+    "bt_share": 61.72143052339834,
+    "ts_share": 38.27856947660166,
     "bt_normalized_perc": 0.07824220530333276,
-    "ts_normalized_perc": 0.04927156082386671
+    "ts_normalized_perc": 0.04852446980422402
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-159",
   "label": "Parliamentary Independence Vote",
   "description": "Keywords: Abgeordneten, Unabhängigkeit Abgeordneten, Wahlgang, Unabhängigkeit, Fragerechte, Wahlgang gescheitert, Partei, Ausgrenzung, Wahlgänge, Kröte",
-  "mismatch_score": -0.0280809420366396,
-  "norm_delta": 0.028080942036639592,
+  "mismatch_score": -0.02836506577137132,
+  "norm_delta": 0.028365065771371323,
   "totals": {
     "bundestag_minutes": 37,
-    "talkshow_minutes": 19,
-    "bt_share": 43.26521150682894,
-    "ts_share": 56.73478849317106,
+    "talkshow_minutes": 20,
+    "bt_share": 43.20632752743688,
+    "ts_share": 56.79367247256312,
     "bt_normalized_perc": 0.09019792512846755,
-    "ts_normalized_perc": 0.11827886716510715
+    "ts_normalized_perc": 0.11856299089983888
   },
   "timeseries": [
     {

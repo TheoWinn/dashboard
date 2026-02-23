@@ -2,15 +2,15 @@
   "slug": "t-113",
   "label": "NGO Transparency Debate",
   "description": "Keywords: Transparenz, Zahlungen, Organisationen, NGOs, internationale Organisationen, Frohnmaier, Sudhof, Sudhof Bericht, Antrag, internationale",
-  "mismatch_score": 0.22835305359168948,
-  "norm_delta": 0.22835305359168948,
+  "mismatch_score": 0.2285213485773176,
+  "norm_delta": 0.2285213485773176,
   "totals": {
     "bundestag_minutes": 97,
     "talkshow_minutes": 2,
-    "bt_share": 95.57007014404023,
-    "ts_share": 4.429929855959776,
+    "bt_share": 95.63430751570927,
+    "ts_share": 4.365692484290727,
     "bt_normalized_perc": 0.23945231245400775,
-    "ts_normalized_perc": 0.011099258862318278
+    "ts_normalized_perc": 0.010930963876690162
   },
   "timeseries": [
     {

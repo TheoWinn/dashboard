@@ -2,15 +2,15 @@
   "slug": "t-161",
   "label": "Tax Fraud Investigations",
   "description": "Keywords: Schwarzarbeit, Finanzkontrolle Schwarzarbeit, Finanzkontrolle, Cum, Cum Cum, Automobilindustrie, Zoll, Zolls, Gesetz, Arbeit",
-  "mismatch_score": 0.17985783424559307,
-  "norm_delta": 0.17985783424559304,
+  "mismatch_score": 0.17995414511867952,
+  "norm_delta": 0.1799541451186795,
   "totals": {
     "bundestag_minutes": 76,
     "talkshow_minutes": 1,
-    "bt_share": 96.70140705670302,
-    "ts_share": 3.2985929432969767,
+    "bt_share": 96.74979709707144,
+    "ts_share": 3.2502029029285566,
     "bt_normalized_perc": 0.18620965339013035,
-    "ts_normalized_perc": 0.0063518191445372935
+    "ts_normalized_perc": 0.006255508271450852
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-30",
   "label": "Wealth & Inheritance Tax",
   "description": "Keywords: Erbschaftssteuer, Steuern, Vermögen, Einkommen, Unternehmen, zahlen, Vermögensteuer, Abgeltungssteuer, Vermögenssteuer, besteuert",
-  "mismatch_score": -0.2448649183401493,
-  "norm_delta": 0.24486491834014928,
+  "mismatch_score": -0.28346184151975,
+  "norm_delta": 0.28346184151975,
   "totals": {
     "bundestag_minutes": 52,
-    "talkshow_minutes": 61,
-    "bt_share": 25.62201281997983,
-    "ts_share": 74.37798718002017,
+    "talkshow_minutes": 68,
+    "bt_share": 23.793444172670927,
+    "ts_share": 76.20655582732907,
     "bt_normalized_perc": 0.1286802727096485,
-    "ts_normalized_perc": 0.3735451910497978
+    "ts_normalized_perc": 0.4121421142293985
   },
   "timeseries": [
     {

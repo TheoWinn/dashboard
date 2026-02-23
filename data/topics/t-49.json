@@ -2,15 +2,15 @@
   "slug": "t-49",
   "label": "German development aid",
   "description": "Keywords: Entwicklungszusammenarbeit, Afrika, Zusammenarbeit, Entwicklungspolitik, Hilfe, wirtschaftliche Zusammenarbeit, Entwicklungshilfe, afrikanischen, wirtschaftliche, humanitäre",
-  "mismatch_score": 0.6313997297720977,
-  "norm_delta": 0.6313997297720977,
+  "mismatch_score": 0.6322909088684177,
+  "norm_delta": 0.6322909088684177,
   "totals": {
     "bundestag_minutes": 280,
     "talkshow_minutes": 10,
-    "bt_share": 92.15241755959495,
-    "ts_share": 7.8475824404050485,
+    "bt_share": 92.26220101442016,
+    "ts_share": 7.737798985579844,
     "bt_normalized_perc": 0.6901740743898257,
-    "ts_normalized_perc": 0.05877434461772801
+    "ts_normalized_perc": 0.05788316552140802
   },
   "timeseries": [
     {

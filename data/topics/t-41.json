@@ -2,15 +2,15 @@
   "slug": "t-41",
   "label": "Automotive industry transformation",
   "description": "Keywords: Elektromobilität, Autoindustrie, Verbrenner, Autos, Automobilindustrie, Auto, Ladeinfrastruktur, Batterien, Mobilität, Autogipfel",
-  "mismatch_score": -0.007556553562427839,
-  "norm_delta": 0.007556553562427848,
+  "mismatch_score": -0.002902395527168017,
+  "norm_delta": 0.0029023955271680335,
   "totals": {
     "bundestag_minutes": 122,
     "talkshow_minutes": 50,
-    "bt_share": 49.376869749014205,
-    "ts_share": 50.623130250985795,
+    "bt_share": 49.7588106631864,
+    "ts_share": 50.2411893368136,
     "bt_normalized_perc": 0.29939082592537475,
-    "ts_normalized_perc": 0.3069473794878026
+    "ts_normalized_perc": 0.3022932214525428
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-39",
   "label": "Russia-NATO conflict risk",
   "description": "Keywords: Russland, NATO, Krieg, Russen, Putin, anzugreifen, Szenario, 2029, Ukraine, Europa",
-  "mismatch_score": -0.3615956212207445,
-  "norm_delta": 0.3615956212207445,
+  "mismatch_score": -0.3958140781710132,
+  "norm_delta": 0.3958140781710132,
   "totals": {
     "bundestag_minutes": 58,
-    "talkshow_minutes": 82,
-    "bt_share": 21.98317133162395,
-    "ts_share": 78.01682866837605,
+    "talkshow_minutes": 89,
+    "bt_share": 20.876196843603623,
+    "ts_share": 79.12380315639638,
     "bt_normalized_perc": 0.1418614966766932,
-    "ts_normalized_perc": 0.5034571178974377
+    "ts_normalized_perc": 0.5376755748477065
   },
   "timeseries": [
     {

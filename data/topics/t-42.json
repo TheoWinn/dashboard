@@ -2,15 +2,15 @@
   "slug": "t-42",
   "label": "Nuclear power phase-out",
   "description": "Keywords: Kernkraftwerke, Jülich, Kernenergie, Atomkraft, Ahaus, Abfälle, Kernkraft, Strom, Zwischenlager, Atomenergie",
-  "mismatch_score": 0.5436540456880675,
-  "norm_delta": 0.5436540456880675,
+  "mismatch_score": 0.5442834097556465,
+  "norm_delta": 0.5442834097556465,
   "totals": {
     "bundestag_minutes": 238,
     "talkshow_minutes": 7,
-    "bt_share": 93.37651210381642,
-    "ts_share": 6.6234878961835815,
+    "bt_share": 93.47038451479872,
+    "ts_share": 6.5296154852012736,
     "bt_normalized_perc": 0.5851613709279101,
-    "ts_normalized_perc": 0.04150732523984256
+    "ts_normalized_perc": 0.04087796117226357
   },
   "timeseries": [
     {

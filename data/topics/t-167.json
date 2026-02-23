@@ -2,15 +2,15 @@
   "slug": "t-167",
   "label": "German Social Policy",
   "description": "Keywords: Sozialismus, Sozialpolitik, DDR, entlasten, Sozialisten, Sozialstaat, Verhältnisse gelebt, gelebt, Industriestrompreis, Zinsen",
-  "mismatch_score": 0.11077734874928098,
-  "norm_delta": 0.110777348749281,
+  "mismatch_score": 0.10768057950813335,
+  "norm_delta": 0.10768057950813335,
   "totals": {
     "bundestag_minutes": 51,
-    "talkshow_minutes": 2,
-    "bt_share": 89.66890479062644,
-    "ts_share": 10.33109520937356,
+    "talkshow_minutes": 3,
+    "bt_share": 87.72330693554173,
+    "ts_share": 12.276693064458275,
     "bt_normalized_perc": 0.12520239202954353,
-    "ts_normalized_perc": 0.01442504328026254
+    "ts_normalized_perc": 0.017521812521410173
   },
   "timeseries": [
     {

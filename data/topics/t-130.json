@@ -2,15 +2,15 @@
   "slug": "t-130",
   "label": "Soldier's Lives",
   "description": "Keywords: You, beantworten, want, Soldaten, You re, don, re, Front, running, Leben egal",
-  "mismatch_score": -0.10402433218530159,
-  "norm_delta": 0.10402433218530159,
+  "mismatch_score": -0.10583592902149062,
+  "norm_delta": 0.10583592902149062,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 17,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.10402433218530159
+    "ts_normalized_perc": 0.10583592902149062
   },
   "timeseries": [
     {

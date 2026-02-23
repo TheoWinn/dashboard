@@ -2,15 +2,15 @@
   "slug": "t-85",
   "label": "Humanitarian Aid Cuts",
   "description": "Keywords: Hilfe, humanitäre, humanitäre Hilfe, humanitären, humanitären Hilfe, Kürzungen, Millionen, Haushalt, gekürzt, Welt",
-  "mismatch_score": 0.20751335799832832,
-  "norm_delta": 0.20751335799832832,
+  "mismatch_score": 0.20755498541428644,
+  "norm_delta": 0.20755498541428644,
   "totals": {
     "bundestag_minutes": 85,
     "talkshow_minutes": 0,
-    "bt_share": 98.71111472407595,
-    "ts_share": 1.2888852759240448,
+    "bt_share": 98.73040961808293,
+    "ts_share": 1.2695903819170742,
     "bt_normalized_perc": 0.21025873667829317,
-    "ts_normalized_perc": 0.002745378679964855
+    "ts_normalized_perc": 0.0027037512640067487
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-89",
   "label": "German Party Landscape",
   "description": "Keywords: Parteien, Partei, Mitte, rechts, FDP, AfD, Linken, Linkspartei, politische Mitte, Nichtwähler",
-  "mismatch_score": -0.16080975547771106,
-  "norm_delta": 0.16080975547771106,
+  "mismatch_score": -0.15837144172877582,
+  "norm_delta": 0.15837144172877582,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 26,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.16080975547771106
+    "ts_normalized_perc": 0.15837144172877582
   },
   "timeseries": [
     {

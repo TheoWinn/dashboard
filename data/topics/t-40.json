@@ -2,15 +2,15 @@
   "slug": "t-40",
   "label": "Energy transition strategy",
   "description": "Keywords: Wasserstoff, Energien, Strom, Gaskraftwerke, Energiewende, Gas, Energie, Erneuerbaren, erneuerbaren, Energiepolitik",
-  "mismatch_score": 0.5544053804269857,
-  "norm_delta": 0.5544053804269857,
+  "mismatch_score": 0.5569747386635417,
+  "norm_delta": 0.5569747386635417,
   "totals": {
     "bundestag_minutes": 294,
     "talkshow_minutes": 28,
-    "bt_share": 81.03096316868763,
-    "ts_share": 18.969036831312362,
+    "bt_share": 81.26469852109628,
+    "ts_share": 18.73530147890373,
     "bt_normalized_perc": 0.7238576791459816,
-    "ts_normalized_perc": 0.1694522987189959
+    "ts_normalized_perc": 0.1668829404824399
   },
   "timeseries": [
     {
