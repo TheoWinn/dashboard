@@ -2,15 +2,15 @@
   "slug": "t-154",
   "label": "China global power",
   "description": "Keywords: Chinesen, Xi, China, Jinping, Xi Jinping, Weltmacht, Trump, chinesische, setzen Druck, first",
-  "mismatch_score": -0.07544410277132442,
-  "norm_delta": 0.07544410277132442,
+  "mismatch_score": -0.07445727442031573,
+  "norm_delta": 0.07445727442031573,
   "totals": {
     "bundestag_minutes": 0,
     "talkshow_minutes": 12,
     "bt_share": 0,
     "ts_share": 100,
     "bt_normalized_perc": 0,
-    "ts_normalized_perc": 0.07544410277132442
+    "ts_normalized_perc": 0.07445727442031573
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-64",
   "label": "German Defense Policy",
   "description": "Keywords: NATO, Verteidigung, Geld, Zeitenwende, Rüstungsindustrie, Milliarden, Bundeswehr, Streitkräfte, Armee, Deutschland",
-  "mismatch_score": -0.08283686108340146,
-  "norm_delta": 0.08283686108340146,
+  "mismatch_score": -0.07981402443074145,
+  "norm_delta": 0.07981402443074145,
   "totals": {
     "bundestag_minutes": 60,
     "talkshow_minutes": 38,
-    "bt_share": 39.082066606732276,
-    "ts_share": 60.917933393267724,
+    "bt_share": 39.39598258264209,
+    "ts_share": 60.60401741735791,
     "bt_normalized_perc": 0.148262294966482,
-    "ts_normalized_perc": 0.23109915604988346
+    "ts_normalized_perc": 0.22807631939722345
   },
   "timeseries": [
     {

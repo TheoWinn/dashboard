@@ -2,15 +2,15 @@
   "slug": "t-204",
   "label": "Political Leadership Dynamics",
   "description": "Keywords: Thorsten Frei, Thorsten, gewissermaßen, Lauterbach, Frei, Machtzentrum, Matzen, Merz, Herzlich willkommen, Herzlich",
-  "mismatch_score": -0.04562516644938092,
-  "norm_delta": 0.04562516644938093,
+  "mismatch_score": -0.053996274476515435,
+  "norm_delta": 0.053996274476515435,
   "totals": {
     "bundestag_minutes": 4,
-    "talkshow_minutes": 9,
-    "bt_share": 15.833134621999452,
-    "ts_share": 84.16686537800055,
+    "talkshow_minutes": 11,
+    "bt_share": 14.069198067008399,
+    "ts_share": 85.9308019329916,
     "bt_normalized_perc": 0.01057149074918232,
-    "ts_normalized_perc": 0.056196657198563246
+    "ts_normalized_perc": 0.06456776522569775
   },
   "timeseries": [
     {

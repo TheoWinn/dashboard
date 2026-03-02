@@ -2,15 +2,15 @@
   "slug": "t-34",
   "label": "Industrial Energy Costs",
   "description": "Keywords: Stromsteuer, Entlastung, Netzentgelte, senken, Gasspeicherumlage, Industrie, entlastet, Unternehmen, Energiepreise, Industriestrompreis",
-  "mismatch_score": 0.4568457362378123,
-  "norm_delta": 0.4568457362378123,
+  "mismatch_score": 0.45623216517950715,
+  "norm_delta": 0.45623216517950715,
   "totals": {
     "bundestag_minutes": 254,
     "talkshow_minutes": 28,
-    "bt_share": 78.7484979850651,
-    "ts_share": 21.251502014934903,
+    "bt_share": 78.68773382726317,
+    "ts_share": 21.31226617273683,
     "bt_normalized_perc": 0.6257007854514435,
-    "ts_normalized_perc": 0.16885504921363118
+    "ts_normalized_perc": 0.16946862027193635
   },
   "timeseries": [
     {

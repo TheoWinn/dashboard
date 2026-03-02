@@ -2,15 +2,15 @@
   "slug": "t-58",
   "label": "China economic competition",
   "description": "Keywords: China, Firmen, chinesische, Autos, Autoindustrie, Chinesen, Globalisierung, VW, Produkte, Markt",
-  "mismatch_score": -0.25999697023172685,
-  "norm_delta": 0.2599969702317269,
+  "mismatch_score": -0.2595915797112177,
+  "norm_delta": 0.2595915797112177,
   "totals": {
     "bundestag_minutes": 11,
-    "talkshow_minutes": 47,
-    "bt_share": 8.660035758476328,
-    "ts_share": 91.33996424152367,
+    "talkshow_minutes": 48,
+    "bt_share": 8.67121430436558,
+    "ts_share": 91.32878569563442,
     "bt_normalized_perc": 0.02723252306348963,
-    "ts_normalized_perc": 0.2872294932952165
+    "ts_normalized_perc": 0.2868241027747073
   },
   "timeseries": [
     {

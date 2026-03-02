@@ -2,15 +2,15 @@
   "slug": "t-150",
   "label": "AfD rise impact",
   "description": "Keywords: AfD, Parteien, Partei, AfD Bundestag, Aufregung Berlin, stark, AfD hinaus, AfD stärkt, Aufregung, AfD wächst",
-  "mismatch_score": -0.09172134559376476,
-  "norm_delta": 0.09172134559376476,
+  "mismatch_score": -0.09029249807680766,
+  "norm_delta": 0.09029249807680766,
   "totals": {
     "bundestag_minutes": 7,
     "talkshow_minutes": 18,
-    "bt_share": 13.818738605156994,
-    "ts_share": 86.181261394843,
+    "bt_share": 13.97628956608023,
+    "ts_share": 86.02371043391977,
     "bt_normalized_perc": 0.017515604078056815,
-    "ts_normalized_perc": 0.10923694967182157
+    "ts_normalized_perc": 0.10780810215486447
   },
   "timeseries": [
     {

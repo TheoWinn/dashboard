@@ -2,15 +2,15 @@
   "slug": "t-82",
   "label": "Full-day Childcare",
   "description": "Keywords: Bildung, Ganztag, Kinder, Ganztagsbetreuung, Rechtsanspruch, Schulen, Kommunen, Betreuung, Eltern, Grundschulalter",
-  "mismatch_score": 0.2553328765658384,
-  "norm_delta": 0.2553328765658384,
+  "mismatch_score": 0.25545180757082825,
+  "norm_delta": 0.25545180757082825,
   "totals": {
     "bundestag_minutes": 107,
     "talkshow_minutes": 1,
-    "bt_share": 96.67575247208964,
-    "ts_share": 3.3242475279103525,
+    "bt_share": 96.71780732483398,
+    "ts_share": 3.2821926751660206,
     "bt_normalized_perc": 0.26442528149520483,
-    "ts_normalized_perc": 0.009092404929366398
+    "ts_normalized_perc": 0.008973473924376564
   },
   "timeseries": [
     {

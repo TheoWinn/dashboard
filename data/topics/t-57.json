@@ -2,15 +2,15 @@
   "slug": "t-57",
   "label": "Social media regulation",
   "description": "Keywords: Social Media, Social, Media, Jugendliche, Kinder, Australien, Kinder Jugendliche, Verbot, TikTok, digitalen",
-  "mismatch_score": -0.2441354565409687,
-  "norm_delta": 0.24413545654096866,
+  "mismatch_score": -0.24523157633999637,
+  "norm_delta": 0.2452315763399964,
   "totals": {
     "bundestag_minutes": 14,
-    "talkshow_minutes": 46,
-    "bt_share": 10.806999023290043,
-    "ts_share": 89.19300097670995,
+    "talkshow_minutes": 47,
+    "bt_share": 10.769098515525133,
+    "ts_share": 89.23090148447487,
     "bt_normalized_perc": 0.03365870913988626,
-    "ts_normalized_perc": 0.2777941656808549
+    "ts_normalized_perc": 0.27889028547988265
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-52",
   "label": "European space exploration",
   "description": "Keywords: Raumfahrt, Mond, Raumstation, Weltraum, Astronauten, ESA, Erde, NASA, ISS, Experimente",
-  "mismatch_score": -0.23670527620778295,
-  "norm_delta": 0.23670527620778295,
+  "mismatch_score": -0.2312927074854481,
+  "norm_delta": 0.23129270748544814,
   "totals": {
     "bundestag_minutes": 72,
     "talkshow_minutes": 68,
-    "bt_share": 29.97038651553602,
-    "ts_share": 70.02961348446398,
+    "bt_share": 30.247454845142702,
+    "ts_share": 69.7525451548573,
     "bt_normalized_perc": 0.17709150063521104,
-    "ts_normalized_perc": 0.413796776842994
+    "ts_normalized_perc": 0.4083842081206592
   },
   "timeseries": [
     {

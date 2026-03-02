@@ -2,15 +2,15 @@
   "slug": "t-80",
   "label": "US Trade Protectionism",
   "description": "Keywords: Zölle, USA, Trump, Zöllen, Zoll, Zollpolitik, Dollar, Protektionismus, Amerikaner, höhere Zölle",
-  "mismatch_score": -0.21922279825029434,
-  "norm_delta": 0.21922279825029434,
+  "mismatch_score": -0.2158986808263295,
+  "norm_delta": 0.21589868082632946,
   "totals": {
     "bundestag_minutes": 14,
     "talkshow_minutes": 42,
-    "bt_share": 12.077691484853757,
-    "ts_share": 87.92230851514624,
+    "bt_share": 12.218206542188316,
+    "ts_share": 87.78179345781169,
     "bt_normalized_perc": 0.034909601068404024,
-    "ts_normalized_perc": 0.25413239931869835
+    "ts_normalized_perc": 0.2508082818947335
   },
   "timeseries": [
     {

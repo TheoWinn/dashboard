@@ -2,15 +2,15 @@
   "slug": "t-20",
   "label": "Tech Billionaire Influence",
   "description": "Keywords: Musk, Elon, Elon Musk, Zuckerberg, Plattform, Trump, Tesla, Tech, Milliardäre, Donald",
-  "mismatch_score": -0.5665135149311376,
-  "norm_delta": 0.5665135149311376,
+  "mismatch_score": -0.5584318108436845,
+  "norm_delta": 0.5584318108436845,
   "totals": {
     "bundestag_minutes": 21,
     "talkshow_minutes": 102,
-    "bt_share": 7.672119826600428,
-    "ts_share": 92.32788017339958,
+    "bt_share": 7.765906545915895,
+    "ts_share": 92.2340934540841,
     "bt_normalized_perc": 0.05134156910451298,
-    "ts_normalized_perc": 0.6178550840356505
+    "ts_normalized_perc": 0.6097733799481975
   },
   "timeseries": [
     {

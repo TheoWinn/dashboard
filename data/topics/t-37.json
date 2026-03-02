@@ -2,15 +2,15 @@
   "slug": "t-37",
   "label": "Parliamentary Debate Discourse",
   "description": "Keywords: Rede, Liebe, Debatte, Präsidentin, AfD, geehrte, Land, Fraktion, geehrter, geehrte Präsidentin",
-  "mismatch_score": 1.2797546038134975,
-  "norm_delta": 1.2797546038134977,
+  "mismatch_score": 1.2798531780810956,
+  "norm_delta": 1.2798531780810956,
   "totals": {
     "bundestag_minutes": 523,
     "talkshow_minutes": 1,
-    "bt_share": 99.41798315939903,
-    "ts_share": 0.5820168406009731,
+    "bt_share": 99.42555235770517,
+    "ts_share": 0.5744476422948279,
     "bt_normalized_perc": 1.2872907139867273,
-    "ts_normalized_perc": 0.007536110173229699
+    "ts_normalized_perc": 0.007437535905631744
   },
   "timeseries": [
     {

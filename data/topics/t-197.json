@@ -2,15 +2,15 @@
   "slug": "t-197",
   "label": "Foreign Minister's Performance",
   "description": "Keywords: verkappte Tyrannei, anmaßend, Außenministerin, schmeicheln, verkappte, Tyrannei, Außenminister, düster, Baerbock, Weimer",
-  "mismatch_score": -0.002875998662322292,
-  "norm_delta": 0.002875998662322292,
+  "mismatch_score": -0.006408839349260155,
+  "norm_delta": 0.006408839349260155,
   "totals": {
     "bundestag_minutes": 15,
     "talkshow_minutes": 7,
-    "bt_share": 48.1670394954526,
-    "ts_share": 51.8329605045474,
+    "bt_share": 46.09146196659061,
+    "ts_share": 53.90853803340939,
     "bt_normalized_perc": 0.03778814131926769,
-    "ts_normalized_perc": 0.040664139981589985
+    "ts_normalized_perc": 0.04419698066852785
   },
   "timeseries": [
     {

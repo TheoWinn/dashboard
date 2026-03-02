@@ -2,15 +2,15 @@
   "slug": "t-33",
   "label": "Syrian Conflict Dynamics",
   "description": "Keywords: Syrien, Assad, Syrer, syrischen, Damaskus, Syrerinnen, Jesiden, HTS, Syrerinnen Syrer, Regime",
-  "mismatch_score": -0.1888147626478571,
-  "norm_delta": 0.18881476264785707,
+  "mismatch_score": -0.1832812727367092,
+  "norm_delta": 0.1832812727367092,
   "totals": {
     "bundestag_minutes": 95,
     "talkshow_minutes": 70,
-    "bt_share": 35.63639260331549,
-    "ts_share": 64.36360739668451,
+    "bt_share": 35.938960051917576,
+    "ts_share": 64.06103994808242,
     "bt_normalized_perc": 0.23422657084647197,
-    "ts_normalized_perc": 0.42304133349432904
+    "ts_normalized_perc": 0.41750784358318116
   },
   "timeseries": [
     {

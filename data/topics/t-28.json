@@ -2,15 +2,15 @@
   "slug": "t-28",
   "label": "Defense Spending Debate",
   "description": "Keywords: Milliarden, Bundeswehr, Verteidigung, Milliarden Euro, Geld, Rüstung, Euro, Prozent, Verteidigungsausgaben, Sondervermögen",
-  "mismatch_score": -0.000116971491010446,
-  "norm_delta": 0.00011697149101042026,
+  "mismatch_score": 0.00101855202911525,
+  "norm_delta": 0.0010185520291152717,
   "totals": {
     "bundestag_minutes": 141,
-    "talkshow_minutes": 57,
-    "bt_share": 49.99155862342856,
-    "ts_share": 50.00844137657144,
+    "talkshow_minutes": 58,
+    "bt_share": 50.07362559671448,
+    "ts_share": 49.92637440328552,
     "bt_normalized_perc": 0.34636454733588373,
-    "ts_normalized_perc": 0.34648151882689415
+    "ts_normalized_perc": 0.34534599530676846
   },
   "timeseries": [
     {

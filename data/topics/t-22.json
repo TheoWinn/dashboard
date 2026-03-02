@@ -2,15 +2,15 @@
   "slug": "t-22",
   "label": "TV Talk Show",
   "description": "Keywords: Phoenix, Runde, Bleiben, liebe Zuschauer, Zuschauerinnen, Zuschauer, Zuschauerinnen liebe, Markus Lanz, Phoenix Runde, Liebe Zuschauerinnen",
-  "mismatch_score": -0.39713974396503227,
-  "norm_delta": 0.39713974396503227,
+  "mismatch_score": -0.3996525368053768,
+  "norm_delta": 0.3996525368053768,
   "totals": {
     "bundestag_minutes": 5,
-    "talkshow_minutes": 68,
-    "bt_share": 2.9827252647508615,
-    "ts_share": 97.01727473524913,
+    "talkshow_minutes": 69,
+    "bt_share": 2.965083674279054,
+    "ts_share": 97.03491632572094,
     "bt_normalized_perc": 0.012597058789895359,
-    "ts_normalized_perc": 0.40973680275492763
+    "ts_normalized_perc": 0.4122495955952722
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-53",
   "label": "Working hours reform",
   "description": "Keywords: Arbeitszeit, Stunden, arbeiten, Arbeitszeitgesetz, Beschäftigten, Wochenarbeitszeit, Höchstarbeitszeit, Arbeitszeiten, 40 Stunden, Flexibilität",
-  "mismatch_score": -0.04405539443154402,
-  "norm_delta": 0.04405539443154399,
+  "mismatch_score": -0.04142513697983575,
+  "norm_delta": 0.04142513697983574,
   "totals": {
     "bundestag_minutes": 98,
     "talkshow_minutes": 47,
-    "bt_share": 45.83282796084426,
-    "ts_share": 54.16717203915574,
+    "bt_share": 46.06202744805682,
+    "ts_share": 53.93797255194318,
     "bt_normalized_perc": 0.24227261254819432,
-    "ts_normalized_perc": 0.2863280069797383
+    "ts_normalized_perc": 0.28369774952803006
   },
   "timeseries": [
     {

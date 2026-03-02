@@ -2,15 +2,15 @@
   "slug": "t-66",
   "label": "Combatting Political Extremism",
   "description": "Keywords: Antifa, Rechtsextremismus, Linksextremismus, Linksterror, Gewalt, Demokratie, Kampf, Extremismus, rechts, Gießen",
-  "mismatch_score": 0.33291875482641176,
-  "norm_delta": 0.33291875482641176,
+  "mismatch_score": 0.32271877230137597,
+  "norm_delta": 0.32271877230137597,
   "totals": {
     "bundestag_minutes": 141,
-    "talkshow_minutes": 3,
-    "bt_share": 95.80367507518916,
-    "ts_share": 4.196324924810845,
+    "talkshow_minutes": 4,
+    "bt_share": 93.18818931299825,
+    "ts_share": 6.8118106870017465,
     "bt_normalized_perc": 0.34816900785219795,
-    "ts_normalized_perc": 0.015250253025786196
+    "ts_normalized_perc": 0.02545023555082198
   },
   "timeseries": [
     {

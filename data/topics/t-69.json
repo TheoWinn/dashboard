@@ -2,15 +2,15 @@
   "slug": "t-69",
   "label": "COVID-19 Vaccination Debate",
   "description": "Keywords: Impfung, Corona, impfen, Pandemie, impfen lassen, Impfpflicht, Impfungen, Virus, Autismus, Nebenwirkungen",
-  "mismatch_score": -0.21354699802220642,
-  "norm_delta": 0.21354699802220642,
+  "mismatch_score": -0.21045201885893097,
+  "norm_delta": 0.21045201885893097,
   "totals": {
     "bundestag_minutes": 9,
     "talkshow_minutes": 39,
-    "bt_share": 8.882990019666792,
-    "ts_share": 91.11700998033321,
+    "bt_share": 8.99013753778319,
+    "ts_share": 91.00986246221682,
     "bt_normalized_perc": 0.023067531577179282,
-    "ts_normalized_perc": 0.2366145295993857
+    "ts_normalized_perc": 0.23351955043611025
   },
   "timeseries": [
     {

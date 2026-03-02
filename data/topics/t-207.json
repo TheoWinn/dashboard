@@ -1,0 +1,16 @@
+{
+  "slug": "t-207",
+  "label": "Childhood Sugar Products",
+  "description": "Keywords: Kinder, Kind, Zucker, Produkt, toll, leben, wissen, Produkte, geholfen, Problem",
+  "mismatch_score": -0.04562755617279985,
+  "norm_delta": 0.04562755617279985,
+  "totals": {
+    "bundestag_minutes": 0,
+    "talkshow_minutes": 8,
+    "bt_share": 0,
+    "ts_share": 100,
+    "bt_normalized_perc": 0,
+    "ts_normalized_perc": 0.04562755617279985
+  },
+  "timeseries": []
+}

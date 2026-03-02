@@ -2,15 +2,15 @@
   "slug": "t-97",
   "label": "Ukrainian Refugee Employment",
   "description": "Keywords: Ukrainer, Bürgergeld, Ukrainerinnen, Arbeit, Jobcenter, Arbeit bringen, Rechtskreiswechsel, arbeiten, Ukraine, Totalverweigerer",
-  "mismatch_score": 0.005499464949582169,
-  "norm_delta": 0.005499464949582172,
+  "mismatch_score": 0.006872797578112063,
+  "norm_delta": 0.006872797578112072,
   "totals": {
     "bundestag_minutes": 45,
     "talkshow_minutes": 17,
-    "bt_share": 51.27606666802158,
-    "ts_share": 48.72393333197842,
+    "bt_share": 51.60495621773991,
+    "ts_share": 48.39504378226009,
     "bt_normalized_perc": 0.11049224090714009,
-    "ts_normalized_perc": 0.10499277595755792
+    "ts_normalized_perc": 0.10361944332902802
   },
   "timeseries": [
     {

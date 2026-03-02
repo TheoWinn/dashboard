@@ -2,15 +2,15 @@
   "slug": "t-12",
   "label": "German Party Politics",
   "description": "Keywords: SPD, Partei, Union, CDU, Koalition, AfD, Wähler, Ergebnis, Wählerschaft, SPD SPD",
-  "mismatch_score": -1.0497013670415791,
-  "norm_delta": 1.0497013670415791,
+  "mismatch_score": -1.0404561401587256,
+  "norm_delta": 1.0404561401587256,
   "totals": {
     "bundestag_minutes": 21,
     "talkshow_minutes": 182,
-    "bt_share": 4.511117465498327,
-    "ts_share": 95.48888253450167,
+    "bt_share": 4.5475563576342335,
+    "ts_share": 95.45244364236576,
     "bt_normalized_perc": 0.052049269036529566,
-    "ts_normalized_perc": 1.1017506360781086
+    "ts_normalized_perc": 1.092505409195255
   },
   "timeseries": [
     {

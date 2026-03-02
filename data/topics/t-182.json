@@ -2,15 +2,15 @@
   "slug": "t-182",
   "label": "Working Class Appeal",
   "description": "Keywords: Arbeiterschaft, Mitte, Partei, Wählerinnen Wähler, Mitte stark, arbeitenden, Tabu, Arbeiterpartei, AfD, Baas",
-  "mismatch_score": 0.0373397934582981,
-  "norm_delta": 0.037339793458298104,
+  "mismatch_score": 0.03799255391659788,
+  "norm_delta": 0.037992553916597886,
   "totals": {
     "bundestag_minutes": 35,
     "talkshow_minutes": 8,
-    "bt_share": 63.61292708017186,
-    "ts_share": 36.38707291982814,
+    "bt_share": 63.91714219644663,
+    "ts_share": 36.08285780355337,
     "bt_normalized_perc": 0.08724404180167723,
-    "ts_normalized_perc": 0.04990424834337913
+    "ts_normalized_perc": 0.04925148788507935
   },
   "timeseries": [
     {

@@ -2,15 +2,15 @@
   "slug": "t-71",
   "label": "Economic Growth Policy",
   "description": "Keywords: Wachstum, Prozent, Wirtschaft, Wirtschaftswachstum, Industrie, Prozent Wachstum, Mobilität, entlasten, Senkung, Wirtschaftsforschungsinstitute",
-  "mismatch_score": 0.12308363096576047,
-  "norm_delta": 0.12308363096576047,
+  "mismatch_score": 0.12542935154174448,
+  "norm_delta": 0.12542935154174448,
   "totals": {
     "bundestag_minutes": 123,
     "talkshow_minutes": 30,
-    "bt_share": 62.77465276010698,
-    "ts_share": 37.22534723989302,
+    "bt_share": 63.081808910627416,
+    "ts_share": 36.918191089372584,
     "bt_normalized_perc": 0.30241652510733524,
-    "ts_normalized_perc": 0.17933289414157477
+    "ts_normalized_perc": 0.17698717356559077
   },
   "timeseries": [
     {

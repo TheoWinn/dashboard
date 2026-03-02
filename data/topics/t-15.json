@@ -2,15 +2,15 @@
   "slug": "t-15",
   "label": "German East-West Relations",
   "description": "Keywords: Deutschland, Osten, Land, Ostdeutschen, Deutschen, Westen, DDR, deutsche, finden, Ost",
-  "mismatch_score": -0.32510881981534206,
-  "norm_delta": 0.325108819815342,
+  "mismatch_score": -0.3325483231195264,
+  "norm_delta": 0.3325483231195264,
   "totals": {
     "bundestag_minutes": 217,
-    "talkshow_minutes": 141,
-    "bt_share": 38.31622515515611,
-    "ts_share": 61.68377484484389,
+    "talkshow_minutes": 145,
+    "bt_share": 38.11242946380193,
+    "ts_share": 61.88757053619807,
     "bt_normalized_perc": 0.5330872472893057,
-    "ts_normalized_perc": 0.8581960671046477
+    "ts_normalized_perc": 0.8656355704088321
   },
   "timeseries": [
     {

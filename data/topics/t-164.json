@@ -2,15 +2,15 @@
   "slug": "t-164",
   "label": "Disability Inclusion Policies",
   "description": "Keywords: Eingliederungshilfe, Behinderung, Behinderungen, Inklusion, behinderte, Leistungen, Teilhabe, Assistenz, akzeptabel, Werkstätten",
-  "mismatch_score": 0.07390583199808139,
-  "norm_delta": 0.07390583199808139,
+  "mismatch_score": 0.07392843942840824,
+  "norm_delta": 0.07392843942840824,
   "totals": {
     "bundestag_minutes": 31,
     "talkshow_minutes": 0,
-    "bt_share": 97.76589251643684,
-    "ts_share": 2.23410748356317,
+    "bt_share": 97.79447070410399,
+    "ts_share": 2.2055292958960138,
     "bt_normalized_perc": 0.07563419468165375,
-    "ts_normalized_perc": 0.001728362683572367
+    "ts_normalized_perc": 0.0017057552532455133
   },
   "timeseries": [
     {

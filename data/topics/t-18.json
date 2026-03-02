@@ -2,15 +2,15 @@
   "slug": "t-18",
   "label": "Rule of Law Debate",
   "description": "Keywords: Rechtsstaat, AfD, Justiz, Bundesverfassungsgericht, Antrag, StGB, 188, Grundgesetz, 188 StGB, Richter",
-  "mismatch_score": 0.8275177463808447,
-  "norm_delta": 0.8275177463808447,
+  "mismatch_score": 0.8133314082794454,
+  "norm_delta": 0.8133314082794454,
   "totals": {
     "bundestag_minutes": 460,
-    "talkshow_minutes": 50,
-    "bt_share": 78.84956935821839,
-    "ts_share": 21.150430641781615,
+    "talkshow_minutes": 53,
+    "bt_share": 78.07726777048514,
+    "ts_share": 21.922732229514864,
     "bt_normalized_perc": 1.1308560125842115,
-    "ts_normalized_perc": 0.3033382662033668
+    "ts_normalized_perc": 0.31752460430476614
   },
   "timeseries": [
     {

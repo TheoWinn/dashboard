@@ -2,15 +2,15 @@
   "slug": "t-38",
   "label": "Catholic Church Issues",
   "description": "Keywords: Kirche, Papst, Franziskus, Kirchen, katholischen, Papst Franziskus, katholischen Kirche, Leo, katholische, Priester",
-  "mismatch_score": -0.38588507798203475,
-  "norm_delta": 0.3858850779820348,
+  "mismatch_score": -0.39522213221891295,
+  "norm_delta": 0.39522213221891295,
   "totals": {
     "bundestag_minutes": 13,
-    "talkshow_minutes": 69,
-    "bt_share": 7.265595710547037,
-    "ts_share": 92.73440428945297,
+    "talkshow_minutes": 71,
+    "bt_share": 7.11838446500445,
+    "ts_share": 92.88161553499555,
     "bt_normalized_perc": 0.032803604191603795,
-    "ts_normalized_perc": 0.4186886821736386
+    "ts_normalized_perc": 0.4280257364105167
   },
   "timeseries": [
     {

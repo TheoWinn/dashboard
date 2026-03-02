@@ -2,15 +2,15 @@
   "slug": "t-135",
   "label": "NATO Defense Capabilities",
   "description": "Keywords: NATO, Fähigkeiten, Luftverteidigung, schnell, hängt Amerika, anzuschaffen, Verteidigungsplanung, Landesverteidigung, hängt, Fähigkeitszielen",
-  "mismatch_score": -0.14206348347007486,
-  "norm_delta": 0.14206348347007486,
+  "mismatch_score": -0.1400785256976566,
+  "norm_delta": 0.14007852569765658,
   "totals": {
     "bundestag_minutes": 4,
     "talkshow_minutes": 25,
-    "bt_share": 6.001392500318591,
-    "ts_share": 93.99860749968141,
+    "bt_share": 6.0760997302602,
+    "ts_share": 93.9239002697398,
     "bt_normalized_perc": 0.009688701219380804,
-    "ts_normalized_perc": 0.15175218468945567
+    "ts_normalized_perc": 0.1497672269170374
   },
   "timeseries": [
     {

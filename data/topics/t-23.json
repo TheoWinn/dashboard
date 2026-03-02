@@ -2,15 +2,15 @@
   "slug": "t-23",
   "label": "Innovation & AI",
   "description": "Keywords: Hightech, Forschung, Agenda, Hightech Agenda, Innovation, Wissenschaft, Bär, Technologien, KI, Ministerin",
-  "mismatch_score": 1.0073640019764725,
-  "norm_delta": 1.0073640019764725,
+  "mismatch_score": 1.0091437618788563,
+  "norm_delta": 1.0091437618788563,
   "totals": {
     "bundestag_minutes": 465,
     "talkshow_minutes": 22,
-    "bt_share": 89.36574362939935,
-    "ts_share": 10.634256370600646,
+    "bt_share": 89.49022347435002,
+    "ts_share": 10.50977652564998,
     "bt_normalized_perc": 1.1434285858997855,
-    "ts_normalized_perc": 0.136064583923313
+    "ts_normalized_perc": 0.13428482402092917
   },
   "timeseries": [
     {

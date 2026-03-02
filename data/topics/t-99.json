@@ -2,15 +2,15 @@
   "slug": "t-99",
   "label": "Russian Asset Seizure",
   "description": "Keywords: Vermögen, russischen, Russland, russische Vermögen, Ukraine, eingefrorene, Vermögenswerte, eingefrorenen, Staatsvermögen, russisches",
-  "mismatch_score": -0.06828005104967347,
-  "norm_delta": 0.06828005104967347,
+  "mismatch_score": -0.06676954648880648,
+  "norm_delta": 0.0667695464888065,
   "totals": {
     "bundestag_minutes": 19,
     "talkshow_minutes": 19,
-    "bt_share": 29.013920639850742,
-    "ts_share": 70.98607936014926,
+    "bt_share": 29.28584446563317,
+    "ts_share": 70.71415553436682,
     "bt_normalized_perc": 0.047199668609899256,
-    "ts_normalized_perc": 0.11547971965957272
+    "ts_normalized_perc": 0.11396921509870575
   },
   "timeseries": [
     {

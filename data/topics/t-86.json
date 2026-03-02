@@ -2,15 +2,15 @@
   "slug": "t-86",
   "label": "European Nuclear Deterrence",
   "description": "Keywords: Nuklearwaffen, nuklearen, nukleare, Atomwaffen, Frankreich, Franzosen, Abschreckung, Schutzschirm, französische, Amerikaner",
-  "mismatch_score": -0.2692370306927202,
-  "norm_delta": 0.2692370306927202,
+  "mismatch_score": -0.2654064597526603,
+  "norm_delta": 0.26540645975266036,
   "totals": {
     "bundestag_minutes": 10,
     "talkshow_minutes": 48,
-    "bt_share": 7.461882347034763,
-    "ts_share": 92.53811765296524,
+    "bt_share": 7.553309300867562,
+    "ts_share": 92.44669069913243,
     "bt_normalized_perc": 0.0236142918086318,
-    "ts_normalized_perc": 0.292851322501352
+    "ts_normalized_perc": 0.28902075156129214
   },
   "timeseries": [
     {

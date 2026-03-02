@@ -2,15 +2,15 @@
   "slug": "t-100",
   "label": "Judicial Enforcement Criticism",
   "description": "Keywords: Gerechtigkeit, Restaurant, Urteil, Realist, hartes Urteil, durchgesetzt, Kritik, dran gewöhnen, Jackson, Staat",
-  "mismatch_score": -0.07484021888424587,
-  "norm_delta": 0.07484021888424587,
+  "mismatch_score": -0.0864385997748181,
+  "norm_delta": 0.0864385997748181,
   "totals": {
     "bundestag_minutes": 19,
-    "talkshow_minutes": 20,
-    "bt_share": 27.463980552388414,
-    "ts_share": 72.5360194476116,
+    "talkshow_minutes": 22,
+    "bt_share": 25.670858255132917,
+    "ts_share": 74.32914174486709,
     "bt_normalized_perc": 0.04560278093368564,
-    "ts_normalized_perc": 0.12044299981793151
+    "ts_normalized_perc": 0.13204138070850374
   },
   "timeseries": [
     {

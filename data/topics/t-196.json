@@ -2,15 +2,15 @@
   "slug": "t-196",
   "label": "Municipal Rent Policy",
   "description": "Keywords: Kommunen, Vorkaufsrecht, ortsübliche Vergleichsmiete, ortsübliche, Mieterinnen Mieter, Vergleichsmiete, Frankfurt Main, Frankfurt, Main, Mieterinnen",
-  "mismatch_score": 0.0965294058553592,
-  "norm_delta": 0.0965294058553592,
+  "mismatch_score": 0.09658011256546,
+  "norm_delta": 0.09658011256546,
   "totals": {
     "bundestag_minutes": 41,
     "talkshow_minutes": 1,
-    "bt_share": 96.28261639999911,
-    "ts_share": 3.7173836000008817,
+    "bt_share": 96.32945595993682,
+    "ts_share": 3.6705440400631733,
     "bt_normalized_perc": 0.10040598909714572,
-    "ts_normalized_perc": 0.0038765832417865234
+    "ts_normalized_perc": 0.003825876531685728
   },
   "timeseries": [
     {
